@@ -1,6 +1,5 @@
-// salut!
-//buna Raul
 #include "PlayerRepo.h"
+#include "PlayerService.h"
 
 int main() {
 	// PlayerRepo test
@@ -11,10 +10,21 @@ int main() {
 	p.add(Player("Cristi"));
 	p.printAll();
 	p.update(Player("Raul"), Player("RaulBucur"));
+	p.update(Player("Leo"), Player("Leonard"));
 	p.printAll();
 	p.del("Leo");
 	p.printAll();
 
-
+	// Player service test
+	PlayerService ps(p);
+	ps.addPlayer("Ceorce");
+	ps.addPlayer("Burebista");
+	ps.printPlayers();
+	ps.updatePlayer("Burebista", "AndreiBurebista");
+	ps.printPlayers();
+	ps.deletePlayer("Ceorce");
+	ps.printPlayers();
+	ps.deletePlayer("Ceorce");
+	ps.printPlayers();
 	return 0;
 }

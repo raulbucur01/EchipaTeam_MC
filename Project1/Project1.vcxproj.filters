@@ -21,10 +21,16 @@
     <ClCompile Include="PlayerRepo.cpp">
       <Filter>Repository</Filter>
     </ClCompile>
+    <ClCompile Include="PlayerService.cpp">
+      <Filter>Service</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PlayerRepo.h">
       <Filter>Repository</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerService.h">
+      <Filter>Service</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

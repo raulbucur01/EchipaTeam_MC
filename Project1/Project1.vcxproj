@@ -129,9 +129,11 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PlayerRepo.cpp" />
+    <ClCompile Include="PlayerService.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PlayerRepo.h" />
+    <ClInclude Include="PlayerService.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
