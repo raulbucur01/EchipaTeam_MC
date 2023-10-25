@@ -18,5 +18,13 @@
     <ClCompile Include="main.cpp">
       <Filter>UserInterface</Filter>
     </ClCompile>
+    <ClCompile Include="PlayerRepo.cpp">
+      <Filter>Repository</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="PlayerRepo.h">
+      <Filter>Repository</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
