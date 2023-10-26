@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34221.43
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SkribblFake", "SkribblFake.vcxproj", "{A79FC2A5-8A2C-409D-B405-74A42FFE0493}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A79FC2A5-8A2C-409D-B405-74A42FFE0493}.Debug|x64.ActiveCfg = Debug|x64
+		{A79FC2A5-8A2C-409D-B405-74A42FFE0493}.Debug|x64.Build.0 = Debug|x64
+		{A79FC2A5-8A2C-409D-B405-74A42FFE0493}.Release|x64.ActiveCfg = Release|x64
+		{A79FC2A5-8A2C-409D-B405-74A42FFE0493}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2C904EBE-8076-4CB3-9C89-89DB17107142}
+	EndGlobalSection
+EndGlobal
