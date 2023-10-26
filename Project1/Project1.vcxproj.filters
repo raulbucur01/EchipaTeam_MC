@@ -24,6 +24,9 @@
     <ClCompile Include="PlayerService.cpp">
       <Filter>Service</Filter>
     </ClCompile>
+    <ClCompile Include="Player2.cpp">
+      <Filter>Domain</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PlayerRepo.h">
@@ -31,6 +34,9 @@
     </ClInclude>
     <ClInclude Include="PlayerService.h">
       <Filter>Service</Filter>
+    </ClInclude>
+    <ClInclude Include="Player2.h">
+      <Filter>Domain</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -3,33 +3,34 @@
 #include <string>
 
 // clasa asta o stergem dupa ce implementeaza Leo clasa Player
-class Player {
-private:
-	std::string m_name;
-public:
-	Player(std::string name = "") {
-		m_name = name;
-	}
-
-	void setName(std::string name) {
-		m_name = name;
-	}
-
-	std::string getName() {
-		return m_name;
-	}
-
-	bool operator==(Player& p) {
-		return m_name == p.getName();
-	}
-
-	/*Player& operator=(Player& other) {
-		if (this != &other) { 
-			m_name = other.getName();
-		}
-		return *this;
-	}*/
-};
+//class Player {
+//private:
+//	std::string m_name;
+//public:
+//	Player(std::string name = "") {
+//		m_name = name;
+//	}
+//
+//	void setName(std::string name) {
+//		m_name = name;
+//	}
+//
+//	std::string getName() {
+//		return m_name;
+//	}
+//
+//	bool operator==(Player& p) {
+//		return m_name == p.getName();
+//	}
+// 
+//	/*Player& operator=(Player& other) {
+//		if (this != &other) { 
+//			m_name = other.getName();
+//		}
+//		return *this;
+//
+//	}*/
+//};
 
 // Clasa asta e un model de pastrare a datelor, va fi inclocuita cu o baza de date
 class PlayerRepo
