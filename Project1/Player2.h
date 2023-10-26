@@ -12,6 +12,6 @@ public:
 
 private:
 	std::string m_name;
-	int16_t m_score;
+	int16_t m_score = 0;
 };
 
