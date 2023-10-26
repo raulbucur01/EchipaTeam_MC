@@ -7,10 +7,10 @@ public:
 	Player(const std::string& name);
 	std::string GetName() const;
 	int16_t GetScore() const;
-	int16_t SetScore(int16_t score);
-	std::string SetName(const std::string& name);
-	bool operator ==(Player& p);
-	Player& operator =(Player& other);
+	void SetScore(int16_t score);
+	void SetName(const std::string& name);
+	bool operator ==(const Player& p);
+	Player& operator=(const Player& other);
 
 private:
 	std::string m_name;
