@@ -17,7 +17,7 @@ void PlayerService::updatePlayer(std::string oldName, std::string newName)
 	std::vector<Player> players = m_playerRepo.getAll();
 	for (int i = 0; i < players.size(); i++)
 	{
-		if (players[i].getName() == oldName) {
+		if (players[i].GetName() == oldName) {
 			Player newPlayer(newName);
 			Player oldPlayer = players[i];
 			m_playerRepo.update(oldPlayer, newPlayer);
@@ -29,7 +29,7 @@ void PlayerService::deletePlayer(std::string name)
 {
 	std::vector<Player> players = m_playerRepo.getAll();
 	for (int i = 0; i < players.size(); i++) {
-		if (players[i].getName() == name)
+		if (players[i].GetName() == name)
 			m_playerRepo.del(name);
 	}
 }

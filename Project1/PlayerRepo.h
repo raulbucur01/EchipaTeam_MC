@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
 #include <string>
+#include "Player2.h"
 
 // clasa asta o stergem dupa ce implementeaza Leo clasa Player
 //class Player {
