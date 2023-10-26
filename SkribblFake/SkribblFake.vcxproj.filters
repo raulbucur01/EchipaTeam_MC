@@ -19,29 +19,29 @@
     <ClCompile Include="SkribblFake.cpp">
       <Filter>UI</Filter>
     </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Domain</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerRepo.cpp">
+      <Filter>Repos</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerService.cpp">
+      <Filter>Service</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>UI</Filter>
     </ClCompile>
-    <ClCompile Include="..\Project1\PlayerRepo.cpp">
-      <Filter>Repos</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Project1\Player.cpp">
-      <Filter>Domain</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Project1\PlayerService.cpp">
-      <Filter>Service</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\Project1\PlayerRepo.h">
-      <Filter>Repos</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Project1\Player.h">
+    <ClInclude Include="Player.h">
       <Filter>Domain</Filter>
     </ClInclude>
-    <ClInclude Include="..\Project1\PlayerService.h">
+    <ClInclude Include="PlayerRepo.h">
+      <Filter>Repos</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerService.h">
       <Filter>Service</Filter>
     </ClInclude>
   </ItemGroup>
