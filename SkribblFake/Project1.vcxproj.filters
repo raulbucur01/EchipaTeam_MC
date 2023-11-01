@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Domain">
+      <UniqueIdentifier>{28a4fd87-b0a6-407d-aa95-3a3bc99d3093}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Repository">
+      <UniqueIdentifier>{cf64e2a4-db39-4454-bd45-c3ad4a82821d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Service">
+      <UniqueIdentifier>{bd11c729-c8d5-45c4-ab8f-9b0fca848fc2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UserInterface">
+      <UniqueIdentifier>{76d4825a-56f4-437d-8bb1-d13983123f98}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>UserInterface</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerRepo.cpp">
+      <Filter>Repository</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerService.cpp">
+      <Filter>Service</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Domain</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="PlayerRepo.h">
+      <Filter>Repository</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerService.h">
+      <Filter>Service</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Domain</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
