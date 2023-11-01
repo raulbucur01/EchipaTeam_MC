@@ -1,8 +1,10 @@
 #include "PlayerRepo.h"
 #include "PlayerService.h"
+#include "Word.h"
+#include <iostream>
 // revert
 int main() {
-	// PlayerRepo test
+	/*// PlayerRepo test
 	PlayerRepo p;
 	p.add(Player("Raul"));
 	p.add(Player("Vlad"));
@@ -25,6 +27,20 @@ int main() {
 	ps.deletePlayer("Ceorce");
 	ps.printPlayers();
 	ps.deletePlayer("Ceorce");
-	ps.printPlayers();
+	ps.printPlayers();*/
+
+	// Word class test
+	Word word("Ronaldo");
+	std::cout << word.getCurrentSlotState() << std::endl;
+	word.revealOneRandomLetter();
+	std::cout << word.getCurrentSlotState() << std::endl;
+	word.revealOneRandomLetter();
+	std::cout << word.getCurrentSlotState() << std::endl;
+	word.revealOneRandomLetter();
+	std::cout << word.getCurrentSlotState() << std::endl;
+	word.revealOneRandomLetter();
+	std::cout << word.getCurrentSlotState() << std::endl;
+	word.revealOneRandomLetter();
+	std::cout << word.getCurrentSlotState() << std::endl;
 	return 0;
 }

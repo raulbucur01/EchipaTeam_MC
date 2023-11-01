@@ -2,11 +2,13 @@
 #include <string>
 #include <vector>
 // Raul
+// fa sa dezvaluie maxim jumate din litere
 class Word
 {
 private:
 	std::string m_word;
 	std::string m_slots;
+	std::vector<int> m_unrevealedIndexes;
 
 public:
 	Word(std::string word = "");

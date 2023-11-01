@@ -4,6 +4,11 @@ Word::Word(std::string word)
 	: m_word(word)
 {
 	m_slots = getEmptyLetterSlots();
+
+	for (int i = 0; i < m_slots.length(); i++)
+	{
+		m_unrevealedIndexes.push_back(i);
+	}
 }
 
 std::string Word::getWord()
@@ -18,23 +23,24 @@ std::string Word::getCurrentSlotState()
 
 void Word::revealOneRandomLetter()
 {
-	std::vector<int> unrevealedIndexes;
-	for (int i = 0; i < m_slots.length(); i++)
-	{
-		unrevealedIndexes.push_back(i);
+	int randomIndex;
+	bool indexFound = false;
+	while (!indexFound && !m_unrevealedIndexes.empty()) {
+		randomIndex = rand() % m_word.length();
+
+		// vedem daca indexul e in lista de indexuri nedezvaluite
+		auto it = std::find(m_unrevealedIndexes.begin(), m_unrevealedIndexes.end(), randomIndex);
+
+		// daca se gaseste printre indexurile nedezvaluite marcam drept gasit si iesim din loop
+		if (it != m_unrevealedIndexes.end()) {
+			indexFound = true;
+			m_unrevealedIndexes.erase(it); // scoatem indexul care urmeaza dezvaluit din lista de nedezvaluite
+		}
 	}
 
-	//if (unrevealedIndexes.empty())
-	//{
-	//	return m_slots;
-	//}
-
-	int randomIndex = 1 + (rand() % m_word.length());
-	//if (randomIndex < 0 || randomIndex > m_word.length())
-	//	return m_slots;
-
-	m_slots[randomIndex] = m_word[randomIndex];
-	//return m_slots;
+	if (indexFound) {
+		m_slots[randomIndex] = m_word[randomIndex];
+	}
 }
 
 std::string Word::getEmptyLetterSlots()
@@ -42,7 +48,7 @@ std::string Word::getEmptyLetterSlots()
 	std::string letterSlots = "";
 	for (int i = 0; i < m_word.length(); i++)
 	{
-		letterSlots += "_";
+		letterSlots += "-";
 	}
 	return letterSlots;
 }
