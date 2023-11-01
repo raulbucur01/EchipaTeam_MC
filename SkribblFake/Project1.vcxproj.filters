@@ -27,6 +27,9 @@
     <ClCompile Include="Player.cpp">
       <Filter>Domain</Filter>
     </ClCompile>
+    <ClCompile Include="Word.cpp">
+      <Filter>Domain</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PlayerRepo.h">
@@ -36,6 +39,9 @@
       <Filter>Service</Filter>
     </ClInclude>
     <ClInclude Include="Player.h">
+      <Filter>Domain</Filter>
+    </ClInclude>
+    <ClInclude Include="Word.h">
       <Filter>Domain</Filter>
     </ClInclude>
   </ItemGroup>
