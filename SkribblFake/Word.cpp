@@ -57,3 +57,4 @@ void Word::resetSlots()
 {
 	m_slots = getEmptyLetterSlots();
 }
+

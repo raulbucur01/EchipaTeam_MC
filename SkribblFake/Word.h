@@ -19,7 +19,8 @@ public:
 	void revealOneRandomLetter();
 	// returneaza un string cu atatea sloturi cate litere are cuvantul
 	std::string getEmptyLetterSlots();
-	
+
 	void resetSlots();
 };
+
 
