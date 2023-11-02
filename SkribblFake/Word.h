@@ -2,7 +2,6 @@
 #include <string>
 #include <vector>
 // Raul
-// fa sa dezvaluie maxim jumate din litere
 class Word
 {
 private:
@@ -16,7 +15,7 @@ public:
 	std::string getWord();
 	// returneaza starea curenta a sloturilor de litere
 	std::string getCurrentSlotState();
-	// inlocuieste random un slot cu litera de la acelasi index din cuvant
+	// inlocuieste random un slot nedezvaluit cu litera de la acelasi index din cuvant
 	void revealOneRandomLetter();
 	// returneaza un string cu atatea sloturi cate litere are cuvantul
 	std::string getEmptyLetterSlots();

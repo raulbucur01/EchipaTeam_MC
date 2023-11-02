@@ -30,6 +30,9 @@
     <ClCompile Include="Word.cpp">
       <Filter>Domain</Filter>
     </ClCompile>
+    <ClCompile Include="UI.cpp">
+      <Filter>UserInterface</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PlayerRepo.h">
@@ -43,6 +46,9 @@
     </ClInclude>
     <ClInclude Include="Word.h">
       <Filter>Domain</Filter>
+    </ClInclude>
+    <ClInclude Include="UI.h">
+      <Filter>UserInterface</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
