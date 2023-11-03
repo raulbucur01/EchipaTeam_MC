@@ -2,6 +2,22 @@
 #include "PlayerService.h"
 #include "Word.h"
 #include <iostream>
+
+#include<conio.h>
+#include<ctime>
+
+void afiseazaTimpul()
+{
+	clock_t start = clock();
+	int seconds_passed = 0;
+	while (seconds_passed != 60)
+	{
+		clock_t curent = clock();
+		seconds_passed = (curent - start) / CLOCKS_PER_SEC;
+		std::cout << "Trecerea secundelor: " << seconds_passed << "\r";
+	}
+}
+
 // revert
 int main() {
 	/*// PlayerRepo test
@@ -42,5 +58,7 @@ int main() {
 	std::cout << word.getCurrentSlotState() << std::endl;
 	word.revealOneRandomLetter();
 	std::cout << word.getCurrentSlotState() << std::endl;
+	
+	afiseazaTimpul();
 	return 0;
 }
