@@ -53,6 +53,11 @@ std::string Word::getEmptyLetterSlots()
 	return letterSlots;
 }
 
+int Word::getSize()
+{
+	return m_word.size();
+}
+
 void Word::resetSlots()
 {
 	m_slots = getEmptyLetterSlots();

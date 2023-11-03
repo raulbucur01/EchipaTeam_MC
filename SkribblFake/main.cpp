@@ -6,16 +6,25 @@
 #include<conio.h>
 #include<ctime>
 
-void afiseazaTimpul()
+void afiseazaTimpul(Word word)
 {
 	clock_t start = clock();
 	int seconds_passed = 0;
+	int secunde_afisare = 30;
 	while (seconds_passed != 60)
 	{
+		
 		clock_t curent = clock();
 		seconds_passed = (curent - start) / CLOCKS_PER_SEC;
 		std::cout << "Trecerea secundelor: " << seconds_passed << "\r";
+		if (seconds_passed == secunde_afisare && secunde_afisare<=55)
+		{
+			word.revealOneRandomLetter();
+			std::cout <<std::endl<< word.getCurrentSlotState() <<std::endl;
+			secunde_afisare += (30/(word.getSize()/2));
+		}
 	}
+	std::cout << "Cuvantul este: " << word.getWord();
 }
 
 // revert
@@ -47,7 +56,7 @@ int main() {
 
 	// Word class test
 	Word word("Ronaldo");
-	std::cout << word.getCurrentSlotState() << std::endl;
+	/*std::cout << word.getCurrentSlotState() << std::endl;
 	word.revealOneRandomLetter();
 	std::cout << word.getCurrentSlotState() << std::endl;
 	word.revealOneRandomLetter();
@@ -57,8 +66,8 @@ int main() {
 	word.revealOneRandomLetter();
 	std::cout << word.getCurrentSlotState() << std::endl;
 	word.revealOneRandomLetter();
-	std::cout << word.getCurrentSlotState() << std::endl;
+	std::cout << word.getCurrentSlotState() << std::endl;*/
 	
-	afiseazaTimpul();
+	afiseazaTimpul(word);
 	return 0;
 }
