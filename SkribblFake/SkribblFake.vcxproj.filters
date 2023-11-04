@@ -31,6 +31,7 @@
       <Filter>UserInterface</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="GameLogic.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Player.h">
@@ -48,5 +49,6 @@
     <ClInclude Include="UI.h">
       <Filter>UserInterface</Filter>
     </ClInclude>
+    <ClInclude Include="GameLogic.h" />
   </ItemGroup>
 </Project>

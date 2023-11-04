@@ -25,6 +25,16 @@ void Player::SetName(const std::string& name)
 	m_name = name;
 }
 
+void Player::SetSecondsGuess(int16_t seconds)
+{
+	m_secondsGuess = seconds;
+}
+
+int16_t Player::GetSecondsGuess() const
+{
+	return m_secondsGuess;
+}
+
 bool Player::operator==(const Player& p)
 {
 	return m_name == p.GetName();
