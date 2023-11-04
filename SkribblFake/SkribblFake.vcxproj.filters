@@ -31,6 +31,9 @@
       <Filter>UserInterface</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="WordRepo.cpp">
+      <Filter>Repository</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Player.h">
@@ -47,6 +50,9 @@
     </ClInclude>
     <ClInclude Include="UI.h">
       <Filter>UserInterface</Filter>
+    </ClInclude>
+    <ClInclude Include="WordRepo.h">
+      <Filter>Repository</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

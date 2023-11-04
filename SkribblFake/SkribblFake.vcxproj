@@ -132,6 +132,7 @@
     <ClInclude Include="PlayerService.h" />
     <ClInclude Include="UI.h" />
     <ClInclude Include="Word.h" />
+    <ClInclude Include="WordRepo.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -140,6 +141,7 @@
     <ClCompile Include="PlayerService.cpp" />
     <ClCompile Include="UI.cpp" />
     <ClCompile Include="Word.cpp" />
+    <ClCompile Include="WordRepo.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
