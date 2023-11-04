@@ -9,12 +9,11 @@ private:
 	std::vector<Word> m_words;
 
 public:
-	WordRepo();
-	void add(Word w); 
-	void del(Word w); //stergere
-	void update(Word oldWord, Word newWord);
+	WordRepo(const std::vector<Word>& words);
+	void add(const Word& w); 
+	void del(const Word& w); //stergere
+	void update(const Word& oldWord, const Word& newWord);
 	bool operator ==(const Word& w);
-	Word& operator=(const Word& other);
 	~WordRepo();
 
 };

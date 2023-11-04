@@ -1,4 +1,5 @@
 #include "Word.h"
+#include "Player.h"
 
 Word::Word(std::string word)
 	: m_word(word)
@@ -11,9 +12,14 @@ Word::Word(std::string word)
 	}
 }
 
-std::string Word::getWord()
+std::string Word::getWord() const
 {
 	return m_word;
+}
+
+void Word::setWord(std::string word)
+{
+	 m_word = word;
 }
 
 std::string Word::getCurrentSlotState()
@@ -63,3 +69,7 @@ void Word::resetSlots()
 	m_slots = getEmptyLetterSlots();
 }
 
+bool Word::operator==(const Word& w) const
+{
+	return m_word == w.getWord();
+}

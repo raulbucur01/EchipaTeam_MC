@@ -1,30 +1,35 @@
 #include "WordRepo.h"
 
-WordRepo::WordRepo(const std::vector<Word>& words) :
-	m_words(words)
+WordRepo::WordRepo(const std::vector<Word>& words)
 {
+    m_words = words;
 }
 
-void WordRepo::add(Word w)
+void WordRepo::add(const Word& w)
 {
+	m_words.push_back(w);
 }
 
-void WordRepo::del(Word w)
+void WordRepo::del(const Word& w)
 {
+    for (auto it = m_words.begin(); it != m_words.end(); ) {
+        if (it->getWord() == w.getWord()) {
+            it = m_words.erase(it);
+        }
+        else {
+            ++it;
+        }
+    }
 }
 
-void WordRepo::update(Word oldWord, Word newWord)
+void WordRepo::update(const Word& oldWord, const Word& newWord)
 {
-}
-
-bool WordRepo::operator==(const Word& w)
-{
-	return false;
-}
-
-Word& WordRepo::operator=(const Word& other)
-{
-	// TODO: insert return statement here
+    for (auto& word : m_words) {
+        if (word.getWord() == oldWord.getWord()) {
+            word = newWord;
+            break;
+        }
+    }
 }
 
 WordRepo::~WordRepo()
