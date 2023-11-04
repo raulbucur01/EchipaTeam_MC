@@ -1,7 +1,9 @@
 #include "Player.h"
 
-Player::Player(const std::string& name)
-	:m_name{ name }
+Player::Player(const std::string& name, const std::string& username, const std::string& password)
+	:m_name( name ),
+	m_username( username ),
+	m_password( password )
 {
 }
 
