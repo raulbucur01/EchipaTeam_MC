@@ -7,6 +7,7 @@ void GameLogic::TimePassing(Word word)
 	clock_t start = clock();
 	int seconds_passed = 0;
 	int secunde_afisare = 30;
+	int size_text = word.getSizeUnrevealedWord();
 	while (seconds_passed != 60)
 	{
 
@@ -17,7 +18,7 @@ void GameLogic::TimePassing(Word word)
 		{
 			word.revealOneRandomLetter();
 			std::cout << std::endl << word.getCurrentSlotState() << std::endl;
-			secunde_afisare += (30 / (word.getSize() / 2));
+			secunde_afisare += (30 / (size_text / 2));
 		}
 	}
 	std::cout << "Cuvantul este: " << word.getWord();

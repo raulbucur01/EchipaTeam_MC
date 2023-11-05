@@ -3,6 +3,7 @@
 #include "Word.h"
 #include <iostream>
 
+
 #include<conio.h>
 #include<ctime>
 
@@ -35,7 +36,8 @@ int main() {
 	ps.printPlayers();*/
 
 	// Word class test
-	Word word("Ronaldo");
+	Word word("casa de marcat");
+
 	/*std::cout << word.getCurrentSlotState() << std::endl;
 	word.revealOneRandomLetter();
 	std::cout << word.getCurrentSlotState() << std::endl;

@@ -20,7 +20,8 @@ public:
 	// returneaza un string cu atatea sloturi cate litere are cuvantul
 	std::string getEmptyLetterSlots();
 	//returneaza lungimea cuvantului
-	int getSize();
+	int getSizeWord();
+	int getSizeUnrevealedWord();
 	void resetSlots();
 };
 
