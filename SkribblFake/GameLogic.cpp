@@ -5,21 +5,59 @@
 void GameLogic::TimePassing(Word word)
 {
 	clock_t start = clock();
-	int seconds_passed = 0;
 	int secunde_afisare = 30;
 	int size_text = word.getSizeUnrevealedWord();
-	while (seconds_passed != 60)
+	while ((m_secondsPassed != 60) && (!PlayersHaveGuesed()))
 	{
-
 		clock_t curent = clock();
-		seconds_passed = (curent - start) / CLOCKS_PER_SEC;
-		std::cout << "Trecerea secundelor: " << seconds_passed << "\r";
-		if (seconds_passed == secunde_afisare && secunde_afisare <= 55)
+		m_secondsPassed = (curent - start) / CLOCKS_PER_SEC;
+		std::cout << "Trecerea secundelor: " << m_secondsPassed << "\r";
+		if (m_secondsPassed == secunde_afisare && secunde_afisare <= 55)
 		{
 			word.revealOneRandomLetter();
 			std::cout << std::endl << word.getCurrentSlotState() << std::endl;
 			secunde_afisare += (30 / (size_text / 2));
 		}
+		Guess(word);
 	}
 	std::cout << "Cuvantul este: " << word.getWord();
+	m_secondsPassed = 0;
+}
+
+void GameLogic::Guess(Word word)
+{
+	for (Player player : m_players.getAll())
+	{
+		if (PlayerGuess(player, word))
+		{
+			player.SetSecondsGuess(m_secondsPassed);
+		}
+	}
+}
+
+bool GameLogic::PlayerGuess(Player player, Word word)
+{
+	std::string guess;
+	player.GetStream() >> guess;
+	if (guess == word.getWord())
+	{
+		return true;
+	}
+	return false;
+}
+
+void GameLogic::AddScore()
+{
+}
+
+bool GameLogic::PlayersHaveGuesed()
+{
+	for (Player player : m_players.getAll())
+	{
+		if (player.GetSecondsGuess() == 0)
+		{
+			return false;
+		}
+	}
+	return true;
 }

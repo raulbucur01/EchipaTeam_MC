@@ -1,7 +1,7 @@
 #include "Player.h"
 
-Player::Player(const std::string& name)
-	:m_name{ name }
+Player::Player(const std::string& name,std::istream& stream)
+	:m_name{ name },m_streamPlayer{stream}
 {
 }
 
@@ -13,6 +13,11 @@ std::string Player::GetName() const
 int16_t Player::GetScore() const
 {
 	return m_score;
+}
+
+std::istream& Player::GetStream() const
+{
+	return m_streamPlayer;
 }
 
 void Player::SetScore(int16_t score)
