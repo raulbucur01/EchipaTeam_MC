@@ -51,4 +51,7 @@
     </ClInclude>
     <ClInclude Include="GameLogic.h" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="fisier.in" />
+  </ItemGroup>
 </Project>

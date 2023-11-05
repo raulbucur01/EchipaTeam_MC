@@ -16,6 +16,7 @@ public:
 	int16_t GetSecondsGuess() const;
 	bool operator ==(const Player& p);
 	Player& operator=(const Player& other);
+	void PositioningBegin();
 
 private:
 	std::string m_name;

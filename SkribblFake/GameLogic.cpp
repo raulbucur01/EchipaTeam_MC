@@ -1,6 +1,7 @@
 #include "GameLogic.h"
 #include<ctime>
 #include<iostream>
+#include<conio.h>
 
 void GameLogic::TimePassing(Word word)
 {
@@ -22,6 +23,7 @@ void GameLogic::TimePassing(Word word)
 	}
 	std::cout << "Cuvantul este: " << word.getWord();
 	m_secondsPassed = 0;
+	_getch();
 }
 
 void GameLogic::Guess(Word word)
@@ -38,7 +40,8 @@ void GameLogic::Guess(Word word)
 bool GameLogic::PlayerGuess(Player player, Word word)
 {
 	std::string guess;
-	player.GetStream() >> guess;
+	std::getline(player.GetStream(), guess);
+	player.PositioningBegin();
 	if (guess == word.getWord())
 	{
 		return true;

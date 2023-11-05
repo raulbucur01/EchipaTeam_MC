@@ -2,11 +2,8 @@
 #include "PlayerService.h"
 #include "Word.h"
 #include <iostream>
-
-
-#include<conio.h>
-#include<ctime>
-
+#include"GameLogic.h"
+#include<fstream>
 
 // revert
 int main() {
@@ -49,6 +46,11 @@ int main() {
 	std::cout << word.getCurrentSlotState() << std::endl;
 	word.revealOneRandomLetter();
 	std::cout << word.getCurrentSlotState() << std::endl;*/
-	
+	PlayerRepo p;
+	std::ifstream citire("fisier.in");
+	p.add(Player("Vlad", citire));
+	GameLogic round(p);
+	round.TimePassing(word);
+	citire.close();
 	return 0;
 }

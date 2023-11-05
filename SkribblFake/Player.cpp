@@ -56,4 +56,9 @@ Player& Player::operator=(const Player& other)
 	return *this;
 }
 
+void Player::PositioningBegin()
+{
+	m_streamPlayer.seekg(0, std::ios::beg);
+}
+
 

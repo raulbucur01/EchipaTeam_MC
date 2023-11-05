@@ -9,8 +9,8 @@ private:
 public:
 	PlayerService() = default;
 	PlayerService(PlayerRepo& playerRepo);
-	void addPlayer(std::string name);
-	void updatePlayer(std::string oldName, std::string newName);
+	void addPlayer(std::string name,std::istream& stream);
+	void updatePlayer(std::string oldName, std::string newName,std::istream stream);
 	void deletePlayer(std::string name);
 	void printPlayers();
 };

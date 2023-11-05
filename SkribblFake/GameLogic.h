@@ -9,6 +9,10 @@ private:
 
 public:
 
+	GameLogic(PlayerRepo players)
+		:m_players{ players }
+	{
+	}
 	GameLogic()=default;
 	//aceasta functie afiseaza trecerea timpului si afiseaza jumatate din literele cuvantului
 	void TimePassing(Word word);
