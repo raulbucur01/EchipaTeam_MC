@@ -5,6 +5,10 @@
 
 void GameLogic::TimePassing(Word word)
 {
+	for (auto i : m_players.getAll())
+	{
+		i.SetSecondsGuess(0);
+	}
 	clock_t start = clock();
 	int secunde_afisare = 30;
 	int size_text = word.getSizeUnrevealedWord();
@@ -23,7 +27,6 @@ void GameLogic::TimePassing(Word word)
 	}
 	std::cout << "Cuvantul este: " << word.getWord();
 	m_secondsPassed = 0;
-	_getch();
 }
 
 void GameLogic::Guess(Word word)
@@ -55,12 +58,16 @@ void GameLogic::AddScore()
 
 bool GameLogic::PlayersHaveGuesed()
 {
+	int ok = 1;
 	for (Player player : m_players.getAll())
 	{
 		if (player.GetSecondsGuess() == 0)
 		{
-			return false;
+			ok = 0;
 		}
 	}
-	return true;
+	if (ok == 1)
+		return true;
+	else
+		return false;
 }
