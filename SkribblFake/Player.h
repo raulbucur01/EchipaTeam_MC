@@ -6,7 +6,7 @@
 class Player
 {
 public:
-	Player(const std::string& name,std::istream& stream);
+	Player(const std::string& name,std::istream& stream, const std::string& username, const std::string& password);
 	std::string GetName() const;
 	int16_t GetScore() const;
 	std::istream& GetStream() const;
@@ -20,6 +20,8 @@ public:
 
 private:
 	std::string m_name;
+	std::string m_username;
+	std::string m_password;
 	int16_t m_score = 0,m_secondsGuess=0;
 	std::istream& m_streamPlayer;
 };

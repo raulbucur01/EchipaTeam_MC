@@ -5,10 +5,10 @@ PlayerService::PlayerService(PlayerRepo& playerRepo)
 	m_playerRepo = playerRepo;
 }
 
-void PlayerService::addPlayer(std::string name,std::istream& stream)
+void PlayerService::addPlayer(std::string name,std::istream& stream, std::string username, std::string password)
 {
 	// in service se construiesc obiectele cu informatiile de la user si se adauga la repo
-	Player newPlayer(name,stream);
+	Player newPlayer(name,stream,username, password);
 	m_playerRepo.add(newPlayer);
 }
 
@@ -18,9 +18,8 @@ void PlayerService::updatePlayer(std::string oldName, std::string newName,std::i
 	for (int i = 0; i < players.size(); i++)
 	{
 		if (players[i].GetName() == oldName) {
-			Player newPlayer(newName,stream);
-			Player oldPlayer = players[i];
-			m_playerRepo.update(oldPlayer, newPlayer);
+			players[i].SetName(newName);
+
 		}
 	}
 }
