@@ -12,7 +12,9 @@ private:
 public:
 	Word(std::string word = "");
 	// returneaza cuvantul
-	std::string getWord();
+	std::string getWord() const;
+	// seteaza cuvantul
+	void setWord(std::string word);
 	// returneaza starea curenta a sloturilor de litere
 	std::string getCurrentSlotState();
 	// inlocuieste random un slot nedezvaluit cu litera de la acelasi index din cuvant
@@ -20,7 +22,8 @@ public:
 	// returneaza un string cu atatea sloturi cate litere are cuvantul
 	std::string getEmptyLetterSlots();
 	//returneaza lungimea cuvantului
-	int getSizeWord();
+	bool operator==(const Word& w) const;
+	int getSize();
 	int getSizeUnrevealedWord();
 	void resetSlots();
 };

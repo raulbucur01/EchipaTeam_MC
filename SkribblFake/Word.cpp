@@ -12,9 +12,14 @@ Word::Word(std::string word)
 	}
 }
 
-std::string Word::getWord()
+std::string Word::getWord() const
 {
 	return m_word;
+}
+
+void Word::setWord(std::string word)
+{
+	m_word = word;
 }
 
 std::string Word::getCurrentSlotState()
@@ -27,7 +32,7 @@ void Word::revealOneRandomLetter()
 	int randomIndex;
 	bool indexFound = false;
 	
-	srand(time(NULL));
+	srand(static_cast<unsigned int>(time(NULL)));
 	randomIndex = rand() % m_unrevealedIndexes.size();
 
 	//afisez litera dezvaluita 
@@ -41,7 +46,7 @@ void Word::revealOneRandomLetter()
 std::string Word::getEmptyLetterSlots()
 {
 	std::string letterSlots = "";
-	for (int i = 0; i < m_word.length(); i++)
+	for (size_t i = 0; i < m_word.length(); i++)
 	{
 		if (m_word[i] != ' ')
 			letterSlots += "-";
@@ -51,14 +56,19 @@ std::string Word::getEmptyLetterSlots()
 	return letterSlots;
 }
 
-int Word::getSizeWord()
+bool Word::operator==(const Word& w) const
 {
-	return m_word.size();
+	return m_word == w.getWord();
+}
+
+int Word::getSize()
+{
+	return static_cast<int>(m_word.size());
 }
 
 int Word::getSizeUnrevealedWord()
 {
-	return m_unrevealedIndexes.size();
+	return static_cast<int>(m_unrevealedIndexes.size());
 }
 
 void Word::resetSlots()
