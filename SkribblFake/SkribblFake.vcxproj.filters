@@ -32,6 +32,9 @@
     </ClCompile>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="GameLogic.cpp" />
+    <ClCompile Include="WordRepo.cpp">
+      <Filter>Repository</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Player.h">
@@ -50,6 +53,9 @@
       <Filter>UserInterface</Filter>
     </ClInclude>
     <ClInclude Include="GameLogic.h" />
+    <ClInclude Include="WordRepo.h">
+      <Filter>Repository</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="fisier.in" />
