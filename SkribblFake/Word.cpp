@@ -1,13 +1,13 @@
 #include "Word.h"
 #include <time.h>
-Word::Word(std::string word)
+Word::Word(const std::string& word)
 	: m_word(word)
 {
 	m_slots = getEmptyLetterSlots();
 
 	for (int i = 0; i < m_slots.length(); i++)
-	{	
-		if(m_slots[i]=='-')
+	{
+		if (m_slots[i] == '-')
 			m_unrevealedIndexes.push_back(i);
 	}
 }
@@ -31,7 +31,7 @@ void Word::revealOneRandomLetter()
 {
 	int randomIndex;
 	bool indexFound = false;
-	
+
 	srand(static_cast<unsigned int>(time(NULL)));
 	randomIndex = rand() % m_unrevealedIndexes.size();
 
@@ -39,7 +39,7 @@ void Word::revealOneRandomLetter()
 	m_slots[m_unrevealedIndexes[randomIndex]] = m_word[m_unrevealedIndexes[randomIndex]];
 	// sterg indexul literei dezvaluite 
 	m_unrevealedIndexes.erase(m_unrevealedIndexes.begin() + randomIndex);
-	
+
 
 }
 
@@ -59,6 +59,16 @@ std::string Word::getEmptyLetterSlots()
 bool Word::operator==(const Word& w) const
 {
 	return m_word == w.getWord();
+}
+
+Word& Word::operator=(const Word& other)
+{
+	if (this == &other) {
+		return *this;
+	}
+
+	m_word = other.m_word;
+	return *this;
 }
 
 int Word::getSize()

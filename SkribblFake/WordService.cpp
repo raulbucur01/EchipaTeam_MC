@@ -7,17 +7,17 @@ WordService::WordService(WordRepo& wordRepo)
 
 void WordService::addWord(std::string word)
 {
-	Word word(word);
-	m_wordRepo.add(word);
+	Word newWord(word);
+	m_wordRepo.add(newWord);
 }
 
 void WordService::updateWord(std::string oldWord, std::string newWord)
 {
-	std::vector<Word> word = m_wordRepo.getAll();
-	for (int i = 0; i < word.size(); i++)
+	std::vector<Word> words = m_wordRepo.getAll();
+	for (int i = 0; i < words.size(); i++)
 	{
-		if (word[i].getWord() == oldWord) {
-			word[i].setWord(newWord);
+		if (words[i].getWord() == oldWord) {
+			words[i].setWord(newWord);
 		}
 	}
 }

@@ -10,7 +10,8 @@ private:
 	std::vector<int> m_unrevealedIndexes;
 
 public:
-	Word(std::string word = "");
+	Word() = default;
+	Word(const std::string& word = "");
 	// returneaza cuvantul
 	std::string getWord() const;
 	// seteaza cuvantul
@@ -23,6 +24,7 @@ public:
 	std::string getEmptyLetterSlots();
 	//returneaza lungimea cuvantului
 	bool operator==(const Word& w) const;
+	Word& operator=(const Word& other);
 	int getSize();
 	int getSizeUnrevealedWord();
 	void resetSlots();

@@ -7,7 +7,7 @@ void GameLogic::TimePassing(Word word)
 {
 	for (auto i : m_players.getAll())
 	{
-		i.SetSecondsGuess(0);
+		i.setSecondsGuess(0);
 	}
 	clock_t start = clock();
 	int secunde_afisare = 30;
@@ -35,7 +35,7 @@ void GameLogic::Guess(Word word)
 	{
 		if (PlayerGuess(player, word))
 		{
-			player.SetSecondsGuess(m_secondsPassed);
+			player.setSecondsGuess(m_secondsPassed);
 		}
 	}
 }
@@ -43,7 +43,7 @@ void GameLogic::Guess(Word word)
 bool GameLogic::PlayerGuess(Player player, Word word)
 {
 	std::string guess;
-	std::getline(player.GetStream(), guess);
+	std::getline(player.getStream(), guess);
 	player.PositioningBegin();
 	if (guess == word.getWord())
 	{
@@ -61,7 +61,7 @@ bool GameLogic::PlayersHaveGuesed()
 	int ok = 1;
 	for (Player player : m_players.getAll())
 	{
-		if (player.GetSecondsGuess() == 0)
+		if (player.getSecondsGuess() == 0)
 		{
 			ok = 0;
 		}

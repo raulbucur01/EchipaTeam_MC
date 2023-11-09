@@ -14,7 +14,7 @@ public:
 	void add(const Word& w);
 	void del(std::string word); //stergere
 	void update(const Word& oldWord, const Word& newWord);
-	std::vector<Word> getAll();
+	std::vector<Word>& getAll();
 	void printAll();
 	~WordRepo();
 

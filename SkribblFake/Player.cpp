@@ -1,48 +1,49 @@
 #include "Player.h"
 
-Player::Player(const std::string& name,std::istream& stream,const std::string& username, const std::string& password)
-	:m_name( name ),m_streamPlayer(stream),m_username(username), m_password(password)
+Player::Player(const std::string& name, std::istream& stream, const std::string& username, const std::string& password)
+	:m_name(name), m_streamPlayer(stream), m_username(username), m_password(password)
 {
+
 }
 
-std::string Player::GetName() const
+std::string Player::getName() const
 {
 	return m_name;
 }
 
-int16_t Player::GetScore() const
+int16_t Player::getScore() const
 {
 	return m_score;
 }
 
-std::istream& Player::GetStream() const
+std::istream& Player::getStream() const
 {
 	return m_streamPlayer;
 }
 
-void Player::SetScore(int16_t score)
+void Player::setScore(int16_t score)
 {
 	m_score = score;
 }
 
-void Player::SetName(const std::string& name)
+void Player::setName(const std::string& name)
 {
 	m_name = name;
 }
 
-void Player::SetSecondsGuess(int16_t seconds)
+void Player::setSecondsGuess(int16_t seconds)
 {
 	m_secondsGuess = seconds;
 }
 
-int16_t Player::GetSecondsGuess() const
+int16_t Player::getSecondsGuess() const
 {
 	return m_secondsGuess;
 }
 
 bool Player::operator==(const Player& p)
 {
-	return m_name == p.GetName();
+	return m_name == p.getName();
 }
 
 Player& Player::operator=(const Player& other)
