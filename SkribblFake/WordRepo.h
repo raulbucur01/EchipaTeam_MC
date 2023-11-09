@@ -13,7 +13,6 @@ public:
 	void add(const Word& w);
 	void del(const Word& w); //stergere
 	void update(const Word& oldWord, const Word& newWord);
-	bool operator ==(const Word& w);
 	~WordRepo();
 
 };

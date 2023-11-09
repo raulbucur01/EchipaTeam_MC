@@ -19,7 +19,6 @@ void PlayerService::updatePlayer(std::string oldName, std::string newName,std::i
 	{
 		if (players[i].GetName() == oldName) {
 			players[i].SetName(newName);
-
 		}
 	}
 }

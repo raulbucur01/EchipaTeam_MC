@@ -35,6 +35,9 @@
     <ClCompile Include="WordRepo.cpp">
       <Filter>Repository</Filter>
     </ClCompile>
+    <ClCompile Include="WordService.cpp">
+      <Filter>Service</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Player.h">
@@ -55,6 +58,9 @@
     <ClInclude Include="GameLogic.h" />
     <ClInclude Include="WordRepo.h">
       <Filter>Repository</Filter>
+    </ClInclude>
+    <ClInclude Include="WordService.h">
+      <Filter>Service</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

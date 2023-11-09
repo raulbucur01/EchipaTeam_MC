@@ -37,7 +37,7 @@ void Word::revealOneRandomLetter()
 
 	//afisez litera dezvaluita 
 	m_slots[m_unrevealedIndexes[randomIndex]] = m_word[m_unrevealedIndexes[randomIndex]];
-	// sterg indexul literii dezvaluite 
+	// sterg indexul literei dezvaluite 
 	m_unrevealedIndexes.erase(m_unrevealedIndexes.begin() + randomIndex);
 	
 

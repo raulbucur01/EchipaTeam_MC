@@ -134,6 +134,7 @@
     <ClInclude Include="UI.h" />
     <ClInclude Include="Word.h" />
     <ClInclude Include="WordRepo.h" />
+    <ClInclude Include="WordService.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameLogic.cpp" />
@@ -144,6 +145,7 @@
     <ClCompile Include="UI.cpp" />
     <ClCompile Include="Word.cpp" />
     <ClCompile Include="WordRepo.cpp" />
+    <ClCompile Include="WordService.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="fisier.in" />
