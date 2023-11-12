@@ -64,7 +64,15 @@ void GameLogic::AddScore()
 	{
 		if (player.GetPainter() == true)
 		{
-
+			if (alpha == 0)
+			{
+				player.setScore(player.getScore() - 100);
+			}
+			else
+			{
+				int score = (60 - alpha) * 100 / 60;
+				player.setScore(player.getScore() + score);
+			}
 		}
 	}
 }
