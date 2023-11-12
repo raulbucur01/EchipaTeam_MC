@@ -18,6 +18,8 @@ public:
 	bool operator ==(const Player& p);
 	Player& operator=(const Player& other);
 	void PositioningBegin();
+	bool GetPainter();
+	void setPainter(bool este);
 
 private:
 	std::string m_name;
@@ -25,5 +27,6 @@ private:
 	std::string m_password;
 	int16_t m_score = 0, m_secondsGuess = 0;
 	std::istream& m_streamPlayer;
+	bool m_painter = false;
 };
 

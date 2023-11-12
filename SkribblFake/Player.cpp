@@ -62,4 +62,14 @@ void Player::PositioningBegin()
 	m_streamPlayer.seekg(0, std::ios::beg);
 }
 
+bool Player::GetPainter()
+{
+	return m_painter;
+}
+
+void Player::setPainter(bool este)
+{
+	m_painter = este;
+}
+
 

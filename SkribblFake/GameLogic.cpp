@@ -54,6 +54,19 @@ bool GameLogic::PlayerGuess(Player player, Word word)
 
 void GameLogic::AddScore()
 {
+	int alpha=0;
+	for (Player player : m_players.getAll())
+	{
+		alpha += player.getSecondsGuess();
+	}
+	alpha = alpha / m_players.getAll().size();
+	for (Player player : m_players.getAll())
+	{
+		if (player.GetPainter() == true)
+		{
+
+		}
+	}
 }
 
 bool GameLogic::PlayersHaveGuesed()
