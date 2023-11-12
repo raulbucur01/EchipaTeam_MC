@@ -33,10 +33,10 @@ void GameLogic::Guess(Word word)
 {
 	for (Player player : m_players.getAll())
 	{
-		if (PlayerGuess(player, word))
-		{
-			player.setSecondsGuess(m_secondsPassed);
-		}
+			if (PlayerGuess(player, word))
+			{
+				player.setSecondsGuess(m_secondsPassed);
+			}
 	}
 }
 
@@ -45,6 +45,10 @@ bool GameLogic::PlayerGuess(Player player, Word word)
 	std::string guess;
 	std::getline(player.getStream(), guess);
 	player.PositioningBegin();
+	if (player.GetPainter() == true)
+	{
+		return true;
+	}
 	if (guess == word.getWord())
 	{
 		return true;
@@ -57,15 +61,41 @@ void GameLogic::AddScore()
 	int alpha=0;
 	for (Player player : m_players.getAll())
 	{
-		alpha += player.getSecondsGuess();
+		if(player.GetPainter()==false)
+			alpha += player.getSecondsGuess();
 	}
-	alpha = alpha / m_players.getAll().size();
+	alpha = alpha /( m_players.getAll().size()-1);
 	for (Player player : m_players.getAll())
 	{
 		if (player.GetPainter() == true)
 		{
-
+			if (alpha == 0)
+			{
+				player.setScore(player.getScore() - 100);
+			}
+			else
+			{
+				int score = (60 - alpha) * 100 / 60;
+				player.setScore(player.getScore() + score);
+			}
 		}
+		else
+		{
+			if (player.getSecondsGuess() < 30 && player.getSecondsGuess() > 0)
+			{
+				player.setScore(player.getScore() + 100);
+			}
+			else if (player.getSecondsGuess() >= 30)
+			{
+				int score = (60 - player.getSecondsGuess()) * 100 / 30;
+				player.setScore(player.getScore() + score);
+			}
+			else if (player.getSecondsGuess() == 0)
+			{
+				player.setScore(player.getScore() - 50);
+			}
+		}
+		player.setSecondsGuess(0);
 	}
 }
 
