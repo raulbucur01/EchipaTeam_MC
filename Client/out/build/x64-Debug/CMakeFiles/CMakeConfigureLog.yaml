@@ -1,0 +1,247 @@
+
+---
+events:
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Program Files/Microsoft Visual Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.26/Modules/CMakeDetermineSystem.cmake:204 (message)"
+      - "CMakeLists.txt:3 (project)"
+    message: |
+      The system is: Windows - 10.0.19045 - AMD64
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Program Files/Microsoft Visual Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.26/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "C:/Program Files/Microsoft Visual Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.26/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "C:/Program Files/Microsoft Visual Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.26/Modules/CMakeDetermineCXXCompiler.cmake:126 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:3 (project)"
+    message: |
+      Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
+      Compiler: C:/Program Files/Microsoft Visual Studio/2022/Enterprise/VC/Tools/MSVC/14.37.32822/bin/Hostx64/x64/cl.exe 
+      Build flags: 
+      Id flags:  
+      
+      The output was:
+      0
+      Microsoft (R) C/C++ Optimizing Compiler Version 19.37.32825 for x64
+      Copyright (C) Microsoft Corporation.  All rights reserved.
+      
+      CMakeCXXCompilerId.cpp
+      Microsoft (R) Incremental Linker Version 14.37.32825.0
+      Copyright (C) Microsoft Corporation.  All rights reserved.
+      
+      /out:CMakeCXXCompilerId.exe 
+      CMakeCXXCompilerId.obj 
+      
+      
+      Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CMakeCXXCompilerId.exe"
+      
+      Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CMakeCXXCompilerId.obj"
+      
+      The CXX compiler identification is MSVC, found in:
+        C:/Users/CRISTI/Desktop/sdsrfgdr/EchipaTeam_MC/Client/out/build/x64-Debug/CMakeFiles/3.26.4-msvc4/CompilerIdCXX/CMakeCXXCompilerId.exe
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Program Files/Microsoft Visual Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.26/Modules/CMakeDetermineCompilerId.cmake:1153 (message)"
+      - "C:/Program Files/Microsoft Visual Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.26/Modules/CMakeDetermineCompilerId.cmake:221 (CMAKE_DETERMINE_MSVC_SHOWINCLUDES_PREFIX)"
+      - "C:/Program Files/Microsoft Visual Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.26/Modules/CMakeDetermineCXXCompiler.cmake:126 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:3 (project)"
+    message: |
+      Detecting CXX compiler /showIncludes prefix:
+        main.c
+        Note: including file: C:\\Users\\CRISTI\\Desktop\\sdsrfgdr\\EchipaTeam_MC\\Client\\out\\build\\x64-Debug\\CMakeFiles\\ShowIncludes\\foo.h
+        
+      Found prefix "Note: including file: "
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/Microsoft Visual Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.26/Modules/CMakeDetermineCompilerABI.cmake:57 (try_compile)"
+      - "C:/Program Files/Microsoft Visual Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.26/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:3 (project)"
+    checks:
+      - "Detecting CXX compiler ABI info"
+    directories:
+      source: "C:/Users/CRISTI/Desktop/sdsrfgdr/EchipaTeam_MC/Client/out/build/x64-Debug/CMakeFiles/CMakeScratch/TryCompile-j58vvu"
+      binary: "C:/Users/CRISTI/Desktop/sdsrfgdr/EchipaTeam_MC/Client/out/build/x64-Debug/CMakeFiles/CMakeScratch/TryCompile-j58vvu"
+    cmakeVariables:
+      CMAKE_CXX_FLAGS: "/DWIN32 /D_WINDOWS /W3 /GR /EHsc"
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+      VCPKG_APPLOCAL_DEPS: "ON"
+      VCPKG_TARGET_TRIPLET: "x64-windows"
+      Z_VCPKG_ROOT_DIR: "C:/mc/vcpkg-master"
+    buildResult:
+      variable: "CMAKE_CXX_ABI_COMPILED"
+      cached: true
+      stdout: |
+        Change Dir: C:/Users/CRISTI/Desktop/sdsrfgdr/EchipaTeam_MC/Client/out/build/x64-Debug/CMakeFiles/CMakeScratch/TryCompile-j58vvu
+        
+        Run Build Command(s):C:/Program Files/Microsoft Visual Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/Ninja/ninja.exe -v cmTC_b4edf && [1/2] C:\\PROGRA~1\\MICROS~2\\2022\\ENTERP~1\\VC\\Tools\\MSVC\\1437~1.328\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP   /DWIN32 /D_WINDOWS /W3 /GR /EHsc  /MDd /Zi /Ob0 /Od /RTC1 /showIncludes /FoCMakeFiles\\cmTC_b4edf.dir\\CMakeCXXCompilerABI.cpp.obj /FdCMakeFiles\\cmTC_b4edf.dir\\ /FS -c "C:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\Common7\\IDE\\CommonExtensions\\Microsoft\\CMake\\CMake\\share\\cmake-3.26\\Modules\\CMakeCXXCompilerABI.cpp"
+        [2/2] cmd.exe /C "cd . && "C:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\Common7\\IDE\\CommonExtensions\\Microsoft\\CMake\\CMake\\bin\\cmake.exe" -E vs_link_exe --intdir=CMakeFiles\\cmTC_b4edf.dir --rc=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100220~1.0\\x64\\rc.exe --mt=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100220~1.0\\x64\\mt.exe --manifests  -- C:\\PROGRA~1\\MICROS~2\\2022\\ENTERP~1\\VC\\Tools\\MSVC\\1437~1.328\\bin\\Hostx64\\x64\\link.exe /nologo CMakeFiles\\cmTC_b4edf.dir\\CMakeCXXCompilerABI.cpp.obj  /out:cmTC_b4edf.exe /implib:cmTC_b4edf.lib /pdb:cmTC_b4edf.pdb /version:0.0 /machine:x64  /debug /INCREMENTAL /subsystem:console  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib && cmd.exe /C "cd /D C:\\Users\\CRISTI\\Desktop\\sdsrfgdr\\EchipaTeam_MC\\Client\\out\\build\\x64-Debug\\CMakeFiles\\CMakeScratch\\TryCompile-j58vvu && C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe -noprofile -executionpolicy Bypass -file C:/mc/vcpkg-master/scripts/buildsystems/msbuild/applocal.ps1 -targetBinary C:/Users/CRISTI/Desktop/sdsrfgdr/EchipaTeam_MC/Client/out/build/x64-Debug/CMakeFiles/CMakeScratch/TryCompile-j58vvu/cmTC_b4edf.exe -installedDir C:/mc/vcpkg-master/installed/x64-windows/debug/bin -OutVariable out""
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/Microsoft Visual Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.26/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "C:/Program Files/Microsoft Visual Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.26/Modules/CheckCXXSourceCompiles.cmake:76 (cmake_check_source_compiles)"
+      - "C:/Program Files/Microsoft Visual Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.26/Modules/FindThreads.cmake:99 (CHECK_CXX_SOURCE_COMPILES)"
+      - "C:/Program Files/Microsoft Visual Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.26/Modules/FindThreads.cmake:163 (_threads_check_libc)"
+      - "C:/mc/vcpkg-master/scripts/buildsystems/vcpkg.cmake:859 (_find_package)"
+      - "C:/Program Files/Microsoft Visual Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.26/Modules/CMakeFindDependencyMacro.cmake:76 (find_package)"
+      - "D:/Qt/6.4.3/msvc2019_64/lib/cmake/Qt6/QtPublicDependencyHelpers.cmake:33 (find_dependency)"
+      - "D:/Qt/6.4.3/msvc2019_64/lib/cmake/Qt6/Qt6Dependencies.cmake:24 (_qt_internal_find_third_party_dependencies)"
+      - "D:/Qt/6.4.3/msvc2019_64/lib/cmake/Qt6/Qt6Config.cmake:112 (include)"
+      - "C:/mc/vcpkg-master/scripts/buildsystems/vcpkg.cmake:859 (_find_package)"
+      - "CMakeLists.txt:12 (find_package)"
+    checks:
+      - "Performing Test CMAKE_HAVE_LIBC_PTHREAD"
+    directories:
+      source: "C:/Users/CRISTI/Desktop/sdsrfgdr/EchipaTeam_MC/Client/out/build/x64-Debug/CMakeFiles/CMakeScratch/TryCompile-ulppaz"
+      binary: "C:/Users/CRISTI/Desktop/sdsrfgdr/EchipaTeam_MC/Client/out/build/x64-Debug/CMakeFiles/CMakeScratch/TryCompile-ulppaz"
+    cmakeVariables:
+      CMAKE_CXX_FLAGS: "/DWIN32 /D_WINDOWS /W3 /GR /EHsc"
+      CMAKE_CXX_FLAGS_DEBUG: "/MDd /Zi /Ob0 /Od /RTC1"
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+      CMAKE_MODULE_PATH: "D:/Qt/6.4.3/msvc2019_64/lib/cmake/Qt6;D:/Qt/6.4.3/msvc2019_64/lib/cmake/Qt6/3rdparty/extra-cmake-modules/find-modules;D:/Qt/6.4.3/msvc2019_64/lib/cmake/Qt6/3rdparty/kwin"
+      VCPKG_APPLOCAL_DEPS: "ON"
+      VCPKG_TARGET_TRIPLET: "x64-windows"
+      Z_VCPKG_ROOT_DIR: "C:/mc/vcpkg-master"
+    buildResult:
+      variable: "CMAKE_HAVE_LIBC_PTHREAD"
+      cached: true
+      stdout: |
+        Change Dir: C:/Users/CRISTI/Desktop/sdsrfgdr/EchipaTeam_MC/Client/out/build/x64-Debug/CMakeFiles/CMakeScratch/TryCompile-ulppaz
+        
+        Run Build Command(s):C:/Program Files/Microsoft Visual Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/Ninja/ninja.exe -v cmTC_b0d4c && [1/2] C:\\PROGRA~1\\MICROS~2\\2022\\ENTERP~1\\VC\\Tools\\MSVC\\1437~1.328\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DCMAKE_HAVE_LIBC_PTHREAD  /DWIN32 /D_WINDOWS /W3 /GR /EHsc  /MDd /Zi /Ob0 /Od /RTC1 -std:c++17 /showIncludes /FoCMakeFiles\\cmTC_b0d4c.dir\\src.cxx.obj /FdCMakeFiles\\cmTC_b0d4c.dir\\ /FS -c C:\\Users\\CRISTI\\Desktop\\sdsrfgdr\\EchipaTeam_MC\\Client\\out\\build\\x64-Debug\\CMakeFiles\\CMakeScratch\\TryCompile-ulppaz\\src.cxx
+        FAILED: CMakeFiles/cmTC_b0d4c.dir/src.cxx.obj 
+        C:\\PROGRA~1\\MICROS~2\\2022\\ENTERP~1\\VC\\Tools\\MSVC\\1437~1.328\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DCMAKE_HAVE_LIBC_PTHREAD  /DWIN32 /D_WINDOWS /W3 /GR /EHsc  /MDd /Zi /Ob0 /Od /RTC1 -std:c++17 /showIncludes /FoCMakeFiles\\cmTC_b0d4c.dir\\src.cxx.obj /FdCMakeFiles\\cmTC_b0d4c.dir\\ /FS -c C:\\Users\\CRISTI\\Desktop\\sdsrfgdr\\EchipaTeam_MC\\Client\\out\\build\\x64-Debug\\CMakeFiles\\CMakeScratch\\TryCompile-ulppaz\\src.cxx
+        C:\\Users\\CRISTI\\Desktop\\sdsrfgdr\\EchipaTeam_MC\\Client\\out\\build\\x64-Debug\\CMakeFiles\\CMakeScratch\\TryCompile-ulppaz\\src.cxx(1): fatal error C1083: Cannot open include file: 'pthread.h': No such file or directory
+        ninja: build stopped: subcommand failed.
+        
+      exitCode: 1
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/Microsoft Visual Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.26/Modules/CheckLibraryExists.cmake:71 (try_compile)"
+      - "C:/Program Files/Microsoft Visual Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.26/Modules/FindThreads.cmake:112 (CHECK_LIBRARY_EXISTS)"
+      - "C:/Program Files/Microsoft Visual Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.26/Modules/FindThreads.cmake:175 (_threads_check_lib)"
+      - "C:/mc/vcpkg-master/scripts/buildsystems/vcpkg.cmake:859 (_find_package)"
+      - "C:/Program Files/Microsoft Visual Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.26/Modules/CMakeFindDependencyMacro.cmake:76 (find_package)"
+      - "D:/Qt/6.4.3/msvc2019_64/lib/cmake/Qt6/QtPublicDependencyHelpers.cmake:33 (find_dependency)"
+      - "D:/Qt/6.4.3/msvc2019_64/lib/cmake/Qt6/Qt6Dependencies.cmake:24 (_qt_internal_find_third_party_dependencies)"
+      - "D:/Qt/6.4.3/msvc2019_64/lib/cmake/Qt6/Qt6Config.cmake:112 (include)"
+      - "C:/mc/vcpkg-master/scripts/buildsystems/vcpkg.cmake:859 (_find_package)"
+      - "CMakeLists.txt:12 (find_package)"
+    checks:
+      - "Looking for pthread_create in pthreads"
+    directories:
+      source: "C:/Users/CRISTI/Desktop/sdsrfgdr/EchipaTeam_MC/Client/out/build/x64-Debug/CMakeFiles/CMakeScratch/TryCompile-oupwao"
+      binary: "C:/Users/CRISTI/Desktop/sdsrfgdr/EchipaTeam_MC/Client/out/build/x64-Debug/CMakeFiles/CMakeScratch/TryCompile-oupwao"
+    cmakeVariables:
+      CMAKE_CXX_FLAGS: "/DWIN32 /D_WINDOWS /W3 /GR /EHsc"
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+      CMAKE_MODULE_PATH: "D:/Qt/6.4.3/msvc2019_64/lib/cmake/Qt6;D:/Qt/6.4.3/msvc2019_64/lib/cmake/Qt6/3rdparty/extra-cmake-modules/find-modules;D:/Qt/6.4.3/msvc2019_64/lib/cmake/Qt6/3rdparty/kwin"
+      VCPKG_APPLOCAL_DEPS: "ON"
+      VCPKG_TARGET_TRIPLET: "x64-windows"
+      Z_VCPKG_ROOT_DIR: "C:/mc/vcpkg-master"
+    buildResult:
+      variable: "CMAKE_HAVE_PTHREADS_CREATE"
+      cached: true
+      stdout: |
+        Change Dir: C:/Users/CRISTI/Desktop/sdsrfgdr/EchipaTeam_MC/Client/out/build/x64-Debug/CMakeFiles/CMakeScratch/TryCompile-oupwao
+        
+        Run Build Command(s):C:/Program Files/Microsoft Visual Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/Ninja/ninja.exe -v cmTC_0bd80 && [1/2] C:\\PROGRA~1\\MICROS~2\\2022\\ENTERP~1\\VC\\Tools\\MSVC\\1437~1.328\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP   /DWIN32 /D_WINDOWS /W3 /GR /EHsc -DCHECK_FUNCTION_EXISTS=pthread_create /MDd /Zi /Ob0 /Od /RTC1 /showIncludes /FoCMakeFiles\\cmTC_0bd80.dir\\CheckFunctionExists.cxx.obj /FdCMakeFiles\\cmTC_0bd80.dir\\ /FS -c C:\\Users\\CRISTI\\Desktop\\sdsrfgdr\\EchipaTeam_MC\\Client\\out\\build\\x64-Debug\\CMakeFiles\\CMakeScratch\\TryCompile-oupwao\\CheckFunctionExists.cxx
+        [2/2] cmd.exe /C "cd . && "C:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\Common7\\IDE\\CommonExtensions\\Microsoft\\CMake\\CMake\\bin\\cmake.exe" -E vs_link_exe --intdir=CMakeFiles\\cmTC_0bd80.dir --rc=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100220~1.0\\x64\\rc.exe --mt=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100220~1.0\\x64\\mt.exe --manifests  -- C:\\PROGRA~1\\MICROS~2\\2022\\ENTERP~1\\VC\\Tools\\MSVC\\1437~1.328\\bin\\Hostx64\\x64\\link.exe /nologo CMakeFiles\\cmTC_0bd80.dir\\CheckFunctionExists.cxx.obj  /out:cmTC_0bd80.exe /implib:cmTC_0bd80.lib /pdb:cmTC_0bd80.pdb /version:0.0 /machine:x64  /debug /INCREMENTAL /subsystem:console  pthreads.lib  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib && cmd.exe /C "cd /D C:\\Users\\CRISTI\\Desktop\\sdsrfgdr\\EchipaTeam_MC\\Client\\out\\build\\x64-Debug\\CMakeFiles\\CMakeScratch\\TryCompile-oupwao && C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe -noprofile -executionpolicy Bypass -file C:/mc/vcpkg-master/scripts/buildsystems/msbuild/applocal.ps1 -targetBinary C:/Users/CRISTI/Desktop/sdsrfgdr/EchipaTeam_MC/Client/out/build/x64-Debug/CMakeFiles/CMakeScratch/TryCompile-oupwao/cmTC_0bd80.exe -installedDir C:/mc/vcpkg-master/installed/x64-windows/debug/bin -OutVariable out""
+        FAILED: cmTC_0bd80.exe 
+        cmd.exe /C "cd . && "C:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\Common7\\IDE\\CommonExtensions\\Microsoft\\CMake\\CMake\\bin\\cmake.exe" -E vs_link_exe --intdir=CMakeFiles\\cmTC_0bd80.dir --rc=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100220~1.0\\x64\\rc.exe --mt=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100220~1.0\\x64\\mt.exe --manifests  -- C:\\PROGRA~1\\MICROS~2\\2022\\ENTERP~1\\VC\\Tools\\MSVC\\1437~1.328\\bin\\Hostx64\\x64\\link.exe /nologo CMakeFiles\\cmTC_0bd80.dir\\CheckFunctionExists.cxx.obj  /out:cmTC_0bd80.exe /implib:cmTC_0bd80.lib /pdb:cmTC_0bd80.pdb /version:0.0 /machine:x64  /debug /INCREMENTAL /subsystem:console  pthreads.lib  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib && cmd.exe /C "cd /D C:\\Users\\CRISTI\\Desktop\\sdsrfgdr\\EchipaTeam_MC\\Client\\out\\build\\x64-Debug\\CMakeFiles\\CMakeScratch\\TryCompile-oupwao && C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe -noprofile -executionpolicy Bypass -file C:/mc/vcpkg-master/scripts/buildsystems/msbuild/applocal.ps1 -targetBinary C:/Users/CRISTI/Desktop/sdsrfgdr/EchipaTeam_MC/Client/out/build/x64-Debug/CMakeFiles/CMakeScratch/TryCompile-oupwao/cmTC_0bd80.exe -installedDir C:/mc/vcpkg-master/installed/x64-windows/debug/bin -OutVariable out""
+        LINK Pass 1: command "C:\\PROGRA~1\\MICROS~2\\2022\\ENTERP~1\\VC\\Tools\\MSVC\\1437~1.328\\bin\\Hostx64\\x64\\link.exe /nologo CMakeFiles\\cmTC_0bd80.dir\\CheckFunctionExists.cxx.obj /out:cmTC_0bd80.exe /implib:cmTC_0bd80.lib /pdb:cmTC_0bd80.pdb /version:0.0 /machine:x64 /debug /INCREMENTAL /subsystem:console pthreads.lib kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTFILE:CMakeFiles\\cmTC_0bd80.dir/intermediate.manifest CMakeFiles\\cmTC_0bd80.dir/manifest.res" failed (exit code 1104) with the following output:
+        LINK : fatal error LNK1104: cannot open file 'pthreads.lib'\x0d
+        ninja: build stopped: subcommand failed.
+        
+      exitCode: 1
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/Microsoft Visual Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.26/Modules/CheckLibraryExists.cmake:71 (try_compile)"
+      - "C:/Program Files/Microsoft Visual Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.26/Modules/FindThreads.cmake:112 (CHECK_LIBRARY_EXISTS)"
+      - "C:/Program Files/Microsoft Visual Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.26/Modules/FindThreads.cmake:176 (_threads_check_lib)"
+      - "C:/mc/vcpkg-master/scripts/buildsystems/vcpkg.cmake:859 (_find_package)"
+      - "C:/Program Files/Microsoft Visual Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.26/Modules/CMakeFindDependencyMacro.cmake:76 (find_package)"
+      - "D:/Qt/6.4.3/msvc2019_64/lib/cmake/Qt6/QtPublicDependencyHelpers.cmake:33 (find_dependency)"
+      - "D:/Qt/6.4.3/msvc2019_64/lib/cmake/Qt6/Qt6Dependencies.cmake:24 (_qt_internal_find_third_party_dependencies)"
+      - "D:/Qt/6.4.3/msvc2019_64/lib/cmake/Qt6/Qt6Config.cmake:112 (include)"
+      - "C:/mc/vcpkg-master/scripts/buildsystems/vcpkg.cmake:859 (_find_package)"
+      - "CMakeLists.txt:12 (find_package)"
+    checks:
+      - "Looking for pthread_create in pthread"
+    directories:
+      source: "C:/Users/CRISTI/Desktop/sdsrfgdr/EchipaTeam_MC/Client/out/build/x64-Debug/CMakeFiles/CMakeScratch/TryCompile-a7u7t6"
+      binary: "C:/Users/CRISTI/Desktop/sdsrfgdr/EchipaTeam_MC/Client/out/build/x64-Debug/CMakeFiles/CMakeScratch/TryCompile-a7u7t6"
+    cmakeVariables:
+      CMAKE_CXX_FLAGS: "/DWIN32 /D_WINDOWS /W3 /GR /EHsc"
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+      CMAKE_MODULE_PATH: "D:/Qt/6.4.3/msvc2019_64/lib/cmake/Qt6;D:/Qt/6.4.3/msvc2019_64/lib/cmake/Qt6/3rdparty/extra-cmake-modules/find-modules;D:/Qt/6.4.3/msvc2019_64/lib/cmake/Qt6/3rdparty/kwin"
+      VCPKG_APPLOCAL_DEPS: "ON"
+      VCPKG_TARGET_TRIPLET: "x64-windows"
+      Z_VCPKG_ROOT_DIR: "C:/mc/vcpkg-master"
+    buildResult:
+      variable: "CMAKE_HAVE_PTHREAD_CREATE"
+      cached: true
+      stdout: |
+        Change Dir: C:/Users/CRISTI/Desktop/sdsrfgdr/EchipaTeam_MC/Client/out/build/x64-Debug/CMakeFiles/CMakeScratch/TryCompile-a7u7t6
+        
+        Run Build Command(s):C:/Program Files/Microsoft Visual Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/Ninja/ninja.exe -v cmTC_437a9 && [1/2] C:\\PROGRA~1\\MICROS~2\\2022\\ENTERP~1\\VC\\Tools\\MSVC\\1437~1.328\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP   /DWIN32 /D_WINDOWS /W3 /GR /EHsc -DCHECK_FUNCTION_EXISTS=pthread_create /MDd /Zi /Ob0 /Od /RTC1 /showIncludes /FoCMakeFiles\\cmTC_437a9.dir\\CheckFunctionExists.cxx.obj /FdCMakeFiles\\cmTC_437a9.dir\\ /FS -c C:\\Users\\CRISTI\\Desktop\\sdsrfgdr\\EchipaTeam_MC\\Client\\out\\build\\x64-Debug\\CMakeFiles\\CMakeScratch\\TryCompile-a7u7t6\\CheckFunctionExists.cxx
+        [2/2] cmd.exe /C "cd . && "C:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\Common7\\IDE\\CommonExtensions\\Microsoft\\CMake\\CMake\\bin\\cmake.exe" -E vs_link_exe --intdir=CMakeFiles\\cmTC_437a9.dir --rc=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100220~1.0\\x64\\rc.exe --mt=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100220~1.0\\x64\\mt.exe --manifests  -- C:\\PROGRA~1\\MICROS~2\\2022\\ENTERP~1\\VC\\Tools\\MSVC\\1437~1.328\\bin\\Hostx64\\x64\\link.exe /nologo CMakeFiles\\cmTC_437a9.dir\\CheckFunctionExists.cxx.obj  /out:cmTC_437a9.exe /implib:cmTC_437a9.lib /pdb:cmTC_437a9.pdb /version:0.0 /machine:x64  /debug /INCREMENTAL /subsystem:console  pthread.lib  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib && cmd.exe /C "cd /D C:\\Users\\CRISTI\\Desktop\\sdsrfgdr\\EchipaTeam_MC\\Client\\out\\build\\x64-Debug\\CMakeFiles\\CMakeScratch\\TryCompile-a7u7t6 && C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe -noprofile -executionpolicy Bypass -file C:/mc/vcpkg-master/scripts/buildsystems/msbuild/applocal.ps1 -targetBinary C:/Users/CRISTI/Desktop/sdsrfgdr/EchipaTeam_MC/Client/out/build/x64-Debug/CMakeFiles/CMakeScratch/TryCompile-a7u7t6/cmTC_437a9.exe -installedDir C:/mc/vcpkg-master/installed/x64-windows/debug/bin -OutVariable out""
+        FAILED: cmTC_437a9.exe 
+        cmd.exe /C "cd . && "C:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\Common7\\IDE\\CommonExtensions\\Microsoft\\CMake\\CMake\\bin\\cmake.exe" -E vs_link_exe --intdir=CMakeFiles\\cmTC_437a9.dir --rc=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100220~1.0\\x64\\rc.exe --mt=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100220~1.0\\x64\\mt.exe --manifests  -- C:\\PROGRA~1\\MICROS~2\\2022\\ENTERP~1\\VC\\Tools\\MSVC\\1437~1.328\\bin\\Hostx64\\x64\\link.exe /nologo CMakeFiles\\cmTC_437a9.dir\\CheckFunctionExists.cxx.obj  /out:cmTC_437a9.exe /implib:cmTC_437a9.lib /pdb:cmTC_437a9.pdb /version:0.0 /machine:x64  /debug /INCREMENTAL /subsystem:console  pthread.lib  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib && cmd.exe /C "cd /D C:\\Users\\CRISTI\\Desktop\\sdsrfgdr\\EchipaTeam_MC\\Client\\out\\build\\x64-Debug\\CMakeFiles\\CMakeScratch\\TryCompile-a7u7t6 && C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe -noprofile -executionpolicy Bypass -file C:/mc/vcpkg-master/scripts/buildsystems/msbuild/applocal.ps1 -targetBinary C:/Users/CRISTI/Desktop/sdsrfgdr/EchipaTeam_MC/Client/out/build/x64-Debug/CMakeFiles/CMakeScratch/TryCompile-a7u7t6/cmTC_437a9.exe -installedDir C:/mc/vcpkg-master/installed/x64-windows/debug/bin -OutVariable out""
+        LINK Pass 1: command "C:\\PROGRA~1\\MICROS~2\\2022\\ENTERP~1\\VC\\Tools\\MSVC\\1437~1.328\\bin\\Hostx64\\x64\\link.exe /nologo CMakeFiles\\cmTC_437a9.dir\\CheckFunctionExists.cxx.obj /out:cmTC_437a9.exe /implib:cmTC_437a9.lib /pdb:cmTC_437a9.pdb /version:0.0 /machine:x64 /debug /INCREMENTAL /subsystem:console pthread.lib kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTFILE:CMakeFiles\\cmTC_437a9.dir/intermediate.manifest CMakeFiles\\cmTC_437a9.dir/manifest.res" failed (exit code 1104) with the following output:
+        LINK : fatal error LNK1104: cannot open file 'pthread.lib'\x0d
+        ninja: build stopped: subcommand failed.
+        
+      exitCode: 1
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/Microsoft Visual Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.26/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "C:/Program Files/Microsoft Visual Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.26/Modules/CheckCXXSourceCompiles.cmake:76 (cmake_check_source_compiles)"
+      - "D:/Qt/6.4.3/msvc2019_64/lib/cmake/Qt6/FindWrapAtomic.cmake:33 (check_cxx_source_compiles)"
+      - "C:/mc/vcpkg-master/scripts/buildsystems/vcpkg.cmake:859 (_find_package)"
+      - "C:/Program Files/Microsoft Visual Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.26/Modules/CMakeFindDependencyMacro.cmake:76 (find_package)"
+      - "D:/Qt/6.4.3/msvc2019_64/lib/cmake/Qt6/QtPublicDependencyHelpers.cmake:33 (find_dependency)"
+      - "D:/Qt/6.4.3/msvc2019_64/lib/cmake/Qt6Core/Qt6CoreDependencies.cmake:30 (_qt_internal_find_third_party_dependencies)"
+      - "D:/Qt/6.4.3/msvc2019_64/lib/cmake/Qt6Core/Qt6CoreConfig.cmake:40 (include)"
+      - "C:/mc/vcpkg-master/scripts/buildsystems/vcpkg.cmake:859 (_find_package)"
+      - "C:/Program Files/Microsoft Visual Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.26/Modules/CMakeFindDependencyMacro.cmake:76 (find_package)"
+      - "D:/Qt/6.4.3/msvc2019_64/lib/cmake/Qt6/QtPublicDependencyHelpers.cmake:108 (find_dependency)"
+      - "D:/Qt/6.4.3/msvc2019_64/lib/cmake/Qt6Widgets/Qt6WidgetsDependencies.cmake:39 (_qt_internal_find_qt_dependencies)"
+      - "D:/Qt/6.4.3/msvc2019_64/lib/cmake/Qt6Widgets/Qt6WidgetsConfig.cmake:40 (include)"
+      - "C:/mc/vcpkg-master/scripts/buildsystems/vcpkg.cmake:859 (_find_package)"
+      - "D:/Qt/6.4.3/msvc2019_64/lib/cmake/Qt6/Qt6Config.cmake:157 (find_package)"
+      - "C:/mc/vcpkg-master/scripts/buildsystems/vcpkg.cmake:859 (_find_package)"
+      - "CMakeLists.txt:13 (find_package)"
+    checks:
+      - "Performing Test HAVE_STDATOMIC"
+    directories:
+      source: "C:/Users/CRISTI/Desktop/sdsrfgdr/EchipaTeam_MC/Client/out/build/x64-Debug/CMakeFiles/CMakeScratch/TryCompile-oj0hjl"
+      binary: "C:/Users/CRISTI/Desktop/sdsrfgdr/EchipaTeam_MC/Client/out/build/x64-Debug/CMakeFiles/CMakeScratch/TryCompile-oj0hjl"
+    cmakeVariables:
+      CMAKE_CXX_FLAGS: "/DWIN32 /D_WINDOWS /W3 /GR /EHsc"
+      CMAKE_CXX_FLAGS_DEBUG: "/MDd /Zi /Ob0 /Od /RTC1"
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+      CMAKE_MODULE_PATH: "D:/Qt/6.4.3/msvc2019_64/lib/cmake/Qt6;D:/Qt/6.4.3/msvc2019_64/lib/cmake/Qt6/3rdparty/extra-cmake-modules/find-modules;D:/Qt/6.4.3/msvc2019_64/lib/cmake/Qt6/3rdparty/kwin;D:/Qt/6.4.3/msvc2019_64/lib/cmake/Qt6;D:/Qt/6.4.3/msvc2019_64/lib/cmake/Qt6/3rdparty/extra-cmake-modules/find-modules;D:/Qt/6.4.3/msvc2019_64/lib/cmake/Qt6/3rdparty/kwin"
+      VCPKG_APPLOCAL_DEPS: "ON"
+      VCPKG_TARGET_TRIPLET: "x64-windows"
+      Z_VCPKG_ROOT_DIR: "C:/mc/vcpkg-master"
+    buildResult:
+      variable: "HAVE_STDATOMIC"
+      cached: true
+      stdout: |
+        Change Dir: C:/Users/CRISTI/Desktop/sdsrfgdr/EchipaTeam_MC/Client/out/build/x64-Debug/CMakeFiles/CMakeScratch/TryCompile-oj0hjl
+        
+        Run Build Command(s):C:/Program Files/Microsoft Visual Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/Ninja/ninja.exe -v cmTC_90206 && [1/2] C:\\PROGRA~1\\MICROS~2\\2022\\ENTERP~1\\VC\\Tools\\MSVC\\1437~1.328\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DHAVE_STDATOMIC  /DWIN32 /D_WINDOWS /W3 /GR /EHsc  /MDd /Zi /Ob0 /Od /RTC1 -std:c++17 /showIncludes /FoCMakeFiles\\cmTC_90206.dir\\src.cxx.obj /FdCMakeFiles\\cmTC_90206.dir\\ /FS -c C:\\Users\\CRISTI\\Desktop\\sdsrfgdr\\EchipaTeam_MC\\Client\\out\\build\\x64-Debug\\CMakeFiles\\CMakeScratch\\TryCompile-oj0hjl\\src.cxx
+        [2/2] cmd.exe /C "cd . && "C:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\Common7\\IDE\\CommonExtensions\\Microsoft\\CMake\\CMake\\bin\\cmake.exe" -E vs_link_exe --intdir=CMakeFiles\\cmTC_90206.dir --rc=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100220~1.0\\x64\\rc.exe --mt=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100220~1.0\\x64\\mt.exe --manifests  -- C:\\PROGRA~1\\MICROS~2\\2022\\ENTERP~1\\VC\\Tools\\MSVC\\1437~1.328\\bin\\Hostx64\\x64\\link.exe /nologo CMakeFiles\\cmTC_90206.dir\\src.cxx.obj  /out:cmTC_90206.exe /implib:cmTC_90206.lib /pdb:cmTC_90206.pdb /version:0.0 /machine:x64  /debug /INCREMENTAL /subsystem:console  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib && cmd.exe /C "cd /D C:\\Users\\CRISTI\\Desktop\\sdsrfgdr\\EchipaTeam_MC\\Client\\out\\build\\x64-Debug\\CMakeFiles\\CMakeScratch\\TryCompile-oj0hjl && C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe -noprofile -executionpolicy Bypass -file C:/mc/vcpkg-master/scripts/buildsystems/msbuild/applocal.ps1 -targetBinary C:/Users/CRISTI/Desktop/sdsrfgdr/EchipaTeam_MC/Client/out/build/x64-Debug/CMakeFiles/CMakeScratch/TryCompile-oj0hjl/cmTC_90206.exe -installedDir C:/mc/vcpkg-master/installed/x64-windows/debug/bin -OutVariable out""
+        
+      exitCode: 0
+...

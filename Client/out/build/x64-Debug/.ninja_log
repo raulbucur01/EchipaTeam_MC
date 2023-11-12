@@ -1,0 +1,16 @@
+# ninja log v5
+66	2426	7215236288063991	build.ninja	e6c2f632f41cabe8
+24	578	7215233791377027	Client_autogen/timestamp	1e5bf72ed0f629c
+24	578	7215233791377027	C:/Users/CRISTI/Desktop/sdsrfgdr/EchipaTeam_MC/Client/out/build/x64-Debug/Client_autogen/timestamp	1e5bf72ed0f629c
+24	578	7215233791377027	Client_autogen/mocs_compilation.cpp	1e5bf72ed0f629c
+24	578	7215233791377027	C:/Users/CRISTI/Desktop/sdsrfgdr/EchipaTeam_MC/Client/out/build/x64-Debug/Client_autogen/mocs_compilation.cpp	1e5bf72ed0f629c
+580	4494	7215233831121074	CMakeFiles/Client.dir/Client_autogen/mocs_compilation.cpp.obj	841f39a89f0fbb6e
+587	4504	7215233831091100	CMakeFiles/Client.dir/main.cpp.obj	bf610def6339d8d4
+593	4515	7215233831221071	CMakeFiles/Client.dir/mainwindow.cpp.obj	ee1d298b0a3996cd
+4516	6168	7215233838111075	Client.exe	76559164d3427c0b
+43	189	7215236404988898	Client_autogen/timestamp	1e5bf72ed0f629c
+43	189	7215236404988898	Client_autogen/mocs_compilation.cpp	1e5bf72ed0f629c
+43	189	7215236404988898	C:/Users/CRISTI/Desktop/sdsrfgdr/EchipaTeam_MC/Client/out/build/x64-Debug/Client_autogen/timestamp	1e5bf72ed0f629c
+43	189	7215236404988898	C:/Users/CRISTI/Desktop/sdsrfgdr/EchipaTeam_MC/Client/out/build/x64-Debug/Client_autogen/mocs_compilation.cpp	1e5bf72ed0f629c
+193	3264	7215236435451381	CMakeFiles/Client.dir/mainwindow.cpp.obj	ee1d298b0a3996cd
+3265	5150	7215236440421363	Client.exe	76559164d3427c0b
