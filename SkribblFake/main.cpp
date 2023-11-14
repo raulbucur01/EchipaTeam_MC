@@ -61,7 +61,7 @@ int main() {
 	// Word class test
 	Word word("casa de marcat");
 
-	/* std::cout << word.getCurrentSlotState() << std::endl;
+	/*std::cout << word.getCurrentSlotState() << std::endl;
 	word.revealOneRandomLetter();
 	std::cout << word.getCurrentSlotState() << std::endl;
 	word.revealOneRandomLetter();
