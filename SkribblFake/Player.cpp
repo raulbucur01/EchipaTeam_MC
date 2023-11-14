@@ -1,7 +1,7 @@
 #include "Player.h"
 
-Player::Player(const std::string& name, std::istream& stream, const std::string& username, const std::string& password)
-	:m_name(name), m_streamPlayer(stream), m_username(username), m_password(password)
+Player::Player(const std::string& name, const std::string& password, std::istream& stream)
+	:m_name(name), m_password(password), m_streamPlayer(stream)
 {
 
 }

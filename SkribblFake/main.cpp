@@ -74,7 +74,7 @@ int main() {
 	std::cout << word.getCurrentSlotState() << std::endl;*/
 	PlayerRepo p;
 	std::ifstream citire("fisier.in");
-	p.add(Player("Vlad", citire, "username", "parola"));
+	p.add(Player("Vlad", "parola", citire));
 	GameLogic round(p);
 	round.TimePassing(word);
 	citire.close();
