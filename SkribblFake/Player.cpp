@@ -41,11 +41,6 @@ int16_t Player::getSecondsGuess() const
 	return m_secondsGuess;
 }
 
-bool Player::operator==(const Player& p)
-{
-	return m_name == p.getName();
-}
-
 Player& Player::operator=(const Player& other)
 {
 	if (this == &other) {
@@ -55,6 +50,11 @@ Player& Player::operator=(const Player& other)
 	m_name = other.m_name;
 	m_score = other.m_score;
 	return *this;
+}
+
+bool Player::operator==(const Player& p) const
+{
+	return m_name == p.m_name;
 }
 
 void Player::PositioningBegin()

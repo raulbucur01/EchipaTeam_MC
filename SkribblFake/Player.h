@@ -18,8 +18,8 @@ public:
 	void setSecondsGuess(int16_t seconds);
 	int16_t getSecondsGuess() const;
 	
-	bool operator ==(const Player& p);
 	Player& operator=(const Player& other);
+	bool operator==(const Player& p) const;
 	
 	void PositioningBegin();
 	bool GetPainter();
