@@ -17,17 +17,6 @@ void WordDB::addWord(Word& word)
 	m_words.push_back(word);
 }
 
-void WordDB::deleteWord(const std::string& word)
-{
-	auto it = getWordIterator(word);
-	if (it != m_words.end())
-	{
-		m_wordDB.remove<Word>(it->getId());
-
-		m_words.erase(it);
-	}
-}
-
 auto WordDB::getWordIterator(const std::string& word)
 {
 	for (auto it = m_words.begin(); it != m_words.end(); it++)
@@ -36,6 +25,18 @@ auto WordDB::getWordIterator(const std::string& word)
 			return it;
 	}
 	return m_words.end();
+}
+
+void WordDB::deleteWord(const std::string& word)
+{
+	auto it = m_words.begin();
+	it = getWordIterator(word);
+	if (it != m_words.end())
+	{
+		m_wordDB.remove<Word>(it->getId());
+
+		m_words.erase(it);
+	}
 }
 
 void WordDB::updateWord(const std::string& word, const Word& new_word)
@@ -67,7 +68,7 @@ std::vector<Word> WordDB::getAllWords()
 	return m_words;
 }
 
-void populateWordDB(Storage& storage)
+void populateWordDB(WordStorage& storage)
 {
 	std::vector<Word> words = {
 		Word{-1,"casa de marcat"},

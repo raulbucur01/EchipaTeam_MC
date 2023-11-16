@@ -17,6 +17,17 @@ void PlayerDB::addPlayer(Player& player)
 	m_players.push_back(player);
 }
 
+
+auto PlayerDB::getPlayerIterator(const std::string& name)
+{
+	for (auto it = m_players.begin(); it != m_players.end(); it++)
+	{
+		if (it->getName() == name)
+			return it;
+	}
+	return m_players.end();
+}
+
 void PlayerDB::deletePlayer(const std::string& name)
 {
 	/*if (searchPlayer(name))
@@ -56,16 +67,6 @@ void PlayerDB::deletePlayer(const std::string& name)
 //	return Player();
 //}
 
-auto PlayerDB::getPlayerIterator(const std::string& name)
-{
-	for (auto it = m_players.begin(); it != m_players.end(); it++)
-	{
-		if (it->getName() == name)
-			return it;
-	}
-	return m_players.end();
-}
-
 void PlayerDB::updatePlayer(const std::string& name, const Player& new_player)
 {
 	auto it = getPlayerIterator(name);
@@ -95,7 +96,7 @@ std::vector<Player> PlayerDB::getAllPlayers()
 	return m_players;
 }
 
-void populatePlayerDB(Storage& storage)
+void populatePlayerDB(PlayerStorage& storage)
 {
 	std::vector<Player> players = {
 		Player{-1,"Coco20", "amuitato", 0},

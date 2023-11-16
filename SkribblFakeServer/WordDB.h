@@ -15,9 +15,9 @@ static auto createWordStorage(const std::string& filename) {
 	);
 }
 
-using Storage = decltype(createWordStorage(""));
+using WordStorage = decltype(createWordStorage(""));
 
-void populateWordDB(Storage& storage);
+void populateWordDB(WordStorage& storage);
 
 class WordDB
 {
@@ -36,7 +36,7 @@ public:
 	std::vector<Word> getAllWords();
 
 private:
-	Storage m_wordDB;
+	WordStorage m_wordDB;
 	// probabil mai eficient cu unordered_map la m_words modific daca trebuie
 	std::vector<Word> m_words;
 };

@@ -17,9 +17,9 @@ static auto createPlayerStorage(const std::string& filename) {
 	);
 }
 
-using Storage = decltype(createPlayerStorage(""));
+using PlayerStorage = decltype(createPlayerStorage(""));
 
-void populatePlayerDB(Storage& storage);
+void populatePlayerDB(PlayerStorage& storage);
 
 class PlayerDB
 {
@@ -38,7 +38,7 @@ public:
 	std::vector<Player> getAllPlayers();
 
 private:
-	Storage m_playerDB;
+	PlayerStorage m_playerDB;
 	// probabil mai eficient cu unordered_map la m_players modific daca trebuie
 	std::vector<Player> m_players;
 };
