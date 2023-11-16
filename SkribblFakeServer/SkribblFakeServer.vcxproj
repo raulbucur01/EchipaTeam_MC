@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{4cbf99b1-9a59-4727-8eea-98cca0808da2}</ProjectGuid>
-    <RootNamespace>SkribblFake</RootNamespace>
+    <ProjectGuid>{4f71c81e-eacf-4089-aeb5-81cc4cf5f317}</ProjectGuid>
+    <RootNamespace>SkribblFakeServer</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -76,7 +76,6 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -91,7 +90,6 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -106,7 +104,6 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -121,7 +118,6 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -131,28 +127,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="GameLogic.h" />
-    <ClInclude Include="Player.h" />
-    <ClInclude Include="PlayerRepo.h" />
-    <ClInclude Include="PlayerService.h" />
-    <ClInclude Include="UI.h" />
-    <ClInclude Include="Word.h" />
-    <ClInclude Include="WordRepo.h" />
-    <ClInclude Include="WordService.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="GameLogic.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Player.cpp" />
-    <ClCompile Include="PlayerRepo.cpp" />
-    <ClCompile Include="PlayerService.cpp" />
-    <ClCompile Include="UI.cpp" />
-    <ClCompile Include="Word.cpp" />
-    <ClCompile Include="WordRepo.cpp" />
-    <ClCompile Include="WordService.cpp" />
+    <ClCompile Include="PlayerDB.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="fisier.in" />
+    <ClInclude Include="Player.h" />
+    <ClInclude Include="PlayerDB.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

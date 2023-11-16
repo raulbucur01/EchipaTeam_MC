@@ -13,9 +13,6 @@
     <Filter Include="UserInterface">
       <UniqueIdentifier>{0b14b173-7d8e-4db6-8d75-293c3f972433}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Data Base">
-      <UniqueIdentifier>{525eab6f-b603-49d2-997a-b2e91a23cdc5}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Player.cpp">
@@ -41,9 +38,6 @@
     <ClCompile Include="WordService.cpp">
       <Filter>Service</Filter>
     </ClCompile>
-    <ClCompile Include="DataBase.cpp">
-      <Filter>Data Base</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Player.h">
@@ -67,9 +61,6 @@
     </ClInclude>
     <ClInclude Include="WordService.h">
       <Filter>Service</Filter>
-    </ClInclude>
-    <ClInclude Include="DataBase.h">
-      <Filter>Data Base</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
