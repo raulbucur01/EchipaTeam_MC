@@ -26,6 +26,12 @@
     <ClCompile Include="PlayerDB.cpp">
       <Filter>DataBases</Filter>
     </ClCompile>
+    <ClCompile Include="WordDB.cpp">
+      <Filter>DataBases</Filter>
+    </ClCompile>
+    <ClCompile Include="Word.cpp">
+      <Filter>Domain</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Player.h">
@@ -33,6 +39,12 @@
     </ClInclude>
     <ClInclude Include="PlayerDB.h">
       <Filter>DataBases</Filter>
+    </ClInclude>
+    <ClInclude Include="WordDB.h">
+      <Filter>DataBases</Filter>
+    </ClInclude>
+    <ClInclude Include="Word.h">
+      <Filter>Domain</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

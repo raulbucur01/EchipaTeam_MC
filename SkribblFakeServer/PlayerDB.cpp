@@ -6,6 +6,8 @@ PlayerDB::PlayerDB(const std::string& filename) : m_playerDB(createPlayerStorage
 	auto initPlayersCount = m_playerDB.count<Player>();
 	if (initPlayersCount == 0)
 		populatePlayerDB(m_playerDB);
+
+	addPlayersFromDBToPlayersVector();
 }
 
 void PlayerDB::addPlayer(Player& player)
@@ -23,7 +25,8 @@ void PlayerDB::deletePlayer(const std::string& name)
 		m_players.erase(getPlayerIterator(name));
 	}*/
 
-	auto it = getPlayerIterator(name);
+	auto it = m_players.begin();
+	it = getPlayerIterator(name);
 	if (it != m_players.end())
 	{
 		m_playerDB.remove<Player>(it->getId());
@@ -71,6 +74,19 @@ void PlayerDB::updatePlayer(const std::string& name, const Player& new_player)
 		*it = new_player;
 
 		m_playerDB.update(new_player);
+	}
+}
+
+void PlayerDB::addPlayersFromDBToPlayersVector()
+{
+	auto playerCount = m_playerDB.count<Player>();
+	if (playerCount > 0)
+	{
+		auto players = m_playerDB.get_all<Player>();
+		for (auto& player : players)
+		{
+			m_players.push_back(player);
+		}
 	}
 }
 

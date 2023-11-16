@@ -23,8 +23,9 @@ public:
 	void setSecondsGuess(int16_t seconds);
 	void setPainter(bool este);
 
+	// operators
 	Player& operator=(const Player& other);
-	bool operator==(const Player& p) const;
+	bool operator==(const Player& other) const;
 
 private:
 	int m_id;
