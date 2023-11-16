@@ -61,15 +61,20 @@ Player& Player::operator=(const Player& other)
 	if (this == &other) {
 		return *this;
 	}
-
+	
+	m_id = other.m_id;
 	m_name = other.m_name;
+	m_password = other.m_password;
 	m_score = other.m_score;
 	return *this;
 }
 
 bool Player::operator==(const Player& p) const
 {
-	return m_name == p.m_name;
+	return (m_id == p.m_id &&
+			m_name == p.m_name &&
+			m_password == p.m_password &&
+			m_score == p.m_score);
 }
 
 bool Player::getPainter()

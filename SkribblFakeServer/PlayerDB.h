@@ -27,13 +27,17 @@ public:
 	PlayerDB() = default;
 	PlayerDB(const std::string& filename);
 
-	void addPlayer(const Player& p);
+	void addPlayer(Player& p);
 	void deletePlayer(const std::string& name);
-	bool searchPlayer(const std::string& name) const;
+	//bool searchPlayer(const std::string& name) const;
+	//Player getPlayer(const std::string& name);
+	auto getPlayerIterator(const std::string & name);
 	void updatePlayer(const std::string& name, const Player& new_player);
 	std::vector<Player> getAllPlayers();
 
 private:
 	Storage m_playerDB;
+	// probabil mai eficient cu unordered_map la m_players modific daca trebuie
+	std::vector<Player> m_players;
 };
 
