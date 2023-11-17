@@ -5,10 +5,10 @@ PlayerService::PlayerService(PlayerRepo& playerRepo)
 	m_playerRepo = playerRepo;
 }
 
-void PlayerService::addPlayer(std::string name, std::istream& stream, std::string username, std::string password)
+void PlayerService::addPlayer(std::string name, std::istream& stream, std::string password)
 {
 	// in service se construiesc obiectele cu informatiile de la user si se adauga la repo
-	Player newPlayer(name, stream, username, password);
+	Player newPlayer(name, password, stream);
 	m_playerRepo.add(newPlayer);
 }
 
