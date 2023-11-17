@@ -61,7 +61,7 @@ int main() {
 	// Word class test
 	Word word("casa de marcat");
 
-	/* std::cout << word.getCurrentSlotState() << std::endl;
+	/*std::cout << word.getCurrentSlotState() << std::endl;
 	word.revealOneRandomLetter();
 	std::cout << word.getCurrentSlotState() << std::endl;
 	word.revealOneRandomLetter();
@@ -71,10 +71,10 @@ int main() {
 	word.revealOneRandomLetter();
 	std::cout << word.getCurrentSlotState() << std::endl;
 	word.revealOneRandomLetter();
-	std::cout << word.getCurrentSlotState() << std::endl;*/
+	std::cout << word.getCurrentSlotState() << std::endl; */
 	PlayerRepo p;
 	std::ifstream citire("fisier.in");
-	p.add(Player("Vlad", citire, "username", "parola"));
+	p.add(Player("Vlad", "parola", citire));
 	GameLogic round(p);
 	round.TimePassing(word);
 	citire.close();

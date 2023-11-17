@@ -1,7 +1,7 @@
 #include "Player.h"
 
-Player::Player(const std::string& name, std::istream& stream, const std::string& username, const std::string& password)
-	:m_name(name), m_streamPlayer(stream), m_username(username), m_password(password)
+Player::Player(const std::string& name, const std::string& password, std::istream& stream)
+	:m_name(name), m_password(password), m_streamPlayer(stream)
 {
 
 }
@@ -41,11 +41,6 @@ int16_t Player::getSecondsGuess() const
 	return m_secondsGuess;
 }
 
-bool Player::operator==(const Player& p)
-{
-	return m_name == p.getName();
-}
-
 Player& Player::operator=(const Player& other)
 {
 	if (this == &other) {
@@ -55,6 +50,11 @@ Player& Player::operator=(const Player& other)
 	m_name = other.m_name;
 	m_score = other.m_score;
 	return *this;
+}
+
+bool Player::operator==(const Player& p) const
+{
+	return m_name == p.m_name;
 }
 
 void Player::PositioningBegin()

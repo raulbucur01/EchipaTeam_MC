@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Domain">
+      <UniqueIdentifier>{aa7e1a1f-a14d-4f28-9070-770e77434d0e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DataBases">
+      <UniqueIdentifier>{def3c470-7063-4fe1-8d3b-eef9199d46d7}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Domain</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerDB.cpp">
+      <Filter>DataBases</Filter>
+    </ClCompile>
+    <ClCompile Include="WordDB.cpp">
+      <Filter>DataBases</Filter>
+    </ClCompile>
+    <ClCompile Include="Word.cpp">
+      <Filter>Domain</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Player.h">
+      <Filter>Domain</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerDB.h">
+      <Filter>DataBases</Filter>
+    </ClInclude>
+    <ClInclude Include="WordDB.h">
+      <Filter>DataBases</Filter>
+    </ClInclude>
+    <ClInclude Include="Word.h">
+      <Filter>Domain</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
