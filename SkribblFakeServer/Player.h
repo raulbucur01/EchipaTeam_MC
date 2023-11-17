@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include <iostream>
 
 class Player
 {
@@ -26,6 +27,7 @@ public:
 	// operators
 	Player& operator=(const Player& other);
 	bool operator==(const Player& other) const;
+	friend std::ostream& operator<<(std::ostream& os, const Player& player);
 
 private:
 	int m_id;

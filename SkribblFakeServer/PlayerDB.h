@@ -36,6 +36,7 @@ public:
 
 	void addPlayersFromDBToPlayersVector();
 	std::vector<Player> getAllPlayers();
+	void printAllPLayers();
 
 private:
 	PlayerStorage m_playerDB;

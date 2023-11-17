@@ -86,3 +86,13 @@ void Player::setPainter(bool este)
 {
 	m_painter = este;
 }
+
+std::ostream& operator<<(std::ostream& os, const Player& player)
+{
+	os << "ID: " << player.m_id << ", "
+		<< "Name: " << player.m_name << ", "
+		<< "Password: " << player.m_password << ", "
+		<< "Score: " << player.m_score;
+
+	return os;
+}

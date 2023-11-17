@@ -34,6 +34,9 @@ public:
 
 	void addWordsFromDBToWordsVector();
 	std::vector<Word> getAllWords();
+	void printAllWords();
+
+	~WordDB() = default;
 
 private:
 	WordStorage m_wordDB;

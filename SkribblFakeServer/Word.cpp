@@ -97,3 +97,10 @@ void Word::resetSlots()
 	m_slots = getEmptyLetterSlots();
 }
 
+std::ostream& operator<<(std::ostream& os, const Word& word)
+{
+	os << "ID: " << word.getId() << ", "
+		<< "Word: " << word.getWord();
+
+	return os;
+}

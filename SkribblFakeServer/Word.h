@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <vector>
+#include <iostream>
 
 class Word
 {
@@ -30,6 +31,7 @@ public:
 	// operators
 	bool operator==(const Word& other) const;
 	Word& operator=(const Word& other);
+	friend std::ostream& operator<<(std::ostream& os, const Word& word);
 
 private:
 	int m_id;

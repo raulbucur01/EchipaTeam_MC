@@ -10,13 +10,6 @@ WordDB::WordDB(const std::string& filename) : m_wordDB(createWordStorage(filenam
 	addWordsFromDBToWordsVector();
 }
 
-void WordDB::addWord(Word& word)
-{
-	auto id = m_wordDB.insert(word);
-	word.setId(id);
-	m_words.push_back(word);
-}
-
 auto WordDB::getWordIterator(const std::string& word)
 {
 	for (auto it = m_words.begin(); it != m_words.end(); it++)
@@ -25,6 +18,15 @@ auto WordDB::getWordIterator(const std::string& word)
 			return it;
 	}
 	return m_words.end();
+}
+
+void WordDB::addWord(Word& word)
+{
+	if (getWordIterator(word.getWord()) == m_words.end()) {
+		auto id = m_wordDB.insert(word);
+		word.setId(id);
+		m_words.push_back(word);
+	}
 }
 
 void WordDB::deleteWord(const std::string& word)
@@ -66,6 +68,15 @@ void WordDB::addWordsFromDBToWordsVector()
 std::vector<Word> WordDB::getAllWords()
 {
 	return m_words;
+}
+
+void WordDB::printAllWords()
+{
+	std::cout << std::endl;
+	for (int i = 0; i < m_words.size(); i++)
+	{
+		std::cout << m_words[i] << "\n";
+	}
 }
 
 void populateWordDB(WordStorage& storage)
