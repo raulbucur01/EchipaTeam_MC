@@ -1,0 +1,9 @@
+# ninja log v5
+17	655	7221066625040705	SkribbleFakeClient_autogen/timestamp	3052c09a72a02bd
+17	655	7221066625040705	SkribbleFakeClient_autogen/mocs_compilation.cpp	3052c09a72a02bd
+17	655	7221066625040705	C:/Users/vladb/OneDrive/Documente/GitHub/EchipaTeam_MC/build-SkribbleFakeClient-Desktop_Qt_6_4_3_MSVC2019_64bit-Debug/SkribbleFakeClient_autogen/timestamp	3052c09a72a02bd
+17	655	7221066625040705	C:/Users/vladb/OneDrive/Documente/GitHub/EchipaTeam_MC/build-SkribbleFakeClient-Desktop_Qt_6_4_3_MSVC2019_64bit-Debug/SkribbleFakeClient_autogen/mocs_compilation.cpp	3052c09a72a02bd
+656	4176	7221066662200141	CMakeFiles/SkribbleFakeClient.dir/SkribbleFakeClient_autogen/mocs_compilation.cpp.obj	5854b13f8ee82e4a
+666	4184	7221066662300345	CMakeFiles/SkribbleFakeClient.dir/main.cpp.obj	36047127acd672b1
+675	4277	7221066663254511	CMakeFiles/SkribbleFakeClient.dir/mainwindow.cpp.obj	5239a7df5428df6a
+4277	4777	7221066668087662	SkribbleFakeClient.exe	d519c2c77295f3e6
