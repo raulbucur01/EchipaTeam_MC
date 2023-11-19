@@ -10,7 +10,9 @@
 // add headers that you want to pre-compile here
 #include "framework.h"
 #pragma once
-#include<iostream>
+#include <iostream>
 #include <string>
+#include <vector>
+#include <time.h>
 
 #endif //PCH_H
