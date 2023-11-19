@@ -1,8 +1,0 @@
-C:/Users/CRISTI/Desktop/sdsrfgdr/EchipaTeam_MC/Client/out/build/x64-Debug/CMakeFiles/Client.dir
-C:/Users/CRISTI/Desktop/sdsrfgdr/EchipaTeam_MC/Client/out/build/x64-Debug/CMakeFiles/edit_cache.dir
-C:/Users/CRISTI/Desktop/sdsrfgdr/EchipaTeam_MC/Client/out/build/x64-Debug/CMakeFiles/rebuild_cache.dir
-C:/Users/CRISTI/Desktop/sdsrfgdr/EchipaTeam_MC/Client/out/build/x64-Debug/CMakeFiles/list_install_components.dir
-C:/Users/CRISTI/Desktop/sdsrfgdr/EchipaTeam_MC/Client/out/build/x64-Debug/CMakeFiles/install.dir
-C:/Users/CRISTI/Desktop/sdsrfgdr/EchipaTeam_MC/Client/out/build/x64-Debug/CMakeFiles/install/local.dir
-C:/Users/CRISTI/Desktop/sdsrfgdr/EchipaTeam_MC/Client/out/build/x64-Debug/CMakeFiles/Client_autogen_timestamp_deps.dir
-C:/Users/CRISTI/Desktop/sdsrfgdr/EchipaTeam_MC/Client/out/build/x64-Debug/CMakeFiles/Client_autogen.dir
