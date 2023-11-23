@@ -10,6 +10,9 @@ class SkribblFakeClient : public QMainWindow
 public:
     SkribblFakeClient(QWidget *parent = nullptr);
     ~SkribblFakeClient();
+    
+public slots:
+    void on_pushButton_Login_clicked();
 
 private:
     Ui::SkribblFakeClientClass ui;
