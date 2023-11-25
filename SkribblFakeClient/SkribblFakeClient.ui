@@ -17,10 +17,10 @@
    <widget class="QGroupBox" name="groupBox">
     <property name="geometry">
      <rect>
-      <x>140</x>
-      <y>40</y>
-      <width>221</width>
-      <height>171</height>
+      <x>130</x>
+      <y>50</y>
+      <width>291</width>
+      <height>161</height>
      </rect>
     </property>
     <property name="title">
@@ -63,6 +63,13 @@
       <widget class="QPushButton" name="pushButton_Login">
        <property name="text">
         <string>Log in</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QCommandLinkButton" name="commandLinkButton">
+       <property name="text">
+        <string> Sign up</string>
        </property>
       </widget>
      </item>

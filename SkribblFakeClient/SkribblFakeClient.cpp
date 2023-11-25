@@ -16,6 +16,8 @@ void SkribblFakeClient::on_pushButton_Login_clicked()
 	QString username = ui.lineEdit_username->text();
 	QString password = ui.lineEdit_password->text();
 
+	// aici testare existenta cont cu serverul
+
 	if (username == "test" && password == "test")
 		QMessageBox::information(this, "Login", "Username and password tested and correct!");
 	else
