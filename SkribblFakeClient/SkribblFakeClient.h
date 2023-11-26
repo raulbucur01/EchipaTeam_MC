@@ -13,6 +13,7 @@ public:
     
 public slots:
     void on_pushButton_Login_clicked();
+    void on_commandLinkButton_pressed();
 
 private:
     Ui::SkribblFakeClientClass ui;

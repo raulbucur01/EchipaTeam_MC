@@ -1,15 +1,23 @@
 #include "SkribblFakeClient.h"
+#include "RegisterPage.h"
 #include <qmessagebox.h>
 
 SkribblFakeClient::SkribblFakeClient(QWidget* parent)
 	: QMainWindow(parent)
 {
 	ui.setupUi(this);
-	connect(ui.pushButton_Login, &QPushButton::clicked, this, &SkribblFakeClient::on_pushButton_Login_clicked);
+	connect(ui.pushButton_Login, &QPushButton::pressed, this, &SkribblFakeClient::on_pushButton_Login_clicked);
+	connect(ui.commandLinkButton, &QCommandLinkButton::pressed, this, &SkribblFakeClient::on_commandLinkButton_pressed);
 }
 
 SkribblFakeClient::~SkribblFakeClient()
 {}
+
+void SkribblFakeClient::on_commandLinkButton_pressed()
+{
+	RegisterPage w;
+	w.showFullScreen();
+}
 
 void SkribblFakeClient::on_pushButton_Login_clicked()
 {
