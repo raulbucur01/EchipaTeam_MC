@@ -11,6 +11,10 @@ public:
 	LoginPage(QWidget *parent = nullptr);
 	~LoginPage();
 
+private slots:
+	void on_commandLinkButton_Register_pressed();
+	void on_pushButton_Login_pressed();
+
 private:
 	Ui::LoginPageClass ui;
 };
