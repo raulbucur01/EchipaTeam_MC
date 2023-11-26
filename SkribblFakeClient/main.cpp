@@ -1,10 +1,10 @@
-#include "SkribblFakeClient.h"
+#include "StartPage.h"
 #include <QtWidgets/QApplication>
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    SkribblFakeClient w;
-    w.showFullScreen();
+    StartPage b;
+    b.showFullScreen();
     return a.exec();
 }

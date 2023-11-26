@@ -98,16 +98,26 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="LoginPage.cpp" />
+    <ClCompile Include="StartPage.cpp" />
     <QtRcc Include="SkribblFakeClient.qrc" />
+    <QtUic Include="LoginPage.ui" />
     <QtUic Include="RegisterPage.ui" />
     <QtUic Include="SkribblFakeClient.ui" />
-    <QtMoc Include="SkribblFakeClient.h" />
+    <QtMoc Include="LoginPage1.h" />
     <ClCompile Include="RegisterPage.cpp" />
-    <ClCompile Include="SkribblFakeClient.cpp" />
+    <ClCompile Include="LoginPage1.cpp" />
     <ClCompile Include="main.cpp" />
+    <QtUic Include="StartPage.ui" />
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="RegisterPage.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="StartPage.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="LoginPage.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">
