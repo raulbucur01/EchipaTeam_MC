@@ -5,7 +5,7 @@
 
 int main() {
 	PlayerDB playerDB("Players.sqlite");
-	WordDB wordDB("Words.sqlite");
+	/*WordDB wordDB("Words.sqlite");
 
 	playerDB.printAllPLayers();
 
@@ -21,9 +21,9 @@ int main() {
 
 	wordDB.deleteWord("laptop gaming");
 	wordDB.printAllWords();
-
-	ScribbleServer server(8080);
-	server.start();
+	*/
+	ScribbleServer server;
+	server.Start(playerDB);
 
 	return 0;
 }

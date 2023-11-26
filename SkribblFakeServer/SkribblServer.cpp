@@ -1,45 +1,43 @@
 #include "SkribblServer.h"
 
-ScribbleServer::ScribbleServer(int port) : port(port) {
-	// Rutele pentru diferite requesturi
-	CROW_ROUTE(app, "/join").methods("POST"_method)([this](const crow::request& req) {
-		crow::response res;
-	handleJoinRequest(req, res);
-	return res;
-		});
-
-	CROW_ROUTE(app, "/drawing").methods("POST"_method)([this](const crow::request& req) {
-		crow::response res;
-	handleDrawing(req, res);
-	return res;
-		});
-
-	CROW_ROUTE(app, "/guess").methods("POST"_method)([this](const crow::request& req) {
-		crow::response res;
-	handleGuess(req, res);
-	return res;
-		});
-
-	CROW_ROUTE(app, "/gamestate").methods("GET"_method)([this](const crow::request& req) {
-		crow::response res;
-	handleGameStateRequest(req, res);
-	return res;
-		});
-}
-
-void ScribbleServer::start()
+void ScribbleServer::Start(PlayerDB& storage)
 {
-	//porneste aplicatia crow
-	app.port(port).multithreaded().run();
+	// Rutele pentru diferite requesturi
+	CROW_ROUTE(m_app, "/")([]() {
+		return "The server is working";
+		});
+	CROW_ROUTE(m_app, "/join").methods("POST"_method)([this](const crow::request& req) {
+		crow::response res;
+	HandleJoinRequest(req, res);
+	return res;
+		});
 
+	CROW_ROUTE(m_app, "/drawing").methods("POST"_method)([this](const crow::request& req) {
+		crow::response res;
+	HandleDrawing(req, res);
+	return res;
+		});
+
+	CROW_ROUTE(m_app, "/guess").methods("POST"_method)([this](const crow::request& req) {
+		crow::response res;
+	HandleGuess(req, res);
+	return res;
+		});
+
+	CROW_ROUTE(m_app, "/gamestate").methods("GET"_method)([this](const crow::request& req) {
+		crow::response res;
+	HandleGameStateRequest(req, res);
+	return res;
+		});
+	m_app.port(18080).multithreaded().run();
 }
 
-void ScribbleServer::handleRequest(const crow::request& req, crow::response& res, void (ScribbleServer::* handler)(const crow::request&, crow::response&))
+void ScribbleServer::HandleRequest(const crow::request& req, crow::response& res, void (ScribbleServer::* handler)(const crow::request&, crow::response&))
 {
 	(this->*handler)(req, res);
 }
 
-void ScribbleServer::handleJoinRequest(const crow::request& req, crow::response& res)
+void ScribbleServer::HandleJoinRequest(const crow::request& req, crow::response& res)
 {
 	auto json = crow::json::load(req.body);
 	if (!json) {
@@ -57,14 +55,14 @@ void ScribbleServer::handleJoinRequest(const crow::request& req, crow::response&
 
 	// Mesaj cu informatii legate de noul player
 	std::string broadcastMessageText = "Player " + playerName + " joined the game\n";
-	broadcastMessage(broadcastMessageText);
+	BroadcastMessage(broadcastMessageText);
 
 	res.code = 200;
 	res.write("OK");
 	res.end();
 }
 
-void ScribbleServer::handleDrawing(const crow::request& req, crow::response& res)
+void ScribbleServer::HandleDrawing(const crow::request& req, crow::response& res)
 {
 	
 	auto json = crow::json::load(req.body);
@@ -83,14 +81,14 @@ void ScribbleServer::handleDrawing(const crow::request& req, crow::response& res
 
 	// Urmeaza modificare dupa terminarea UI ului pentru a arata desenul tuturor playerilor corespunzatori logicii jocului
 	std::string broadcastMessageText = "Drawing: " + drawingData + "\n";
-	broadcastMessage(broadcastMessageText);
+	BroadcastMessage(broadcastMessageText);
 
 	res.code = 200;
 	res.write("OK");
 	res.end();
 }
 
-void ScribbleServer::handleGuess(const crow::request& req, crow::response& res)
+void ScribbleServer::HandleGuess(const crow::request& req, crow::response& res)
 {
 	auto json = crow::json::load(req.body);
 	if (!json) {
@@ -107,19 +105,19 @@ void ScribbleServer::handleGuess(const crow::request& req, crow::response& res)
 
 	// Ce a ghicit player ul
 	std::string resultMessage = "Player guessed: " + guessData + "\n";
-	broadcastMessage(resultMessage);
+	BroadcastMessage(resultMessage);
 
 	res.code = 200;
 	res.write("OK");
 	res.end();
 }
 
-void ScribbleServer::handleGameStateRequest(const crow::request& req, crow::response& res)
+void ScribbleServer::HandleGameStateRequest(const crow::request& req, crow::response& res)
 {
 	// Trimite starea jocului curent playerului ce o cere
 	std::string gameState = "Current Game State:\n";
 	gameState += "Drawings: ";
-	for (const auto& drawing : drawings) {
+	for (const auto& drawing : m_drawings) {
 		gameState += drawing + ", ";
 	}
 	gameState += "\n";
@@ -129,10 +127,11 @@ void ScribbleServer::handleGameStateRequest(const crow::request& req, crow::resp
 	res.end();
 }
 
-void ScribbleServer::broadcastMessage(const std::string& message)
+void ScribbleServer::BroadcastMessage(const std::string& message)
 {
 	// nu am UI ul sa trimit mesaje tuturor playerilor
 	//for (auto& client : connectedPlayers) {
 	//	client.send_text(message);
 	//}
 }
+
