@@ -7,7 +7,7 @@
 #include <sqlite_orm/sqlite_orm.h>
 #include "Word.h"
 #include "Player.h"
-
+#include "PlayerDB.h"
 using namespace sqlite_orm;
 
 //using PlayerStorage = storage_t<Player>;
@@ -15,22 +15,18 @@ using namespace sqlite_orm;
 
 class ScribbleServer {
 public:
-    ScribbleServer() = default; 
-    ScribbleServer(int port);
-    void start();
-
+    void Start(PlayerDB& storage);
 private:
-    crow::SimpleApp app;
-    int port;
+    crow::SimpleApp m_app;
 
     // Game state
-    std::vector<std::string> drawings;
-    std::string currentWord;
+    std::vector<std::string> m_drawings;
+    std::string m_currentWord;
 
-    void handleRequest(const crow::request& req, crow::response& res, void(ScribbleServer::* handler)(const crow::request&, crow::response&));
-    void handleJoinRequest(const crow::request& req, crow::response& res);
-    void handleDrawing(const crow::request& req, crow::response& res);
-    void handleGuess(const crow::request& req, crow::response& res);
-    void handleGameStateRequest(const crow::request& req, crow::response& res);
-    void broadcastMessage(const std::string& message);
+    void HandleRequest(const crow::request& req, crow::response& res, void(ScribbleServer::* handler)(const crow::request&, crow::response&));
+    void HandleJoinRequest(const crow::request& req, crow::response& res);
+    void HandleDrawing(const crow::request& req, crow::response& res);
+    void HandleGuess(const crow::request& req, crow::response& res);
+    void HandleGameStateRequest(const crow::request& req, crow::response& res);
+    void BroadcastMessage(const std::string& message);
 };

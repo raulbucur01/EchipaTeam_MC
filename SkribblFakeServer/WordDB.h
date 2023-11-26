@@ -7,10 +7,9 @@ namespace sql = sqlite_orm;
 static auto createWordStorage(const std::string& filename) {
 	return sql::make_storage(
 		filename,
-		sql::make_table(
-			"Word",
-			sql::make_column("id", &Word::SetId, &Word::GetId, sql::primary_key().autoincrement()),
-			sql::make_column("word", &Word::SetWord, &Word::GetWord)
+		sql::make_table("Word",
+		sql::make_column("id", &Word::SetId, &Word::GetId, sql::primary_key().autoincrement()),
+		sql::make_column("word", &Word::SetWord, &Word::GetWord)
 		)
 	);
 }

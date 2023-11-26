@@ -7,12 +7,11 @@ namespace sql = sqlite_orm;
 static auto createPlayerStorage(const std::string& filename) {
 	return sql::make_storage(
 		filename,
-		sql::make_table(
-			"Player",
-			sql::make_column("id", &Player::SetId, &Player::GetId, sql::primary_key().autoincrement()),
-			sql::make_column("Name", &Player::SetName, &Player::GetName),
-			sql::make_column("Password", &Player::SetPassword, &Player::GetPassword),
-			sql::make_column("Score", &Player::SetScore, &Player::GetScore)
+		sql::make_table("Player",
+		sql::make_column("id", &Player::SetId, &Player::GetId, sql::primary_key().autoincrement()),
+		sql::make_column("Name", &Player::SetName, &Player::GetName),
+		sql::make_column("Password", &Player::SetPassword, &Player::GetPassword),
+		sql::make_column("Score", &Player::SetScore, &Player::GetScore)
 		)
 	);
 }
