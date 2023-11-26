@@ -1,6 +1,7 @@
 #include "WordDB.h"
 #include "PlayerDB.h"
 #include <iostream>
+#include "SkribblServer.h"
 
 int main() {
 	PlayerDB playerDB("Players.sqlite");
@@ -20,5 +21,9 @@ int main() {
 
 	wordDB.deleteWord("laptop gaming");
 	wordDB.printAllWords();
+
+	ScribbleServer server(8080);
+	server.start();
+
 	return 0;
 }

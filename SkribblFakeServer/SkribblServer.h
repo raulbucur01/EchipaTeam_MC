@@ -27,6 +27,7 @@ private:
     std::vector<std::string> drawings;
     std::string currentWord;
 
+    void handleRequest(const crow::request& req, crow::response& res, void(ScribbleServer::* handler)(const crow::request&, crow::response&));
     void handleJoinRequest(const crow::request& req, crow::response& res);
     void handleDrawing(const crow::request& req, crow::response& res);
     void handleGuess(const crow::request& req, crow::response& res);
