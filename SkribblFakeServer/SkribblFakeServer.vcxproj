@@ -146,12 +146,14 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerDB.cpp" />
+    <ClCompile Include="SkribblServer.cpp" />
     <ClCompile Include="Word.cpp" />
     <ClCompile Include="WordDB.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerDB.h" />
+    <ClInclude Include="SkribblServer.h" />
     <ClInclude Include="Word.h" />
     <ClInclude Include="WordDB.h" />
   </ItemGroup>
