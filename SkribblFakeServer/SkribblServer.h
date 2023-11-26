@@ -2,25 +2,34 @@
 #include <iostream>
 #include <vector>
 #include <thread>
+#include <cstring>
+#include <crow.h>
+#include <sqlite_orm/sqlite_orm.h>
+#include "Word.h"
+#include "Player.h"
+
+using namespace sqlite_orm;
+
+//using PlayerStorage = storage_t<Player>;
+//using WordStorage = storage_t<Word>;
 
 class ScribbleServer {
 public:
+    ScribbleServer() = default; 
     ScribbleServer(int port);
     void start();
 
 private:
-    int serverSocket;
-    std::vector<std::thread> clientThreads;
+    crow::SimpleApp app;
+    int port;
 
-    std::vector<std::string> players;
+    // Game state
     std::vector<std::string> drawings;
     std::string currentWord;
 
-    void handleClient(int clientSocket);
-    void handleJoinRequest(int clientSocket);
-    void handleDrawing(int clientSocket, const std::string& drawing);
-    void handleGuess(int clientSocket, const std::string& guess);
-    void handleGameStateRequest(int clientSocket);
-
+    void handleJoinRequest(const crow::request& req, crow::response& res);
+    void handleDrawing(const crow::request& req, crow::response& res);
+    void handleGuess(const crow::request& req, crow::response& res);
+    void handleGameStateRequest(const crow::request& req, crow::response& res);
     void broadcastMessage(const std::string& message);
 };
