@@ -9,8 +9,8 @@ static auto createWordStorage(const std::string& filename) {
 		filename,
 		sql::make_table(
 			"Word",
-			sql::make_column("id", &Word::setId, &Word::getId, sql::primary_key().autoincrement()),
-			sql::make_column("word", &Word::setWord, &Word::getWord)
+			sql::make_column("id", &Word::SetId, &Word::GetId, sql::primary_key().autoincrement()),
+			sql::make_column("word", &Word::SetWord, &Word::GetWord)
 		)
 	);
 }

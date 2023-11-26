@@ -8,25 +8,26 @@ class Word
 public:
 	Word() = default;
 	Word(int id, const std::string& word = "");
+
 	// getters
-	std::string getWord() const;
-	int getId() const;
+	std::string GetWord() const;
+	int GetId() const;
 	
 	// setters
-	void setWord(std::string word);
-	void setId(int id);
+	void SetWord(std::string word);
+	void SetId(int id);
 
 	// logic
 	// returneaza starea curenta a sloturilor de litere
-	std::string getCurrentSlotState();
+	std::string GetCurrentSlotState();
 	// inlocuieste random un slot nedezvaluit cu litera de la acelasi index din cuvant
-	void revealOneRandomLetter();
+	void RevealOneRandomLetter();
 	// returneaza un string cu atatea sloturi cate litere are cuvantul
-	std::string getEmptyLetterSlots();
+	std::string GetEmptyLetterSlots();
 	//returneaza lungimea cuvantului
-	int getSize();
-	int getSizeUnrevealedWord();
-	void resetSlots();
+	int GetSize();
+	int GetSizeUnrevealedWord();
+	void ResetSlots();
 
 	// operators
 	bool operator==(const Word& other) const;

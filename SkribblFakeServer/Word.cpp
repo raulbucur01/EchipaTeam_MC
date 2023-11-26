@@ -1,9 +1,10 @@
 #include "Word.h"
 #include <time.h>
-Word::Word(int id, const std::string& word)
-	: m_id(id), m_word(word)
+Word::Word(int id, const std::string& word):
+	m_id{ id },
+	m_word{ word }
 {
-	m_slots = getEmptyLetterSlots();
+	m_slots = GetEmptyLetterSlots();
 
 	for (int i = 0; i < m_slots.length(); i++)
 	{
@@ -12,32 +13,32 @@ Word::Word(int id, const std::string& word)
 	}
 }
 
-std::string Word::getWord() const
+std::string Word::GetWord() const
 {
 	return m_word;
 }
 
-int Word::getId() const
+int Word::GetId() const
 {
 	return m_id;
 }
 
-void Word::setWord(std::string word)
+void Word::SetWord(std::string word)
 {
 	m_word = word;
 }
 
-void Word::setId(int id)
+void Word::SetId(int id)
 {
 	m_id = id;
 }
 
-std::string Word::getCurrentSlotState()
+std::string Word::GetCurrentSlotState()
 {
 	return m_slots;
 }
 
-void Word::revealOneRandomLetter()
+void Word::RevealOneRandomLetter()
 {
 	int randomIndex;
 	bool indexFound = false;
@@ -53,7 +54,7 @@ void Word::revealOneRandomLetter()
 
 }
 
-std::string Word::getEmptyLetterSlots()
+std::string Word::GetEmptyLetterSlots()
 {
 	std::string letterSlots = "";
 	for (size_t i = 0; i < m_word.length(); i++)
@@ -82,25 +83,25 @@ Word& Word::operator=(const Word& other)
 	return *this;
 }
 
-int Word::getSize()
+int Word::GetSize()
 {
 	return static_cast<int>(m_word.size());
 }
 
-int Word::getSizeUnrevealedWord()
+int Word::GetSizeUnrevealedWord()
 {
 	return static_cast<int>(m_unrevealedIndexes.size());
 }
 
-void Word::resetSlots()
+void Word::ResetSlots()
 {
-	m_slots = getEmptyLetterSlots();
+	m_slots = GetEmptyLetterSlots();
 }
 
 std::ostream& operator<<(std::ostream& os, const Word& word)
 {
-	os << "ID: " << word.getId() << ", "
-		<< "Word: " << word.getWord();
+	os << "ID: " << word.GetId() << ", "
+		<< "Word: " << word.GetWord();
 
 	return os;
 }

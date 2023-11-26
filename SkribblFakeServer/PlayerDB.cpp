@@ -14,7 +14,7 @@ auto PlayerDB::getPlayerIterator(const std::string& name)
 {
 	for (auto it = m_players.begin(); it != m_players.end(); it++)
 	{
-		if (it->getName() == name)
+		if (it->GetName() == name)
 			return it;
 	}
 	return m_players.end();
@@ -22,9 +22,9 @@ auto PlayerDB::getPlayerIterator(const std::string& name)
 
 void PlayerDB::addPlayer(Player& player)
 {
-	if (getPlayerIterator(player.getName()) == m_players.end()) {
+	if (getPlayerIterator(player.GetName()) == m_players.end()) {
 		auto id = m_playerDB.insert(player);
-		player.setId(id);
+		player.SetId(id);
 		m_players.push_back(player);
 	}
 }
@@ -41,7 +41,7 @@ void PlayerDB::deletePlayer(const std::string& name)
 	it = getPlayerIterator(name);
 	if (it != m_players.end())
 	{
-		m_playerDB.remove<Player>(it->getId());
+		m_playerDB.remove<Player>(it->GetId());
 
 		m_players.erase(it);
 	}

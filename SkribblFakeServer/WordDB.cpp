@@ -14,7 +14,7 @@ auto WordDB::getWordIterator(const std::string& word)
 {
 	for (auto it = m_words.begin(); it != m_words.end(); it++)
 	{
-		if (it->getWord() == word)
+		if (it->GetWord() == word)
 			return it;
 	}
 	return m_words.end();
@@ -22,9 +22,9 @@ auto WordDB::getWordIterator(const std::string& word)
 
 void WordDB::addWord(Word& word)
 {
-	if (getWordIterator(word.getWord()) == m_words.end()) {
+	if (getWordIterator(word.GetWord()) == m_words.end()) {
 		auto id = m_wordDB.insert(word);
-		word.setId(id);
+		word.SetId(id);
 		m_words.push_back(word);
 	}
 }
@@ -35,7 +35,7 @@ void WordDB::deleteWord(const std::string& word)
 	it = getWordIterator(word);
 	if (it != m_words.end())
 	{
-		m_wordDB.remove<Word>(it->getId());
+		m_wordDB.remove<Word>(it->GetId());
 
 		m_words.erase(it);
 	}

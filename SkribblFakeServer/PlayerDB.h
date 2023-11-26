@@ -9,10 +9,10 @@ static auto createPlayerStorage(const std::string& filename) {
 		filename,
 		sql::make_table(
 			"Player",
-			sql::make_column("id", &Player::setId, &Player::getId, sql::primary_key().autoincrement()),
-			sql::make_column("Name", &Player::setName, &Player::getName),
-			sql::make_column("Password", &Player::setPassword, &Player::getPassword),
-			sql::make_column("Score", &Player::setScore, &Player::getScore)
+			sql::make_column("id", &Player::SetId, &Player::GetId, sql::primary_key().autoincrement()),
+			sql::make_column("Name", &Player::SetName, &Player::GetName),
+			sql::make_column("Password", &Player::SetPassword, &Player::GetPassword),
+			sql::make_column("Score", &Player::SetScore, &Player::GetScore)
 		)
 	);
 }

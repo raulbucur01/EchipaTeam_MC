@@ -14,7 +14,7 @@ int main() {
 	wordDB.addWord(word);
 	wordDB.printAllWords();
 
-	Word newWord(word.getId() + 100, "laptop gaming");
+	Word newWord(word.GetId() + 100, "laptop gaming");
 	wordDB.updateWord("laptop de gaming", newWord);
 	wordDB.printAllWords();
 
