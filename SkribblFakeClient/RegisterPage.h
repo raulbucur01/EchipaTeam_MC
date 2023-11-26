@@ -11,6 +11,9 @@ public:
 	RegisterPage(QWidget *parent = nullptr);
 	~RegisterPage();
 
+private slots:
+	void on_pushButton_CreateAccount_pressed();
+
 private:
 	Ui::RegisterPageClass ui;
 };
