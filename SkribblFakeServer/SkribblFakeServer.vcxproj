@@ -147,6 +147,8 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerDB.cpp" />
     <ClCompile Include="SkribblServer.cpp" />
+    <ClCompile Include="utils.cpp" />
+    <ClCompile Include="utils.cppm" />
     <ClCompile Include="Word.cpp" />
     <ClCompile Include="WordDB.cpp" />
   </ItemGroup>
@@ -156,6 +158,10 @@
     <ClInclude Include="SkribblServer.h" />
     <ClInclude Include="Word.h" />
     <ClInclude Include="WordDB.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Players.sqlite" />
+    <None Include="Words.sqlite" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

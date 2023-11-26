@@ -35,6 +35,12 @@
     <ClCompile Include="SkribblServer.cpp">
       <Filter>Domain</Filter>
     </ClCompile>
+    <ClCompile Include="utils.cppm">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="utils.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Player.h">
@@ -52,5 +58,13 @@
     <ClInclude Include="SkribblServer.h">
       <Filter>Domain</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Players.sqlite">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Words.sqlite">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
 </Project>
