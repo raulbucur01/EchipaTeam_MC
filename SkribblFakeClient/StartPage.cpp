@@ -1,13 +1,13 @@
 #include "StartPage.h"
-#include <QDesktopWidget>
+#include <QScreen>
 
 StartPage::StartPage(QWidget* parent)
 	: QMainWindow(parent), loginPage(nullptr)
 {
 	ui.setupUi(this);
 	this->setStyleSheet("QMainWindow {background: 'lightblue';}");
-    QDesktopWidget* desktop = QApplication::desktop();
-    this->resize(desktop.size());
+    QScreen* desktop = QApplication::primaryScreen();
+    this->resize(desktop->size());
     QPixmap bkgnd("/cutepuppy.jpg");
     bkgnd = bkgnd.scaled(this->size(), Qt::IgnoreAspectRatio);
     QPalette palette;
