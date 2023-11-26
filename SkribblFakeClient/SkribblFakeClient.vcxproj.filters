@@ -29,10 +29,10 @@
     <QtUic Include="SkribblFakeClient.ui">
       <Filter>Form Files</Filter>
     </QtUic>
-    <QtMoc Include="SkribblFakeClient.h">
+    <QtMoc Include="LoginPage1.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <ClCompile Include="SkribblFakeClient.cpp">
+    <ClCompile Include="LoginPage1.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -40,5 +40,36 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="RegisterPage.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="StartPage.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="LoginPage.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="RegisterPage.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="StartPage.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="LoginPage.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+  </ItemGroup>
+  <ItemGroup>
+    <QtUic Include="RegisterPage.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="StartPage.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="LoginPage.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
   </ItemGroup>
 </Project>
