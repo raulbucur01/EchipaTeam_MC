@@ -1,10 +1,14 @@
 #include "RegisterPage.h"
 #include <qmessagebox.h>
+#include <QScreen>
 
 RegisterPage::RegisterPage(QWidget *parent)
 	: QWidget(parent)
 {
 	ui.setupUi(this);
+	QScreen* desktop = QApplication::primaryScreen();
+	this->resize(desktop->size());
+	ui.groupBox->move((this->size().width() - ui.groupBox->size().width()) / 2, (this->size().height() - ui.groupBox->size().height()) / 2);
 }
 
 RegisterPage::~RegisterPage()

@@ -1,13 +1,17 @@
 #include "LoginPage.h"
 #include "RegisterPage.h"
 #include <qmessagebox.h>
+#include <QScreen>
 
 LoginPage::LoginPage(QWidget *parent)
 	: QWidget(parent)
 {
 	ui.setupUi(this);
+	QScreen* desktop = QApplication::primaryScreen();
+	this->resize(desktop->size());
 	connect(ui.commandLinkButton_Register, &QCommandLinkButton::pressed, this, &LoginPage::on_commandLinkButton_Register_pressed);
 	connect(ui.pushButton_Login, &QPushButton::pressed, this, &LoginPage::on_pushButton_Login_pressed);
+	ui.groupBox->move((this->size().width() - ui.groupBox->size().width()) / 2, (this->size().height() - ui.groupBox->size().height()) / 2);
 }
 
 LoginPage::~LoginPage()

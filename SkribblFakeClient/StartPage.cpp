@@ -15,7 +15,7 @@ StartPage::StartPage(QWidget* parent)
     this->setPalette(palette);
 	connect(ui.pushButton_START, &QPushButton::pressed, this, &StartPage::on_pushButton_Start_pressed);
     ui.pushButton_START->setStyleSheet(QString("#%1 { background-color: lightgreen; }").arg(ui.pushButton_START->objectName()));
-    ui.pushButton_START->move(this->size().width()/2,this->size().height()/2);
+    ui.pushButton_START->move((this->size().width()-ui.pushButton_START->size().width())/2,(this->size().height() - ui.pushButton_START->size().height())/2);
 }
 
 StartPage::~StartPage()
