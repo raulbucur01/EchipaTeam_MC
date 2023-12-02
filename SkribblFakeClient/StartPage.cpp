@@ -24,6 +24,6 @@ StartPage::~StartPage()
 
 void StartPage::on_pushButton_Start_pressed() {
 	ui.pushButton_START->hide();
-    LoginPage* loginPage = new LoginPage(this); // Assuming MainWindow is the parent
+    LoginPage* loginPage = new LoginPage(this);
     loginPage->show();
 }

@@ -2,6 +2,7 @@
 #include "RegisterPage.h"
 #include <qmessagebox.h>
 #include <QScreen>
+#include "MenuPage.h"
 
 LoginPage::LoginPage(QWidget *parent)
 	: QWidget(parent)
@@ -21,14 +22,20 @@ void LoginPage::on_pushButton_Login_pressed()
 {
 	QString username = ui.lineEdit_Username->text();
 	QString password = ui.lineEdit_Password->text();
-
-	// test
-	QMessageBox::information(this, "Login", "Ati introdus: " + username + "," + password);
 	
 	// verificare daca exista in BD player-ul
-	
 
 	// dupa verificare vom intra in o pagina noua cu un main menu
+	bool loginOK = true;
+	if (loginOK)
+	{
+		ui.groupBox->hide();
+		MenuPage* menuPage = new MenuPage(this);
+		menuPage->show();
+	}
+	else {
+		QMessageBox::warning(this, "Login", "Log in credentials incorrect! Please try again!");
+	}
 }
 
 void LoginPage::on_commandLinkButton_Register_pressed() {
