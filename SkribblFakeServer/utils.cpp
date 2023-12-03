@@ -1,6 +1,5 @@
 module utils;
 
-using namespace http;
 
 std::vector<std::string> http::split(const std::string& str, const std::string& delim)
 {

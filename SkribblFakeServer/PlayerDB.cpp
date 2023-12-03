@@ -47,26 +47,25 @@ void PlayerDB::deletePlayer(const std::string& name)
 	}
 }
 
-//bool PlayerDB::searchPlayer(const std::string& name) const
-//{
-//	for (auto& player : m_players)
-//	{
-//		if (player.getName() == name)
-//			return true;
-//	}
-//	return false;
-//}
+bool PlayerDB::searchPlayer(const std::string& name) const
+{
+	for (auto& player : m_players)
+	{
+		if (player.GetName() == name)
+			return true;
+	}
+	return false;
+}
 
-//Player PlayerDB::getPlayer(const std::string& name)
-//{
-//
-//	for (auto& player : m_players)
-//	{
-//		if (player.getName() == name)
-//			return player;
-//	}
-//	return Player();
-//}
+Player PlayerDB::getPlayer(const std::string& name)
+{
+	for (auto& player : m_players)
+	{
+		if (player.GetName() == name)
+			return player;
+	}
+	return Player();
+}
 
 void PlayerDB::updatePlayer(const std::string& name, const Player& new_player)
 {
@@ -105,6 +104,7 @@ void PlayerDB::printAllPLayers()
 		std::cout << m_players[i] << "\n";
 	}
 }
+
 
 void populatePlayerDB(PlayerStorage& storage)
 {
