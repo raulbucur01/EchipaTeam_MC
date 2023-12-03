@@ -1,4 +1,5 @@
 #include "MenuPage.h"
+#include "LoginPage.h"
 
 MenuPage::MenuPage(QWidget* parent)
 	: QWidget(parent)
@@ -10,15 +11,20 @@ MenuPage::MenuPage(QWidget* parent)
 }
 
 void MenuPage::on_pushButton_CreateLobby_pressed() {
-
+	ui.groupBox_GameMenu->hide();
+	delete ui.groupBox_GameMenu;
 }
 
 void MenuPage::on_pushButton_JoinLobby_pressed() {
-
+	ui.groupBox_GameMenu->hide();
+	delete ui.groupBox_GameMenu;
 }
 
 void MenuPage::on_pushButton_Logout_pressed() {
-
+	ui.groupBox_GameMenu->hide();
+	delete ui.groupBox_GameMenu;
+	LoginPage* loginPage = new LoginPage(this);
+	loginPage->show();
 }
 
 MenuPage::~MenuPage()

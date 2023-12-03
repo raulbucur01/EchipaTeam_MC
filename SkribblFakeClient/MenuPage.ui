@@ -13,7 +13,7 @@
   <property name="windowTitle">
    <string>MenuPage</string>
   </property>
-  <widget class="QGroupBox" name="groupBox">
+  <widget class="QGroupBox" name="groupBox_GameMenu">
    <property name="geometry">
     <rect>
      <x>200</x>

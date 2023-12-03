@@ -13,7 +13,7 @@
   <property name="windowTitle">
    <string>RegisterPage</string>
   </property>
-  <widget class="QGroupBox" name="groupBox">
+  <widget class="QGroupBox" name="groupBox_Register">
    <property name="geometry">
     <rect>
      <x>140</x>
