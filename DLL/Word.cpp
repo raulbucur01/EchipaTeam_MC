@@ -86,15 +86,16 @@ void Word::resetSlots()
 
 void Word::printPartialWord()
 {
-	int revealCount = m_word.length() / 2; // Maxim jumatate de cuvant
-	revealCount = static_cast<int>(std::min<size_t>(static_cast<size_t>(revealCount), m_unrevealedIndexes.size()));
+	srand(static_cast<unsigned int>(time(nullptr)));
+	int revealCount = 1 + rand() % (m_word.length() / 2); // Maxim jumatate de cuvant
+	std::cout << revealCount;
 
 	std::string partialWord;
 	for (size_t i = 0; i < m_word.length(); i++)
 	{
 		if (std::find(m_unrevealedIndexes.begin(), m_unrevealedIndexes.end(), i) != m_unrevealedIndexes.end())
 		{
-			
+
 			if (revealCount > 0) // Verifica daca mai este de afisat vreun cuvant
 			{
 				partialWord += m_word[i];
