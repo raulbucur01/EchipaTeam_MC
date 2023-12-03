@@ -12,9 +12,6 @@ class Word
 public:
 	Word() = default;
 	Word(int id, const std::string& word = "");
-	// getters
-	std::string getWord() const;
-	int getId() const;
 
 	// setters
 	void setWord(std::string word);
@@ -27,15 +24,13 @@ public:
 	void revealOneRandomLetter();
 	// returneaza un string cu atatea sloturi cate litere are cuvantul
 	std::string getEmptyLetterSlots();
-	//returneaza lungimea cuvantului
-	int getSize();
-	int getSizeUnrevealedWord();
 	void resetSlots();
+	//printeaza cuvintele maxim partial
+	void printPartialWord();
 
 	// operators
 	bool operator==(const Word& other) const;
 	Word& operator=(const Word& other);
-	friend std::ostream& operator<<(std::ostream& os, const Word& word);
 
 private:
 	int m_id;

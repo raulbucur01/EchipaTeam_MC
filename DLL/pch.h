@@ -14,5 +14,6 @@
 #include <string>
 #include <vector>
 #include <time.h>
+#include <algorithm>
 
 #endif //PCH_H

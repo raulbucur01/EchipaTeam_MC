@@ -19,16 +19,6 @@ Word::Word(int id, const std::string& word)
 	}
 }
 
-std::string Word::getWord() const
-{
-	return m_word;
-}
-
-int Word::getId() const
-{
-	return m_id;
-}
-
 void Word::setWord(std::string word)
 {
 	m_word = word;
@@ -89,25 +79,37 @@ Word& Word::operator=(const Word& other)
 	return *this;
 }
 
-int Word::getSize()
-{
-	return static_cast<int>(m_word.size());
-}
-
-int Word::getSizeUnrevealedWord()
-{
-	return static_cast<int>(m_unrevealedIndexes.size());
-}
-
 void Word::resetSlots()
 {
 	m_slots = getEmptyLetterSlots();
 }
 
-std::ostream& operator<<(std::ostream& os, const Word& word)
+void Word::printPartialWord()
 {
-	os << "ID: " << word.getId() << ", "
-		<< "Word: " << word.getWord();
+	int revealCount = m_word.length() / 2; // Maxim jumatate de cuvant
+	revealCount = static_cast<int>(std::min<size_t>(static_cast<size_t>(revealCount), m_unrevealedIndexes.size()));
 
-	return os;
+	std::string partialWord;
+	for (size_t i = 0; i < m_word.length(); i++)
+	{
+		if (std::find(m_unrevealedIndexes.begin(), m_unrevealedIndexes.end(), i) != m_unrevealedIndexes.end())
+		{
+			
+			if (revealCount > 0) // Verifica daca mai este de afisat vreun cuvant
+			{
+				partialWord += m_word[i];
+				revealCount--;
+			}
+			else
+			{
+				partialWord += "_";
+			}
+		}
+		else
+		{
+			partialWord += m_word[i];
+		}
+	}
+
+	std::cout << "Partial Word: " << partialWord << std::endl;
 }
