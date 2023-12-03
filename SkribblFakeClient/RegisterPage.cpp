@@ -32,6 +32,6 @@ void RegisterPage::on_pushButton_CreateAccount_pressed() {
 	// dupa adaugare se trece la log in iar
 	ui.groupBox_Register->hide();
 	delete ui.groupBox_Register;
-	LoginPage* newloginPage = new LoginPage(this);
-	newloginPage->show();
+	LoginPage* loginPage = new LoginPage(this);
+	loginPage->show();
 }

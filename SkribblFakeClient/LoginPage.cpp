@@ -10,9 +10,9 @@ LoginPage::LoginPage(QWidget *parent)
 	ui.setupUi(this);
 	QScreen* desktop = QApplication::primaryScreen();
 	this->resize(desktop->size());
+	ui.groupBox_Login->move((this->size().width() - ui.groupBox_Login->size().width()) / 2, (this->size().height() - ui.groupBox_Login->size().height()) / 2);
 	connect(ui.commandLinkButton_Register, &QCommandLinkButton::pressed, this, &LoginPage::on_commandLinkButton_Register_pressed);
 	connect(ui.pushButton_Login, &QPushButton::pressed, this, &LoginPage::on_pushButton_Login_pressed);
-	ui.groupBox_Login->move((this->size().width() - ui.groupBox_Login->size().width()) / 2, (this->size().height() - ui.groupBox_Login->size().height()) / 2);
 }
 
 LoginPage::~LoginPage()
