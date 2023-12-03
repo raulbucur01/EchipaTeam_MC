@@ -1,5 +1,6 @@
 #include "MenuPage.h"
 #include "LoginPage.h"
+//#include "GamePage.h"
 #include <QScreen>
 
 MenuPage::MenuPage(QWidget* parent)
@@ -17,11 +18,15 @@ MenuPage::MenuPage(QWidget* parent)
 void MenuPage::on_pushButton_CreateLobby_pressed() {
 	ui.groupBox_GameMenu->hide();
 	delete ui.groupBox_GameMenu;
+	//GamePage* gamePage = new GamePage(this);
+	//gamePage->show();
 }
 
 void MenuPage::on_pushButton_JoinLobby_pressed() {
 	ui.groupBox_GameMenu->hide();
 	delete ui.groupBox_GameMenu;
+	//GamePage* gamePage = new GamePage(this);
+	//gamePage->show();
 }
 
 void MenuPage::on_pushButton_Logout_pressed() {
