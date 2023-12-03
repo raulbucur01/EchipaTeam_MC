@@ -13,9 +13,10 @@ StartPage::StartPage(QWidget* parent)
     QPalette palette;
     palette.setBrush(QPalette::Window, bkgnd);
     this->setPalette(palette);
-	connect(ui.pushButton_START, &QPushButton::pressed, this, &StartPage::on_pushButton_Start_pressed);
     ui.pushButton_START->setStyleSheet(QString("#%1 { background-color: lightgreen; }").arg(ui.pushButton_START->objectName()));
     ui.pushButton_START->move((this->size().width()-ui.pushButton_START->size().width())/2,(this->size().height() - ui.pushButton_START->size().height())/2);
+    connect(ui.pushButton_START, &QPushButton::pressed, this, &StartPage::on_pushButton_Start_pressed);
+
 }
 
 StartPage::~StartPage()
@@ -24,6 +25,7 @@ StartPage::~StartPage()
 
 void StartPage::on_pushButton_Start_pressed() {
 	ui.pushButton_START->hide();
-    LoginPage* loginPage = new LoginPage(this); // Assuming MainWindow is the parent
+    delete ui.pushButton_START;
+    LoginPage* loginPage = new LoginPage(this);
     loginPage->show();
 }
