@@ -13,7 +13,7 @@
   <property name="windowTitle">
    <string>RegisterPage</string>
   </property>
-  <widget class="QGroupBox" name="groupBox">
+  <widget class="QGroupBox" name="groupBox_Register">
    <property name="geometry">
     <rect>
      <x>140</x>
@@ -107,6 +107,19 @@
      <string>Password</string>
     </property>
    </widget>
+  </widget>
+  <widget class="QPushButton" name="exitButton">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>31</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>X</string>
+   </property>
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>

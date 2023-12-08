@@ -1,11 +1,17 @@
 #include "SkribblServer.h"
 
+using namespace http;
+
 void ScribbleServer::Start(PlayerDB& storage)
 {
 	// Rutele pentru diferite requesturi
 	CROW_ROUTE(m_app, "/")([]() {
 		return "The server is working";
 		});
+	
+	auto& loginTest = CROW_ROUTE(m_app, "/login")
+		.methods(crow::HTTPMethod::POST);
+	loginTest(LoginHandler(storage));
 	CROW_ROUTE(m_app, "/join").methods("POST"_method)([this](const crow::request& req) {
 		crow::response res;
 	HandleJoinRequest(req, res);

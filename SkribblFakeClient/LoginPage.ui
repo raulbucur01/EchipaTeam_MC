@@ -13,7 +13,7 @@
   <property name="windowTitle">
    <string>LoginPage</string>
   </property>
-  <widget class="QGroupBox" name="groupBox">
+  <widget class="QGroupBox" name="groupBox_Login">
    <property name="geometry">
     <rect>
      <x>150</x>
@@ -83,6 +83,19 @@
      </item>
     </layout>
    </widget>
+  </widget>
+  <widget class="QPushButton" name="exitButton">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>31</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>X</string>
+   </property>
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>

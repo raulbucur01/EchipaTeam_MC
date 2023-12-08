@@ -1,5 +1,7 @@
 #include "PlayerDB.h"
 
+using namespace http;
+
 PlayerDB::PlayerDB(const std::string& filename) : m_playerDB(createPlayerStorage(filename))
 {
 	m_playerDB.sync_schema();
@@ -47,26 +49,25 @@ void PlayerDB::deletePlayer(const std::string& name)
 	}
 }
 
-//bool PlayerDB::searchPlayer(const std::string& name) const
-//{
-//	for (auto& player : m_players)
-//	{
-//		if (player.getName() == name)
-//			return true;
-//	}
-//	return false;
-//}
+bool PlayerDB::searchPlayer(const std::string& name) const
+{
+	for (auto& player : m_players)
+	{
+		if (player.GetName() == name)
+			return true;
+	}
+	return false;
+}
 
-//Player PlayerDB::getPlayer(const std::string& name)
-//{
-//
-//	for (auto& player : m_players)
-//	{
-//		if (player.getName() == name)
-//			return player;
-//	}
-//	return Player();
-//}
+Player PlayerDB::getPlayer(const std::string& name)
+{
+	for (auto& player : m_players)
+	{
+		if (player.GetName() == name)
+			return player;
+	}
+	return Player();
+}
 
 void PlayerDB::updatePlayer(const std::string& name, const Player& new_player)
 {
@@ -115,4 +116,38 @@ void populatePlayerDB(PlayerStorage& storage)
 		Player{-1,"vlad", "parolacomplexa", 0},
 	};
 	storage.insert_range(players.begin(), players.end());
+}
+
+LoginHandler::LoginHandler(PlayerDB& storage):m_db{storage}
+{
+}
+
+crow::response LoginHandler::operator()(const crow::request& req) const
+{
+	auto bodyArgs = parseUrlArgs(req.body);
+	auto end = bodyArgs.end();
+	auto usernameIter = bodyArgs.find("Name");
+	auto passwordIter = bodyArgs.find("Password");
+	if (usernameIter != end && passwordIter != end)
+	{
+		if (m_db.searchPlayer(usernameIter->second)==true)
+		{
+			if (m_db.getPlayer(usernameIter->second).GetPassword() == passwordIter->second)
+			{
+				return crow::response(200, "Login successful");
+			}
+			else
+			{
+				return crow::response(401, "Password incorrect.Try again");
+			}
+		}
+		else
+		{
+			return crow::response(404, "Username not found");
+		}
+	}
+	else
+	{
+		return crow::response(400);
+	}
 }
