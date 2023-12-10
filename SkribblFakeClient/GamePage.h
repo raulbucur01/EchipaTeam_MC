@@ -15,5 +15,9 @@ public:
 	~GamePage();
 
 private:
+	void paintEvent(QPaintEvent* event);
+
+private:
 	Ui::GamePageClass ui;
+	QRect rectangle;
 };
