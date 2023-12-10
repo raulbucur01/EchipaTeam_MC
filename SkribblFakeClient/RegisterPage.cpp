@@ -37,10 +37,24 @@ void RegisterPage::on_pushButton_CreateAccount_pressed() {
 	// adaugare user daca nu exista deja in BD cu ceva validari
 
 	// dupa adaugare se trece la log in iar
-	ui.groupBox_Register->hide();
-	ui.exitButton->hide();
-	delete ui.groupBox_Register;
-	delete ui.exitButton;
-	LoginPage* loginPage = new LoginPage(this);
-	loginPage->show();
-}
+
+	auto res=cpr::Put(cpr::Url{"http://localhost:18080/signup"});
+	if (res.error.code != cpr::ErrorCode::OK)
+	{
+		// error
+		return;
+	}
+	if (res.status_code == 201)
+	{
+		ui.groupBox_Register->hide();
+		ui.exitButton->hide();
+		delete ui.groupBox_Register;
+		delete ui.exitButton;
+		LoginPage* loginPage = new LoginPage(this);
+		loginPage->show();
+	}
+	else
+	{
+		//return error
+	}
+	}

@@ -25,7 +25,7 @@ void LoginPage::on_pushButton_Login_pressed()
 	username = ui.lineEdit_Username->text();
 	password = ui.lineEdit_Password->text();
 
-    auto res = cpr::Post(cpr::Url{"http//localhost:18080/login"});
+    auto res = cpr::Post(cpr::Url{"http://localhost:18080/login"});
 
 	if (res.error.code != cpr::ErrorCode::OK) {
 		//afisare text
