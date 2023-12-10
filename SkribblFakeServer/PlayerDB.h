@@ -53,4 +53,11 @@ public:
 private:
 	PlayerDB& m_db;
 };
+class RegistrationHandler {
+public:
+	RegistrationHandler(PlayerDB& storage);
+	crow::response operator()(const crow::request& req)const;
+private:
+	PlayerDB& m_db;
+};
 

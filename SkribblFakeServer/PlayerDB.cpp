@@ -151,3 +151,29 @@ crow::response LoginHandler::operator()(const crow::request& req) const
 		return crow::response(400);
 	}
 }
+
+RegistrationHandler::RegistrationHandler(PlayerDB& storage):m_db{storage}
+{
+}
+
+crow::response RegistrationHandler::operator()(const crow::request& req) const
+{
+	auto bodyArgs = parseUrlArgs(req.body);
+	auto end = bodyArgs.end();
+	auto usernameIter = bodyArgs.find("username");
+	auto passwordIter = bodyArgs.find("password");
+
+	if (usernameIter == end || passwordIter == end)
+	{
+		return crow::response(400);
+	}
+	if (m_db.searchPlayer(usernameIter->second))
+	{
+		return crow::response(403, "Username already exists");
+	}
+	//adaugare user in database
+	// 
+	//verificare daca s a adaugat cu succes usernameul
+
+	return crow::response(201, "Successfully registration");
+}
