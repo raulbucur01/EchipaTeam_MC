@@ -1,7 +1,7 @@
 #include "StartPage.h"
 #include <QScreen>
 
-StartPage::StartPage(QWidget* parent)
+Window::StartPage::StartPage(QWidget* parent)
 	: QMainWindow(parent), loginPage(nullptr)
 {
 	ui.setupUi(this);
@@ -21,16 +21,16 @@ StartPage::StartPage(QWidget* parent)
 
 }
 
-StartPage::~StartPage()
+Window::StartPage::~StartPage()
 {
 }
 
-void StartPage::on_exitButton_pressed()
+void Window::StartPage::on_exitButton_pressed()
 {
     exit(0);
 }
 
-void StartPage::on_pushButton_Start_pressed() {
+void Window::StartPage::on_pushButton_Start_pressed() {
 	ui.pushButton_START->hide();
     ui.exitButton->hide();
     delete ui.pushButton_START;

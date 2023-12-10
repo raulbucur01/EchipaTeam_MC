@@ -4,19 +4,23 @@
 #include "ui_StartPage.h"
 #include "LoginPage.h"
 
-class StartPage : public QMainWindow
+namespace Window
 {
-	Q_OBJECT
+	class StartPage : public QMainWindow
+	{
+		Q_OBJECT
 
-public:
-	StartPage(QWidget *parent = nullptr);
-	~StartPage();
+	public:
+		StartPage(QWidget* parent = nullptr);
+		~StartPage();
 
-private slots:
-	void on_pushButton_Start_pressed();
-	void on_exitButton_pressed();
+	private slots:
+		void on_pushButton_Start_pressed();
+		void on_exitButton_pressed();
 
-private:
-	Ui::StartPageClass ui;
-	LoginPage* loginPage;
-};
+	private:
+		Ui::StartPageClass ui;
+		LoginPage* loginPage;
+	};
+
+}
