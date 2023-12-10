@@ -18,4 +18,6 @@ private slots:
 
 private:
 	Ui::LoginPageClass ui;
+	QString username;
+	QString password;
 };

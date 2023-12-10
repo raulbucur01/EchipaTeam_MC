@@ -27,20 +27,20 @@
    </property>
    <layout class="QGridLayout" name="gridLayout">
     <item row="2" column="0">
+     <widget class="QLabel" name="usernameLabel">
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="0">
      <widget class="QPushButton" name="pushButton_CreateLobby">
       <property name="text">
        <string>Create a lobby</string>
       </property>
      </widget>
     </item>
-    <item row="3" column="0">
-     <widget class="QPushButton" name="pushButton_JoinLobby">
-      <property name="text">
-       <string>Join a lobby</string>
-      </property>
-     </widget>
-    </item>
-    <item row="4" column="0">
+    <item row="5" column="0">
      <widget class="QPushButton" name="pushButton_Logout">
       <property name="text">
        <string>Log out</string>
@@ -51,6 +51,13 @@
      <widget class="QLabel" name="label">
       <property name="text">
        <string>Welcome to SkribblFake!</string>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="0">
+     <widget class="QPushButton" name="pushButton_JoinLobby">
+      <property name="text">
+       <string>Join a lobby</string>
       </property>
      </widget>
     </item>

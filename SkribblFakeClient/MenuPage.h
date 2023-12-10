@@ -8,7 +8,7 @@ class MenuPage : public QWidget
 	Q_OBJECT
 
 public:
-	MenuPage(QWidget *parent = nullptr);
+	MenuPage(QWidget *parent = nullptr , QString username="nimeni");
 	~MenuPage();
 
 private slots:
@@ -19,4 +19,5 @@ private slots:
 
 private:
 	Ui::MenuPageClass ui;
+	QString m_username;
 };

@@ -22,8 +22,8 @@ LoginPage::~LoginPage()
 
 void LoginPage::on_pushButton_Login_pressed()
 {
-	QString username = ui.lineEdit_Username->text();
-	QString password = ui.lineEdit_Password->text();
+	username = ui.lineEdit_Username->text();
+	password = ui.lineEdit_Password->text();
 	
 	// verificare daca exista in BD player-ul
 
@@ -33,7 +33,7 @@ void LoginPage::on_pushButton_Login_pressed()
 	{
 		ui.groupBox_Login->hide();
 		delete ui.groupBox_Login;
-		MenuPage* menuPage = new MenuPage(this);
+		MenuPage* menuPage = new MenuPage(this,username);
 		menuPage->show();
 	}
 	else {
