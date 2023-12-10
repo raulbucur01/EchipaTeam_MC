@@ -133,6 +133,9 @@
   <ItemGroup>
     <ClInclude Include="Word.h" />
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Word.cpp" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
