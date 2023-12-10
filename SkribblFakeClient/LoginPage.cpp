@@ -25,22 +25,22 @@ void LoginPage::on_pushButton_Login_pressed()
 	username = ui.lineEdit_Username->text();
 	password = ui.lineEdit_Password->text();
 
-    auto res = cpr::Post(cpr::Url{"http://localhost:18080/login"});
+    /*auto res = cpr::Post(cpr::Url{"http://localhost:18080/login"});
 
 	if (res.error.code != cpr::ErrorCode::OK) {
 		//afisare text
 		return;
 	}
 	if (res.status_code == 200)
-	{
+	{*/
 		ui.groupBox_Login->hide();
 		delete ui.groupBox_Login;
 		MenuPage* menuPage = new MenuPage(this,username);
 		menuPage->show();
-	}
+	/* }
 	else {
 		QMessageBox::warning(this, "Login", "Log in credentials incorrect! Please try again!");
-	}
+	}*/
 }
 
 void LoginPage::on_exitButton_pressed()
