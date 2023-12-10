@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>LobbyPageClass</class>
- <widget class="QWidget" name="LobbyPageClass">
+ <class>GamePageClass</class>
+ <widget class="QWidget" name="GamePageClass">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>LobbyPage</string>
+   <string>GamePage</string>
   </property>
   <widget class="QPushButton" name="exitButton">
    <property name="geometry">

@@ -98,11 +98,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="LobbyPage.cpp" />
+    <ClCompile Include="GamePage.cpp" />
     <ClCompile Include="LoginPage.cpp" />
     <ClCompile Include="MenuPage.cpp" />
     <ClCompile Include="StartPage.cpp" />
-    <QtUic Include="LobbyPage.ui" />
+    <QtUic Include="GamePage.ui" />
     <QtUic Include="LoginPage.ui" />
     <QtUic Include="MenuPage.ui" />
     <QtUic Include="RegisterPage.ui" />
@@ -123,7 +123,7 @@
     <QtMoc Include="MenuPage.h" />
   </ItemGroup>
   <ItemGroup>
-    <QtMoc Include="LobbyPage.h" />
+    <QtMoc Include="GamePage.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

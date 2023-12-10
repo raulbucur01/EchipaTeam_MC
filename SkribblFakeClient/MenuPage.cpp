@@ -1,7 +1,6 @@
 #include "MenuPage.h"
 #include "LoginPage.h"
-//#include "GamePage.h"
-#include "LobbyPage.h"
+#include "GamePage.h"
 #include <QScreen>
 
 MenuPage::MenuPage(QWidget* parent,QString username)
@@ -24,10 +23,8 @@ void MenuPage::on_pushButton_CreateLobby_pressed() {
 	ui.exitButton->hide();
 	delete ui.groupBox_GameMenu;
 	delete ui.exitButton;
-	//GamePage* gamePage = new GamePage(this);
-	//gamePage->show();
-	LobbyPage* lobbyPage = new LobbyPage(this);
-	lobbyPage->showFullScreen();
+	GamePage* gamePage = new GamePage(this);
+	gamePage->show();
 }
 
 void MenuPage::on_pushButton_JoinLobby_pressed() {
@@ -35,10 +32,8 @@ void MenuPage::on_pushButton_JoinLobby_pressed() {
 	ui.exitButton->hide();
 	delete ui.groupBox_GameMenu;
 	delete ui.exitButton;
-	//GamePage* gamePage = new GamePage(this);
-	//gamePage->show();
-	LobbyPage* lobbyPage = new LobbyPage(this);
-	lobbyPage->showFullScreen();
+	GamePage* gamePage = new GamePage(this);
+	gamePage->show();
 }
 
 void MenuPage::on_pushButton_Logout_pressed() {

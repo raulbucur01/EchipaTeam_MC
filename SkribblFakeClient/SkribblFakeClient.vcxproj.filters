@@ -38,7 +38,7 @@
     <ClCompile Include="MenuPage.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="LobbyPage.cpp">
+    <ClCompile Include="GamePage.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -55,7 +55,7 @@
     <QtMoc Include="MenuPage.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="LobbyPage.h">
+    <QtMoc Include="GamePage.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>
@@ -72,7 +72,7 @@
     <QtUic Include="MenuPage.ui">
       <Filter>Form Files</Filter>
     </QtUic>
-    <QtUic Include="LobbyPage.ui">
+    <QtUic Include="GamePage.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>
