@@ -7,6 +7,10 @@ class LobbyPage : public QWidget
 {
 	Q_OBJECT
 
+
+private slots:
+	void on_exitButton_pressed();
+
 public:
 	LobbyPage(QWidget *parent = nullptr);
 	~LobbyPage();
