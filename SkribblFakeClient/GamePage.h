@@ -2,7 +2,7 @@
 
 #include <QWidget>
 #include "ui_GamePage.h"
-
+#include <cpr/cpr.h>
 class GamePage : public QWidget
 {
 	Q_OBJECT

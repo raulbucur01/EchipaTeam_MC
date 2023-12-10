@@ -2,7 +2,7 @@
 
 #include <QWidget>
 #include "ui_LoginPage.h"
-
+#include <cpr/cpr.h>
 class LoginPage : public QWidget
 {
 	Q_OBJECT

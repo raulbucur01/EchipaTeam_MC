@@ -24,12 +24,14 @@ void LoginPage::on_pushButton_Login_pressed()
 {
 	username = ui.lineEdit_Username->text();
 	password = ui.lineEdit_Password->text();
-	
-	// verificare daca exista in BD player-ul
 
-	// dupa verificare vom intra in o pagina noua cu un main menu
-	bool loginOK = true;
-	if (loginOK)
+    auto res = cpr::Post(cpr::Url{"http//localhost:18080/login"});
+
+	if (res.error.code != cpr::ErrorCode::OK) {
+		//afisare text
+		return;
+	}
+	if (res.status_code == 200)
 	{
 		ui.groupBox_Login->hide();
 		delete ui.groupBox_Login;
