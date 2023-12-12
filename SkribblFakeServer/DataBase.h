@@ -28,6 +28,8 @@ static auto createStorage(const std::string& filename) {
 
 using Storage = decltype(createStorage(""));
 
+void populateDB(Storage& storage);
+
 class DataBase
 {
 };
