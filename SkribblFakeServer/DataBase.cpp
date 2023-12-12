@@ -1,5 +1,7 @@
 #include "DataBase.h"
 
+using namespace http;
+
 void populateDB(Storage& storage)
 {
 	std::vector<Player> players = {
@@ -212,6 +214,16 @@ void DataBase::printAllWords()
 	{
 		std::cout << m_words[i] << "\n";
 	}
+}
+
+
+// DB operations
+
+std::optional<Player> DataBase::searchPlayerInDB(const std::string& name)
+{
+	//auto result = m_DB.select(columns(&Player::GetId, &Player::GetName, &Player::GetPassword, &Player::GetScore), where(is_equal(&Player::GetName, name)));
+
+	return std::optional<Player>();
 }
 
 
