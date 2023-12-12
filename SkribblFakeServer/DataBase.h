@@ -32,5 +32,43 @@ void populateDB(Storage& storage);
 
 class DataBase
 {
+public:
+	DataBase() = default;
+	DataBase(const std::string& filename);
+
+	// Player
+	void addPlayer(Player& p);
+	void deletePlayer(const std::string& name);
+	bool searchPlayer(const std::string& name) const;
+	Player getPlayer(const std::string& name);
+	auto getPlayerIterator(const std::string& name);
+	void updatePlayer(const std::string& name, const Player& new_player);
+	
+	void addPlayersFromDBToPlayersVector();
+	std::vector<Player> getAllPlayers();
+	void printAllPLayers();
+
+	// Word
+	void addWord(Word& p);
+	void deleteWord(const std::string& word);
+	//bool searchWord(const std::string& name) const;
+	//Word getWord(const std::string& name);
+	auto getWordIterator(const std::string& word);
+	void updateWord(const std::string& word, const Word& new_word);
+
+	void addWordsFromDBToWordsVector();
+	std::vector<Word> getAllWords();
+	void printAllWords();
+
+	// For direct DB interaction:
+	// for Player
+	std::optional<Player> searchPlayerInDB(const std::string& name);
+
+	~DataBase() = default;
+
+private:
+	Storage m_DB;
+	std::vector<Player> m_players;
+	std::vector<Word> m_words;
 };
 
