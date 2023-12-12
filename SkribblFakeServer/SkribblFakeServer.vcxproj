@@ -146,20 +146,16 @@
     <ClCompile Include="DataBase.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Player.cpp" />
-    <ClCompile Include="PlayerDB.cpp" />
     <ClCompile Include="SkribblServer.cpp" />
     <ClCompile Include="utils.cpp" />
     <ClCompile Include="utils.cppm" />
     <ClCompile Include="Word.cpp" />
-    <ClCompile Include="WordDB.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DataBase.h" />
     <ClInclude Include="Player.h" />
-    <ClInclude Include="PlayerDB.h" />
     <ClInclude Include="SkribblServer.h" />
     <ClInclude Include="Word.h" />
-    <ClInclude Include="WordDB.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Players.sqlite" />

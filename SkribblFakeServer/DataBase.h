@@ -79,6 +79,7 @@ public:
 private:
 	DataBase& m_db;
 };
+
 class RegistrationHandler {
 public:
 	RegistrationHandler(DataBase& storage);
