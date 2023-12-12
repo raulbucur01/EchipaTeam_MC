@@ -7,7 +7,6 @@
 #include "Player.h"
 #include "Word.h"
 namespace sql = sqlite_orm;
-
 import utils;
 
 static auto createStorage(const std::string& filename) {
@@ -72,3 +71,18 @@ private:
 	std::vector<Word> m_words;
 };
 
+class LoginHandler {
+public:
+	LoginHandler(DataBase& storage);
+	crow::response operator()(const crow::request& req)const;
+
+private:
+	DataBase& m_db;
+};
+class RegistrationHandler {
+public:
+	RegistrationHandler(DataBase& storage);
+	crow::response operator()(const crow::request& req)const;
+private:
+	DataBase& m_db;
+};

@@ -45,19 +45,19 @@ private:
 	std::vector<Player> m_players;
 
 };
-class LoginHandler {
-public:
-	LoginHandler(PlayerDB& storage);
-	crow::response operator()(const crow::request& req)const;
-
-private:
-	PlayerDB& m_db;
-};
-class RegistrationHandler {
-public:
-	RegistrationHandler(PlayerDB& storage);
-	crow::response operator()(const crow::request& req)const;
-private:
-	PlayerDB& m_db;
-};
+//class LoginHandler {
+//public:
+//	LoginHandler(PlayerDB& storage);
+//	crow::response operator()(const crow::request& req)const;
+//
+//private:
+//	PlayerDB& m_db;
+//};
+//class RegistrationHandler {
+//public:
+//	RegistrationHandler(PlayerDB& storage);
+//	crow::response operator()(const crow::request& req)const;
+//private:
+//	PlayerDB& m_db;
+//};
 

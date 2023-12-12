@@ -40,6 +40,10 @@ DataBase::DataBase(const std::string& filename) : m_DB(createStorage(filename))
 	auto initWordCount = m_DB.count<Word>();
 	if (initPlayerCount == 0 && initWordCount == 0)
 		populateDB(m_DB);
+
+	// for testing
+	addPlayersFromDBToPlayersVector();
+	addWordsFromDBToWordsVector();
 }
 
 // Player
@@ -208,4 +212,67 @@ void DataBase::printAllWords()
 	{
 		std::cout << m_words[i] << "\n";
 	}
+}
+
+
+// handlers
+
+LoginHandler::LoginHandler(DataBase& storage) :m_db{ storage }
+{
+}
+
+crow::response LoginHandler::operator()(const crow::request& req) const
+{
+	auto bodyArgs = parseUrlArgs(req.body);
+	auto end = bodyArgs.end();
+	auto usernameIter = bodyArgs.find("Name");
+	auto passwordIter = bodyArgs.find("Password");
+	if (usernameIter != end && passwordIter != end)
+	{
+		if (m_db.searchPlayer(usernameIter->second) == true)
+		{
+			if (m_db.getPlayer(usernameIter->second).GetPassword() == passwordIter->second)
+			{
+				return crow::response(200, "Login successful");
+			}
+			else
+			{
+				return crow::response(401, "Password incorrect.Try again");
+			}
+		}
+		else
+		{
+			return crow::response(404, "Username not found");
+		}
+	}
+	else
+	{
+		return crow::response(400);
+	}
+}
+
+RegistrationHandler::RegistrationHandler(DataBase& storage) :m_db{ storage }
+{
+}
+
+crow::response RegistrationHandler::operator()(const crow::request& req) const
+{
+	auto bodyArgs = parseUrlArgs(req.body);
+	auto end = bodyArgs.end();
+	auto usernameIter = bodyArgs.find("username");
+	auto passwordIter = bodyArgs.find("password");
+
+	if (usernameIter == end || passwordIter == end)
+	{
+		return crow::response(400);
+	}
+	if (m_db.searchPlayer(usernameIter->second))
+	{
+		return crow::response(403, "Username already exists");
+	}
+	//adaugare user in database
+	// 
+	//verificare daca s a adaugat cu succes usernameul
+
+	return crow::response(201, "Successfully registration");
 }

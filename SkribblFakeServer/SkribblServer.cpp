@@ -2,7 +2,7 @@
 
 using namespace http;
 
-void ScribbleServer::Start(PlayerDB& storage)
+void ScribbleServer::Start(DataBase& storage)
 {
 	// Rutele pentru diferite requesturi
 	CROW_ROUTE(m_app, "/")([]() {

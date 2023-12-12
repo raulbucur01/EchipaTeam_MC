@@ -7,7 +7,7 @@
 #include <sqlite_orm/sqlite_orm.h>
 #include "Word.h"
 #include "Player.h"
-#include "PlayerDB.h"
+#include "DataBase.h"
 
 using namespace sqlite_orm;
 
@@ -16,7 +16,7 @@ using namespace sqlite_orm;
 
 class ScribbleServer {
 public:
-    void Start(PlayerDB& storage);
+    void Start(DataBase& storage);
 private:
     crow::SimpleApp m_app;
 
