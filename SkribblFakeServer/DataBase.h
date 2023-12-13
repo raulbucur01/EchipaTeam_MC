@@ -77,7 +77,7 @@ public:
 	crow::response operator()(const crow::request& req)const;
 
 private:
-	DataBase& m_db;
+	DataBase& m_DB;
 };
 
 class RegistrationHandler {
@@ -85,5 +85,5 @@ public:
 	RegistrationHandler(DataBase& storage);
 	crow::response operator()(const crow::request& req)const;
 private:
-	DataBase& m_db;
+	DataBase& m_DB;
 };

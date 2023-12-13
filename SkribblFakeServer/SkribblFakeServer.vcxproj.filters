@@ -54,10 +54,7 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Players.sqlite">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="Words.sqlite">
+    <None Include="SkribblData.sqlite">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>

@@ -238,21 +238,30 @@ std::optional<Player> DataBase::searchPlayerInDB(const std::string& name)
 
 // handlers
 
-LoginHandler::LoginHandler(DataBase& storage) :m_db{ storage }
+LoginHandler::LoginHandler(DataBase& storage) :m_DB{ storage }
 {
 }
 
 crow::response LoginHandler::operator()(const crow::request& req) const
 {
+	/*
+	Note:
+	Cand folosesti functia searchPlayerInDB si bagi rezultatul intr-o variabila
+	ca sa verifici daca are valoare este functia has_value();
+	ca sa accesezi valoarea .value();
+	(asa e cand lucram cu std::optional)
+	(exemplu in main)
+	*/
+
 	auto bodyArgs = parseUrlArgs(req.body);
 	auto end = bodyArgs.end();
 	auto usernameIter = bodyArgs.find("Name");
 	auto passwordIter = bodyArgs.find("Password");
 	if (usernameIter != end && passwordIter != end)
 	{
-		if (m_db.searchPlayer(usernameIter->second) == true)
+		if (m_DB.searchPlayer(usernameIter->second) == true)
 		{
-			if (m_db.getPlayer(usernameIter->second).GetPassword() == passwordIter->second)
+			if (m_DB.getPlayer(usernameIter->second).GetPassword() == passwordIter->second)
 			{
 				return crow::response(200, "Login successful");
 			}
@@ -272,7 +281,7 @@ crow::response LoginHandler::operator()(const crow::request& req) const
 	}
 }
 
-RegistrationHandler::RegistrationHandler(DataBase& storage) :m_db{ storage }
+RegistrationHandler::RegistrationHandler(DataBase& storage) :m_DB{ storage }
 {
 }
 
@@ -287,7 +296,7 @@ crow::response RegistrationHandler::operator()(const crow::request& req) const
 	{
 		return crow::response(400);
 	}
-	if (m_db.searchPlayer(usernameIter->second))
+	if (m_DB.searchPlayer(usernameIter->second))
 	{
 		return crow::response(403, "Username already exists");
 	}
