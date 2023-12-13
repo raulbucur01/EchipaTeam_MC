@@ -1,5 +1,6 @@
 #include "DataBase.h"
 
+
 using namespace http;
 
 void populateDB(Storage& storage)
@@ -221,10 +222,18 @@ void DataBase::printAllWords()
 
 std::optional<Player> DataBase::searchPlayerInDB(const std::string& name)
 {
-	//auto result = m_DB.select(columns(&Player::GetId, &Player::GetName, &Player::GetPassword, &Player::GetScore), where(is_equal(&Player::GetName, name)));
+	auto result = m_DB.get_all<Player>(sql::where(sql::is_equal(&Player::GetName, name)));
 
-	return std::optional<Player>();
+	if (!result.empty()) {
+		// Player found, return the player
+		return std::optional<Player>{result.front()};
+	}
+	else {
+		// Player not found, return an empty optional
+		return std::nullopt;
+	}
 }
+
 
 
 // handlers
