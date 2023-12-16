@@ -255,13 +255,13 @@ crow::response LoginHandler::operator()(const crow::request& req) const
 
 	auto bodyArgs = parseUrlArgs(req.body);
 	auto end = bodyArgs.end();
-	auto usernameIter = bodyArgs.find("Name");
-	auto passwordIter = bodyArgs.find("Password");
+	auto usernameIter = bodyArgs.find("username");
+	auto passwordIter = bodyArgs.find("password");
 	if (usernameIter != end && passwordIter != end)
 	{
-		if (m_DB.searchPlayer(usernameIter->second) == true)
+		if (auto person{ m_DB.searchPlayerInDB(usernameIter->second) }; person!= std::nullopt)
 		{
-			if (m_DB.getPlayer(usernameIter->second).GetPassword() == passwordIter->second)
+			if(person.value().GetPassword() == passwordIter->second)
 			{
 				return crow::response(200, "Login successful");
 			}

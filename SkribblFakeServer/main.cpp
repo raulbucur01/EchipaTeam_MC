@@ -4,7 +4,7 @@
 
 int main() {
 	DataBase DB("SkribblData.sqlite");
-	DB.printAllPLayers();
+	/*DB.printAllPLayers();
 	DB.printAllWords();
 	auto p = DB.searchPlayerInDB("Coco20");
 	if (p == std::nullopt)
@@ -21,9 +21,9 @@ int main() {
 		std::cout << "\nNu a fost gasit!";
 	else
 		std::cout << "\nA fost gasit";
-
-	//ScribbleServer server;
-	//server.Start(DB);
+*/
+	ScribbleServer server;
+	server.Start(DB);
 
 	return 0;
 }

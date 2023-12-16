@@ -25,8 +25,10 @@ void LoginPage::on_pushButton_Login_pressed()
 {
 	username = ui.lineEdit_Username->text();
 	password = ui.lineEdit_Password->text();
-
-    auto res = cpr::Post(cpr::Url{"http://localhost:18080/login"});
+	std::string nume = username.toUtf8().constData();
+	std::string parola = password.toUtf8().constData();
+	auto res = cpr::Post(cpr::Url{ "http://localhost:18080/login" },
+	cpr::Body{ "username=" + nume + "&password=" + parola});
 
 	if (res.error.code != cpr::ErrorCode::OK) {
 		//afisare text
