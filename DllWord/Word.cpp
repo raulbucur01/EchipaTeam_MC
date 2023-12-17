@@ -102,6 +102,57 @@ void Word::resetSlots()
 	m_slots = getEmptyLetterSlots();
 }
 
+std::string Word::getEmptyLetterSlots(char* word)
+{
+	std::string letterSlots = "";
+	for (size_t i = 0; i < std::strlen(word); i++)
+	{
+		if (word[i] != ' ')
+			letterSlots += "-";
+		else
+			letterSlots += " ";
+	}
+	return letterSlots;
+}
+
+std::string Word::revealRandomLetters(int numToReveal, char* word) {
+	std::random_device rd;
+	std::mt19937 gen(rd());
+	std::uniform_int_distribution<size_t> dist(0, std::strlen(word) - 1);
+
+	std::vector<int> unrevealedIndexes;
+	std::vector<size_t> revealedIndexes;
+
+	std::string slots = getEmptyLetterSlots(word);
+
+	for (int i = 0; i < slots.length(); i++)
+	{
+		if (slots[i] == '-')
+			unrevealedIndexes.push_back(i);
+	}
+
+	while (numToReveal > 0 && revealedIndexes.size() < std::strlen(word)) {
+		size_t randomIndex = dist(gen);
+		if (std::find(revealedIndexes.begin(), revealedIndexes.end(), randomIndex) == revealedIndexes.end()) {
+			revealedIndexes.push_back(randomIndex);
+			numToReveal--;
+		}
+	}
+
+	std::string revealedWord;
+	for (size_t i = 0; i < std::strlen(word); i++) {
+		if (std::find(revealedIndexes.begin(), revealedIndexes.end(), i) != revealedIndexes.end()) {
+			revealedWord += word[i];
+		}
+		else {
+			revealedWord += '_';
+		}
+	}
+	return revealedWord;
+	//std::cout << "Original Word: " << m_word << std::endl;
+	//std::cout << "Revealed Word: " << revealedWord << std::endl;
+}
+
 void Word::printPartialWord()
 {
 	srand(static_cast<unsigned int>(time(nullptr)));

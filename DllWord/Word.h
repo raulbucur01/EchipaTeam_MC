@@ -26,6 +26,8 @@ public:
     void revealOneRandomLetter();
     std::string getEmptyLetterSlots();
     void resetSlots();
+    std::string getEmptyLetterSlots(char* word);
+    std::string revealRandomLetters(int numToReveal, char* word);
     void printPartialWord();
 
     // operators
