@@ -30,4 +30,14 @@ void GamePage::paintEvent(QPaintEvent * event)
     QPainter painter(this);
     painter.fillRect(rectangle,QBrush(Qt::white));
     painter.drawRect(rectangle);
+    vector<Node*> nodes = g.getNodes();
+    QPen pen;
+    for (Node* n : nodes)
+    {
+        QRect r(n->getPosition().x() - 10, n->getPosition().y() - 10, 20, 20);
+        painter.fillRect(r, QBrush(Qt::black));
+        painter.drawEllipse(r);
+        pen.setBrush(Qt::black);
+
+    }
 }

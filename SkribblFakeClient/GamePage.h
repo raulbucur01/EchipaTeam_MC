@@ -3,6 +3,8 @@
 #include <QWidget>
 #include "ui_GamePage.h"
 #include <cpr/cpr.h>
+#include "graph.h"
+
 class GamePage : public QWidget
 {
 	Q_OBJECT
@@ -20,4 +22,5 @@ private:
 private:
 	Ui::GamePageClass ui;
 	QRect rectangle;
+	Graph g;
 };
