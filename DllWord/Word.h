@@ -1,41 +1,42 @@
 #pragma once
-
 #include "pch.h"
+//
+//#ifdef MYDLL_EXPORTS
+//#define __declspec(dllexport)
+//#else
+//#define __declspec(dllimport)
+//#endif
 
-#ifdef MYDLL_EXPORTS
-#define MYDLL_API __declspec(dllexport)
-#else
-#define MYDLL_API __declspec(dllimport)
-#endif
-
-class Word
+class __declspec(dllexport) Word
 {
 public:
-	Word() = default;
-	Word(int id, const std::string& word = "");
+    Word() = default;
+    Word(int id, const std::string& word = "");
 
-	// setters
-	void setWord(std::string word);
-	void setId(int id);
+    // setters
+    void SetWord(std::string word);
+    void SetId(int id);
 
-	// logic
-	// returneaza starea curenta a sloturilor de litere
-	std::string getCurrentSlotState();
-	// inlocuieste random un slot nedezvaluit cu litera de la acelasi index din cuvant
-	void revealOneRandomLetter();
-	// returneaza un string cu atatea sloturi cate litere are cuvantul
-	std::string getEmptyLetterSlots();
-	void resetSlots();
-	//printeaza cuvintele maxim partial
-	void printPartialWord();
+    //getters
+    std::string GetWord() const noexcept;
+    int GetId() const noexcept;
 
-	// operators
-	bool operator==(const Word& other) const;
-	Word& operator=(const Word& other);
+    // logic
+    std::string getCurrentSlotState();
+    void revealOneRandomLetter();
+    std::string getEmptyLetterSlots();
+    void resetSlots();
+    void printPartialWord();
+
+    // operators
+    bool operator==(const Word& other) const;
+    Word& operator=(const Word& other);
+    //std::ostream& operator<<(std::ostream& os, const Word& word);
+    /*friend std::ostream& operator<<(std::ostream& os, const Word& word);*/
 
 private:
-	int m_id;
-	std::string m_word;
-	std::string m_slots;
-	std::vector<int> m_unrevealedIndexes;
+    int m_id;
+    std::string m_word;
+    std::string m_slots;
+    std::vector<int> m_unrevealedIndexes;
 };
