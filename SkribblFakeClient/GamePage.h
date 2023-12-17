@@ -26,5 +26,6 @@ private:
 	Ui::GamePageClass ui;
 	QRect rectangle;
 	Graph g;
+	vector<Node*> line;
 	bool painting=false;
 };

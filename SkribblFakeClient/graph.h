@@ -15,20 +15,15 @@ using namespace std;
 
 class Graph
 {
-    vector<Node*> nodes;
+    vector<vector<Node*>> nodes;
     vector<vector<int>>matrix;
 
 public:
     Graph();
-    vector<Node*> getNodes(){
+    vector<vector<Node*>> getNodes(){
         return nodes;
     }
-    void addNode(QPoint p){
-        Node* n=new  Node;
-        n->setCoord(p);
-        nodes.push_back(n);
-    }
-    void addNode(Node* n){
+    void addNodes(vector<Node*> n){
         nodes.push_back(n);
     }
     void clear()
@@ -42,9 +37,10 @@ public:
 
     ~Graph()
     {
-        for(Node* i : nodes)
+        for(vector<Node*> i : nodes)
+        for(Node* j : i)
         {
-            delete i;
+            delete j;
         }
     }
 

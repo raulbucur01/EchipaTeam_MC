@@ -31,6 +31,7 @@ void GamePage::mousePressEvent(QMouseEvent * e)
     if (e->button() == Qt::RightButton)
     {
         painting = true;
+        line.clear();
         bool node = true;
         if (rectangle.contains(e->pos()) == false)
         {
@@ -38,7 +39,8 @@ void GamePage::mousePressEvent(QMouseEvent * e)
         }
         if (node == true)
         {
-            g.addNode(e->pos());
+            Node* curent = new Node(e->pos());
+            line.push_back(curent);
             update();
         }
 
@@ -51,7 +53,8 @@ void GamePage::mouseMoveEvent(QMouseEvent* e)
     {
         if (rectangle.contains(e->pos()))
         {
-            g.addNode(e->pos());
+            Node* curent = new Node(e->pos());
+            line.push_back(curent);
             update();
         }
     }
@@ -62,6 +65,8 @@ void GamePage::mouseReleaseEvent(QMouseEvent* e)
     if (e->button() == Qt::RightButton)
     {
         painting = false;
+        g.addNodes(line);
+        update();
     }
 }
 
@@ -70,22 +75,28 @@ void GamePage::paintEvent(QPaintEvent * event)
     QPainter painter(this);
     painter.fillRect(rectangle,QBrush(Qt::white));
     painter.drawRect(rectangle);
-    vector<Node*> nodes = g.getNodes();
-    QPen pen;
-    for (Node* n : nodes)
+    std::vector<QPoint> positionsLine;
+    painter.setPen(QPen(Qt::black, 5, Qt::SolidLine));
+    for (auto i : line)
     {
-        QRect r(n->getPosition().x(), n->getPosition().y(), 5, 5);
-        painter.fillRect(r, QBrush(Qt::black));
-        painter.drawEllipse(r);
-        pen.setBrush(Qt::black);
+        positionsLine.push_back(i->getPosition());
     }
-    std::vector<QPoint> positions;
-    for (auto i : nodes)
+    if (positionsLine.size() > 0)
     {
-        positions.push_back(i->getPosition());
+        painter.drawPolyline(positionsLine.data(), positionsLine.size());
     }
-    if (nodes.size() > 0)
+    vector<vector<Node*>> nodes = g.getNodes();
+    for (vector<Node*> i : nodes)
     {
-        painter.drawPolyline(positions.data(), positions.size());
+        std::vector<QPoint> positions;
+        painter.setPen(QPen(Qt::black, 5, Qt::SolidLine));
+        for (auto j : i)
+        {
+            positions.push_back(j->getPosition());
+        }
+        if (positions.size() > 0)
+        {
+            painter.drawPolyline(positions.data(), positions.size());
+        }
     }
 }
