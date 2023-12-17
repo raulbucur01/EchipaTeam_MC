@@ -16,6 +16,8 @@ public:
 	GamePage(QWidget *parent = nullptr);
 	~GamePage();
 	void mousePressEvent(QMouseEvent* e);
+	void mouseMoveEvent(QMouseEvent* e);
+	void mouseReleaseEvent(QMouseEvent* e);
 
 private:
 	void paintEvent(QPaintEvent* event);
@@ -24,4 +26,5 @@ private:
 	Ui::GamePageClass ui;
 	QRect rectangle;
 	Graph g;
+	bool painting=false;
 };

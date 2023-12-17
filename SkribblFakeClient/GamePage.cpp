@@ -30,6 +30,7 @@ void GamePage::mousePressEvent(QMouseEvent * e)
 {
     if (e->button() == Qt::RightButton)
     {
+        painting = true;
         bool node = true;
         if (rectangle.contains(e->pos()) == false)
         {
@@ -41,6 +42,26 @@ void GamePage::mousePressEvent(QMouseEvent * e)
             update();
         }
 
+    }
+}
+
+void GamePage::mouseMoveEvent(QMouseEvent* e)
+{
+    if ((e->buttons() && Qt::RightButton) && painting)
+    {
+        if (rectangle.contains(e->pos()))
+        {
+            g.addNode(e->pos());
+            update();
+        }
+    }
+}
+
+void GamePage::mouseReleaseEvent(QMouseEvent* e)
+{
+    if (e->button() == Qt::RightButton)
+    {
+        painting = false;
     }
 }
 
@@ -57,6 +78,14 @@ void GamePage::paintEvent(QPaintEvent * event)
         painter.fillRect(r, QBrush(Qt::black));
         painter.drawEllipse(r);
         pen.setBrush(Qt::black);
-
+    }
+    std::vector<QPoint> positions;
+    for (auto i : nodes)
+    {
+        positions.push_back(i->getPosition());
+    }
+    if (nodes.size() > 0)
+    {
+        painter.drawPolyline(positions.data(), positions.size());
     }
 }
