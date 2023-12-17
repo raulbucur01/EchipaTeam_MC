@@ -100,8 +100,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="GamePage.cpp" />
+    <ClCompile Include="graph.cpp" />
     <ClCompile Include="LoginPage.cpp" />
     <ClCompile Include="MenuPage.cpp" />
+    <ClCompile Include="node.cpp" />
     <ClCompile Include="StartPage.cpp" />
     <QtUic Include="GamePage.ui" />
     <QtUic Include="LoginPage.ui" />
@@ -125,6 +127,10 @@
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="GamePage.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="graph.h" />
+    <ClInclude Include="node.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">
