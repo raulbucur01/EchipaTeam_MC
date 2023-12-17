@@ -19,14 +19,24 @@ Word::Word(int id, const std::string& word)
 	}
 }
 
-void Word::setWord(std::string word)
+void Word::SetWord(std::string word)
 {
 	m_word = word;
 }
 
-void Word::setId(int id)
+void Word::SetId(int id)
 {
 	m_id = id;
+}
+
+std::string Word::GetWord()const noexcept
+{
+	return m_word;
+}
+
+int Word::GetId() const noexcept
+{
+	return m_id;
 }
 
 std::string Word::getCurrentSlotState()
@@ -78,6 +88,14 @@ Word& Word::operator=(const Word& other)
 	m_word = other.m_word;
 	return *this;
 }
+
+//friend std::ostream& Word::operator<<(std::ostream& os, const Word& word)
+//{
+//	os << "ID: " << word.GetId() << ", "
+//		<< "Word: " << word.GetWord();
+//
+//	return os;
+//}
 
 void Word::resetSlots()
 {

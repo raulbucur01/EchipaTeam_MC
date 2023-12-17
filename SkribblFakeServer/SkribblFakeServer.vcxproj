@@ -116,6 +116,7 @@
       <ScanSourceForModuleDependencies>true</ScanSourceForModuleDependencies>
       <EnableModules>true</EnableModules>
       <AdditionalOptions>/D _SILENCE_ALL_CXX17_DEPRECATION_WARNINGS %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalIncludeDirectories>E:\laborator MC\EchipaTeam_MC\DllWord;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -134,6 +135,7 @@
       <ScanSourceForModuleDependencies>true</ScanSourceForModuleDependencies>
       <EnableModules>true</EnableModules>
       <AdditionalOptions>/D _SILENCE_ALL_CXX17_DEPRECATION_WARNINGS %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalIncludeDirectories>E:\laborator MC\EchipaTeam_MC\DllWord;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -149,16 +151,19 @@
     <ClCompile Include="SkribblServer.cpp" />
     <ClCompile Include="utils.cpp" />
     <ClCompile Include="utils.cppm" />
-    <ClCompile Include="Word.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DataBase.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="SkribblServer.h" />
-    <ClInclude Include="Word.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="SkribblData.sqlite" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DllWord\Project1.vcxproj">
+      <Project>{9bcde05a-32d8-4cf2-af7d-dc796f9f1f81}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -213,7 +213,7 @@ void DataBase::printAllWords()
 	std::cout << std::endl;
 	for (int i = 0; i < m_words.size(); i++)
 	{
-		std::cout << m_words[i] << "\n";
+		std::cout << m_words[i].GetId() <<" "<< m_words[i].GetWord() << "\n";
 	}
 }
 
