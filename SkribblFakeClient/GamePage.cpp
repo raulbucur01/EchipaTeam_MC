@@ -1,6 +1,7 @@
 #include "GamePage.h"
 #include <QScreen>
 #include<QPainter>
+#include<QMouseEvent>
 
 GamePage::GamePage(QWidget *parent)
 	: QWidget(parent)
@@ -25,6 +26,24 @@ void GamePage::on_exitButton_pressed()
 GamePage::~GamePage()
 {}
 
+void GamePage::mousePressEvent(QMouseEvent * e)
+{
+    if (e->button() == Qt::RightButton)
+    {
+        bool node = true;
+        if (rectangle.contains(e->pos()) == false)
+        {
+            node = false;
+        }
+        if (node == true)
+        {
+            g.addNode(e->pos());
+            update();
+        }
+
+    }
+}
+
 void GamePage::paintEvent(QPaintEvent * event)
 {
     QPainter painter(this);
@@ -34,7 +53,7 @@ void GamePage::paintEvent(QPaintEvent * event)
     QPen pen;
     for (Node* n : nodes)
     {
-        QRect r(n->getPosition().x() - 10, n->getPosition().y() - 10, 20, 20);
+        QRect r(n->getPosition().x(), n->getPosition().y(), 5, 5);
         painter.fillRect(r, QBrush(Qt::black));
         painter.drawEllipse(r);
         pen.setBrush(Qt::black);

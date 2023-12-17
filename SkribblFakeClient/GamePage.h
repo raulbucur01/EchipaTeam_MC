@@ -15,6 +15,7 @@ private slots:
 public:
 	GamePage(QWidget *parent = nullptr);
 	~GamePage();
+	void mousePressEvent(QMouseEvent* e);
 
 private:
 	void paintEvent(QPaintEvent* event);
