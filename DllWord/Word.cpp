@@ -105,30 +105,26 @@ void Word::resetSlots()
 void Word::printPartialWord()
 {
 	srand(static_cast<unsigned int>(time(nullptr)));
-	int revealCount = 1 + rand() % (m_word.length() / 2); // Maxim jumatate de cuvant
-	std::cout << revealCount;
-
 	std::string partialWord;
-	for (size_t i = 0; i < m_word.length(); i++)
-	{
-		if (std::find(m_unrevealedIndexes.begin(), m_unrevealedIndexes.end(), i) != m_unrevealedIndexes.end())
-		{
+	std::vector<std::string> partialWords;
 
-			if (revealCount > 0) // Verifica daca mai este de afisat vreun cuvant
-			{
-				partialWord += m_word[i];
-				revealCount--;
-			}
-			else
-			{
-				partialWord += "_";
-			}
-		}
-		else
-		{
-			partialWord += m_word[i];
-		}
+	char* word = std::strtok(&m_word[0], " ");
+	std::vector<std::string> words;
+
+	while (word != nullptr)
+	{
+		int revealCount = 1 + rand() % (std::strlen(word) / 2); // Maxim jumatate de cuvant
+		words.push_back(word);
+
+		partialWord = revealRandomLetters(revealCount, word);
+		//std::cout << partialWord << "";
+		partialWords.push_back(partialWord);
+
+		word = strtok(nullptr, " ");
 	}
 
-	std::cout << "Partial Word: " << partialWord << std::endl;
+	for (const auto& partialword : partialWords)
+	{
+		std::cout << partialWord << " ";
+	}
 }
