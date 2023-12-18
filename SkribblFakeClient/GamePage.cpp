@@ -2,6 +2,9 @@
 #include <QScreen>
 #include<QPainter>
 #include<QMouseEvent>
+#include<QTableWidget>
+#include<QHeaderView>
+#include<QTableWidgetItem>
 
 GamePage::GamePage(QWidget *parent)
 	: QWidget(parent)
@@ -16,6 +19,7 @@ GamePage::GamePage(QWidget *parent)
     int x = (this->size().width() - rectangleWidth) / 2;
     int y = (this->size().height() - rectangleHeight) / 2;
     rectangle.setRect(x, y, rectangleWidth, rectangleHeight);
+    setupTabela();
 }
 
 void GamePage::on_exitButton_pressed()
@@ -68,6 +72,18 @@ void GamePage::mouseReleaseEvent(QMouseEvent* e)
         g.addNodes(line);
         update();
     }
+}
+
+void GamePage::setupTabela()
+{
+    ui.tabelaScor->setWindowTitle("Tabela Scor");
+    ui.tabelaScor->setGeometry(rectangle.x() - 217, rectangle.y(), 217, rectangle.height()/2+51);
+
+    ui.tabelaScor->setRowCount(8);
+    ui.tabelaScor->setColumnCount(2);
+
+    ui.tabelaScor->setHorizontalHeaderLabels(QStringList() << "Username" << "Scor");
+
 }
 
 void GamePage::paintEvent(QPaintEvent * event)
