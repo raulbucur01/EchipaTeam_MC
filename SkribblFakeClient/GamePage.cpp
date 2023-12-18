@@ -5,10 +5,23 @@
 #include<QTableWidget>
 #include<QHeaderView>
 #include<QTableWidgetItem>
+#include<QStringListModel>
+
+void GamePage::sendMessage()
+{
+    QString message = ui.mesageBox->toPlainText();
+    if (!message.isEmpty())
+    {
+        messages->appendRow(new QStandardItem(message));
+        ui.mesageBox->clear();
+    }
+    ui.displayMessage->setModel(messages);
+}
 
 GamePage::GamePage(QWidget *parent)
 	: QWidget(parent)
 {
+    messages = new QStandardItemModel(this);
 	ui.setupUi(this);
 	ui.exitButton->setStyleSheet(QString("#%1 { background-color: red; }").arg(ui.exitButton->objectName()));
 	connect(ui.exitButton, &QPushButton::pressed, this, &GamePage::on_exitButton_pressed);
@@ -20,6 +33,7 @@ GamePage::GamePage(QWidget *parent)
     int y = (this->size().height() - rectangleHeight) / 2;
     rectangle.setRect(x, y, rectangleWidth, rectangleHeight);
     setupTabela();
+    setupChat();
 }
 
 void GamePage::on_exitButton_pressed()
@@ -28,7 +42,9 @@ void GamePage::on_exitButton_pressed()
 }
 
 GamePage::~GamePage()
-{}
+{
+    delete messages;
+}
 
 void GamePage::mousePressEvent(QMouseEvent * e)
 {
@@ -77,12 +93,22 @@ void GamePage::mouseReleaseEvent(QMouseEvent* e)
 void GamePage::setupTabela()
 {
     ui.tabelaScor->setWindowTitle("Tabela Scor");
-    ui.tabelaScor->setGeometry(rectangle.x() - 217, rectangle.y(), 217, rectangle.height()/2+51);
+    ui.tabelaScor->setGeometry(rectangle.x() - 217, rectangle.y(), 217, rectangle.height()/2+52);
 
     ui.tabelaScor->setRowCount(8);
     ui.tabelaScor->setColumnCount(2);
 
     ui.tabelaScor->setHorizontalHeaderLabels(QStringList() << "Username" << "Scor");
+
+    ui.tabelaScor->setStyleSheet("QTableWidget { background-color: lightblue; }"
+        "QHeaderView::section { background-color: lightblue; }");
+    ui.tabelaScor->verticalHeader()->setVisible(false);
+}
+
+void GamePage::setupChat()
+{
+    ui.verticalLayoutWidget->setGeometry(rectangle.x() + rectangle.width(), rectangle.y(), 200, rectangle.height());
+    connect(ui.sendButton, &QPushButton::toggled, this, &GamePage::sendMessage);
 
 }
 
