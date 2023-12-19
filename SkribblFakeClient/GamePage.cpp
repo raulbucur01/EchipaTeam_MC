@@ -9,7 +9,7 @@
 
 void GamePage::sendMessage()
 {
-    QString message = ui.mesageBox->toPlainText();
+    QString message = "You: " + ui.mesageBox->toPlainText();
     if (!message.isEmpty())
     {
         messages->appendRow(new QStandardItem(message));
@@ -32,6 +32,7 @@ GamePage::GamePage(QWidget *parent)
     int x = (this->size().width() - rectangleWidth) / 2;
     int y = (this->size().height() - rectangleHeight) / 2;
     rectangle.setRect(x, y, rectangleWidth, rectangleHeight);
+    connect(ui.sendButton, &QPushButton::pressed, this, &GamePage::sendMessage);
     setupTabela();
     setupChat();
 }
@@ -108,8 +109,8 @@ void GamePage::setupTabela()
 void GamePage::setupChat()
 {
     ui.verticalLayoutWidget->setGeometry(rectangle.x() + rectangle.width(), rectangle.y(), 200, rectangle.height());
-    connect(ui.sendButton, &QPushButton::toggled, this, &GamePage::sendMessage);
-
+    ui.displayMessage->setGeometry(ui.verticalLayoutWidget->x(), ui.verticalLayoutWidget->y(), 200, ui.verticalLayoutWidget->height() - ui.sendButton->height());
+    ui.mesageBox->setGeometry(ui.verticalLayoutWidget->x() + ui.displayMessage->height(), ui.verticalLayoutWidget->y(), 200 - ui.sendButton->width(), ui.sendButton->height());
 }
 
 void GamePage::paintEvent(QPaintEvent * event)
