@@ -22,8 +22,7 @@ int main() {
 	else
 		std::cout << "\nA fost gasit";
 */
-	ScribbleServer server;
+	SkribblServer server;
 	server.Start(DB);
-
 	return 0;
 }

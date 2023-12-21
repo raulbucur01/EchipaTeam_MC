@@ -2,7 +2,7 @@
 
 using namespace http;
 
-void ScribbleServer::Start(DataBase& storage)
+void SkribblServer::Start(DataBase& storage)
 {
 	// Rutele pentru diferite requesturi
 	CROW_ROUTE(m_app, "/")([]() {
@@ -38,12 +38,12 @@ void ScribbleServer::Start(DataBase& storage)
 	m_app.port(18080).multithreaded().run();
 }
 
-void ScribbleServer::HandleRequest(const crow::request& req, crow::response& res, void (ScribbleServer::* handler)(const crow::request&, crow::response&))
+void SkribblServer::HandleRequest(const crow::request& req, crow::response& res, void (SkribblServer::* handler)(const crow::request&, crow::response&))
 {
 	(this->*handler)(req, res);
 }
 
-void ScribbleServer::HandleJoinRequest(const crow::request& req, crow::response& res)
+void SkribblServer::HandleJoinRequest(const crow::request& req, crow::response& res)
 {
 	auto json = crow::json::load(req.body);
 	if (!json) {
@@ -68,7 +68,7 @@ void ScribbleServer::HandleJoinRequest(const crow::request& req, crow::response&
 	res.end();
 }
 
-void ScribbleServer::HandleDrawing(const crow::request& req, crow::response& res)
+void SkribblServer::HandleDrawing(const crow::request& req, crow::response& res)
 {
 	
 	auto json = crow::json::load(req.body);
@@ -94,7 +94,7 @@ void ScribbleServer::HandleDrawing(const crow::request& req, crow::response& res
 	res.end();
 }
 
-void ScribbleServer::HandleGuess(const crow::request& req, crow::response& res)
+void SkribblServer::HandleGuess(const crow::request& req, crow::response& res)
 {
 	auto json = crow::json::load(req.body);
 	if (!json) {
@@ -118,7 +118,7 @@ void ScribbleServer::HandleGuess(const crow::request& req, crow::response& res)
 	res.end();
 }
 
-void ScribbleServer::HandleGameStateRequest(const crow::request& req, crow::response& res)
+void SkribblServer::HandleGameStateRequest(const crow::request& req, crow::response& res)
 {
 	// Trimite starea jocului curent playerului ce o cere
 	std::string gameState = "Current Game State:\n";
@@ -133,7 +133,7 @@ void ScribbleServer::HandleGameStateRequest(const crow::request& req, crow::resp
 	res.end();
 }
 
-void ScribbleServer::BroadcastMessage(const std::string& message)
+void SkribblServer::BroadcastMessage(const std::string& message)
 {
 	// nu am UI ul sa trimit mesaje tuturor playerilor
 	//for (auto& client : connectedPlayers) {

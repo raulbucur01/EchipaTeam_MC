@@ -13,40 +13,31 @@ void populateDB(Storage& storage)
 	};
 	storage.insert_range(players.begin(), players.end());
 
-	std::vector<Word> words = {
-		Word{-1,"casa de marcat"},
-		Word{-1,"Ferrari"},
-		Word{-1,"sternocleidomastiodian"},
-		Word{-1,"Cristiano Ronaldo"},
-		Word{-1,"fasole frecata"},
-		Word{-1,"paine"},
-		Word{-1,"insula"},
-		Word{-1,"ceafa de porc"},
-		Word{-1,"KFC"},
-		Word{-1,"Formula 1"},
-		Word{-1,"Varza"},
-		Word{-1,"OK"},
-		Word{-1,"branza stricata"},
-		Word{-1,"lapte de bivol"},
-		Word{-1,"carnat urias"},
-		Word{-1,"desert"},
-		Word{-1,"tort de ciocolata"},
-		Word{-1,"masline negre"},
-	};
+	std::ifstream input("Words.txt");
+	std::vector<Word> words;
+	std::string word;
+	while (std::getline(input, word)) {
+		words.emplace_back(-1, word);
+	}
+
 	storage.insert_range(words.begin(), words.end());
+	input.close();
 }
 
 DataBase::DataBase(const std::string& filename) : m_DB(createStorage(filename))
 {
 	m_DB.sync_schema();
+	// daca se mai adauga cuvinte trebuie decomentat ca sa se strearga ce era inainte si sa se refaca baza de date
+	//m_DB.remove_all<Word>();
+	//m_DB.remove_all<Player>();
 	auto initPlayerCount = m_DB.count<Player>();
 	auto initWordCount = m_DB.count<Word>();
 	if (initPlayerCount == 0 && initWordCount == 0)
 		populateDB(m_DB);
 
 	// for testing
-	addPlayersFromDBToPlayersVector();
-	addWordsFromDBToWordsVector();
+	//addPlayersFromDBToPlayersVector();
+	//addWordsFromDBToWordsVector();
 }
 
 // Player
