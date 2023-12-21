@@ -104,6 +104,7 @@ void GamePage::setupTabela()
     ui.tabelaScor->setStyleSheet("QTableWidget { background-color: lightblue; }"
         "QHeaderView::section { background-color: lightblue; }");
     ui.tabelaScor->verticalHeader()->setVisible(false);
+    ui.tabelaScor->horizontalHeader()->setSectionsClickable(false);
 }
 
 void GamePage::setupChat()
