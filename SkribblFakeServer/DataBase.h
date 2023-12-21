@@ -6,6 +6,7 @@
 #include <crow.h>
 #include "Player.h"
 #include "Word.h"
+#include <fstream>
 namespace sql = sqlite_orm;
 import utils;
 

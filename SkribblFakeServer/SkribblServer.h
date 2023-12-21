@@ -14,7 +14,7 @@ using namespace sqlite_orm;
 //using PlayerStorage = storage_t<Player>;
 //using WordStorage = storage_t<Word>;
 
-class ScribbleServer {
+class SkribblServer {
 public:
     void Start(DataBase& storage);
 private:
@@ -24,7 +24,7 @@ private:
     std::vector<std::string> m_drawings;
     std::string m_currentWord;
 
-    void HandleRequest(const crow::request& req, crow::response& res, void(ScribbleServer::* handler)(const crow::request&, crow::response&));
+    void HandleRequest(const crow::request& req, crow::response& res, void(SkribblServer::* handler)(const crow::request&, crow::response&));
     void HandleJoinRequest(const crow::request& req, crow::response& res);
     void HandleDrawing(const crow::request& req, crow::response& res);
     void HandleGuess(const crow::request& req, crow::response& res);
