@@ -217,6 +217,13 @@ void DataBase::printAllWords()
 	}
 }
 
+void DataBase::AddPlayertoDB(Player& player)
+{
+	auto id = m_DB.insert(player);
+	player.SetId(id);
+
+}
+
 
 // DB operations
 
@@ -296,13 +303,21 @@ crow::response RegistrationHandler::operator()(const crow::request& req) const
 	{
 		return crow::response(400);
 	}
-	if (m_DB.searchPlayer(usernameIter->second))
+	if ( m_DB.searchPlayerInDB(usernameIter->second) != std::nullopt)
 	{
 		return crow::response(403, "Username already exists");
 	}
-	//adaugare user in database
-	// 
-	//verificare daca s a adaugat cu succes usernameul
-
+	else
+	{
+		/* verificare pentru username si pentru password
+		if ()
+		{
+			return crow::response(403, "Credentials not valid");
+		}
+		*/
+		Player newPlayerDB(0,usernameIter->second, passwordIter->second,0);
+		m_DB.AddPlayertoDB(newPlayerDB);
+	}
 	return crow::response(201, "Successfully registration");
 }
+			

@@ -27,8 +27,10 @@ void RegisterPage::on_exitButton_pressed()
 void RegisterPage::on_pushButton_CreateAccount_pressed() {
 	QString username = ui.lineEdit_Username->text();
 	QString password = ui.lineEdit_Password->text();
-	QString password2 = ui.lineEdit_ConfirmPassword->text();
-
+	QString confirmPassword = ui.lineEdit_ConfirmPassword->text();
+	std::string usernameToString = username.toUtf8().constData();
+	std::string passwordToString = password.toUtf8().constData();
+	std::string password1ToString = confirmPassword.toUtf8().constData();
 	//if (password != password2)
 	//	QMessageBox::warning(this, "Login", "Ati introdus: " + username + "," + password);
 
@@ -39,7 +41,8 @@ void RegisterPage::on_pushButton_CreateAccount_pressed() {
 
 	// dupa adaugare se trece la log in iar
 
-	auto res = cpr::Put(cpr::Url{"http://localhost:18080/signup"});
+	auto res = cpr::Put(cpr::Url{"http://localhost:18080/registration"},
+			cpr::Body{"username=",usernameToString,"&password=",passwordToString,"&confirmPassword=",password1ToString});
 	if (res.error.code != cpr::ErrorCode::OK)
 	{
 		// error
@@ -54,8 +57,12 @@ void RegisterPage::on_pushButton_CreateAccount_pressed() {
 		LoginPage* loginPage = new LoginPage(this);
 		loginPage->show();
 	}
-	/*else
+	else if (res.status_code == 401)
+		{
+			//msj ca nu s-a introdus username-ul sau parola corect/a
+		}
+	else
 	{
-		return error;
-	}*/
+		//msj ca nu s-a introdus username-ul sau parola 
 	}
+}

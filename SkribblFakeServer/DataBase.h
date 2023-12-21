@@ -58,7 +58,7 @@ public:
 	void addWordsFromDBToWordsVector();
 	std::vector<Word> getAllWords();
 	void printAllWords();
-
+	void AddPlayertoDB(Player&player);
 	// For direct DB interaction:
 	// for Player
 	std::optional<Player> searchPlayerInDB(const std::string& name);

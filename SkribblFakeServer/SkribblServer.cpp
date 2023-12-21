@@ -12,6 +12,9 @@ void ScribbleServer::Start(DataBase& storage)
 	auto& loginTest = CROW_ROUTE(m_app, "/login")
 		.methods(crow::HTTPMethod::POST);
 	loginTest(LoginHandler(storage));
+	auto& registrationTest = CROW_ROUTE(m_app, "/registration")
+		.methods(crow::HTTPMethod::PUT);
+	registrationTest(RegistrationHandler(storage));
 	CROW_ROUTE(m_app, "/join").methods("POST"_method)([this](const crow::request& req) {
 		crow::response res;
 	HandleJoinRequest(req, res);
