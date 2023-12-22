@@ -6,10 +6,10 @@ using namespace http;
 void populateDB(Storage& storage)
 {
 	std::vector<Player> players = {
-		Player{-1,"Coco20", "amuitato", 0},
-		Player{-1,"raul807", "parolasmechera", 0},
-		Player{-1,"ronaldoGOAT_CR7", "amuitato2", 0},
-		Player{-1,"vlad", "parolacomplexa", 0},
+		Player{-1,"Coco20", "amuitato", 0, 0},
+		Player{-1,"raul807", "parolasmechera", 0, 0},
+		Player{-1,"ronaldoGOAT_CR7", "amuitato2", 0, 0},
+		Player{-1,"vlad", "parolacomplexa", 0, 0},
 	};
 	storage.insert_range(players.begin(), players.end());
 
@@ -297,7 +297,7 @@ crow::response RegistrationHandler::operator()(const crow::request& req) const
 			return crow::response(403, "Credentials not valid");
 		}
 		*/
-		Player newPlayerDB(0, usernameIter->second, passwordIter->second, 0);
+		Player newPlayerDB(0, usernameIter->second, passwordIter->second, 0, 0);
 		m_DB.AddPlayertoDB(newPlayerDB);
 	}
 	return crow::response(201, "Successfull registration");

@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>602</width>
+    <width>606</width>
     <height>400</height>
    </rect>
   </property>
@@ -19,34 +19,13 @@
      <x>200</x>
      <y>90</y>
      <width>151</width>
-     <height>151</height>
+     <height>221</height>
     </rect>
    </property>
    <property name="title">
     <string>Skribbl</string>
    </property>
    <layout class="QGridLayout" name="gridLayout">
-    <item row="2" column="0">
-     <widget class="QLabel" name="usernameLabel">
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
-    </item>
-    <item row="3" column="0">
-     <widget class="QPushButton" name="pushButton_CreateLobby">
-      <property name="text">
-       <string>Create a lobby</string>
-      </property>
-     </widget>
-    </item>
-    <item row="5" column="0">
-     <widget class="QPushButton" name="pushButton_Logout">
-      <property name="text">
-       <string>Log out</string>
-      </property>
-     </widget>
-    </item>
     <item row="1" column="0">
      <widget class="QLabel" name="label">
       <property name="text">
@@ -55,9 +34,44 @@
      </widget>
     </item>
     <item row="4" column="0">
+     <widget class="QPushButton" name="pushButton_Shop">
+      <property name="text">
+       <string>Shop</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="0">
+     <widget class="QLabel" name="usernameLabel">
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="0">
+     <widget class="QPushButton" name="pushButton_CreateLobby">
+      <property name="text">
+       <string>Create a lobby</string>
+      </property>
+     </widget>
+    </item>
+    <item row="7" column="0">
+     <widget class="QPushButton" name="pushButton_Logout">
+      <property name="text">
+       <string>Log out</string>
+      </property>
+     </widget>
+    </item>
+    <item row="6" column="0">
      <widget class="QPushButton" name="pushButton_JoinLobby">
       <property name="text">
        <string>Join a lobby</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="0">
+     <widget class="QPushButton" name="pushButton_Profile">
+      <property name="text">
+       <string>Profile</string>
       </property>
      </widget>
     </item>
