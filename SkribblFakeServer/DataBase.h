@@ -43,7 +43,7 @@ public:
 	Player getPlayer(const std::string& name);
 	auto getPlayerIterator(const std::string& name);
 	void updatePlayer(const std::string& name, const Player& new_player);
-	
+
 	void addPlayersFromDBToPlayersVector();
 	std::vector<Player> getAllPlayers();
 	void printAllPLayers();

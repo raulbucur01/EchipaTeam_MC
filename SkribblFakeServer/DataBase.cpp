@@ -204,7 +204,7 @@ void DataBase::printAllWords()
 	std::cout << std::endl;
 	for (int i = 0; i < m_words.size(); i++)
 	{
-		std::cout << m_words[i].GetId() <<" "<< m_words[i].GetWord() << "\n";
+		std::cout << m_words[i].GetId() << " " << m_words[i].GetWord() << "\n";
 	}
 }
 
@@ -218,7 +218,7 @@ void DataBase::AddPlayertoDB(Player& player)
 
 // DB operations
 
-std::optional<Player> DataBase::searchPlayerInDB(const std::string& name)
+std::optional<Player> DataBase::SearchPlayerInDB(const std::string& name)
 {
 	auto result = m_DB.get_all<Player>(sql::where(sql::is_equal(&Player::GetName, name)));
 
@@ -242,24 +242,15 @@ LoginHandler::LoginHandler(DataBase& storage) :m_DB{ storage }
 
 crow::response LoginHandler::operator()(const crow::request& req) const
 {
-	/*
-	Note:
-	Cand folosesti functia searchPlayerInDB si bagi rezultatul intr-o variabila
-	ca sa verifici daca are valoare este functia has_value();
-	ca sa accesezi valoarea .value();
-	(asa e cand lucram cu std::optional)
-	(exemplu in main)
-	*/
-
 	auto bodyArgs = parseUrlArgs(req.body);
 	auto end = bodyArgs.end();
 	auto usernameIter = bodyArgs.find("username");
 	auto passwordIter = bodyArgs.find("password");
 	if (usernameIter != end && passwordIter != end)
 	{
-		if (auto person{ m_DB.searchPlayerInDB(usernameIter->second) }; person!= std::nullopt)
+		if (auto person{ m_DB.SearchPlayerInDB(usernameIter->second) }; person != std::nullopt)
 		{
-			if(person.value().GetPassword() == passwordIter->second)
+			if (person.value().GetPassword() == passwordIter->second)
 			{
 				return crow::response(200, "Login successful");
 			}
@@ -295,7 +286,8 @@ crow::response RegistrationHandler::operator()(const crow::request& req) const
 	{
 		return crow::response(400);
 	}
-	if (m_DB.searchPlayerInDB(usernameIter->second) != std::nullopt)
+
+	if (m_DB.SearchPlayerInDB(usernameIter->second) != std::nullopt)
 	{
 		return crow::response(403, "Username already exists");
 	}
@@ -310,5 +302,5 @@ crow::response RegistrationHandler::operator()(const crow::request& req) const
 		return crow::response(403, "Credentials not valid");
 	
 	return crow::response(201, "Successfully registration");
+
 }
-			

@@ -8,7 +8,7 @@ class RegisterPage : public QWidget
 	Q_OBJECT
 
 public:
-	RegisterPage(QWidget *parent = nullptr);
+	RegisterPage(QWidget* parent = nullptr);
 	~RegisterPage();
 
 private slots:

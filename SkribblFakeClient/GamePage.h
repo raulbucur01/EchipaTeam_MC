@@ -16,7 +16,7 @@ private slots:
 	void sendMessage();
 
 public:
-	GamePage(QWidget *parent = nullptr);
+	GamePage(QWidget* parent = nullptr);
 	~GamePage();
 	void mousePressEvent(QMouseEvent* e);
 	void mouseMoveEvent(QMouseEvent* e);
@@ -33,5 +33,5 @@ private:
 	QRect rectangle;
 	Graph g;
 	vector<Node*> line;
-	bool painting=false;
+	bool painting = false;
 };

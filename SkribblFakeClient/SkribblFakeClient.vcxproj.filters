@@ -47,6 +47,12 @@
     <ClCompile Include="node.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ShopPage.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ProfilePage.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="RegisterPage.h">
@@ -64,6 +70,12 @@
     <QtMoc Include="GamePage.h">
       <Filter>Header Files</Filter>
     </QtMoc>
+    <QtMoc Include="ShopPage.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="ProfilePage.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="RegisterPage.ui">
@@ -79,6 +91,12 @@
       <Filter>Form Files</Filter>
     </QtUic>
     <QtUic Include="GamePage.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="ShopPage.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="ProfilePage.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>

@@ -1,10 +1,10 @@
 #include "Player.h"
 
-Player::Player(int id, const std::string& name, const std::string& password, int16_t score=0):
-	m_id{id}, 
-	m_name{name},
-	m_password{password},
-	m_score{score}
+Player::Player(int id, const std::string& name, const std::string& password, int16_t score = 0) :
+	m_id{ id },
+	m_name{ name },
+	m_password{ password },
+	m_score{ score }
 {
 
 }
@@ -64,7 +64,7 @@ Player& Player::operator=(const Player& other)
 	if (this == &other) {
 		return *this;
 	}
-	
+
 	m_id = other.m_id;
 	m_name = other.m_name;
 	m_password = other.m_password;
@@ -75,9 +75,9 @@ Player& Player::operator=(const Player& other)
 bool Player::operator==(const Player& p) const
 {
 	return (m_id == p.m_id &&
-			m_name == p.m_name &&
-			m_password == p.m_password &&
-			m_score == p.m_score);
+		m_name == p.m_name &&
+		m_password == p.m_password &&
+		m_score == p.m_score);
 }
 
 bool Player::GetPainter()
@@ -92,7 +92,7 @@ void Player::SetPainter(bool este)
 
 std::ostream& operator<<(std::ostream& os, const Player& player)
 {
-	os  << "ID: " << player.m_id << ", "
+	os << "ID: " << player.m_id << ", "
 		<< "Name: " << player.m_name << ", "
 		<< "Password: " << player.m_password << ", "
 		<< "Score: " << player.m_score;

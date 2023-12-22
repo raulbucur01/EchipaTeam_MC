@@ -8,7 +8,7 @@ class LoginPage : public QWidget
 	Q_OBJECT
 
 public:
-	LoginPage(QWidget *parent = nullptr);
+	LoginPage(QWidget* parent = nullptr);
 	~LoginPage();
 
 private slots:

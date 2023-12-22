@@ -33,7 +33,7 @@ private:
 	int m_id;
 	std::string m_name;
 	std::string m_password;
-	int16_t m_score, m_secondsGuess=0;
-	bool m_painter=false;
+	int16_t m_score, m_secondsGuess = 0;
+	bool m_painter = false;
 };
 

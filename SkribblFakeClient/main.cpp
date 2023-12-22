@@ -3,11 +3,11 @@
 #include <cpr/cpr.h>
 
 
-int main(int argc, char *argv[])
+int main(int argc, char* argv[])
 {
-    QApplication a(argc, argv);
-    
-    Window::StartPage b;
-    b.show();
-    return a.exec();
+	QApplication a(argc, argv);
+
+	Window::StartPage b;
+	b.show();
+	return a.exec();
 }
