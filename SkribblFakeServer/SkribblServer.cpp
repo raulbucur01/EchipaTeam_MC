@@ -40,17 +40,17 @@ void SkribblServer::Start(DataBase& storage)
 		return res;
 		});
 
-	CROW_ROUTE(m_app, "/getScore").methods("GET"_method)([this](const crow::request& req) {
-		crow::response res;
-	HandleGetScoreRequest(req, res);
-	return res;
-		});
+	//CROW_ROUTE(m_app, "/getScore").methods("GET"_method)([this](const crow::request& req) {
+	//	crow::response res;
+	//HandleGetScoreRequest(req, res);
+	//return res;
+	//	});
 
-	CROW_ROUTE(m_app, "/getCoins").methods("GET"_method)([this](const crow::request& req) {
-		crow::response res;
-	HandleGetCoinsRequest(req, res);
-	return res;
-		});
+	//CROW_ROUTE(m_app, "/getCoins").methods("GET"_method)([this](const crow::request& req) {
+	//	crow::response res;
+	//HandleGetCoinsRequest(req, res);
+	//return res;
+	//	});
 
 	m_app.port(18080).multithreaded().run();
 }
