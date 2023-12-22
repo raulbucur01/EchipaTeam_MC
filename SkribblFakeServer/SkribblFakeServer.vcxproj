@@ -118,7 +118,7 @@
       <ScanSourceForModuleDependencies>true</ScanSourceForModuleDependencies>
       <EnableModules>true</EnableModules>
       <AdditionalOptions>/D _SILENCE_ALL_CXX17_DEPRECATION_WARNINGS %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalIncludeDirectories>C:\MY_CODE\GitHubRepos\EchipaTeam_MC\DllWord;C:\Users\CRISTI\Desktop\EchipaTeam_MC\DllWord</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>E:\laborator MC\EchipaTeam_MC\DllWord;C:\MY_CODE\GitHubRepos\EchipaTeam_MC\DllWord;C:\Users\CRISTI\Desktop\EchipaTeam_MC\DllWord</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -137,7 +137,7 @@
       <ScanSourceForModuleDependencies>true</ScanSourceForModuleDependencies>
       <EnableModules>true</EnableModules>
       <AdditionalOptions>/D _SILENCE_ALL_CXX17_DEPRECATION_WARNINGS %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalIncludeDirectories>C:\MY_CODE\GitHubRepos\EchipaTeam_MC\DllWord;C:\Users\CRISTI\Desktop\EchipaTeam_MC\DllWord</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>E:\laborator MC\EchipaTeam_MC\DllWord;C:\MY_CODE\GitHubRepos\EchipaTeam_MC\DllWord;C:\Users\CRISTI\Desktop\EchipaTeam_MC\DllWord</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

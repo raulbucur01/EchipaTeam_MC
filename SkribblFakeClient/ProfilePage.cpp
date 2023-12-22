@@ -20,18 +20,42 @@ ProfilePage::~ProfilePage()
 
 void ProfilePage::DisplayScore()
 {
-	// se cauta de la server pt username-ul curent scorul
-	// (!!! E evident ca playerul exista daca am ajuns aici. Trebuie doar cautat si returnat scorul !!!)
-	QString score = "0";
-	ui.label_ScoreInfo->setText(score);
+	QString url = "http://localhost:18080/getScore"; 
+	QNetworkRequest request(url);
+	QNetworkReply* reply = m_networkManager.get(request);
+
+	connect(reply, &QNetworkReply::finished, [=]() {
+		if (reply->error() == QNetworkReply::NoError) {
+			QString score = reply->readAll();
+			ui.label_ScoreInfo->setText(score);
+		}
+		else {
+			qDebug() << "Error fetching score:" << reply->errorString();
+		}
+
+	reply->deleteLater();
+		});
 }
 
 void ProfilePage::DisplayCoins()
 {
-	// se cauta de la server pt username-ul curent cati bani are
-	// (!!! E evident ca playerul exista daca am ajuns aici. Trebuie doar cautat si returnat cati bani are !!!)
-	QString coins = "0";
-	ui.label_CoinsInfo->setText(coins);
+
+	QString url = "http://localhost:18080/getCoins";  
+	QNetworkRequest request(url);
+	QNetworkReply* reply = m_networkManager.get(request);
+
+	connect(reply, &QNetworkReply::finished, [=]() {
+		if (reply->error() == QNetworkReply::NoError) {
+			QString coins = reply->readAll();
+			ui.label_CoinsInfo->setText(coins);
+		}
+		else {
+			qDebug() << "Error fetching coins:" << reply->errorString();
+		}
+
+	reply->deleteLater();
+		});
+	
 }
 
 void ProfilePage::on_exitButton_pressed()
