@@ -43,7 +43,7 @@ public:
 	Player getPlayer(const std::string& name);
 	auto getPlayerIterator(const std::string& name);
 	void updatePlayer(const std::string& name, const Player& new_player);
-	
+
 	void addPlayersFromDBToPlayersVector();
 	std::vector<Player> getAllPlayers();
 	void printAllPLayers();
@@ -59,10 +59,11 @@ public:
 	void addWordsFromDBToWordsVector();
 	std::vector<Word> getAllWords();
 	void printAllWords();
-	void AddPlayertoDB(Player&player);
+
 	// For direct DB interaction:
 	// for Player
-	std::optional<Player> searchPlayerInDB(const std::string& name);
+	std::optional<Player> SearchPlayerInDB(const std::string& name);
+	void AddPlayertoDB(Player& player);
 
 	~DataBase() = default;
 

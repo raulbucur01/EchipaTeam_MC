@@ -4,7 +4,6 @@
 
 int main() {
 	DataBase DB("SkribblData.sqlite");
-	DB.printAllPLayers();
 	/*DB.printAllPLayers();
 	DB.printAllWords();
 	auto p = DB.searchPlayerInDB("Coco20");
@@ -13,7 +12,7 @@ int main() {
 	else
 	{
 		if (p.has_value()) {
-			std::cout << "\nA fost gasit: " << p.value().GetName(); 
+			std::cout << "\nA fost gasit: " << p.value().GetName();
 		}
 	}
 
@@ -23,7 +22,6 @@ int main() {
 	else
 		std::cout << "\nA fost gasit";
 */
-
 	SkribblServer server;
 	server.Start(DB);
 	return 0;

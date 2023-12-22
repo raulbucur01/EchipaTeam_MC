@@ -3,8 +3,8 @@
 #include "GamePage.h"
 #include <QScreen>
 
-MenuPage::MenuPage(QWidget* parent,QString username)
-	: QWidget(parent),m_username(username)
+MenuPage::MenuPage(QWidget* parent, QString username)
+	: QWidget(parent), m_username(username)
 {
 	ui.setupUi(this);
 	QScreen* desktop = QApplication::primaryScreen();

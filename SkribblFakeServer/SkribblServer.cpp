@@ -8,35 +8,36 @@ void SkribblServer::Start(DataBase& storage)
 	CROW_ROUTE(m_app, "/")([]() {
 		return "The server is working";
 		});
-	
+
 	auto& loginTest = CROW_ROUTE(m_app, "/login")
 		.methods(crow::HTTPMethod::POST);
 	loginTest(LoginHandler(storage));
 	auto& registrationTest = CROW_ROUTE(m_app, "/registration")
 		.methods(crow::HTTPMethod::PUT);
 	registrationTest(RegistrationHandler(storage));
+
 	CROW_ROUTE(m_app, "/join").methods("POST"_method)([this](const crow::request& req) {
 		crow::response res;
-	HandleJoinRequest(req, res);
-	return res;
+		HandleJoinRequest(req, res);
+		return res;
 		});
 
 	CROW_ROUTE(m_app, "/drawing").methods("POST"_method)([this](const crow::request& req) {
 		crow::response res;
-	HandleDrawing(req, res);
-	return res;
+		HandleDrawing(req, res);
+		return res;
 		});
 
 	CROW_ROUTE(m_app, "/guess").methods("POST"_method)([this](const crow::request& req) {
 		crow::response res;
-	HandleGuess(req, res);
-	return res;
+		HandleGuess(req, res);
+		return res;
 		});
 
 	CROW_ROUTE(m_app, "/gamestate").methods("GET"_method)([this](const crow::request& req) {
 		crow::response res;
-	HandleGameStateRequest(req, res);
-	return res;
+		HandleGameStateRequest(req, res);
+		return res;
 		});
 	m_app.port(18080).multithreaded().run();
 }
@@ -73,7 +74,7 @@ void SkribblServer::HandleJoinRequest(const crow::request& req, crow::response& 
 
 void SkribblServer::HandleDrawing(const crow::request& req, crow::response& res)
 {
-	
+
 	auto json = crow::json::load(req.body);
 	if (!json) {
 		res.code = 400;

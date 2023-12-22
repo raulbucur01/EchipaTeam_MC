@@ -5,7 +5,7 @@
 #include "MenuPage.h"
 #include <cpr/cpr.h>
 
-LoginPage::LoginPage(QWidget *parent)
+LoginPage::LoginPage(QWidget* parent)
 	: QWidget(parent)
 {
 	ui.setupUi(this);
@@ -28,7 +28,7 @@ void LoginPage::on_pushButton_Login_pressed()
 	std::string nume = username.toUtf8().constData();
 	std::string parola = password.toUtf8().constData();
 	auto res = cpr::Post(cpr::Url{ "http://localhost:18080/login" },
-	cpr::Body{ "username=" + nume + "&password=" + parola});
+		cpr::Body{ "username=" + nume + "&password=" + parola });
 
 	if (res.error.code != cpr::ErrorCode::OK) {
 		//afisare text
@@ -38,11 +38,17 @@ void LoginPage::on_pushButton_Login_pressed()
 	{
 		ui.groupBox_Login->hide();
 		delete ui.groupBox_Login;
-		MenuPage* menuPage = new MenuPage(this,username);
+		MenuPage* menuPage = new MenuPage(this, username);
 		menuPage->show();
 	}
+	else if (res.status_code == 401) {
+		QMessageBox::warning(this, "Login", "Password incorrect! Please try again!");
+	}
+	else if (res.status_code == 404) {
+		QMessageBox::warning(this, "Login", "Username not found! Please try again!");
+	}
 	else {
-		QMessageBox::warning(this, "Login", "Log in credentials incorrect! Please try again!");
+		QMessageBox::warning(this, "Login", "You didn't enter anything in one or all slots!");
 	}
 }
 

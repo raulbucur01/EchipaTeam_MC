@@ -10,35 +10,35 @@
 class __declspec(dllexport) Word
 {
 public:
-    Word() = default;
-    Word(int id, const std::string& word = "");
+	Word() = default;
+	Word(int id, const std::string& word = "");
 
-    // setters
-    void SetWord(std::string word);
-    void SetId(int id);
+	// setters
+	void SetWord(std::string word);
+	void SetId(int id);
 
-    //getters
-    std::string GetWord() const noexcept;
-    int GetId() const noexcept;
+	//getters
+	std::string GetWord() const noexcept;
+	int GetId() const noexcept;
 
-    // logic
-    std::string getCurrentSlotState();
-    void revealOneRandomLetter();
-    std::string getEmptyLetterSlots();
-    void resetSlots();
-    std::string getEmptyLetterSlots(char* word);
-    std::string revealRandomLetters(int numToReveal, char* word);
-    void printPartialWord();
+	// logic
+	std::string getCurrentSlotState();
+	void revealOneRandomLetter();
+	std::string getEmptyLetterSlots();
+	void resetSlots();
+	std::string getEmptyLetterSlots(char* word);
+	std::string revealRandomLetters(int numToReveal, char* word);
+	void printPartialWord();
 
-    // operators
-    bool operator==(const Word& other) const;
-    Word& operator=(const Word& other);
-    //std::ostream& operator<<(std::ostream& os, const Word& word);
-    /*friend std::ostream& operator<<(std::ostream& os, const Word& word);*/
+	// operators
+	bool operator==(const Word& other) const;
+	Word& operator=(const Word& other);
+	//std::ostream& operator<<(std::ostream& os, const Word& word);
+	/*friend std::ostream& operator<<(std::ostream& os, const Word& word);*/
 
 private:
-    int m_id;
-    std::string m_word;
-    std::string m_slots;
-    std::vector<int> m_unrevealedIndexes;
+	int m_id;
+	std::string m_word;
+	std::string m_slots;
+	std::vector<int> m_unrevealedIndexes;
 };
