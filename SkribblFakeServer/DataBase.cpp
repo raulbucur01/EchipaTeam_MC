@@ -1,5 +1,5 @@
 #include "DataBase.h"
-
+#include <regex>
 
 using namespace http;
 
@@ -280,6 +280,7 @@ crow::response RegistrationHandler::operator()(const crow::request& req) const
 	auto end = bodyArgs.end();
 	auto usernameIter = bodyArgs.find("username");
 	auto passwordIter = bodyArgs.find("password");
+	auto confirmPasswordIter = bodyArgs.find("confirmPassword");
 
 	if (usernameIter == end || passwordIter == end)
 	{
@@ -289,16 +290,16 @@ crow::response RegistrationHandler::operator()(const crow::request& req) const
 	{
 		return crow::response(403, "Username already exists");
 	}
-	else
+	else if (passwordIter->second == confirmPasswordIter->second
+		&& usernameIter->second.length() > 6
+		&& std::regex_match(passwordIter->second,
+			std::regex("^.*(?=.{8,})(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*+=`~])(?=.*[0-9]).*$")))
 	{
-		/* verificare pentru username si pentru password
-		if ()
-		{
-			return crow::response(403, "Credentials not valid");
-		}
-		*/
 		Player newPlayerDB(0, usernameIter->second, passwordIter->second, 0, 0);
 		m_DB.AddPlayertoDB(newPlayerDB);
 	}
+	else
+		return crow::response(404, "Credentials not valid");
+
 	return crow::response(201, "Successfull registration");
 }
