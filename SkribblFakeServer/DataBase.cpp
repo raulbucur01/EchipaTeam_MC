@@ -208,16 +208,6 @@ void DataBase::printAllWords()
 	}
 }
 
-void DataBase::AddPlayertoDB(Player& player)
-{
-	auto id = m_DB.insert(player);
-	player.SetId(id);
-
-}
-
-
-// DB operations
-
 std::optional<Player> DataBase::SearchPlayerInDB(const std::string& name)
 {
 	auto result = m_DB.get_all<Player>(sql::where(sql::is_equal(&Player::GetName, name)));
@@ -231,6 +221,18 @@ std::optional<Player> DataBase::SearchPlayerInDB(const std::string& name)
 		return std::nullopt;
 	}
 }
+void DataBase::AddPlayertoDB(Player& player)
+{
+	auto id = m_DB.insert(player);
+	player.SetId(id);
+
+}
+
+
+
+
+// DB operations
+
 
 
 

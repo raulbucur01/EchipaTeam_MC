@@ -62,7 +62,7 @@ public:
 
 	// For direct DB interaction:
 	// for Player
-	std::optional<Player> searchPlayerInDB(const std::string& name);
+	std::optional<Player> SearchPlayerInDB(const std::string& name);
 	void AddPlayertoDB(Player& player);
 
 	~DataBase() = default;
