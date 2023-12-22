@@ -104,13 +104,17 @@
     <ClCompile Include="LoginPage.cpp" />
     <ClCompile Include="MenuPage.cpp" />
     <ClCompile Include="node.cpp" />
+    <ClCompile Include="ProfilePage.cpp" />
+    <ClCompile Include="ShopPage.cpp" />
     <ClCompile Include="StartPage.cpp" />
     <QtUic Include="GamePage.ui" />
     <QtUic Include="LoginPage.ui" />
     <QtUic Include="MenuPage.ui" />
+    <QtUic Include="ProfilePage.ui" />
     <QtUic Include="RegisterPage.ui" />
     <ClCompile Include="RegisterPage.cpp" />
     <ClCompile Include="main.cpp" />
+    <QtUic Include="ShopPage.ui" />
     <QtUic Include="StartPage.ui" />
   </ItemGroup>
   <ItemGroup>
@@ -131,6 +135,8 @@
   <ItemGroup>
     <ClInclude Include="graph.h" />
     <ClInclude Include="node.h" />
+    <QtMoc Include="ProfilePage.h" />
+    <QtMoc Include="ShopPage.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">
