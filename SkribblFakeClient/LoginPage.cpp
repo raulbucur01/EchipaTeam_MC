@@ -41,15 +41,9 @@ void LoginPage::on_pushButton_Login_pressed()
 		MenuPage* menuPage = new MenuPage(this, username);
 		menuPage->show();
 	}
-	else if (res.status_code == 401) {
-		QMessageBox::warning(this, "Login", "Password incorrect! Please try again!");
-	}
-	else if (res.status_code == 404) {
-		QMessageBox::warning(this, "Login", "Username not found! Please try again!");
-	}
-	else {
-		QMessageBox::warning(this, "Login", "You didn't enter anything in one or all slots!");
-	}
+	else 
+		QMessageBox::warning(this, "Login", QString::fromUtf8(res.text.data(), int(res.text.size())));
+	
 }
 
 void LoginPage::on_exitButton_pressed()

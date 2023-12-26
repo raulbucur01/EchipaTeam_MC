@@ -17,6 +17,7 @@ using namespace sqlite_orm;
 class SkribblServer {
 public:
     void Start(DataBase& storage);
+    std::vector<std::string> messages;
 private:
     crow::SimpleApp m_app;
 

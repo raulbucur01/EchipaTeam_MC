@@ -45,7 +45,7 @@ void RegisterPage::on_pushButton_CreateAccount_pressed() {
 		}
 		if (res.status_code == 201)
 		{
-			QMessageBox::information(this, "Register", "Account successfully created! Welcome!");
+			QMessageBox::information(this, "Register", QString::fromUtf8(res.text.data(), int(res.text.size())));
 			ui.groupBox_Register->hide();
 			ui.exitButton->hide();
 			delete ui.groupBox_Register;
@@ -53,17 +53,7 @@ void RegisterPage::on_pushButton_CreateAccount_pressed() {
 			LoginPage* loginPage = new LoginPage(this);
 			loginPage->show();
 		}
-		else if (res.status_code == 403)
-		{
-			QMessageBox::warning(this, "Register", "Username already exists! Please try again!");
-		}
-		else if (res.status_code == 404)
-		{
-			QMessageBox::warning(this, "Register", "Credentials are not valid! Please try again!");
-		}
-		else
-		{
-			QMessageBox::warning(this, "Register", "You didn't enter anything in one or all slots!");
-		}
+		else 
+			QMessageBox::warning(this, "Register", QString::fromUtf8(res.text.data(), int(res.text.size())));
 	}
 }

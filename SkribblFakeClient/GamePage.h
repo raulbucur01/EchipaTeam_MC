@@ -17,6 +17,7 @@ private slots:
 	void sendMessage();
 	void on_black_button_pressed();
 	void on_blue_button_pressed();
+	//void updateChat();
 
 public:
 	GamePage(QWidget* parent = nullptr);
@@ -39,4 +40,5 @@ private:
 	vector<Node*> line;
 	bool painting = false;
 	QColor currentColor;
+	std::unordered_set<std::string> m_players;
 };

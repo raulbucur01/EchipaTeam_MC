@@ -46,7 +46,7 @@ auto DataBase::getPlayerIterator(const std::string& name)
 {
 	for (auto it = m_players.begin(); it != m_players.end(); it++)
 	{
-		if (it->GetName() == name)
+		if ((*it).second.GetName() == name)
 			return it;
 	}
 	return m_players.end();
@@ -57,8 +57,13 @@ void DataBase::addPlayer(Player& player)
 	if (getPlayerIterator(player.GetName()) == m_players.end()) {
 		auto id = m_DB.insert(player);
 		player.SetId(id);
-		m_players.push_back(player);
+		m_players[player.GetName()] = player;
 	}
+}
+
+void DataBase::AddPlayer(Player& player)
+{
+	m_players[player.GetName()] = player;
 }
 
 void DataBase::deletePlayer(const std::string& name)
@@ -73,7 +78,7 @@ void DataBase::deletePlayer(const std::string& name)
 	it = getPlayerIterator(name);
 	if (it != m_players.end())
 	{
-		m_DB.remove<Player>(it->GetId());
+		m_DB.remove<Player>((*it).second.GetId());
 
 		m_players.erase(it);
 	}
@@ -83,7 +88,7 @@ bool DataBase::searchPlayer(const std::string& name) const
 {
 	for (auto& player : m_players)
 	{
-		if (player.GetName() == name)
+		if (player.second.GetName() == name)
 			return true;
 	}
 	return false;
@@ -93,8 +98,8 @@ Player DataBase::getPlayer(const std::string& name)
 {
 	for (auto& player : m_players)
 	{
-		if (player.GetName() == name)
-			return player;
+		if (player.second.GetName() == name)
+			return player.second;
 	}
 	return Player();
 }
@@ -104,7 +109,7 @@ void DataBase::updatePlayer(const std::string& name, const Player& new_player)
 	auto it = getPlayerIterator(name);
 	if (it != m_players.end())
 	{
-		*it = new_player;
+		(*it).second = new_player;
 
 		m_DB.update(new_player);
 	}
@@ -118,17 +123,17 @@ void DataBase::addPlayersFromDBToPlayersVector()
 		auto players = m_DB.get_all<Player>();
 		for (auto& player : players)
 		{
-			m_players.push_back(player);
+			m_players[player.GetName()]=player;
 		}
 	}
 }
 
-std::vector<Player> DataBase::getAllPlayers()
+std::unordered_map<std::string,Player> DataBase::getAllPlayers()
 {
 	return m_players;
 }
 
-void DataBase::printAllPLayers()
+/*void DataBase::printAllPLayers()
 {
 	std::cout << std::endl;
 	for (int i = 0; i < m_players.size(); i++)
@@ -136,7 +141,7 @@ void DataBase::printAllPLayers()
 		std::cout << m_players[i] << "\n";
 	}
 }
-
+*/
 // Word
 
 auto DataBase::getWordIterator(const std::string& word)
@@ -199,6 +204,17 @@ std::vector<Word> DataBase::getAllWords()
 	return m_words;
 }
 
+std::unordered_map<std::string,Player> DataBase::GetAllPlayers()
+{
+	return m_players;
+
+}
+
+bool DataBase::LoggedPlayer(const Player& player)
+{
+	return m_players.find(player.GetName()) != m_players.end();
+}
+
 void DataBase::printAllWords()
 {
 	std::cout << std::endl;
@@ -252,21 +268,30 @@ crow::response LoginHandler::operator()(const crow::request& req) const
 		{
 			if (person.value().GetPassword() == passwordIter->second)
 			{
-				return crow::response(200, "Login successful");
+				if (m_DB.LoggedPlayer(person.value()))
+				{
+					return crow::response(403, "The user is already logged");
+				}
+				else
+				{
+					m_DB.AddPlayer(person.value());
+					return crow::response(200, "Login successful");
+
+				}				
 			}
 			else
 			{
-				return crow::response(401, "Password incorrect.Try again");
+				return crow::response(401, "Password incorrect! Please try again!");
 			}
 		}
 		else
 		{
-			return crow::response(404, "Username not found");
+			return crow::response(404,"Username not found! Please try again!");
 		}
 	}
 	else
 	{
-		return crow::response(400);
+		return crow::response(400,"You didn't enter anything in one or all slots!");
 	}
 }
 
@@ -284,11 +309,11 @@ crow::response RegistrationHandler::operator()(const crow::request& req) const
 
 	if (usernameIter == end || passwordIter == end)
 	{
-		return crow::response(400);
+		return crow::response(400,"You didn't enter anything in one or all slots!");
 	}
 	if (m_DB.SearchPlayerInDB(usernameIter->second) != std::nullopt)
 	{
-		return crow::response(403, "Username already exists");
+		return crow::response(403, "Username already exists! Please try again!");
 	}
 	else if (passwordIter->second == confirmPasswordIter->second
 		&& usernameIter->second.length() > 6
@@ -299,7 +324,7 @@ crow::response RegistrationHandler::operator()(const crow::request& req) const
 		m_DB.AddPlayertoDB(newPlayerDB);
 	}
 	else
-		return crow::response(404, "Credentials not valid");
+		return crow::response(404, "Credentials are not valid! Please try again!");
 
-	return crow::response(201, "Successfull registration");
+	return crow::response(201, "Account successfully created! Welcome!");
 }

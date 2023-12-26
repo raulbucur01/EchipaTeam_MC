@@ -58,6 +58,7 @@ ProfilePage::~ProfilePage()
 //	
 //}
 
+
 void ProfilePage::on_exitButton_pressed()
 {
 	exit(0);

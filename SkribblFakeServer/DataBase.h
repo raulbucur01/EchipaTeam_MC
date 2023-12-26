@@ -7,6 +7,7 @@
 #include "Player.h"
 #include "Word.h"
 #include <fstream>
+#include <unordered_map>
 namespace sql = sqlite_orm;
 import utils;
 
@@ -39,6 +40,8 @@ public:
 
 	// Player
 	void addPlayer(Player& p);
+
+	void AddPlayer(Player& player);
 	void deletePlayer(const std::string& name);
 	bool searchPlayer(const std::string& name) const;
 	Player getPlayer(const std::string& name);
@@ -46,7 +49,7 @@ public:
 	void updatePlayer(const std::string& name, const Player& new_player);
 
 	void addPlayersFromDBToPlayersVector();
-	std::vector<Player> getAllPlayers();
+	std::unordered_map<std::string,Player> getAllPlayers();
 	void printAllPLayers();
 
 	// Word
@@ -59,6 +62,8 @@ public:
 
 	void addWordsFromDBToWordsVector();
 	std::vector<Word> getAllWords();
+	std::unordered_map<std::string,Player> GetAllPlayers();
+	bool LoggedPlayer(const Player& player );
 	void printAllWords();
 
 	// For direct DB interaction:
@@ -70,7 +75,7 @@ public:
 
 private:
 	Storage m_DB;
-	std::vector<Player> m_players;
+	std::unordered_map<std::string, Player> m_players;
 	std::vector<Word> m_words;
 };
 

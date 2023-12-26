@@ -6,7 +6,8 @@
 #include<QHeaderView>
 #include<QTableWidgetItem>
 #include<QStringListModel>
-
+#include <crow.h>
+#include <QTimer>
 void GamePage::sendMessage()
 {
 	QString message = "You: " + ui.mesageBox->toPlainText();
@@ -16,6 +17,11 @@ void GamePage::sendMessage()
 		ui.mesageBox->clear();
 	}
 	ui.displayMessage->setModel(messages);
+	std::string word=message.toUtf8().constData();
+
+	/*auto res = cpr::Post(cpr::Url{"http://localhost:18080/send"},
+		cpr::Body{ "word="+word});
+	*/
 }
 
 void GamePage::on_black_button_pressed()
@@ -27,6 +33,17 @@ void GamePage::on_blue_button_pressed()
 {
 	currentColor = Qt::blue;
 }
+
+/*void GamePage::updateChat()
+{
+	cpr::Response response = cpr::Get(cpr::Url{ "http://localhost:18080/get" });
+	auto words = response.text;
+	if (words != "")
+		messages->appendRow(new QStandardItem(QString::fromUtf8(words.data(), int(words.size()))));
+
+
+}
+*/
 
 GamePage::GamePage(QWidget* parent)
 	: QWidget(parent)
@@ -46,6 +63,10 @@ GamePage::GamePage(QWidget* parent)
 	setupTabela();
 	setupChat();
 	setupCulori();
+	/*QTimer* timerChat = new QTimer(this);
+	connect(timerChat, &QTimer::timeout, this, &GamePage::updateChat);
+	timerChat->start(1000);  // 10 seconds interval
+	*/
 }
 
 void GamePage::on_exitButton_pressed()

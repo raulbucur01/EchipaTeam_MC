@@ -12,10 +12,42 @@ void SkribblServer::Start(DataBase& storage)
 	auto& loginTest = CROW_ROUTE(m_app, "/login")
 		.methods(crow::HTTPMethod::POST);
 	loginTest(LoginHandler(storage));
+
 	auto& registrationTest = CROW_ROUTE(m_app, "/registration")
 		.methods(crow::HTTPMethod::PUT);
 	registrationTest(RegistrationHandler(storage));
-
+	CROW_ROUTE(m_app, "/currentPlayers")([&]() {
+		std::unordered_map<std::string,Player> playersInGame = storage.GetAllPlayers();
+		std::vector<crow::json::wvalue> players;
+		for (const auto& player : playersInGame)
+			players.push_back(crow::json::wvalue{
+				{"Player:",player.first},
+				{"Score:",player.second.GetScore()},
+				{"Coins:",player.second.GetCoins()}
+				});
+		return crow::json::wvalue{players };
+		
+		});
+	CROW_ROUTE(m_app, "/send").methods(crow::HTTPMethod::POST)([&](const crow::request& req) {
+		auto bodyArgs = parseUrlArgs(req.body);
+		auto end = bodyArgs.end();
+		auto wordIter = bodyArgs.find("word");
+		if (wordIter==end)
+			return crow::response(400, "The message was not sent correctly");
+		messages.push_back(wordIter->second);
+		return crow::response(200,"Added succesfully to server");
+		});
+	std::string word ="";
+	CROW_ROUTE(m_app, "/get")([&]() {
+		if (!messages.empty())
+		{
+			auto lastMessage = messages[messages.size() - 1];
+			messages.clear();
+			return lastMessage;
+			
+		}
+		return word;
+		});
 	CROW_ROUTE(m_app, "/join").methods("POST"_method)([this](const crow::request& req) {
 		crow::response res;
 		HandleJoinRequest(req, res);
