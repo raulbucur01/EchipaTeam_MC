@@ -34,6 +34,63 @@ void GamePage::on_blue_button_pressed()
 	currentColor = Qt::blue;
 }
 
+void GamePage::on_red_button_pressed()
+{
+	currentColor = Qt::red;
+}
+
+void GamePage::on_orange_button_pressed()
+{
+	currentColor = QColor::fromRgb(255, 165, 0);
+}
+
+void GamePage::on_pink_button_pressed()
+{
+	currentColor = QColor::fromRgb(255, 182, 193);
+}
+
+void GamePage::on_purple_button_pressed()
+{
+	currentColor = Qt::magenta;
+}
+
+void GamePage::on_green_button_pressed()
+{
+	currentColor = Qt::green;
+}
+
+void GamePage::on_gray_button_pressed()
+{
+	currentColor = Qt::gray;
+}
+
+void GamePage::on_yellow_button_pressed()
+{
+	currentColor = Qt::yellow;
+}
+
+void GamePage::on_brown_button_pressed()
+{
+	currentColor = QColor::fromRgb(139, 69, 19);
+}
+
+void GamePage::on_white_button_pressed()
+{
+	currentColor = Qt::white;
+}
+
+void GamePage::on_undo_button_pressed()
+{
+	g.deletelast();
+	update();
+}
+
+void GamePage::on_delete_all_pressed()
+{
+	g.clear();
+	update();
+}
+
 /*void GamePage::updateChat()
 {
 	cpr::Response response = cpr::Get(cpr::Url{ "http://localhost:18080/get" });
@@ -84,7 +141,6 @@ void GamePage::mousePressEvent(QMouseEvent* e)
 	if (e->button() == Qt::RightButton)
 	{
 		painting = true;
-		line.clear();
 		bool node = true;
 		if (rectangle.contains(e->pos()) == false)
 		{
@@ -118,7 +174,8 @@ void GamePage::mouseReleaseEvent(QMouseEvent* e)
 	if (e->button() == Qt::RightButton)
 	{
 		painting = false;
-		g.addNodes(line);
+		g.addNodes(std::make_pair(line,currentColor));
+		line.clear();
 		update();
 	}
 }
@@ -177,12 +234,12 @@ void GamePage::paintEvent(QPaintEvent* event)
 	{
 		painter.drawPolyline(positionsLine.data(), positionsLine.size());
 	}
-	vector<vector<Node*>> nodes = g.getNodes();
-	for (vector<Node*> i : nodes)
+	vector<std::pair<vector<Node*>,QColor>> nodes = g.getNodes();
+	for (std::pair<vector<Node*>,QColor> i : nodes)
 	{
 		std::vector<QPoint> positions;
-		painter.setPen(QPen(currentColor, 5, Qt::SolidLine));
-		for (auto j : i)
+		painter.setPen(QPen(i.second, 5, Qt::SolidLine));
+		for (auto j : i.first)
 		{
 			positions.push_back(j->getPosition());
 		}

@@ -15,33 +15,49 @@ using namespace std;
 
 class Graph
 {
-	vector<vector<Node*>> nodes;
+	vector<std::pair<vector<Node*>,QColor>> nodes;
 	vector<vector<int>>matrix;
 
 public:
 	Graph();
-	vector<vector<Node*>> getNodes() {
+	vector<std::pair<vector<Node*>,QColor>> getNodes() {
 		return nodes;
 	}
-	void addNodes(vector<Node*> n) {
+	void addNodes(std::pair<vector<Node*>,QColor> n) {
 		nodes.push_back(n);
 	}
 	void clear()
 	{
+		for (std::pair<vector<Node*>, QColor> i : nodes)
+			for (Node* j : i.first)
+			{
+				delete j;
+			}
 		nodes.clear();
 	}
 	void setMatrix(std::vector<std::vector<int>>matrice)
 	{
 		matrix = matrice;
 	}
+	void deletelast()
+	{
+		for (Node* i: nodes.back().first)
+		{
+			delete i;
+		}
+		if(!nodes.empty())
+		nodes.pop_back();
+
+	}
 
 	~Graph()
 	{
-		for (vector<Node*> i : nodes)
-			for (Node* j : i)
+		for (std::pair<vector<Node*>,QColor> i : nodes)
+			for (Node* j : i.first)
 			{
 				delete j;
 			}
+		nodes.clear();
 	}
 
 };

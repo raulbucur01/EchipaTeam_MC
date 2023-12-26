@@ -17,6 +17,17 @@ private slots:
 	void sendMessage();
 	void on_black_button_pressed();
 	void on_blue_button_pressed();
+	void on_red_button_pressed();
+	void on_orange_button_pressed();
+	void on_pink_button_pressed();
+	void on_purple_button_pressed();
+	void on_green_button_pressed();
+	void on_gray_button_pressed();
+	void on_yellow_button_pressed();
+	void on_brown_button_pressed();
+	void on_white_button_pressed();
+	void on_undo_button_pressed();
+	void on_delete_all_pressed();
 	//void updateChat();
 
 public:
