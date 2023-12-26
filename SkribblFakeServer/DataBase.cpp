@@ -6,7 +6,7 @@ using namespace http;
 void populateDB(Storage& storage)
 {
 	std::vector<Player> players = {
-		Player{-1,"Coco20", "amuitato", 0, 0},
+		Player{-1,"Coco20", "amuitato", 200, 10},
 		Player{-1,"raul807", "parolasmechera", 0, 0},
 		Player{-1,"ronaldoGOAT_CR7", "amuitato2", 0, 0},
 		Player{-1,"vlad", "parolacomplexa", 0, 0},
@@ -133,15 +133,15 @@ std::unordered_map<std::string,Player> DataBase::getAllPlayers()
 	return m_players;
 }
 
-/*void DataBase::printAllPLayers()
+void DataBase::printAllPLayers()
 {
 	std::cout << std::endl;
-	for (int i = 0; i < m_players.size(); i++)
+	for (auto it = m_players.begin(); it != m_players.end(); it++)
 	{
-		std::cout << m_players[i] << "\n";
+		std::cout << it->second << "\n";
 	}
 }
-*/
+
 // Word
 
 auto DataBase::getWordIterator(const std::string& word)

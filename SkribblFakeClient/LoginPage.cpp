@@ -43,7 +43,6 @@ void LoginPage::on_pushButton_Login_pressed()
 	}
 	else 
 		QMessageBox::warning(this, "Login", QString::fromUtf8(res.text.data(), int(res.text.size())));
-	
 }
 
 void LoginPage::on_exitButton_pressed()
