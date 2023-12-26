@@ -6,6 +6,7 @@
 #include "graph.h"
 #include <QStringListModel>
 #include <QStandarditemmodel>
+#include<QPainter>
 
 class GamePage : public QWidget
 {
@@ -14,6 +15,8 @@ class GamePage : public QWidget
 private slots:
 	void on_exitButton_pressed();
 	void sendMessage();
+	void on_black_button_pressed();
+	void on_blue_button_pressed();
 
 public:
 	GamePage(QWidget* parent = nullptr);
@@ -23,6 +26,7 @@ public:
 	void mouseReleaseEvent(QMouseEvent* e);
 	void setupTabela();
 	void setupChat();
+	void setupCulori();
 
 private:
 	void paintEvent(QPaintEvent* event);
@@ -34,4 +38,5 @@ private:
 	Graph g;
 	vector<Node*> line;
 	bool painting = false;
+	QColor currentColor;
 };

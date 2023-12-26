@@ -1,9 +1,9 @@
 #pragma once
 
 #include <QWidget>
-#include <QNetworkAccessManager>
-#include <QNetworkRequest>
-#include <QNetworkReply>
+//#include <QNetworkAccessManager>
+//#include <QNetworkRequest>
+//#include <QNetworkReply>
 #include <QDebug>
 #include "ui_ProfilePage.h"
 
@@ -17,11 +17,11 @@ public:
 
 private slots:
 	void on_exitButton_pressed();
-	void DisplayScore();
-	void DisplayCoins();
+	//void DisplayScore();
+	//void DisplayCoins();
 
 private:
 	Ui::ProfilePageClass ui;
 	QString m_username;
-	QNetworkAccessManager m_networkManager;
+	//QNetworkAccessManager m_networkManager;
 };

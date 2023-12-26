@@ -18,6 +18,16 @@ void GamePage::sendMessage()
 	ui.displayMessage->setModel(messages);
 }
 
+void GamePage::on_black_button_pressed()
+{
+	currentColor = Qt::black;
+}
+
+void GamePage::on_blue_button_pressed()
+{
+	currentColor = Qt::blue;
+}
+
 GamePage::GamePage(QWidget* parent)
 	: QWidget(parent)
 {
@@ -35,6 +45,7 @@ GamePage::GamePage(QWidget* parent)
 	connect(ui.sendButton, &QPushButton::pressed, this, &GamePage::sendMessage);
 	setupTabela();
 	setupChat();
+	setupCulori();
 }
 
 void GamePage::on_exitButton_pressed()
@@ -114,13 +125,29 @@ void GamePage::setupChat()
 	ui.mesageBox->setGeometry(ui.verticalLayoutWidget->x() + ui.displayMessage->height(), ui.verticalLayoutWidget->y(), 200 - ui.sendButton->width(), ui.sendButton->height());
 }
 
+void GamePage::setupCulori()
+{
+	ui.gridLayoutWidget->setGeometry(rectangle.bottomLeft().x(), rectangle.bottomLeft().y() + 50,ui.gridLayoutWidget->width(),ui.gridLayoutWidget->height());
+	ui.black_button->setStyleSheet(QString("#%1 { background-color: black; }").arg(ui.black_button->objectName()));
+	ui.blue_button->setStyleSheet(QString("#%1 { background-color: blue; }").arg(ui.blue_button->objectName()));
+	ui.red_button->setStyleSheet(QString("#%1 { background-color: red; }").arg(ui.red_button->objectName()));
+	ui.orange_button->setStyleSheet(QString("#%1 { background-color: orange; }").arg(ui.orange_button->objectName()));
+	ui.pink_button->setStyleSheet(QString("#%1 { background-color: pink; }").arg(ui.pink_button->objectName()));
+	ui.purple_button->setStyleSheet(QString("#%1 { background-color: purple; }").arg(ui.purple_button->objectName()));
+	ui.green_button->setStyleSheet(QString("#%1 { background-color: green; }").arg(ui.green_button->objectName()));
+	ui.gray_button->setStyleSheet(QString("#%1 { background-color: gray; }").arg(ui.gray_button->objectName()));
+	ui.yellow_button->setStyleSheet(QString("#%1 { background-color: yellow; }").arg(ui.yellow_button->objectName()));
+	ui.brown_button->setStyleSheet(QString("#%1 { background-color: brown; }").arg(ui.brown_button->objectName()));
+	ui.white_button->setStyleSheet(QString("#%1 { background-color: white; }").arg(ui.white_button->objectName()));
+}
+
 void GamePage::paintEvent(QPaintEvent* event)
 {
 	QPainter painter(this);
 	painter.fillRect(rectangle, QBrush(Qt::white));
 	painter.drawRect(rectangle);
 	std::vector<QPoint> positionsLine;
-	painter.setPen(QPen(Qt::black, 5, Qt::SolidLine));
+	painter.setPen(QPen(currentColor, 5, Qt::SolidLine));
 	for (auto i : line)
 	{
 		positionsLine.push_back(i->getPosition());
@@ -133,7 +160,7 @@ void GamePage::paintEvent(QPaintEvent* event)
 	for (vector<Node*> i : nodes)
 	{
 		std::vector<QPoint> positions;
-		painter.setPen(QPen(Qt::black, 5, Qt::SolidLine));
+		painter.setPen(QPen(currentColor, 5, Qt::SolidLine));
 		for (auto j : i)
 		{
 			positions.push_back(j->getPosition());
