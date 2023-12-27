@@ -41,10 +41,12 @@ public:
 	// Player
 	void addPlayer(Player& p);
 
-	void AddPlayer(Player& player);
+	void AddPlayer(Player player);
+	Player GetPlayer(const std::string& name);
+	void RemovePlayer(const std::string& name);
+
 	void deletePlayer(const std::string& name);
 	bool searchPlayer(const std::string& name) const;
-	Player getPlayer(const std::string& name);
 	auto getPlayerIterator(const std::string& name);
 	void updatePlayer(const std::string& name, const Player& new_player);
 
@@ -63,7 +65,7 @@ public:
 	void addWordsFromDBToWordsVector();
 	std::vector<Word> getAllWords();
 	std::unordered_map<std::string,Player> GetAllPlayers();
-	bool LoggedPlayer(const Player& player );
+	bool LoggedPlayer(const std::string& name);
 	void printAllWords();
 
 	// For direct DB interaction:
@@ -76,6 +78,7 @@ public:
 private:
 	Storage m_DB;
 	std::unordered_map<std::string, Player> m_players;
+	std::unordered_map<std::string, Player> m_playersInGame;
 	std::vector<Word> m_words;
 };
 
@@ -91,6 +94,22 @@ private:
 class RegistrationHandler {
 public:
 	RegistrationHandler(DataBase& storage);
+	crow::response operator()(const crow::request& req)const;
+private:
+	DataBase& m_DB;
+};
+
+class AddPlayerHandler {
+public:
+	AddPlayerHandler(DataBase& storage);
+	crow::response operator()(const crow::request& req)const;
+private:
+	DataBase& m_DB;
+};
+
+class RemovePlayerHandler {
+public:
+	RemovePlayerHandler(DataBase&storage);
 	crow::response operator()(const crow::request& req)const;
 private:
 	DataBase& m_DB;

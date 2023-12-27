@@ -16,7 +16,7 @@ void SkribblServer::Start(DataBase& storage)
 	auto& registrationTest = CROW_ROUTE(m_app, "/registration")
 		.methods(crow::HTTPMethod::PUT);
 	registrationTest(RegistrationHandler(storage));
-	CROW_ROUTE(m_app, "/currentPlayers")([&]() {
+	CROW_ROUTE(m_app, "/currentPlayersInGame")([&]() {
 		std::unordered_map<std::string,Player> playersInGame = storage.GetAllPlayers();
 		std::vector<crow::json::wvalue> players;
 		for (const auto& player : playersInGame)
@@ -48,6 +48,13 @@ void SkribblServer::Start(DataBase& storage)
 		}
 		return word;
 		});
+	auto& addPlayer = CROW_ROUTE(m_app, "/game/addPlayer")
+		.methods(crow::HTTPMethod::PUT);
+	addPlayer(AddPlayerHandler(storage));
+
+	auto& removePlayer = CROW_ROUTE(m_app, "/game/removePlayer");
+	removePlayer(RemovePlayerHandler(storage));
+
 	CROW_ROUTE(m_app, "/join").methods("POST"_method)([this](const crow::request& req) {
 		crow::response res;
 		HandleJoinRequest(req, res);

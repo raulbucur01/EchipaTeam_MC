@@ -61,9 +61,12 @@ void DataBase::addPlayer(Player& player)
 	}
 }
 
-void DataBase::AddPlayer(Player& player)
+void DataBase::AddPlayer(Player player)
 {
-	m_players[player.GetName()] = player;
+	if (m_players.find(player.GetName()) != m_players.end())
+		m_playersInGame[player.GetName()] = player;
+	else
+		m_players[player.GetName()] = player;
 }
 
 void DataBase::deletePlayer(const std::string& name)
@@ -94,14 +97,16 @@ bool DataBase::searchPlayer(const std::string& name) const
 	return false;
 }
 
-Player DataBase::getPlayer(const std::string& name)
+Player DataBase::GetPlayer(const std::string& name)
 {
-	for (auto& player : m_players)
-	{
-		if (player.second.GetName() == name)
-			return player.second;
-	}
+	if(m_players.find(name)!=m_players.end())
+		return m_players[name];
 	return Player();
+}
+
+void DataBase::RemovePlayer(const std::string& name)
+{
+	m_playersInGame.erase(m_playersInGame.find(name));
 }
 
 void DataBase::updatePlayer(const std::string& name, const Player& new_player)
@@ -206,13 +211,13 @@ std::vector<Word> DataBase::getAllWords()
 
 std::unordered_map<std::string,Player> DataBase::GetAllPlayers()
 {
-	return m_players;
+	return m_playersInGame;
 
 }
 
-bool DataBase::LoggedPlayer(const Player& player)
+bool DataBase::LoggedPlayer(const std::string& name)
 {
-	return m_players.find(player.GetName()) != m_players.end();
+	return m_players.find(name) != m_players.end();
 }
 
 void DataBase::printAllWords()
@@ -268,7 +273,7 @@ crow::response LoginHandler::operator()(const crow::request& req) const
 		{
 			if (person.value().GetPassword() == passwordIter->second)
 			{
-				if (m_DB.LoggedPlayer(person.value()))
+				if (m_DB.LoggedPlayer(person.value().GetName()))
 				{
 					return crow::response(403, "The user is already logged");
 				}
@@ -327,4 +332,37 @@ crow::response RegistrationHandler::operator()(const crow::request& req) const
 		return crow::response(404, "Credentials are not valid! Please try again!");
 
 	return crow::response(201, "Account successfully created! Welcome!");
+}
+
+AddPlayerHandler::AddPlayerHandler(DataBase& storage): m_DB{storage}
+{
+
+}
+
+crow::response AddPlayerHandler::operator()(const crow::request& req) const
+{
+	auto bodyArgs = parseUrlArgs(req.body);
+	auto end = bodyArgs.end();
+	auto usernameIter = bodyArgs.find("username");
+	
+	//nu stiu daca ar trebui sa folosesc move aici ca sa mut player ul din m_players in m_playersInGame
+
+	m_DB.AddPlayer(m_DB.GetPlayer(usernameIter->second));
+
+	return crow::response(200, "Added player");
+}
+
+RemovePlayerHandler::RemovePlayerHandler(DataBase& storage):m_DB{storage}
+{
+}
+
+crow::response RemovePlayerHandler::operator()(const crow::request& req) const
+{
+	auto bodyArgs = parseUrlArgs(req.body);
+	auto end = bodyArgs.end();
+	auto usernameIter = bodyArgs.find("username");
+
+	m_DB.RemovePlayer(usernameIter->second);
+
+	return crow::response(200, "Player removed");
 }

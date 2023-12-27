@@ -120,6 +120,7 @@ GamePage::GamePage(QWidget* parent)
 	setupTabela();
 	setupChat();
 	setupCulori();
+
 	/*QTimer* timerChat = new QTimer(this);
 	connect(timerChat, &QTimer::timeout, this, &GamePage::updateChat);
 	timerChat->start(1000);  // 10 seconds interval
@@ -129,12 +130,14 @@ GamePage::GamePage(QWidget* parent)
 void GamePage::on_exitButton_pressed()
 {
 	QCoreApplication::quit();
+
 }
 
 GamePage::~GamePage()
 {
 	delete messages;
 	g.clear();
+
 }
 
 void GamePage::mousePressEvent(QMouseEvent* e)

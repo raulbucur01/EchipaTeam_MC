@@ -59,8 +59,11 @@ void MenuPage::on_pushButton_JoinLobby_pressed() {
 	ui.exitButton->hide();
 	delete ui.groupBox_GameMenu;
 	delete ui.exitButton;
-
+	std::string username= m_username.toUtf8().constData();
 	QWidget* gamePage = pages.createGamePage(this);
+	cpr::Response res = cpr::Put(cpr::Url{ "http://localhost:18080/game/addPlayer" },
+		cpr::Body{ "username=" + username });
+
 	gamePage->show();
 }
 

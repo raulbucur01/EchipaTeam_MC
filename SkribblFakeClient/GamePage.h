@@ -51,5 +51,5 @@ private:
 	vector<Node*> line;
 	bool painting = false;
 	QColor currentColor;
-	std::unordered_set<std::string> m_players;
+	std::vector<std::string> m_players;
 };

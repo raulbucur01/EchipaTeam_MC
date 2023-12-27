@@ -3,7 +3,7 @@
 #include <QWidget>
 #include "ui_MenuPage.h"
 #include "PageManager.h"
-
+#include "Player.h"
 class MenuPage : public QWidget
 {
 	Q_OBJECT
@@ -23,5 +23,6 @@ private slots:
 private:
 	Ui::MenuPageClass ui;
 	QString m_username;
+	Player m_player;
 	PageManager pages;
 };
