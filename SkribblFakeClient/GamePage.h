@@ -7,6 +7,7 @@
 #include <QStringListModel>
 #include <QStandarditemmodel>
 #include<QPainter>
+#include "Word.h"
 
 class GamePage : public QWidget
 {
@@ -52,4 +53,5 @@ private:
 	bool painting = false;
 	QColor currentColor;
 	std::vector<std::string> m_players;
+	Word word;
 };

@@ -120,7 +120,8 @@ GamePage::GamePage(QWidget* parent)
 	setupTabela();
 	setupChat();
 	setupCulori();
-
+	ui.wordLabel->move(rectangle.x() + rectangle.width() / 2 - ui.wordLabel->width(), rectangle.y() - 20);
+	ui.wordLabel->setText(QString::fromStdString(word.getCurrentSlotState()));
 	/*QTimer* timerChat = new QTimer(this);
 	connect(timerChat, &QTimer::timeout, this, &GamePage::updateChat);
 	timerChat->start(1000);  // 10 seconds interval
@@ -203,8 +204,8 @@ void GamePage::setupTabela()
 void GamePage::setupChat()
 {
 	ui.verticalLayoutWidget->setGeometry(rectangle.x() + rectangle.width(), rectangle.y(), 200, rectangle.height());
-	ui.displayMessage->setGeometry(ui.verticalLayoutWidget->x(), ui.verticalLayoutWidget->y(), 200, ui.verticalLayoutWidget->height() - ui.sendButton->height());
-	ui.mesageBox->setGeometry(ui.verticalLayoutWidget->x() + ui.displayMessage->height(), ui.verticalLayoutWidget->y(), 200 - ui.sendButton->width(), ui.sendButton->height());
+	ui.displayMessage->setFixedSize( 200, ui.verticalLayoutWidget->height() - ui.sendButton->height());
+	ui.mesageBox->setFixedSize( 200 - ui.sendButton->width(), ui.sendButton->height());
 }
 
 void GamePage::setupCulori()
