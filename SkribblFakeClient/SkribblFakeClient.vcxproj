@@ -140,6 +140,11 @@
     <QtMoc Include="ProfilePage.h" />
     <QtMoc Include="ShopPage.h" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DllWord\Project1.vcxproj">
+      <Project>{9bcde05a-32d8-4cf2-af7d-dc796f9f1f81}</Project>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">
     <Import Project="$(QtMsBuild)\qt.targets" />
