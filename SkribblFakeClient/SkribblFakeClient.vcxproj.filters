@@ -53,6 +53,9 @@
     <ClCompile Include="ProfilePage.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="PageManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="RegisterPage.h">
@@ -105,6 +108,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="node.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PageManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

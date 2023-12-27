@@ -21,7 +21,7 @@ RegisterPage::~RegisterPage()
 
 void RegisterPage::on_exitButton_pressed()
 {
-	exit(0);
+	QCoreApplication::quit();
 }
 
 void RegisterPage::on_pushButton_CreateAccount_pressed() {

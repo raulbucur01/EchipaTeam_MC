@@ -128,12 +128,13 @@ GamePage::GamePage(QWidget* parent)
 
 void GamePage::on_exitButton_pressed()
 {
-	exit(0);
+	QCoreApplication::quit();
 }
 
 GamePage::~GamePage()
 {
 	delete messages;
+	g.clear();
 }
 
 void GamePage::mousePressEvent(QMouseEvent* e)

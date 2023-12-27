@@ -23,11 +23,12 @@ Window::StartPage::StartPage(QWidget* parent)
 
 Window::StartPage::~StartPage()
 {
+	pages.destroyAllPages();
 }
 
 void Window::StartPage::on_exitButton_pressed()
 {
-	exit(0);
+	QCoreApplication::quit();
 }
 
 void Window::StartPage::on_pushButton_Start_pressed() {
@@ -35,6 +36,6 @@ void Window::StartPage::on_pushButton_Start_pressed() {
 	ui.exitButton->hide();
 	delete ui.pushButton_START;
 	delete ui.exitButton;
-	LoginPage* loginPage = new LoginPage(this);
-	loginPage->show();
+	QWidget* loginpage = pages.createLoginPage(this);
+	setCentralWidget(loginpage);
 }

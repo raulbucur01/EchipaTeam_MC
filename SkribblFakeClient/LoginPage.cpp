@@ -19,7 +19,9 @@ LoginPage::LoginPage(QWidget* parent)
 }
 
 LoginPage::~LoginPage()
-{}
+{
+	pages.destroyAllPages();
+}
 
 void LoginPage::on_pushButton_Login_pressed()
 {
@@ -38,7 +40,7 @@ void LoginPage::on_pushButton_Login_pressed()
 	{
 		ui.groupBox_Login->hide();
 		delete ui.groupBox_Login;
-		MenuPage* menuPage = new MenuPage(this, username);
+		QWidget* menuPage = pages.createMenuPage(this, username);
 		menuPage->show();
 	}
 	else 
@@ -47,7 +49,7 @@ void LoginPage::on_pushButton_Login_pressed()
 
 void LoginPage::on_exitButton_pressed()
 {
-	exit(0);
+	QCoreApplication::quit();
 }
 
 void LoginPage::on_commandLinkButton_Register_pressed() {
@@ -55,6 +57,6 @@ void LoginPage::on_commandLinkButton_Register_pressed() {
 	ui.exitButton->hide();
 	delete ui.groupBox_Login;
 	delete ui.exitButton;
-	RegisterPage* registerPage = new RegisterPage(this);
+	QWidget* registerPage = pages.createRegisterPage(this);
 	registerPage->show();
 }

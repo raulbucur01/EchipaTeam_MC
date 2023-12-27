@@ -41,6 +41,10 @@ public:
 	}
 	void deletelast()
 	{
+		if (nodes.empty())
+		{
+			return;
+		}
 		for (Node* i: nodes.back().first)
 		{
 			delete i;

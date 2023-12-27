@@ -29,7 +29,7 @@ void MenuPage::on_pushButton_Profile_pressed()
 	delete ui.groupBox_GameMenu;
 	delete ui.exitButton;
 
-	ProfilePage* profilePage = new ProfilePage(this, m_username);
+	QWidget* profilePage =pages.createProfilePage(this, m_username);
 	profilePage->show();
 }
 
@@ -40,7 +40,7 @@ void MenuPage::on_pushButton_Shop_pressed()
 	delete ui.groupBox_GameMenu;
 	delete ui.exitButton;
 
-	ShopPage* shopPage = new ShopPage(this);
+	QWidget* shopPage = pages.createShopPage(this);
 	shopPage->show();
 }
 
@@ -50,7 +50,7 @@ void MenuPage::on_pushButton_CreateLobby_pressed() {
 	delete ui.groupBox_GameMenu;
 	delete ui.exitButton;
 
-	GamePage* gamePage = new GamePage(this);
+	QWidget* gamePage = pages.createGamePage(this);
 	gamePage->show();
 }
 
@@ -60,7 +60,7 @@ void MenuPage::on_pushButton_JoinLobby_pressed() {
 	delete ui.groupBox_GameMenu;
 	delete ui.exitButton;
 
-	GamePage* gamePage = new GamePage(this);
+	QWidget* gamePage = pages.createGamePage(this);
 	gamePage->show();
 }
 
@@ -70,14 +70,16 @@ void MenuPage::on_pushButton_Logout_pressed() {
 	delete ui.groupBox_GameMenu;
 	delete ui.exitButton;
 
-	LoginPage* loginPage = new LoginPage(this);
+	QWidget* loginPage = pages.createLoginPage(this);
 	loginPage->show();
 }
 
 void MenuPage::on_exitButton_pressed()
 {
-	exit(0);
+	QCoreApplication::quit();
 }
 
 MenuPage::~MenuPage()
-{}
+{
+	pages.destroyAllPages();
+}
