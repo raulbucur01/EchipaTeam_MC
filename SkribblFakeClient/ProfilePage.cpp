@@ -74,5 +74,5 @@ void ProfilePage::on_pushButton_Back_pressed()
 
 void ProfilePage::on_exitButton_pressed()
 {
-	exit(0);
+	QCoreApplication::quit();
 }

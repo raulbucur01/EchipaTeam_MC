@@ -3,6 +3,7 @@
 #include <QMainWindow>
 #include "ui_StartPage.h"
 #include "LoginPage.h"
+#include "PageManager.h"
 
 namespace Window
 {
@@ -21,6 +22,7 @@ namespace Window
 	private:
 		Ui::StartPageClass ui;
 		LoginPage* loginPage;
+		PageManager pages;
 	};
 
 }

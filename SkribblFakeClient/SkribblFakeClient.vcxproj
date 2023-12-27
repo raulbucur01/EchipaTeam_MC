@@ -104,6 +104,7 @@
     <ClCompile Include="LoginPage.cpp" />
     <ClCompile Include="MenuPage.cpp" />
     <ClCompile Include="node.cpp" />
+    <ClCompile Include="PageManager.cpp" />
     <ClCompile Include="ProfilePage.cpp" />
     <ClCompile Include="ShopPage.cpp" />
     <ClCompile Include="StartPage.cpp" />
@@ -135,6 +136,7 @@
   <ItemGroup>
     <ClInclude Include="graph.h" />
     <ClInclude Include="node.h" />
+    <ClInclude Include="PageManager.h" />
     <QtMoc Include="ProfilePage.h" />
     <QtMoc Include="ShopPage.h" />
   </ItemGroup>

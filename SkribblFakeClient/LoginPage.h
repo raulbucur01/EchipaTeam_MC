@@ -3,6 +3,7 @@
 #include <QWidget>
 #include "ui_LoginPage.h"
 #include <cpr/cpr.h>
+#include "PageManager.h"
 class LoginPage : public QWidget
 {
 	Q_OBJECT
@@ -20,4 +21,5 @@ private:
 	Ui::LoginPageClass ui;
 	QString username;
 	QString password;
+	PageManager pages;
 };
