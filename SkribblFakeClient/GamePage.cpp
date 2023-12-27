@@ -120,8 +120,8 @@ GamePage::GamePage(QWidget* parent)
 	setupTabela();
 	setupChat();
 	setupCulori();
-	ui.wordLabel->move(rectangle.x() + rectangle.width() / 2 - ui.wordLabel->width(), rectangle.y() - 20);
-	ui.wordLabel->setText(QString::fromStdString(word.getCurrentSlotState()));
+	ui.wordLabel->move(rectangle.x() + rectangle.width() / 2, rectangle.y() - 50);
+	ui.wordLabel->setText("vlad");
 	/*QTimer* timerChat = new QTimer(this);
 	connect(timerChat, &QTimer::timeout, this, &GamePage::updateChat);
 	timerChat->start(1000);  // 10 seconds interval
@@ -199,6 +199,7 @@ void GamePage::setupTabela()
 		"QHeaderView::section { background-color: lightblue; }");
 	ui.tabelaScor->verticalHeader()->setVisible(false);
 	ui.tabelaScor->horizontalHeader()->setSectionsClickable(false);
+	ui.tabelaScor->setEditTriggers(QAbstractItemView::NoEditTriggers);
 }
 
 void GamePage::setupChat()

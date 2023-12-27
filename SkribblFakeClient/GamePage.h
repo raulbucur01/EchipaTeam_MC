@@ -53,5 +53,5 @@ private:
 	bool painting = false;
 	QColor currentColor;
 	std::vector<std::string> m_players;
-	Word word;
+	//Word word;
 };
