@@ -10,6 +10,7 @@
 #include <QTimer>
 void GamePage::sendMessage()
 {
+
 	QString message = "You: " + ui.mesageBox->toPlainText();
 	if (!message.isEmpty())
 	{
@@ -22,6 +23,7 @@ void GamePage::sendMessage()
 	/*auto res = cpr::Post(cpr::Url{"http://localhost:18080/send"},
 		cpr::Body{ "word="+word});
 	*/
+
 }
 
 void GamePage::on_black_button_pressed()
@@ -91,6 +93,12 @@ void GamePage::on_delete_all_pressed()
 	update();
 }
 
+/*void GamePage::updatePlayers()
+{
+	cpr::Response response = cpr::Get(cpr::Url{ "http://localHost:18080/currentPlayersInGame" });
+
+}*/
+
 /*void GamePage::updateChat()
 {
 	cpr::Response response = cpr::Get(cpr::Url{ "http://localhost:18080/get" });
@@ -102,11 +110,13 @@ void GamePage::on_delete_all_pressed()
 }
 */
 
-GamePage::GamePage(QWidget* parent)
-	: QWidget(parent)
+GamePage::GamePage(QWidget* parent,Player player)
+	: QWidget(parent),m_playerCurrent{player}
 {
 	messages = new QStandardItemModel(this);
 	ui.setupUi(this);
+	m_players.push_back(player);
+	//m_player{};
 	ui.exitButton->setStyleSheet(QString("#%1 { background-color: red; }").arg(ui.exitButton->objectName()));
 	connect(ui.exitButton, &QPushButton::pressed, this, &GamePage::on_exitButton_pressed);
 	QScreen* desktop = QApplication::primaryScreen();
@@ -120,22 +130,27 @@ GamePage::GamePage(QWidget* parent)
 	setupTabela();
 	setupChat();
 	setupCulori();
-	ui.wordLabel->move(rectangle.x() + rectangle.width() / 2, rectangle.y() - 50);
-	ui.wordLabel->setText("vlad");
-	/*QTimer* timerChat = new QTimer(this);
-	connect(timerChat, &QTimer::timeout, this, &GamePage::updateChat);
-	timerChat->start(1000);  // 10 seconds interval
-	*/
+
+	QTimer* timer = new QTimer(this);
+	//connect(timerChat, &QTimer::timeout, this, &GamePage::updateChat);
+	//connect(timer, &QTimer::timeout, this,&GamePage::updatePlayers);
+	timer->start(3000);  // 3 second
+	
 }
+
 
 void GamePage::on_exitButton_pressed()
 {
+	cpr::Response response = cpr::Put(cpr::Url{ "http://localhost:18080/game/removePlayer" },
+									 cpr::Body{"username="+m_playerCurrent.GetName()});
 	QCoreApplication::quit();
 
 }
 
 GamePage::~GamePage()
 {
+	cpr::Response response = cpr::Put(cpr::Url{ "http://localhost:18080/game/removePlayer" },
+		cpr::Body{ "username=" + m_playerCurrent.GetName() }); //doar pentru butonul de exit default de la interfata 
 	delete messages;
 	g.clear();
 
@@ -199,14 +214,13 @@ void GamePage::setupTabela()
 		"QHeaderView::section { background-color: lightblue; }");
 	ui.tabelaScor->verticalHeader()->setVisible(false);
 	ui.tabelaScor->horizontalHeader()->setSectionsClickable(false);
-	ui.tabelaScor->setEditTriggers(QAbstractItemView::NoEditTriggers);
 }
 
 void GamePage::setupChat()
 {
 	ui.verticalLayoutWidget->setGeometry(rectangle.x() + rectangle.width(), rectangle.y(), 200, rectangle.height());
-	ui.displayMessage->setFixedSize( 200, ui.verticalLayoutWidget->height() - ui.sendButton->height());
-	ui.mesageBox->setFixedSize( 200 - ui.sendButton->width(), ui.sendButton->height());
+	ui.displayMessage->setGeometry(ui.verticalLayoutWidget->x(), ui.verticalLayoutWidget->y(), 200, ui.verticalLayoutWidget->height() - ui.sendButton->height());
+	ui.mesageBox->setGeometry(ui.verticalLayoutWidget->x() + ui.displayMessage->height(), ui.verticalLayoutWidget->y(), 200 - ui.sendButton->width(), ui.sendButton->height());
 }
 
 void GamePage::setupCulori()

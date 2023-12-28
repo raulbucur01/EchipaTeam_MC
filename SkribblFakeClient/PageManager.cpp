@@ -11,9 +11,9 @@ PageManager::~PageManager()
 	destroyAllPages();
 }
 
-QWidget* PageManager::createGamePage(QWidget* parrent)
+QWidget* PageManager::createGamePage(QWidget* parrent,Player player)
 {
-	QWidget* newGamePage = new GamePage(parrent);
+	QWidget* newGamePage = new GamePage(parrent,player);
 	pages.append(newGamePage);
 	return newGamePage;
 }
@@ -32,9 +32,9 @@ QWidget* PageManager::createRegisterPage(QWidget* parrent)
 	return newRegisterPage;
 }
 
-QWidget* PageManager::createMenuPage(QWidget* parrent,QString username)
+QWidget* PageManager::createMenuPage(QWidget* parrent,crow::json::rvalue player)//QString username)
 {
-	QWidget* newMenuPage = new MenuPage(parrent,username);
+	QWidget* newMenuPage = new MenuPage(parrent,player);
 	pages.append(newMenuPage);
 	return newMenuPage;
 }

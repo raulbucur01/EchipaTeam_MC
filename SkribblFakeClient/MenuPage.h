@@ -4,12 +4,15 @@
 #include "ui_MenuPage.h"
 #include "PageManager.h"
 #include "Player.h"
+#include "crow.h"
 class MenuPage : public QWidget
 {
 	Q_OBJECT
 
 public:
-	MenuPage(QWidget* parent = nullptr, QString username = "nimeni");
+	MenuPage(QWidget* parent = nullptr, crow::json::rvalue player = {});
+	//MenuPage(QWidget* parent = nullptr, QString username = "nimeni");
+	
 	~MenuPage();
 
 private slots:
@@ -25,4 +28,7 @@ private:
 	QString m_username;
 	Player m_player;
 	PageManager pages;
+public:
+	Player GetPlayer(const Player& player);
+	void SetPlayer(const crow::json::rvalue& player);
 };

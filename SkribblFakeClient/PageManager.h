@@ -3,7 +3,8 @@
 #define PAGEMANAGER_H
 
 #include <QList>
-
+#include "Player.h"
+#include "crow.h"
 class QWidget;
 
 class PageManager
@@ -12,10 +13,10 @@ public:
     PageManager()=default;
     ~PageManager();
 
-    QWidget* createGamePage(QWidget* parrent);
+    QWidget* createGamePage(QWidget* parrent,Player player );
     QWidget* createLoginPage(QWidget* parrent);
     QWidget* createRegisterPage(QWidget* parrent);
-    QWidget* createMenuPage(QWidget* parrent, QString username);
+    QWidget* createMenuPage(QWidget* parrent,crow::json::rvalue player);
     QWidget* createProfilePage(QWidget* parrent,QString username);
     QWidget* createShopPage(QWidget* parrent);
 

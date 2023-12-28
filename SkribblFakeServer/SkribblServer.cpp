@@ -52,8 +52,10 @@ void SkribblServer::Start(DataBase& storage)
 		.methods(crow::HTTPMethod::PUT);
 	addPlayer(AddPlayerHandler(storage));
 
-	auto& removePlayer = CROW_ROUTE(m_app, "/game/removePlayer");
+	auto& removePlayer = CROW_ROUTE(m_app, "/game/removePlayer")
+		.methods(crow::HTTPMethod::PUT);
 	removePlayer(RemovePlayerHandler(storage));
+
 
 	CROW_ROUTE(m_app, "/join").methods("POST"_method)([this](const crow::request& req) {
 		crow::response res;

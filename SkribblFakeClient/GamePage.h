@@ -7,8 +7,8 @@
 #include <QStringListModel>
 #include <QStandarditemmodel>
 #include<QPainter>
-#include "Word.h"
-
+#include "Player.h"
+#include "MenuPage.h"
 class GamePage : public QWidget
 {
 	Q_OBJECT
@@ -32,8 +32,8 @@ private slots:
 	//void updateChat();
 
 public:
-	GamePage(QWidget* parent = nullptr);
-	~GamePage();
+	GamePage(QWidget* parent = nullptr, Player player = {});
+	virtual ~GamePage();
 	void mousePressEvent(QMouseEvent* e);
 	void mouseMoveEvent(QMouseEvent* e);
 	void mouseReleaseEvent(QMouseEvent* e);
@@ -52,6 +52,6 @@ private:
 	vector<Node*> line;
 	bool painting = false;
 	QColor currentColor;
-	std::vector<std::string> m_players;
-	//Word word;
+	std::vector<Player> m_players;
+	Player m_playerCurrent;
 };

@@ -4,7 +4,7 @@
 #include <QScreen>
 #include "MenuPage.h"
 #include <cpr/cpr.h>
-
+#include <crow.h>
 LoginPage::LoginPage(QWidget* parent)
 	: QWidget(parent)
 {
@@ -40,7 +40,8 @@ void LoginPage::on_pushButton_Login_pressed()
 	{
 		ui.groupBox_Login->hide();
 		delete ui.groupBox_Login;
-		QWidget* menuPage = pages.createMenuPage(this, username);
+		crow::json::rvalue player = crow::json::load(res.text);
+		QWidget* menuPage = pages.createMenuPage(this, player);
 		menuPage->show();
 	}
 	else 

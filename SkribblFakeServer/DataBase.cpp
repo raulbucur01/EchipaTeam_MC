@@ -106,7 +106,8 @@ Player DataBase::GetPlayer(const std::string& name)
 
 void DataBase::RemovePlayer(const std::string& name)
 {
-	m_playersInGame.erase(m_playersInGame.find(name));
+	m_playersInGame.erase(name);
+	m_players.erase(name);// momentan las asa, playerul cand apasa pe exit iese de tot din client, nu revine la meniu
 }
 
 void DataBase::updatePlayer(const std::string& name, const Player& new_player)
@@ -280,7 +281,16 @@ crow::response LoginHandler::operator()(const crow::request& req) const
 				else
 				{
 					m_DB.AddPlayer(person.value());
-					return crow::response(200, "Login successful");
+					
+					
+					crow::json::wvalue jsonResponse{
+						{"Name",person.value().GetName()},
+						{"Password",person.value().GetPassword()},
+						{"Score",person.value().GetScore()},
+						{"Coins",person.value().GetCoins()}
+					};
+
+					return crow::response(200, jsonResponse);
 
 				}				
 			}
@@ -361,8 +371,11 @@ crow::response RemovePlayerHandler::operator()(const crow::request& req) const
 	auto bodyArgs = parseUrlArgs(req.body);
 	auto end = bodyArgs.end();
 	auto usernameIter = bodyArgs.find("username");
-
-	m_DB.RemovePlayer(usernameIter->second);
-
-	return crow::response(200, "Player removed");
-}
+	if (usernameIter != end)
+	{
+		m_DB.RemovePlayer(usernameIter->second);
+		return crow::response(200, "Player removed");
+	}
+	else
+		return crow::response(403);
+	}

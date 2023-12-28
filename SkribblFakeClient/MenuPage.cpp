@@ -5,10 +5,12 @@
 #include "ProfilePage.h"
 #include <QScreen>
 
-MenuPage::MenuPage(QWidget* parent, QString username)
-	: QWidget(parent), m_username(username)
+MenuPage::MenuPage(QWidget* parent,crow::json::rvalue player)
+	: QWidget(parent)
 {
 	ui.setupUi(this);
+	SetPlayer(player);
+	m_username = QString::fromUtf8(m_player.GetName().data(),int( m_player.GetName().size()));
 	QScreen* desktop = QApplication::primaryScreen();
 	this->resize(desktop->size());
 	ui.groupBox_GameMenu->move((this->size().width() - ui.groupBox_GameMenu->size().width()) / 2, (this->size().height() - ui.groupBox_GameMenu->size().height()) / 2);
@@ -50,7 +52,7 @@ void MenuPage::on_pushButton_CreateLobby_pressed() {
 	delete ui.groupBox_GameMenu;
 	delete ui.exitButton;
 
-	QWidget* gamePage = pages.createGamePage(this);
+	QWidget* gamePage = pages.createGamePage(this,m_player);
 	gamePage->show();
 }
 
@@ -60,7 +62,7 @@ void MenuPage::on_pushButton_JoinLobby_pressed() {
 	delete ui.groupBox_GameMenu;
 	delete ui.exitButton;
 	std::string username= m_username.toUtf8().constData();
-	QWidget* gamePage = pages.createGamePage(this);
+	QWidget* gamePage = pages.createGamePage(this,m_player);
 	cpr::Response res = cpr::Put(cpr::Url{ "http://localhost:18080/game/addPlayer" },
 		cpr::Body{ "username=" + username });
 
@@ -72,7 +74,8 @@ void MenuPage::on_pushButton_Logout_pressed() {
 	ui.exitButton->hide();
 	delete ui.groupBox_GameMenu;
 	delete ui.exitButton;
-
+	cpr::Response response = cpr::Put(cpr::Url{ "http://localhost:18080/game/removePlayer" },
+		cpr::Body{ "username=" + m_player.GetName() });
 	QWidget* loginPage = pages.createLoginPage(this);
 	loginPage->show();
 }
@@ -80,6 +83,20 @@ void MenuPage::on_pushButton_Logout_pressed() {
 void MenuPage::on_exitButton_pressed()
 {
 	QCoreApplication::quit();
+}
+
+Player MenuPage::GetPlayer(const Player& player)
+{
+	return m_player;
+}
+
+void MenuPage::SetPlayer(const crow::json::rvalue& player)
+{
+	m_player.SetName(player["Name"].s());
+	m_player.SetPassword(player["Password"].s());
+	m_player.SetScore(player["Score"].d());
+	m_player.SetCoins(player["Coins"].d());
+	
 }
 
 MenuPage::~MenuPage()
