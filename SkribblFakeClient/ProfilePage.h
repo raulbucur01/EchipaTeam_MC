@@ -16,7 +16,7 @@ public:
 private slots:
 	void on_exitButton_pressed();
 	void DisplayScore();
-	//void DisplayCoins();
+	void DisplayCoins();
 	void on_pushButton_Back_pressed();
 
 private:
