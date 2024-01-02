@@ -31,6 +31,24 @@ void ProfilePage::on_pushButton_Back_pressed()
 	menuPage->show();
 }
 
+void ProfilePage::DisplayScore()
+{
+	std::string username = m_username.toStdString();
+	std::string url = "http://localhost:18080/getScoreAndCoins?username=" + username;
+	cpr::Response response = cpr::Get(cpr::Url(url));
+
+	if (response.status_code == 200) {
+		auto json = crow::json::load(response.text);
+		if (json) {
+			int score = json["Score"].i();
+			ui.label_Score->setText("Score: " + QString::number(score));
+		}
+	}
+	else {
+
+		std::cerr << "Failed to get player's score from the server." << std::endl;
+	}
+}
 
 
 void ProfilePage::on_exitButton_pressed()
