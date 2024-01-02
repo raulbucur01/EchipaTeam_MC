@@ -114,3 +114,21 @@ public:
 private:
 	DataBase& m_DB;
 };
+
+class GetCoinsHandler {
+public:
+	GetCoinsHandler(DataBase& storage);
+	crow::response operator()(const crow::request& req)const;
+
+private:
+	DataBase& m_DB;
+};
+
+class GetScoreHandler {
+public:
+	GetScoreHandler(DataBase& storage);
+	crow::response operator()(const crow::request& req)const;
+
+private:
+	DataBase& m_DB;
+};

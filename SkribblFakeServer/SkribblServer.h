@@ -8,6 +8,7 @@
 #include "Word.h"
 #include "Player.h"
 #include "DataBase.h"
+#include <optional>
 
 using namespace sqlite_orm;
 

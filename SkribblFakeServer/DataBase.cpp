@@ -258,6 +258,62 @@ std::optional<Player> DataBase::SearchPlayerInDB(const std::string& name)
 
 // handlers
 
+GetScoreHandler::GetScoreHandler(DataBase& storage) :m_DB{ storage }
+{
+}
+
+crow::response GetScoreHandler::operator()(const crow::request& req) const
+{
+	auto bodyArgs = parseUrlArgs(req.body);
+	auto end = bodyArgs.end();
+	auto usernameIter = bodyArgs.find("username");
+
+	if (usernameIter != end) {
+		if (auto currentPlayer = m_DB.SearchPlayerInDB(usernameIter->second); currentPlayer != std::nullopt) {
+			crow::json::wvalue jsonResponse{
+				{"Score", currentPlayer.value().GetScore()}
+			};
+
+			return crow::response(200, jsonResponse);
+		}
+		else {
+			return crow::response(404, "Player not found");
+		}
+	}
+	else {
+		return crow::response(400, "Username not provided");
+	}
+}
+
+GetCoinsHandler::GetCoinsHandler(DataBase& storage) :m_DB{ storage }
+{
+
+}
+
+crow::response GetCoinsHandler::operator()(const crow::request& req) const
+{
+	auto bodyArgs = parseUrlArgs(req.body);
+	auto end = bodyArgs.end();
+	auto usernameIter = bodyArgs.find("username");
+
+	if (usernameIter != end) {
+		if (auto currentPlayer = m_DB.SearchPlayerInDB(usernameIter->second); currentPlayer != std::nullopt) {
+			crow::json::wvalue jsonResponse{
+				{"Coins", currentPlayer.value().GetCoins()}
+			};
+
+			return crow::response(200, jsonResponse);
+		}
+		else {
+			return crow::response(404, "Player not found");
+		}
+	}
+	else {
+		return crow::response(400, "Username not provided");
+	}
+}
+
+
 LoginHandler::LoginHandler(DataBase& storage) :m_DB{ storage }
 {
 }

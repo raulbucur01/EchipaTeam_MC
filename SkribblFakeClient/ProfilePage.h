@@ -1,11 +1,9 @@
 #pragma once
 
 #include <QWidget>
-//#include <QNetworkAccessManager>
-//#include <QNetworkRequest>
-//#include <QNetworkReply>
 #include <QDebug>
 #include "ui_ProfilePage.h"
+#include <cpr/cpr.h>
 
 class ProfilePage : public QWidget
 {
@@ -17,7 +15,7 @@ public:
 
 private slots:
 	void on_exitButton_pressed();
-	//void DisplayScore();
+	void DisplayScore();
 	//void DisplayCoins();
 	void on_pushButton_Back_pressed();
 

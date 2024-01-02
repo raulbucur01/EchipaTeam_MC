@@ -13,8 +13,8 @@ ProfilePage::ProfilePage(QWidget *parent, QString username)
 	connect(ui.exitButton, &QPushButton::pressed, this, &ProfilePage::on_exitButton_pressed);
 	connect(ui.pushButton_Back, &QPushButton::pressed, this, &ProfilePage::on_pushButton_Back_pressed);
 	ui.label_Username->setText(m_username);
-	//DisplayScore();
-	//DisplayCoins();
+	DisplayScore();
+	/*DisplayCoins();*/
 }
 
 ProfilePage::~ProfilePage()
@@ -31,45 +31,6 @@ void ProfilePage::on_pushButton_Back_pressed()
 	menuPage->show();
 }
 
-//void ProfilePage::DisplayScore()
-//{
-//	QString url = "http://localhost:18080/getScore"; 
-//	QNetworkRequest request(url);
-//	QNetworkReply* reply = m_networkManager.get(request);
-//
-//	connect(reply, &QNetworkReply::finished, [=]() {
-//		if (reply->error() == QNetworkReply::NoError) {
-//			QString score = reply->readAll();
-//			ui.label_ScoreInfo->setText(score);
-//		}
-//		else {
-//			qDebug() << "Error fetching score:" << reply->errorString();
-//		}
-//
-//	reply->deleteLater();
-//		});
-//}
-
-//void ProfilePage::DisplayCoins()
-//{
-//
-//	QString url = "http://localhost:18080/getCoins";  
-//	QNetworkRequest request(url);
-//	QNetworkReply* reply = m_networkManager.get(request);
-//
-//	connect(reply, &QNetworkReply::finished, [=]() {
-//		if (reply->error() == QNetworkReply::NoError) {
-//			QString coins = reply->readAll();
-//			ui.label_CoinsInfo->setText(coins);
-//		}
-//		else {
-//			qDebug() << "Error fetching coins:" << reply->errorString();
-//		}
-//
-//	reply->deleteLater();
-//		});
-//	
-//}
 
 
 void ProfilePage::on_exitButton_pressed()
