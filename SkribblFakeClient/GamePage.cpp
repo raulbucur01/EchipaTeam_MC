@@ -130,8 +130,10 @@ GamePage::GamePage(QWidget* parent,Player player)
 	setupTabela();
 	setupChat();
 	setupCulori();
+	//word.SetWord("vlad");
+	Word word1{ 1 , "vlad" };
 	ui.wordLabel->move(rectangle.x() + rectangle.width() / 2, rectangle.y() - 50);
-	ui.wordLabel->setText("vlad");
+	ui.wordLabel->setText(QString::fromStdString(word1.GetWord()));
 	QTimer* timer = new QTimer(this);
 	//connect(timerChat, &QTimer::timeout, this, &GamePage::updateChat);
 	//connect(timer, &QTimer::timeout, this,&GamePage::updatePlayers);
