@@ -36,12 +36,12 @@
     <Import Project="$(QtMsBuild)\qt_defaults.props" />
   </ImportGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="QtSettings">
-    <QtInstall>6.5.3_msvc2019_64</QtInstall>
+    <QtInstall>6.4.3_msvc2019_64</QtInstall>
     <QtModules>core;gui;widgets</QtModules>
     <QtBuildConfig>debug</QtBuildConfig>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" Label="QtSettings">
-    <QtInstall>6.5.3_msvc2019_64</QtInstall>
+    <QtInstall>6.4.3_msvc2019_64</QtInstall>
     <QtModules>core;gui;widgets</QtModules>
     <QtBuildConfig>release</QtBuildConfig>
   </PropertyGroup>
@@ -67,13 +67,13 @@
     <ClCompile>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
-      <AdditionalIncludeDirectories>E:\laborator MC\EchipaTeam_MC\DllWord;C:\Users\vladb\OneDrive\Documente\GitHub\EchipaTeam_MC\DLL;C:\Users\CRISTI\Desktop\EchipaTeam_MC\DLL;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>E:\laborator MC\EchipaTeam_MC\DllWord;C:\Users\vladb\OneDrive\Documente\GitHub\EchipaTeam_MC\DllWord;C:\Users\CRISTI\Desktop\EchipaTeam_MC\DLL;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
       <LanguageStandard>stdcpplatest</LanguageStandard>
-      <AdditionalIncludeDirectories>E:\laborator MC\EchipaTeam_MC\DllWord;C:\Users\vladb\OneDrive\Documente\GitHub\EchipaTeam_MC\DLL;C:\Users\CRISTI\Desktop\EchipaTeam_MC\DLL;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>E:\laborator MC\EchipaTeam_MC\DllWord;C:\Users\vladb\OneDrive\Documente\GitHub\EchipaTeam_MC\DllWord;C:\Users\CRISTI\Desktop\EchipaTeam_MC\DLL;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="Configuration">
