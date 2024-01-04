@@ -16,42 +16,7 @@ ProfilePage::ProfilePage(QWidget *parent, QString username)
 	DisplayScore();
 	DisplayCoins();
 }
-void ProfilePage::DisplayScore()
-{
-	std::string username = m_username.toStdString();
-	std::string url = "http://localhost:18080/getScoreAndCoins?username=" + username;
-	cpr::Response response = cpr::Get(cpr::Url(url));
 
-	if (response.status_code == 200) {
-		auto json = crow::json::load(response.text);
-		if (json) {
-			int score = json["Score"].i();
-			ui.label_Score->setText("Score: " + QString::number(score));
-		}
-	}
-	else {
-
-		std::cerr << "Failed to get player's score from the server." << std::endl;
-	}
-}
-void ProfilePage::DisplayCoins()
-{
-	std::string username = m_username.toStdString();
-	std::string url = "http://localhost:18080/getScoreAndCoins?username=" + username;
-	cpr::Response response = cpr::Get(cpr::Url(url));
-
-	if (response.status_code == 200) {
-		auto json = crow::json::load(response.text);
-		if (json) {
-			int coins = json["Coins"].i();
-			ui.label_Coins->setText("Coins: " + QString::number(coins));
-		}
-	}
-	else {
-
-		std::cerr << "Failed to get player's coins from the server." << std::endl;
-	}
-}
 ProfilePage::~ProfilePage()
 {}
 
