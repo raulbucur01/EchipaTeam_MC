@@ -51,7 +51,7 @@ public:
 	void updatePlayer(const std::string& name, const Player& new_player);
 
 	void addPlayersFromDBToPlayersVector();
-	std::unordered_map<std::string,Player> getAllPlayers();
+	std::unordered_map<std::string, Player> getAllPlayers();
 	void printAllPLayers();
 
 	// Word
@@ -64,7 +64,7 @@ public:
 
 	void addWordsFromDBToWordsVector();
 	std::vector<Word> getAllWords();
-	std::unordered_map<std::string,Player> GetAllPlayers();
+	std::unordered_map<std::string, Player> GetAllPlayers();
 	bool LoggedPlayer(const std::string& name);
 	void printAllWords();
 
@@ -109,8 +109,26 @@ private:
 
 class RemovePlayerHandler {
 public:
-	RemovePlayerHandler(DataBase&storage);
+	RemovePlayerHandler(DataBase& storage);
 	crow::response operator()(const crow::request& req)const;
+private:
+	DataBase& m_DB;
+};
+
+class GetCoinsHandler {
+public:
+	GetCoinsHandler(DataBase& storage);
+	crow::response operator()(const crow::request& req)const;
+
+private:
+	DataBase& m_DB;
+};
+
+class GetScoreHandler {
+public:
+	GetScoreHandler(DataBase& storage);
+	crow::response operator()(const crow::request& req)const;
+
 private:
 	DataBase& m_DB;
 };
