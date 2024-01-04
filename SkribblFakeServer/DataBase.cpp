@@ -99,7 +99,7 @@ bool DataBase::searchPlayer(const std::string& name) const
 
 Player DataBase::GetPlayer(const std::string& name)
 {
-	if(m_players.find(name)!=m_players.end())
+	if (m_players.find(name) != m_players.end())
 		return m_players[name];
 	return Player();
 }
@@ -129,12 +129,12 @@ void DataBase::addPlayersFromDBToPlayersVector()
 		auto players = m_DB.get_all<Player>();
 		for (auto& player : players)
 		{
-			m_players[player.GetName()]=player;
+			m_players[player.GetName()] = player;
 		}
 	}
 }
 
-std::unordered_map<std::string,Player> DataBase::getAllPlayers()
+std::unordered_map<std::string, Player> DataBase::getAllPlayers()
 {
 	return m_players;
 }
@@ -210,7 +210,7 @@ std::vector<Word> DataBase::getAllWords()
 	return m_words;
 }
 
-std::unordered_map<std::string,Player> DataBase::GetAllPlayers()
+std::unordered_map<std::string, Player> DataBase::GetAllPlayers()
 {
 	return m_playersInGame;
 
@@ -337,8 +337,8 @@ crow::response LoginHandler::operator()(const crow::request& req) const
 				else
 				{
 					m_DB.AddPlayer(person.value());
-					
-					
+
+
 					crow::json::wvalue jsonResponse{
 						{"Name",person.value().GetName()},
 						{"Password",person.value().GetPassword()},
@@ -348,7 +348,7 @@ crow::response LoginHandler::operator()(const crow::request& req) const
 
 					return crow::response(200, jsonResponse);
 
-				}				
+				}
 			}
 			else
 			{
@@ -357,12 +357,12 @@ crow::response LoginHandler::operator()(const crow::request& req) const
 		}
 		else
 		{
-			return crow::response(404,"Username not found! Please try again!");
+			return crow::response(404, "Username not found! Please try again!");
 		}
 	}
 	else
 	{
-		return crow::response(400,"You didn't enter anything in one or all slots!");
+		return crow::response(400, "You didn't enter anything in one or all slots!");
 	}
 }
 
@@ -380,7 +380,7 @@ crow::response RegistrationHandler::operator()(const crow::request& req) const
 
 	if (usernameIter == end || passwordIter == end)
 	{
-		return crow::response(400,"You didn't enter anything in one or all slots!");
+		return crow::response(400, "You didn't enter anything in one or all slots!");
 	}
 	if (m_DB.SearchPlayerInDB(usernameIter->second) != std::nullopt)
 	{
@@ -400,7 +400,7 @@ crow::response RegistrationHandler::operator()(const crow::request& req) const
 	return crow::response(201, "Account successfully created! Welcome!");
 }
 
-AddPlayerHandler::AddPlayerHandler(DataBase& storage): m_DB{storage}
+AddPlayerHandler::AddPlayerHandler(DataBase& storage) : m_DB{ storage }
 {
 
 }
@@ -410,7 +410,7 @@ crow::response AddPlayerHandler::operator()(const crow::request& req) const
 	auto bodyArgs = parseUrlArgs(req.body);
 	auto end = bodyArgs.end();
 	auto usernameIter = bodyArgs.find("username");
-	
+
 	//nu stiu daca ar trebui sa folosesc move aici ca sa mut player ul din m_players in m_playersInGame
 
 	m_DB.AddPlayer(m_DB.GetPlayer(usernameIter->second));
@@ -418,7 +418,7 @@ crow::response AddPlayerHandler::operator()(const crow::request& req) const
 	return crow::response(200, "Added player");
 }
 
-RemovePlayerHandler::RemovePlayerHandler(DataBase& storage):m_DB{storage}
+RemovePlayerHandler::RemovePlayerHandler(DataBase& storage) :m_DB{ storage }
 {
 }
 
@@ -434,4 +434,5 @@ crow::response RemovePlayerHandler::operator()(const crow::request& req) const
 	}
 	else
 		return crow::response(403);
-	}
+}
+

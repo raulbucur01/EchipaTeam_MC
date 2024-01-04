@@ -10,7 +10,7 @@ class ProfilePage : public QWidget
 	Q_OBJECT
 
 public:
-	ProfilePage(QWidget *parent = nullptr, QString username = "nimeni");
+	ProfilePage(QWidget* parent = nullptr, QString username = "nimeni");
 	~ProfilePage();
 
 private slots:
@@ -24,3 +24,4 @@ private:
 	QString m_username;
 	//QNetworkAccessManager m_networkManager;
 };
+
