@@ -9,7 +9,6 @@
 #include<QPainter>
 #include "Player.h"
 #include "MenuPage.h"
-#include "Word.h"
 class GamePage : public QWidget
 {
 	Q_OBJECT
@@ -55,5 +54,4 @@ private:
 	QColor currentColor;
 	std::vector<Player> m_players;
 	Player m_playerCurrent;
-	Word word;
 };

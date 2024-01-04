@@ -130,8 +130,7 @@ GamePage::GamePage(QWidget* parent,Player player)
 	setupTabela();
 	setupChat();
 	setupCulori();
-	ui.wordLabel->move(rectangle.x() + rectangle.width() / 2, rectangle.y() - 50);
-	ui.wordLabel->setText("vlad");
+
 	QTimer* timer = new QTimer(this);
 	//connect(timerChat, &QTimer::timeout, this, &GamePage::updateChat);
 	//connect(timer, &QTimer::timeout, this,&GamePage::updatePlayers);
@@ -215,14 +214,13 @@ void GamePage::setupTabela()
 		"QHeaderView::section { background-color: lightblue; }");
 	ui.tabelaScor->verticalHeader()->setVisible(false);
 	ui.tabelaScor->horizontalHeader()->setSectionsClickable(false);
-	ui.tabelaScor->setEditTriggers(QAbstractItemView::NoEditTriggers);
 }
 
 void GamePage::setupChat()
 {
 	ui.verticalLayoutWidget->setGeometry(rectangle.x() + rectangle.width(), rectangle.y(), 200, rectangle.height());
-	ui.displayMessage->setFixedSize(200, ui.verticalLayoutWidget->height() - ui.sendButton->height());
-	ui.mesageBox->setFixedSize(200 - ui.sendButton->width(), ui.sendButton->height());
+	ui.displayMessage->setGeometry(ui.verticalLayoutWidget->x(), ui.verticalLayoutWidget->y(), 200, ui.verticalLayoutWidget->height() - ui.sendButton->height());
+	ui.mesageBox->setGeometry(ui.verticalLayoutWidget->x() + ui.displayMessage->height(), ui.verticalLayoutWidget->y(), 200 - ui.sendButton->width(), ui.sendButton->height());
 }
 
 void GamePage::setupCulori()
