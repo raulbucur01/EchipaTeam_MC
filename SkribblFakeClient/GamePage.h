@@ -41,6 +41,7 @@ public:
 	void setupTabela();
 	void setupChat();
 	void setupCulori();
+	void wordChoosingSequence();
 
 private:
 	void paintEvent(QPaintEvent* event);
@@ -56,4 +57,5 @@ private:
 	std::vector<Player> m_players;
 	Player m_playerCurrent;
 	Word word;
+	bool canPaint = false;
 };

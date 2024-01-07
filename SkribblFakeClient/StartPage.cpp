@@ -4,6 +4,7 @@
 Window::StartPage::StartPage(QWidget* parent)
 	: QMainWindow(parent), loginPage(nullptr)
 {
+	QSize screenSize = size();
 	ui.setupUi(this);
 	this->setStyleSheet("QMainWindow {background: 'lightblue';}");
 	QScreen* desktop = QApplication::primaryScreen();

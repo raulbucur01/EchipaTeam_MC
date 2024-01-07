@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>624</width>
+    <width>626</width>
     <height>400</height>
    </rect>
   </property>
@@ -195,6 +195,19 @@
      <family>Bookman Old Style</family>
      <pointsize>18</pointsize>
     </font>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QLabel" name="veil">
+   <property name="geometry">
+    <rect>
+     <x>80</x>
+     <y>30</y>
+     <width>49</width>
+     <height>16</height>
+    </rect>
    </property>
    <property name="text">
     <string/>

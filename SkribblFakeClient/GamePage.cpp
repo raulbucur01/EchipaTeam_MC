@@ -8,6 +8,7 @@
 #include<QStringListModel>
 #include <crow.h>
 #include <QTimer>
+#include<QGraphicsEffect>
 void GamePage::sendMessage()
 {
 
@@ -131,14 +132,13 @@ GamePage::GamePage(QWidget* parent,Player player)
 	setupChat();
 	setupCulori();
 	//word.SetWord("vlad");
-	Word word1{ 1 , "vlad" };
 	ui.wordLabel->move(rectangle.x() + rectangle.width() / 2, rectangle.y() - 50);
-	ui.wordLabel->setText(QString::fromStdString(word1.GetWord()));
+	ui.wordLabel->setText(QString::fromStdString("vlad"));
 	QTimer* timer = new QTimer(this);
 	//connect(timerChat, &QTimer::timeout, this, &GamePage::updateChat);
 	//connect(timer, &QTimer::timeout, this,&GamePage::updatePlayers);
 	timer->start(3000);  // 3 second
-	
+	wordChoosingSequence();
 }
 
 
@@ -161,21 +161,24 @@ GamePage::~GamePage()
 
 void GamePage::mousePressEvent(QMouseEvent* e)
 {
-	if (e->button() == Qt::RightButton)
+	if (canPaint == true)
 	{
-		painting = true;
-		bool node = true;
-		if (rectangle.contains(e->pos()) == false)
+		if (e->button() == Qt::RightButton)
 		{
-			node = false;
-		}
-		if (node == true)
-		{
-			Node* curent = new Node(e->pos());
-			line.push_back(curent);
-			update();
-		}
+			painting = true;
+			bool node = true;
+			if (rectangle.contains(e->pos()) == false)
+			{
+				node = false;
+			}
+			if (node == true)
+			{
+				Node* curent = new Node(e->pos());
+				line.push_back(curent);
+				update();
+			}
 
+		}
 	}
 }
 
@@ -241,6 +244,17 @@ void GamePage::setupCulori()
 	ui.yellow_button->setStyleSheet(QString("#%1 { background-color: yellow; }").arg(ui.yellow_button->objectName()));
 	ui.brown_button->setStyleSheet(QString("#%1 { background-color: brown; }").arg(ui.brown_button->objectName()));
 	ui.white_button->setStyleSheet(QString("#%1 { background-color: white; }").arg(ui.white_button->objectName()));
+}
+
+void GamePage::wordChoosingSequence()
+{
+	ui.veil->setStyleSheet("background-color: black;");
+	ui.veil->setFixedSize(size());
+
+	QGraphicsOpacityEffect* opacityEffect = new QGraphicsOpacityEffect;
+	opacityEffect->setOpacity(0.5);
+	ui.veil->setGraphicsEffect(opacityEffect);
+
 }
 
 void GamePage::paintEvent(QPaintEvent* event)
