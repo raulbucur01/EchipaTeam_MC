@@ -2,8 +2,8 @@
 #include "MenuPage.h"
 #include <QScreen>
 
-ProfilePage::ProfilePage(QWidget *parent, QString username)
-	: QWidget(parent), m_username(username)
+ProfilePage::ProfilePage(QWidget *parent, Player player)
+	: QWidget(parent), m_player(player)
 {
 	ui.setupUi(this);
 	QScreen* desktop = QApplication::primaryScreen();
@@ -12,7 +12,10 @@ ProfilePage::ProfilePage(QWidget *parent, QString username)
 	ui.exitButton->setStyleSheet(QString("#%1 { background-color: red; }").arg(ui.exitButton->objectName()));
 	connect(ui.exitButton, &QPushButton::pressed, this, &ProfilePage::on_exitButton_pressed);
 	connect(ui.pushButton_Back, &QPushButton::pressed, this, &ProfilePage::on_pushButton_Back_pressed);
-	ui.label_Username->setText(m_username);
+	
+	std::string str = m_player.GetName();
+	QString qs = QString::fromLocal8Bit(str.c_str());
+	ui.label_Username->setText(qs);
 	DisplayScore();
 	DisplayCoins();
 }
@@ -27,15 +30,14 @@ void ProfilePage::on_pushButton_Back_pressed()
 	delete ui.groupBox_Profile;
 	delete ui.exitButton;
 
-	MenuPage* menuPage = new MenuPage(this);
-	menuPage->show();
+	// Cum facem intoarcerea din profil inapoi la meniu?
 }
 
 void ProfilePage::DisplayScore()
 {
-	std::string username = m_username.toStdString();
-	std::string url = "http://localhost:18080/getScoreAndCoins?username=" + username;
-	cpr::Response response = cpr::Get(cpr::Url(url));
+	std::string username = m_player.GetName();
+	std::string url = "http://localhost:18080/getScore?username=" + username;
+	cpr::Response response = cpr::Get(cpr::Url(url), cpr::Body{ "username=" + username});
 
 	if (response.status_code == 200) {
 		auto json = crow::json::load(response.text);
@@ -52,9 +54,9 @@ void ProfilePage::DisplayScore()
 
 void ProfilePage::DisplayCoins()
 {
-	std::string username = m_username.toStdString();
-	std::string url = "http://localhost:18080/getScoreAndCoins?username=" + username;
-	cpr::Response response = cpr::Get(cpr::Url(url));
+	std::string username = m_player.GetName();
+	std::string url = "http://localhost:18080/getCoins?username=";
+	cpr::Response response = cpr::Get(cpr::Url(url), cpr::Body{ "username=" + username });
 
 	if (response.status_code == 200) {
 		auto json = crow::json::load(response.text);

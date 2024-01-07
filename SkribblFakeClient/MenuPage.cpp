@@ -31,7 +31,7 @@ void MenuPage::on_pushButton_Profile_pressed()
 	delete ui.groupBox_GameMenu;
 	delete ui.exitButton;
 
-	QWidget* profilePage =pages.createProfilePage(this, m_username);
+	QWidget* profilePage =pages.createProfilePage(this, m_player);
 	profilePage->show();
 }
 
@@ -42,7 +42,7 @@ void MenuPage::on_pushButton_Shop_pressed()
 	delete ui.groupBox_GameMenu;
 	delete ui.exitButton;
 
-	QWidget* shopPage = pages.createShopPage(this);
+	QWidget* shopPage = pages.createShopPage(this, m_player);
 	shopPage->show();
 }
 

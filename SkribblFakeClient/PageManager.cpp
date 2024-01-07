@@ -39,16 +39,16 @@ QWidget* PageManager::createMenuPage(QWidget* parrent,crow::json::rvalue player)
 	return newMenuPage;
 }
 
-QWidget* PageManager::createProfilePage(QWidget* parrent,QString username)
+QWidget* PageManager::createProfilePage(QWidget* parrent, Player player)
 {
-	QWidget* newProfilePage = new ProfilePage(parrent, username);
+	QWidget* newProfilePage = new ProfilePage(parrent, player);
 	pages.append(newProfilePage);
 	return newProfilePage;
 }
 
-QWidget* PageManager::createShopPage(QWidget* parrent)
+QWidget* PageManager::createShopPage(QWidget* parrent, Player player)
 {
-	QWidget* newShopPage = new MenuPage(parrent);
+	QWidget* newShopPage = new ShopPage(parrent, player);
 	pages.append(newShopPage);
 	return newShopPage;
 }

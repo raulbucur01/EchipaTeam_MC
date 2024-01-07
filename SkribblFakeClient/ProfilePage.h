@@ -4,13 +4,15 @@
 #include <QDebug>
 #include "ui_ProfilePage.h"
 #include <cpr/cpr.h>
+#include "Player.h"
+#include <QString>
 
 class ProfilePage : public QWidget
 {
 	Q_OBJECT
 
 public:
-	ProfilePage(QWidget* parent = nullptr, QString username = "nimeni");
+	ProfilePage(QWidget* parent = nullptr, Player player = {});
 	~ProfilePage();
 
 private slots:
@@ -21,7 +23,7 @@ private slots:
 
 private:
 	Ui::ProfilePageClass ui;
-	QString m_username;
+	Player m_player;
 	//QNetworkAccessManager m_networkManager;
 };
 

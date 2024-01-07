@@ -17,8 +17,8 @@ public:
     QWidget* createLoginPage(QWidget* parrent);
     QWidget* createRegisterPage(QWidget* parrent);
     QWidget* createMenuPage(QWidget* parrent,crow::json::rvalue player);
-    QWidget* createProfilePage(QWidget* parrent,QString username);
-    QWidget* createShopPage(QWidget* parrent);
+    QWidget* createProfilePage(QWidget* parrent,Player player);
+    QWidget* createShopPage(QWidget* parrent, Player player);
 
 
     void destroyAllPages();
