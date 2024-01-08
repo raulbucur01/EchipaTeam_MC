@@ -21,7 +21,10 @@ ProfilePage::ProfilePage(QWidget *parent, Player player)
 }
 
 ProfilePage::~ProfilePage()
-{}
+{
+	cpr::Response response = cpr::Put(cpr::Url{ "http://localhost:18080/game/removePlayer" },
+		cpr::Body{ "username=" + m_player.GetName() });
+}
 
 void ProfilePage::on_pushButton_Back_pressed()
 {

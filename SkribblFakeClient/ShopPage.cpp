@@ -1,7 +1,7 @@
 #include "ShopPage.h"
 
 ShopPage::ShopPage(QWidget *parent, Player player)
-	: QWidget(parent)
+    : QWidget(parent), m_player{player}
 {
 	ui.setupUi(this);
 	QPixmap pix1("C:/MY_CODE/GitHubRepos/EchipaTeam_MC/SkribblFakeClient/Icons/Siren.jpeg");
@@ -46,4 +46,7 @@ ShopPage::ShopPage(QWidget *parent, Player player)
 }
 
 ShopPage::~ShopPage()
-{}
+{
+    cpr::Response response = cpr::Put(cpr::Url{ "http://localhost:18080/game/removePlayer" },
+        cpr::Body{ "username=" + m_player.GetName() });
+}
