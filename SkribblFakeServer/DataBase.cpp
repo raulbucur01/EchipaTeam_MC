@@ -258,6 +258,8 @@ std::optional<Player> DataBase::SearchPlayerInDB(const std::string& name)
 
 // handlers
 
+
+
 GetScoreHandler::GetScoreHandler(DataBase& storage) :m_DB{ storage }
 {
 }

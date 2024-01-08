@@ -42,6 +42,7 @@ public:
 	void setupChat();
 	void setupCulori();
 	void wordChoosingSequence();
+	void randomWordsFromDB();
 
 private:
 	void paintEvent(QPaintEvent* event);

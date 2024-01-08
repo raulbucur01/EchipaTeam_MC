@@ -8,6 +8,8 @@
 #include "Word.h"
 #include <fstream>
 #include <unordered_map>
+#include <cstdlib>
+#include <ctime>
 namespace sql = sqlite_orm;
 import utils;
 
@@ -127,6 +129,15 @@ private:
 class GetScoreHandler {
 public:
 	GetScoreHandler(DataBase& storage);
+	crow::response operator()(const crow::request& req)const;
+
+private:
+	DataBase& m_DB;
+};
+
+class RandomWordsFromDBHandler {
+public:
+	RandomWordsFromDBHandler(DataBase& storage);
 	crow::response operator()(const crow::request& req)const;
 
 private:

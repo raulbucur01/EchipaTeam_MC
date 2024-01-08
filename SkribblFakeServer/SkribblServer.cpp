@@ -84,9 +84,14 @@ void SkribblServer::Start(DataBase& storage)
 	auto& getScore = CROW_ROUTE(m_app, "/getScore")
 		.methods(crow::HTTPMethod::GET);
 	getScore(GetScoreHandler(storage));
+	
 	auto& getCoins = CROW_ROUTE(m_app, "/getCoins")
 		.methods(crow::HTTPMethod::GET);
 	getCoins(GetCoinsHandler(storage));
+	
+	auto& RandomWordsFromDB = CROW_ROUTE(m_app, "/RandomWordsFromDB")
+		.methods(crow::HTTPMethod::GET);
+	RandomWordsFromDB(RandomWordsFromDBHandler(storage));
 
 	m_app.port(18080).multithreaded().run();
 }
