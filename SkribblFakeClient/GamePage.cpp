@@ -257,6 +257,28 @@ void GamePage::wordChoosingSequence()
 
 }
 
+void GamePage::randomWordsFromDB()
+{
+	std::string url = "http://localhost:18080/RandomWordsFromDB";
+	cpr::Response response = cpr::Get(cpr::Url(url));
+
+	if (response.status_code == 200) {
+		auto json = crow::json::load(response.text);
+		if (json) {
+			std::vector<std::string> words;
+			for (const auto& word : json["RandomWords"]) {
+
+				words.push_back(word.s());
+
+			}
+		}
+		else {
+
+			std::cerr << "Failed to get words from the server." << std::endl;
+		}
+	}
+}
+
 void GamePage::paintEvent(QPaintEvent* event)
 {
 	QPainter painter(this);
