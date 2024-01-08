@@ -258,7 +258,33 @@ std::optional<Player> DataBase::SearchPlayerInDB(const std::string& name)
 
 // handlers
 
+RandomWordsFromDBHandler::RandomWordsFromDBHandler(DataBase& storage) :m_DB{ storage }
+{
+}
 
+crow::response RandomWordsFromDBHandler::operator()(const crow::request& req) const
+{
+	std::srand(std::time(0));
+
+	std::vector<Word> words = m_DB.getAllWords();
+
+	if (words.size() < 3) {
+		return crow::response(404, "Not enough words in the database");
+	}
+
+	int randomIndex;
+	std::vector<std::string> randomWords;
+	for (int i = 0; i < 3; ++i) {
+		randomIndex = std::rand() % words.size();
+		randomWords.push_back(words[randomIndex].GetWord());
+	}
+
+
+	crow::json::wvalue jsonResponse;
+	jsonResponse["RandomWords"] = randomWords;
+
+	return crow::response(200, jsonResponse);
+}
 
 GetScoreHandler::GetScoreHandler(DataBase& storage) :m_DB{ storage }
 {
