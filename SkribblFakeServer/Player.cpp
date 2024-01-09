@@ -36,7 +36,7 @@ int16_t Player::GetCoins() const
 	return m_coins;
 }
 
-int16_t Player::GetCurrentIconID() const
+int16_t Player::GetCurrentIconId() const
 {
 	return m_currentIconID;
 }
@@ -51,7 +51,7 @@ void Player::SetCoins(int16_t coins)
 	m_coins = coins;
 }
 
-void Player::SetCurrentIconID(int16_t iconId)
+void Player::SetCurrentIconId(int16_t iconId)
 {
 	m_currentIconID = iconId;
 }

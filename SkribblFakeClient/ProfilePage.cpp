@@ -2,7 +2,7 @@
 #include "MenuPage.h"
 #include <QScreen>
 
-ProfilePage::ProfilePage(QWidget *parent, Player player)
+ProfilePage::ProfilePage(QWidget* parent, Player player)
 	: QWidget(parent), m_player(player), m_currentIconIndex(0)
 {
 	ui.setupUi(this);
@@ -14,7 +14,17 @@ ProfilePage::ProfilePage(QWidget *parent, Player player)
 	connect(ui.pushButton_Back, &QPushButton::pressed, this, &ProfilePage::on_pushButton_Back_pressed);
 	connect(ui.iconButton, &QPushButton::clicked, this, &ProfilePage::showIconSelectionDialog);
 
-	
+	// Set the initial icon based on currentIconId
+	m_currentIconIndex = m_player.GetCurrentIconId();
+	QString iconPath = getIconPath(m_currentIconIndex);
+
+	QPixmap pix(iconPath);
+	QSize customIconSize(100, 100);  // Adjust the width and height as needed
+	QPixmap scaledPixmap = pix.scaled(customIconSize, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+
+	ui.iconButton->setIcon(QIcon(scaledPixmap));
+	ui.iconButton->setIconSize(customIconSize);
+
 	std::string str = m_player.GetName();
 	QString qs = QString::fromLocal8Bit(str.c_str());
 	ui.label_Username->setText(qs);

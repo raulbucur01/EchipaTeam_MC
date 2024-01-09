@@ -23,7 +23,7 @@ static auto createStorage(const std::string& filename) {
 			sql::make_column("Password", &Player::SetPassword, &Player::GetPassword),
 			sql::make_column("Score", &Player::SetScore, &Player::GetScore),
 			sql::make_column("Coins", &Player::SetCoins, &Player::GetCoins),
-			sql::make_column("CurrentIconId", &Player::SetCurrentIconID, &Player::GetCurrentIconID)
+			sql::make_column("CurrentIconId", &Player::SetCurrentIconId, &Player::GetCurrentIconId)
 		),
 		sql::make_table("Word",
 			sql::make_column("id", &Word::SetId, &Word::GetId, sql::primary_key().autoincrement()),

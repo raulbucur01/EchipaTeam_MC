@@ -14,7 +14,7 @@ public:
 	std::string GetPassword() const;
 	int16_t GetScore() const;
 	int16_t GetCoins() const;
-	int16_t GetCurrentIconID() const;
+	int16_t GetCurrentIconId() const;
 	int16_t GetSecondsGuess() const;
 	bool GetPainter();
 
@@ -24,7 +24,7 @@ public:
 	void SetPassword(const std::string& password);
 	void SetScore(int16_t score);
 	void SetCoins(int16_t coins);
-	void SetCurrentIconID(int16_t iconId);
+	void SetCurrentIconId(int16_t iconId);
 	void SetSecondsGuess(int16_t seconds);
 	void SetPainter(bool este);
 

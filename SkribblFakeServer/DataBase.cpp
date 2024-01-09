@@ -255,7 +255,7 @@ void DataBase::UpdatePlayerCoinsInDB(const std::string& name, int newCoins)
 void DataBase::UpdatePlayerCurrentIconInDB(const std::string& name, int newIconId)
 {
 	m_DB.update_all(
-		sql::set(sqlite_orm::c(&Player::GetCurrentIconID) = newIconId),
+		sql::set(sqlite_orm::c(&Player::GetCurrentIconId) = newIconId),
 		sql::where(sqlite_orm::c(&Player::GetName) == name));
 }
 
@@ -273,7 +273,7 @@ std::vector<int> DataBase::GetPurchasedIconIdsByPlayer(const std::string& player
 {
 	std::vector<Purchase> purchases = GetPurchasesByPlayer(playerName);
 	std::vector<int> purchasedIconIds;
-	
+
 	for (auto purchase : purchases) {
 		purchasedIconIds.push_back(purchase.GetIconId());
 	}
@@ -426,10 +426,11 @@ crow::response LoginHandler::operator()(const crow::request& req) const
 
 
 					crow::json::wvalue jsonResponse{
-						{"Name",person.value().GetName()},
-						{"Password",person.value().GetPassword()},
-						{"Score",person.value().GetScore()},
-						{"Coins",person.value().GetCoins()}
+						{"Name", person.value().GetName()},
+						{"Password", person.value().GetPassword()},
+						{"Score", person.value().GetScore()},
+						{"Coins", person.value().GetCoins()},
+						{"CurrentIconId", person.value().GetCurrentIconId()}
 					};
 
 					return crow::response(200, jsonResponse);
