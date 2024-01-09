@@ -6,6 +6,7 @@
 #include "Player.h"
 #include <cpr/cpr.h>
 #include <crow.h>
+#include <qboxlayout.h>
 
 class ShopPage : public QWidget
 {
@@ -14,6 +15,12 @@ class ShopPage : public QWidget
 public:
 	ShopPage(QWidget *parent = nullptr, Player player = {});
 	~ShopPage();
+	void addIconButtonToGridLayout(const QString& iconPath, QPushButton* button, QGridLayout* layout, int row, int col);
+	void ProcessPurchase(int iconIndex);
+
+private slots:
+	void on_exitButton_pressed();
+	void on_iconButton_pressed();
 
 private:
 	Ui::ShopPageClass ui;
