@@ -69,6 +69,8 @@ void ProfilePage::updateCurrentIcon(int newIconIndex) {
 
 	ui.iconButton->setIcon(QIcon(scaledPixmap));
 	ui.iconButton->setIconSize(customIconSize);
+
+	UpdateCurrentPlayerIconOnServer();
 }
 
 void ProfilePage::DisplayScore()
@@ -107,6 +109,13 @@ void ProfilePage::DisplayCoins()
 
 		std::cerr << "Failed to get player's coins from the server." << std::endl;
 	}
+}
+
+void ProfilePage::UpdateCurrentPlayerIconOnServer()
+{
+	// aici trimitem la server indexul iconitei curente schimbate
+	// trebuie sa se updateze si in baza de date cu un nou currentIconId dat de cel ce este in momentul de cand se apeleaza functia asta
+	// functia asta se apeleaza doar dupa ce userul isi alege o iconita
 }
 
 void ProfilePage::RetrieveOwnedIcons() {

@@ -99,7 +99,7 @@ public:
 	void RetrieveOwnedIcons();
 	void DisplayScore();
 	void DisplayCoins();
-
+    void UpdateCurrentPlayerIconOnServer();
     QString getIconPath(int iconIndex);
 
 private slots:
@@ -112,6 +112,6 @@ private:
 	Ui::ProfilePageClass ui;
 	Player m_player;
     int m_currentIconIndex;
-    std::vector<int> m_ownedIconIndexes = { 0, 1, 2, 3 };
+    std::vector<int> m_ownedIconIndexes;
 };
 
