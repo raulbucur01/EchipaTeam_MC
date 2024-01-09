@@ -151,6 +151,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Message.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Purchase.cpp" />
     <ClCompile Include="SkribblServer.cpp" />
     <ClCompile Include="utils.cpp" />
     <ClCompile Include="utils.cppm" />
@@ -159,6 +160,7 @@
     <ClInclude Include="DataBase.h" />
     <ClInclude Include="Message.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="Purchase.h" />
     <ClInclude Include="SkribblServer.h" />
   </ItemGroup>
   <ItemGroup>

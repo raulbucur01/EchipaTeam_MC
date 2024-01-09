@@ -11,7 +11,6 @@ class MenuPage : public QWidget
 
 public:
 	MenuPage(QWidget* parent = nullptr, crow::json::rvalue player = {});
-	//MenuPage(QWidget* parent = nullptr, QString username = "nimeni");
 	
 	~MenuPage();
 

@@ -2,8 +2,8 @@
 #include "MenuPage.h"
 #include <QScreen>
 
-ProfilePage::ProfilePage(QWidget *parent, Player player)
-	: QWidget(parent), m_player(player)
+ProfilePage::ProfilePage(QWidget* parent, Player player)
+	: QWidget(parent), m_player(player), m_currentIconIndex(0)
 {
 	ui.setupUi(this);
 	QScreen* desktop = QApplication::primaryScreen();
@@ -12,7 +12,19 @@ ProfilePage::ProfilePage(QWidget *parent, Player player)
 	ui.exitButton->setStyleSheet(QString("#%1 { background-color: red; }").arg(ui.exitButton->objectName()));
 	connect(ui.exitButton, &QPushButton::pressed, this, &ProfilePage::on_exitButton_pressed);
 	connect(ui.pushButton_Back, &QPushButton::pressed, this, &ProfilePage::on_pushButton_Back_pressed);
-	
+	connect(ui.iconButton, &QPushButton::clicked, this, &ProfilePage::showIconSelectionDialog);
+
+	// Set the initial icon based on currentIconId
+	m_currentIconIndex = m_player.GetCurrentIconId();
+	QString iconPath = getIconPath(m_currentIconIndex);
+
+	QPixmap pix(iconPath);
+	QSize customIconSize(100, 100);  // Adjust the width and height as needed
+	QPixmap scaledPixmap = pix.scaled(customIconSize, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+
+	ui.iconButton->setIcon(QIcon(scaledPixmap));
+	ui.iconButton->setIconSize(customIconSize);
+
 	std::string str = m_player.GetName();
 	QString qs = QString::fromLocal8Bit(str.c_str());
 	ui.label_Username->setText(qs);
@@ -34,6 +46,31 @@ void ProfilePage::on_pushButton_Back_pressed()
 	delete ui.exitButton;
 
 	// Cum facem intoarcerea din profil inapoi la meniu?
+}
+
+void ProfilePage::showIconSelectionDialog() {
+	IconSelectionDialog dialog(m_ownedIconIndexes, this);
+
+	// Connect the iconSelected signal from the dialog to the updateCurrentIcon slot
+	connect(&dialog, &IconSelectionDialog::iconSelected, this, &ProfilePage::updateCurrentIcon);
+
+	dialog.exec();
+}
+
+void ProfilePage::updateCurrentIcon(int newIconIndex) {
+	// Update the displayed icon on the main profile page
+	m_currentIconIndex = newIconIndex;
+	// Set the icon for the ui.iconButton
+	QString iconPath = getIconPath(m_currentIconIndex);
+
+	QPixmap pix(iconPath);
+	QSize customIconSize(100, 100);  // Adjust the width and height as needed
+	QPixmap scaledPixmap = pix.scaled(customIconSize, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+
+	ui.iconButton->setIcon(QIcon(scaledPixmap));
+	ui.iconButton->setIconSize(customIconSize);
+
+	UpdateCurrentPlayerIconOnServer();
 }
 
 void ProfilePage::DisplayScore()
@@ -74,8 +111,49 @@ void ProfilePage::DisplayCoins()
 	}
 }
 
+void ProfilePage::UpdateCurrentPlayerIconOnServer()
+{
+	// aici trimitem la server indexul iconitei curente schimbate
+	// trebuie sa se updateze si in baza de date cu un nou currentIconId dat de cel ce este in momentul de cand se apeleaza functia asta
+	// functia asta se apeleaza doar dupa ce userul isi alege o iconita
+}
+
+void ProfilePage::RetrieveOwnedIcons() {
+	// Make a request to the server to get the player's owned icons
+	// Update m_ownedIconIndexes based on the server response
+	// trebuie request sa luam indexurile iconitelor cumparate de playerul curent cautat dupa nume este functia "GetPurchaseIdsByPlayer"
+	// in baza de date
+	// in m_ownedIconIndexes bagam indexurile venite de la server pt playerul curent
+}
 
 void ProfilePage::on_exitButton_pressed()
 {
 	QCoreApplication::quit();
+}
+
+QString ProfilePage::getIconPath(int iconIndex) {
+	switch (iconIndex) {
+	case 0:
+		return "./Icons/Troll.jpeg";
+	case 1:
+		return "./Icons/Siren.jpeg";
+	case 2:
+		return "./Icons/Gladiator.jpeg";
+	case 3:
+		return "./Icons/Pig.jpeg";
+	case 4:
+		return "./Icons/Wizard.jpeg";
+	case 5:
+		return "./Icons/Alien.jpeg";
+	case 6:
+		return "./Icons/Leprechaun.jpeg";
+	case 7:
+		return "./Icons/Snake.jpeg";
+	case 8:
+		return "./Icons/Panda.jpeg";
+		// Add more cases for other indexes
+	default:
+		// Handle the case where the index is not recognized
+		return "./Icons/default_icon.jpeg";
+	}
 }

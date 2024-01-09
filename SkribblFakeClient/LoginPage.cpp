@@ -16,6 +16,7 @@ LoginPage::LoginPage(QWidget* parent)
 	connect(ui.pushButton_Login, &QPushButton::clicked, this, &LoginPage::on_pushButton_Login_pressed);
 	ui.exitButton->setStyleSheet(QString("#%1 { background-color: red; }").arg(ui.exitButton->objectName()));
 	connect(ui.exitButton, &QPushButton::pressed, this, &LoginPage::on_exitButton_pressed);
+	ui.lineEdit_Password->setEchoMode(QLineEdit::Password);
 }
 
 LoginPage::~LoginPage()

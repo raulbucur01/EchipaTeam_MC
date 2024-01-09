@@ -96,7 +96,7 @@ void MenuPage::SetPlayer(const crow::json::rvalue& player)
 	m_player.SetPassword(player["Password"].s());
 	m_player.SetScore(player["Score"].d());
 	m_player.SetCoins(player["Coins"].d());
-	
+	m_player.SetCurrentIconId(player["CurrentIconId"].d());
 }
 
 MenuPage::~MenuPage()

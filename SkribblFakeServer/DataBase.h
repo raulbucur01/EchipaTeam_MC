@@ -6,6 +6,7 @@
 #include <crow.h>
 #include "Player.h"
 #include "Word.h"
+#include "Purchase.h"
 #include <fstream>
 #include <unordered_map>
 #include <cstdlib>
@@ -22,11 +23,17 @@ static auto createStorage(const std::string& filename) {
 			sql::make_column("Name", &Player::SetName, &Player::GetName),
 			sql::make_column("Password", &Player::SetPassword, &Player::GetPassword),
 			sql::make_column("Score", &Player::SetScore, &Player::GetScore),
-			sql::make_column("Coins", &Player::SetCoins, &Player::GetCoins)
+			sql::make_column("Coins", &Player::SetCoins, &Player::GetCoins),
+			sql::make_column("CurrentIconId", &Player::SetCurrentIconId, &Player::GetCurrentIconId)
 		),
 		sql::make_table("Word",
 			sql::make_column("id", &Word::SetId, &Word::GetId, sql::primary_key().autoincrement()),
 			sql::make_column("word", &Word::SetWord, &Word::GetWord)
+		),
+		sql::make_table("Purchase",
+			sql::make_column("id", &Purchase::SetId, &Purchase::GetId, sql::primary_key().autoincrement()),
+			sql::make_column("playerName", &Purchase::SetPlayerName, &Purchase::GetPlayerName),
+			sql::make_column("iconId", &Purchase::SetIconId, &Purchase::GetIconId)
 		)
 	);
 }
@@ -74,7 +81,16 @@ public:
 	// For direct DB interaction:
 	// for Player
 	std::optional<Player> SearchPlayerInDB(const std::string& name);
-	void AddPlayertoDB(Player& player);
+	void AddPlayertToDB(Player& player);
+
+	// for Purchases
+	void AddPurchaseToDB(const Purchase& purchase);
+	std::vector<Purchase> GetPurchasesByPlayer(const std::string& playerName);
+	std::vector<int> GetPurchasedIconIdsByPlayer(const std::string& playerName);
+	std::vector<Purchase> GetAllPurchases();
+	void PrintAllPurchases();
+	void UpdatePlayerCoinsInDB(const std::string& name, int newCoinsAmount);
+	void UpdatePlayerCurrentIconInDB(const std::string& name, int newIconId);
 
 	~DataBase() = default;
 
