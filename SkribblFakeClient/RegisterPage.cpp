@@ -14,6 +14,8 @@ RegisterPage::RegisterPage(QWidget* parent)
 	connect(ui.pushButton_CreateAccount, &QPushButton::toggled, this, &RegisterPage::on_pushButton_CreateAccount_pressed);
 	ui.exitButton->setStyleSheet(QString("#%1 { background-color: red; }").arg(ui.exitButton->objectName()));
 	connect(ui.exitButton, &QPushButton::pressed, this, &RegisterPage::on_exitButton_pressed);
+	ui.lineEdit_Password->setEchoMode(QLineEdit::Password);
+	ui.lineEdit_ConfirmPassword->setEchoMode(QLineEdit::Password);
 }
 
 RegisterPage::~RegisterPage()
