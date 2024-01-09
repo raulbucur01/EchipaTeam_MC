@@ -16,7 +16,7 @@ public:
 	ShopPage(QWidget *parent = nullptr, Player player = {});
 	~ShopPage();
 	void addIconButtonToGridLayout(const QString& iconPath, QPushButton* button, QGridLayout* layout, int row, int col);
-	void ProcessPurchase(int iconIndex);
+	void ProcessPurchase(const std::string& username, int iconIndex);
 
 private slots:
 	void on_exitButton_pressed();

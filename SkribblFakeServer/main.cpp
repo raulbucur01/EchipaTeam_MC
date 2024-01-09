@@ -4,25 +4,19 @@
 
 int main() {
 	DataBase DB("SkribblData.sqlite");
-	//DB.printAllPLayers();
 	/*DB.printAllPLayers();
-	DB.printAllWords();
-	auto p = DB.searchPlayerInDB("Coco20");
-	if (p == std::nullopt)
-		std::cout << "\nNu a fost gasit!";
-	else
-	{
-		if (p.has_value()) {
-			std::cout << "\nA fost gasit: " << p.value().GetName();
-		}
+	DB.getAllPurchases();
+	DB.PrintAllPurchases();
+	std::vector<Purchase> playerPurchases = DB.getPurchasesByPlayer("Coco20");
+	std::cout << "\n";
+	for (auto purchase : playerPurchases) {
+		std::cout << "\n";
+		std::cout << purchase.GetId() << " " << purchase.GetPlayerName() << " " << purchase.GetIconId();
 	}
 
-	auto p2 = DB.searchPlayerInDB("asdfg");
-	if (p2 == std::nullopt)
-		std::cout << "\nNu a fost gasit!";
-	else
-		std::cout << "\nA fost gasit";
-*/
+	DB.UpdatePlayerCoinsInDB("Coco20", 150);
+	DB.printAllPLayers();*/
+
 	SkribblServer server;
 	server.Start(DB);
 	return 0;

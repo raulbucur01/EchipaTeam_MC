@@ -80,13 +80,6 @@ void ShopPage::addIconButtonToGridLayout(const QString& iconPath, QPushButton* b
     layout->addWidget(button, row, col);
 }
 
-void ShopPage::ProcessPurchase(int iconIndex)
-{
-    // procesare purchase
-    QString message = QString("You pressed an icon with index %1!").arg(iconIndex);
-    QMessageBox::warning(this, "Purchase", message);
-}
-
 void ShopPage::on_iconButton_pressed()
 {
     QPushButton* clickedButton = qobject_cast<QPushButton*>(sender());
@@ -108,9 +101,23 @@ void ShopPage::on_iconButton_pressed()
         // Now you have the index of the clicked button (iconIndex)
         // You can use this index to identify the button and handle the purchase logic
 
-        // For example, you can call a function to process the purchase
-        ProcessPurchase(iconIndex);
+        std::string username = m_player.GetName();
+        ProcessPurchase(username, iconIndex);
     }
+}
+
+void ShopPage::ProcessPurchase(const std::string& username, int iconIndex)
+{
+    // procesare purchase
+    QString message = QString("You pressed an icon with index %1!").arg(iconIndex);
+    QMessageBox::warning(this, "Purchase", message);
+
+    // -se trimite la server username-ul si indexul pozei pe care vrea sa o cumpere
+    // -se vor face verificari ca userul sa nu aiba deja iconita respectiva
+    // -faptul ca userul exista nu mai e necesar de verificat ca s-a facut deja in login si e evident ca exista
+    // -daca totul e in regula se fac modificarile necesare in baza de date si se trimite raspuns aici dupa care vom afisa un mesaj de confirmare
+    // a tranzactiei
+    // MOMENTAN FIECARE ICONITA COSTA 20 DE BANUTI
 }
 
 

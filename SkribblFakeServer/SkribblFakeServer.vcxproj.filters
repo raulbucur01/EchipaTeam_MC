@@ -35,6 +35,9 @@
     <ClCompile Include="DataBase.cpp">
       <Filter>DataBase</Filter>
     </ClCompile>
+    <ClCompile Include="Purchase.cpp">
+      <Filter>Domain</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Player.h">
@@ -45,6 +48,9 @@
     </ClInclude>
     <ClInclude Include="DataBase.h">
       <Filter>DataBase</Filter>
+    </ClInclude>
+    <ClInclude Include="Purchase.h">
+      <Filter>Domain</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

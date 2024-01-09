@@ -22,6 +22,13 @@ void populateDB(Storage& storage)
 
 	storage.insert_range(words.begin(), words.end());
 	input.close();
+
+	std::vector<Purchase> purchases = {
+		Purchase{-1, "Coco20", 1},
+		Purchase{-1, "raul807", 3},
+		Purchase{-1, "Coco20", 3}
+	};
+	storage.insert_range(purchases.begin(), purchases.end());
 }
 
 DataBase::DataBase(const std::string& filename) : m_DB(createStorage(filename))
@@ -32,12 +39,13 @@ DataBase::DataBase(const std::string& filename) : m_DB(createStorage(filename))
 	//m_DB.remove_all<Player>();
 	auto initPlayerCount = m_DB.count<Player>();
 	auto initWordCount = m_DB.count<Word>();
-	if (initPlayerCount == 0 && initWordCount == 0)
+	auto initPurchaseCount = m_DB.count<Purchase>();
+	if (initPlayerCount == 0 && initWordCount == 0 && initPurchaseCount == 0)
 		populateDB(m_DB);
 
 	// for testing
-	//addPlayersFromDBToPlayersVector();
-	addWordsFromDBToWordsVector(); // avem vectoru de cuvinte permanent in DB
+	addPlayersFromDBToPlayersVector();
+	addWordsFromDBToWordsVector(); // avem vectoru de cuvinte permanent in DB momentan
 }
 
 // Player
@@ -230,13 +238,43 @@ void DataBase::printAllWords()
 	}
 }
 
-void DataBase::AddPlayertoDB(Player& player)
+void DataBase::AddPlayertToDB(Player& player)
 {
 	auto id = m_DB.insert(player);
 	player.SetId(id);
-
 }
 
+void DataBase::UpdatePlayerCoinsInDB(const std::string& name, int newCoins)
+{
+	m_DB.update_all(
+		sql::set(sqlite_orm::c(&Player::GetCoins) = newCoins),
+		sql::where(sqlite_orm::c(&Player::GetName) == name));
+}
+
+void DataBase::AddPurchaseToDB(const Purchase& purchase)
+{
+	m_DB.insert(purchase);
+}
+
+std::vector<Purchase> DataBase::GetPurchasesByPlayer(const std::string& playerName)
+{
+	return m_DB.get_all<Purchase>(sql::where(sql::is_equal(&Purchase::GetPlayerName, playerName)));
+}
+
+std::vector<Purchase> DataBase::GetAllPurchases()
+{
+	return m_DB.get_all<Purchase>();
+}
+
+void DataBase::PrintAllPurchases()
+{
+	std::cout << "\n";
+	std::vector<Purchase> purchases = GetAllPurchases();
+	for (auto purchase : purchases) {
+		std::cout << "\n";
+		std::cout << purchase.GetId() << " " << purchase.GetPlayerName() << " " << purchase.GetIconId();
+	}
+}
 
 // DB operations
 
@@ -420,7 +458,7 @@ crow::response RegistrationHandler::operator()(const crow::request& req) const
 			std::regex("^.*(?=.{8,})(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*+=`~])(?=.*[0-9]).*$")))
 	{
 		Player newPlayerDB(0, usernameIter->second, passwordIter->second, 0, 0);
-		m_DB.AddPlayertoDB(newPlayerDB);
+		m_DB.AddPlayertToDB(newPlayerDB);
 	}
 	else
 		return crow::response(404, "Credentials are not valid! Please try again!");
