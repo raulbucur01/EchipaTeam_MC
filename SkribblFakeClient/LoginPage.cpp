@@ -5,13 +5,15 @@
 #include "MenuPage.h"
 #include <cpr/cpr.h>
 #include <crow.h>
+#include <QResizeEvent>
+#include <QSizePolicy>
+
 LoginPage::LoginPage(QWidget* parent)
 	: QWidget(parent)
 {
 	ui.setupUi(this);
-	QScreen* desktop = QApplication::primaryScreen();
-	this->resize(desktop->size());
-	ui.groupBox_Login->move((this->size().width() - ui.groupBox_Login->size().width()) / 2, (this->size().height() - ui.groupBox_Login->size().height()) / 2);
+	setFixedSize(1000, 750);
+	ui.groupBox_Login->move((size().width() - ui.groupBox_Login->width()) / 2,( size().height() - ui.groupBox_Login->height()) / 2);
 	connect(ui.commandLinkButton_Register, &QCommandLinkButton::pressed, this, &LoginPage::on_commandLinkButton_Register_pressed);
 	connect(ui.pushButton_Login, &QPushButton::clicked, this, &LoginPage::on_pushButton_Login_pressed);
 	ui.exitButton->setStyleSheet(QString("#%1 { background-color: red; }").arg(ui.exitButton->objectName()));
@@ -23,6 +25,7 @@ LoginPage::~LoginPage()
 {
 	pages.destroyAllPages();
 }
+
 
 void LoginPage::on_pushButton_Login_pressed()
 {

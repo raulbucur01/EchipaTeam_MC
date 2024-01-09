@@ -11,8 +11,7 @@ MenuPage::MenuPage(QWidget* parent,crow::json::rvalue player)
 	ui.setupUi(this);
 	SetPlayer(player);
 	m_username = QString::fromUtf8(m_player.GetName().data(),int( m_player.GetName().size()));
-	QScreen* desktop = QApplication::primaryScreen();
-	this->resize(desktop->size());
+	setFixedSize(1000, 750);
 	ui.groupBox_GameMenu->move((this->size().width() - ui.groupBox_GameMenu->size().width()) / 2, (this->size().height() - ui.groupBox_GameMenu->size().height()) / 2);
 	connect(ui.pushButton_Profile, &QPushButton::pressed, this, &MenuPage::on_pushButton_Profile_pressed);
 	connect(ui.pushButton_Shop, &QPushButton::pressed, this, &MenuPage::on_pushButton_Shop_pressed);
