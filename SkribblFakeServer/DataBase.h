@@ -22,7 +22,8 @@ static auto createStorage(const std::string& filename) {
 			sql::make_column("Name", &Player::SetName, &Player::GetName),
 			sql::make_column("Password", &Player::SetPassword, &Player::GetPassword),
 			sql::make_column("Score", &Player::SetScore, &Player::GetScore),
-			sql::make_column("Coins", &Player::SetCoins, &Player::GetCoins)
+			sql::make_column("Coins", &Player::SetCoins, &Player::GetCoins),
+			sql::make_column("CurrentIconId", &Player::SetCurrentIconID, &Player::GetCurrentIconID)
 		),
 		sql::make_table("Word",
 			sql::make_column("id", &Word::SetId, &Word::GetId, sql::primary_key().autoincrement()),
@@ -84,9 +85,11 @@ public:
 	// for Purchases
 	void AddPurchaseToDB(const Purchase& purchase);
 	std::vector<Purchase> GetPurchasesByPlayer(const std::string& playerName);
+	std::vector<int> GetPurchasedIconIdsByPlayer(const std::string& playerName);
 	std::vector<Purchase> GetAllPurchases();
 	void PrintAllPurchases();
 	void UpdatePlayerCoinsInDB(const std::string& name, int newCoinsAmount);
+	void UpdatePlayerCurrentIconInDB(const std::string& name, int newIconId);
 
 	~DataBase() = default;
 

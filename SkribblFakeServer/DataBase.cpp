@@ -6,10 +6,10 @@ using namespace http;
 void populateDB(Storage& storage)
 {
 	std::vector<Player> players = {
-		Player{-1,"Coco20", "amuitato", 200, 10},
-		Player{-1,"raul807", "parolasmechera", 0, 0},
-		Player{-1,"ronaldoGOAT_CR7", "amuitato2", 0, 0},
-		Player{-1,"vlad", "parolacomplexa", 0, 0},
+		Player{-1,"Coco20", "amuitato", 200, 10, 0},
+		Player{-1,"raul807", "parolasmechera", 0, 0, 0},
+		Player{-1,"ronaldoGOAT_CR7", "amuitato2", 0, 0, 0},
+		Player{-1,"vlad", "parolacomplexa", 0, 0, 0},
 	};
 	storage.insert_range(players.begin(), players.end());
 
@@ -37,6 +37,7 @@ DataBase::DataBase(const std::string& filename) : m_DB(createStorage(filename))
 	// daca se mai adauga cuvinte trebuie decomentat ca sa se strearga ce era inainte si sa se refaca baza de date
 	//m_DB.remove_all<Word>();
 	//m_DB.remove_all<Player>();
+	//m_DB.remove_all<Purchase>();
 	auto initPlayerCount = m_DB.count<Player>();
 	auto initWordCount = m_DB.count<Word>();
 	auto initPurchaseCount = m_DB.count<Purchase>();
@@ -251,6 +252,13 @@ void DataBase::UpdatePlayerCoinsInDB(const std::string& name, int newCoins)
 		sql::where(sqlite_orm::c(&Player::GetName) == name));
 }
 
+void DataBase::UpdatePlayerCurrentIconInDB(const std::string& name, int newIconId)
+{
+	m_DB.update_all(
+		sql::set(sqlite_orm::c(&Player::GetCurrentIconID) = newIconId),
+		sql::where(sqlite_orm::c(&Player::GetName) == name));
+}
+
 void DataBase::AddPurchaseToDB(const Purchase& purchase)
 {
 	m_DB.insert(purchase);
@@ -259,6 +267,18 @@ void DataBase::AddPurchaseToDB(const Purchase& purchase)
 std::vector<Purchase> DataBase::GetPurchasesByPlayer(const std::string& playerName)
 {
 	return m_DB.get_all<Purchase>(sql::where(sql::is_equal(&Purchase::GetPlayerName, playerName)));
+}
+
+std::vector<int> DataBase::GetPurchasedIconIdsByPlayer(const std::string& playerName)
+{
+	std::vector<Purchase> purchases = GetPurchasesByPlayer(playerName);
+	std::vector<int> purchasedIconIds;
+	
+	for (auto purchase : purchases) {
+		purchasedIconIds.push_back(purchase.GetIconId());
+	}
+
+	return purchasedIconIds;
 }
 
 std::vector<Purchase> DataBase::GetAllPurchases()
@@ -457,7 +477,7 @@ crow::response RegistrationHandler::operator()(const crow::request& req) const
 		&& std::regex_match(passwordIter->second,
 			std::regex("^.*(?=.{8,})(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*+=`~])(?=.*[0-9]).*$")))
 	{
-		Player newPlayerDB(0, usernameIter->second, passwordIter->second, 0, 0);
+		Player newPlayerDB(0, usernameIter->second, passwordIter->second, 0, 0, 0);
 		m_DB.AddPlayertToDB(newPlayerDB);
 	}
 	else

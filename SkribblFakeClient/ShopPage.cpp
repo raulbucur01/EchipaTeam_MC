@@ -43,7 +43,7 @@ ShopPage::ShopPage(QWidget* parent, Player player)
     addIconButtonToGridLayout("./Icons/Wizard.jpeg", ui.pushButton_Icon4, gridLayout, 1, 1);
     addIconButtonToGridLayout("./Icons/Alien.jpeg", ui.pushButton_Icon5, gridLayout, 2, 0);
     addIconButtonToGridLayout("./Icons/Leprechaun.jpeg", ui.pushButton_Icon6, gridLayout, 2, 1);
-    addIconButtonToGridLayout("./Icons/Troll.jpeg", ui.pushButton_Icon7, gridLayout, 3, 0);
+    addIconButtonToGridLayout("./Icons/Snake.jpeg", ui.pushButton_Icon7, gridLayout, 3, 0);
     addIconButtonToGridLayout("./Icons/Panda.jpeg", ui.pushButton_Icon8, gridLayout, 3, 1);
 
     // Add the player's balance label below the scroll area

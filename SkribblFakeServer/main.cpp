@@ -5,9 +5,9 @@
 int main() {
 	DataBase DB("SkribblData.sqlite");
 	/*DB.printAllPLayers();
-	DB.getAllPurchases();
+	DB.GetAllPurchases();
 	DB.PrintAllPurchases();
-	std::vector<Purchase> playerPurchases = DB.getPurchasesByPlayer("Coco20");
+	std::vector<Purchase> playerPurchases = DB.GetPurchasesByPlayer("Coco20");
 	std::cout << "\n";
 	for (auto purchase : playerPurchases) {
 		std::cout << "\n";
@@ -15,6 +15,8 @@ int main() {
 	}
 
 	DB.UpdatePlayerCoinsInDB("Coco20", 150);
+	DB.printAllPLayers();
+	DB.UpdatePlayerCurrentIconInDB("Coco20", 1);
 	DB.printAllPLayers();*/
 
 	SkribblServer server;
