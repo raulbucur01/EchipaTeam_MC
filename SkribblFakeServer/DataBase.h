@@ -10,6 +10,7 @@
 #include <unordered_map>
 #include <cstdlib>
 #include <ctime>
+#include "Message.h"
 namespace sql = sqlite_orm;
 import utils;
 
@@ -142,4 +143,19 @@ public:
 
 private:
 	DataBase& m_DB;
+};
+class MessageHandler {
+public:
+	MessageHandler(DataBase& storage,std::vector<Message>& messages);
+	crow::response operator()(const crow::request& req) const;
+private:
+	std::vector<Message>& m_messagesDB;
+	DataBase& m_DB;
+};
+class GetMessagesHandler {
+public:
+	GetMessagesHandler(std::vector<Message>& messages);
+	crow::response operator()(const crow::request& req)const;
+private:
+	std::vector<Message>& m_messagesDB;
 };

@@ -30,7 +30,7 @@ private slots:
 	void on_white_button_pressed();
 	void on_undo_button_pressed();
 	void on_delete_all_pressed();
-	//void updateChat();
+	void updateChat();
 
 public:
 	GamePage(QWidget* parent = nullptr, Player player = {});

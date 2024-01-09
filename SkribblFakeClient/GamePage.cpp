@@ -12,19 +12,18 @@
 void GamePage::sendMessage()
 {
 
-	QString message = "You: " + ui.mesageBox->toPlainText();
-	if (!message.isEmpty())
+	//QString message = "You: " + ui.mesageBox->toPlainText();
+	/*if (!message.isEmpty())
 	{
 		messages->appendRow(new QStandardItem(message));
 		ui.mesageBox->clear();
 	}
-	ui.displayMessage->setModel(messages);
-	std::string word=message.toUtf8().constData();
-
-	/*auto res = cpr::Post(cpr::Url{"http://localhost:18080/send"},
-		cpr::Body{ "word="+word});
 	*/
+	//ui.displayMessage->setModel(messages);
+	std::string word= ui.mesageBox->toPlainText().toUtf8().constData();
 
+	auto res = cpr::Post(cpr::Url{"http://localhost:18080/chat/send"},
+		cpr::Body{ "username="+m_playerCurrent.GetName() + "&message=" + word});
 }
 
 void GamePage::on_black_button_pressed()
@@ -100,16 +99,33 @@ void GamePage::on_delete_all_pressed()
 
 }*/
 
-/*void GamePage::updateChat()
+void GamePage::updateChat()
 {
-	cpr::Response response = cpr::Get(cpr::Url{ "http://localhost:18080/get" });
+	cpr::Response response = cpr::Get(cpr::Url{ "http://localhost:18080/chat/get" });
 	auto words = response.text;
-	if (words != "")
-		messages->appendRow(new QStandardItem(QString::fromUtf8(words.data(), int(words.size()))));
+	crow::json::rvalue messagesResponse = crow::json::load(words);
+
+
+	messages->clear();
+
+	for (const auto& message : messagesResponse)
+	{
+		std::string playerName = message["Name"].s();
+		std::string content = message["Message"].s();
+
+		auto v = QString::fromUtf8(content.c_str());
+
+		messages->appendRow(new QStandardItem(v));
+
+	}
+	ui.displayMessage->setModel(messages);
+	//words is a 
+	//if (words != "")
+		//messages->coun(new QStandardItem(QString::fromUtf8(words.data(), int(words.size()))));
 
 
 }
-*/
+
 
 GamePage::GamePage(QWidget* parent,Player player)
 	: QWidget(parent),m_playerCurrent{player}
@@ -135,10 +151,10 @@ GamePage::GamePage(QWidget* parent,Player player)
 	ui.wordLabel->move(rectangle.x() + rectangle.width() / 2, rectangle.y() - 50);
 	ui.wordLabel->setText(QString::fromStdString("vlad"));
 	QTimer* timer = new QTimer(this);
-	//connect(timerChat, &QTimer::timeout, this, &GamePage::updateChat);
+	connect(timer, &QTimer::timeout, this, &GamePage::updateChat);
 	//connect(timer, &QTimer::timeout, this,&GamePage::updatePlayers);
-	timer->start(3000);  // 3 second
-	wordChoosingSequence();
+	timer->start(250);  // 3 second
+	//wordChoosingSequence();
 }
 
 
@@ -154,7 +170,7 @@ GamePage::~GamePage()
 {
 	cpr::Response response = cpr::Put(cpr::Url{ "http://localhost:18080/game/removePlayer" },
 		cpr::Body{ "username=" + m_playerCurrent.GetName() }); //doar pentru butonul de exit default de la interfata 
-	delete messages;
+	//delete messages;
 	g.clear();
 
 }

@@ -35,6 +35,9 @@
     <ClCompile Include="DataBase.cpp">
       <Filter>DataBase</Filter>
     </ClCompile>
+    <ClCompile Include="Message.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Player.h">
@@ -46,6 +49,7 @@
     <ClInclude Include="DataBase.h">
       <Filter>DataBase</Filter>
     </ClInclude>
+    <ClInclude Include="Message.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="SkribblData.sqlite">

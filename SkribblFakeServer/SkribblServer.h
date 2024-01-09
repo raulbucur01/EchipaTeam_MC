@@ -9,7 +9,8 @@
 #include "Player.h"
 #include "DataBase.h"
 #include <optional>
-
+#include <unordered_set>
+#include "Message.h"
 using namespace sqlite_orm;
 
 //using PlayerStorage = storage_t<Player>;
@@ -18,7 +19,8 @@ using namespace sqlite_orm;
 class SkribblServer {
 public:
     void Start(DataBase& storage);
-    std::vector<std::string> messages;
+    std::vector<Message> m_messages;
+
 private:
     crow::SimpleApp m_app;
 
