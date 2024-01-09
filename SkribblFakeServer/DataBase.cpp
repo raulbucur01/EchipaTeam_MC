@@ -44,7 +44,7 @@ DataBase::DataBase(const std::string& filename) : m_DB(createStorage(filename))
 		populateDB(m_DB);
 
 	// for testing
-	addPlayersFromDBToPlayersVector();
+	//addPlayersFromDBToPlayersVector();
 	addWordsFromDBToWordsVector(); // avem vectoru de cuvinte permanent in DB momentan
 }
 
