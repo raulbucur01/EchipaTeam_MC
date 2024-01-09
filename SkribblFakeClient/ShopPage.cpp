@@ -118,6 +118,8 @@ void ShopPage::ProcessPurchase(const std::string& username, int iconIndex)
     // -daca totul e in regula se fac modificarile necesare in baza de date si se trimite raspuns aici dupa care vom afisa un mesaj de confirmare
     // a tranzactiei
     // MOMENTAN FIECARE ICONITA COSTA 20 DE BANUTI
+
+    // cand se ajunge cu raspunsul aici se trimit noile valori ca sa putem da update la label-ul balance si la m_player
 }
 
 
