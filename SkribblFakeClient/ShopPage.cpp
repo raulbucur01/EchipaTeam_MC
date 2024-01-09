@@ -6,8 +6,7 @@ ShopPage::ShopPage(QWidget* parent, Player player)
     : QWidget(parent), m_player{ player }
 {
     ui.setupUi(this);
-    QScreen* desktop = QApplication::primaryScreen();
-    this->resize(desktop->size());
+    setFixedSize(1000, 750);
 
     // Double the size of QGroupBox
     int newGroupBoxWidth = ui.groupBox->width() * 2;

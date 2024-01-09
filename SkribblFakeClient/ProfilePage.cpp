@@ -6,8 +6,7 @@ ProfilePage::ProfilePage(QWidget *parent, Player player)
 	: QWidget(parent), m_player(player)
 {
 	ui.setupUi(this);
-	QScreen* desktop = QApplication::primaryScreen();
-	this->resize(desktop->size());
+	setFixedSize(1000, 750);
 	ui.groupBox_Profile->move((this->size().width() - ui.groupBox_Profile->size().width()) / 2, (this->size().height() - ui.groupBox_Profile->size().height()) / 2);
 	ui.exitButton->setStyleSheet(QString("#%1 { background-color: red; }").arg(ui.exitButton->objectName()));
 	connect(ui.exitButton, &QPushButton::pressed, this, &ProfilePage::on_exitButton_pressed);

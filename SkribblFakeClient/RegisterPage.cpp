@@ -3,14 +3,14 @@
 #include <QScreen>
 #include "LoginPage.h"
 #include <cpr/cpr.h>
+#include <QResizeEvent>
 
 RegisterPage::RegisterPage(QWidget* parent)
 	: QWidget(parent)
 {
 	ui.setupUi(this);
-	QScreen* desktop = QApplication::primaryScreen();
-	this->resize(desktop->size());
-	ui.groupBox_Register->move((this->size().width() - ui.groupBox_Register->size().width()) / 2, (this->size().height() - ui.groupBox_Register->size().height()) / 2);
+	setFixedSize(1000, 750);
+	ui.groupBox_Register->move((size().width() - ui.groupBox_Register->size().width()) / 2, (size().height() - ui.groupBox_Register->size().height()) / 2);
 	connect(ui.pushButton_CreateAccount, &QPushButton::toggled, this, &RegisterPage::on_pushButton_CreateAccount_pressed);
 	ui.exitButton->setStyleSheet(QString("#%1 { background-color: red; }").arg(ui.exitButton->objectName()));
 	connect(ui.exitButton, &QPushButton::pressed, this, &RegisterPage::on_exitButton_pressed);

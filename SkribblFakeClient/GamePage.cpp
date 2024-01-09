@@ -94,6 +94,30 @@ void GamePage::on_delete_all_pressed()
 	update();
 }
 
+void GamePage::on_word1Button_pressed()
+{
+	ui.veil->hide();
+	ui.horizontalLayoutWidget->hide();
+	//word.SetWord(words[0]);
+	canPaint = true;
+}
+
+void GamePage::on_word2Button_pressed()
+{
+	ui.veil->hide();
+	ui.horizontalLayoutWidget->hide();
+	//word.SetWord(words[1]);
+	canPaint = true;
+}
+
+void GamePage::on_word3Button_pressed()
+{
+	ui.veil->hide();
+	ui.horizontalLayoutWidget->hide();
+	//word.SetWord(words[2]);
+	canPaint = true;
+}
+
 /*void GamePage::updatePlayers()
 {
 	cpr::Response response = cpr::Get(cpr::Url{ "http://localHost:18080/currentPlayersInGame" });
@@ -120,8 +144,7 @@ GamePage::GamePage(QWidget* parent,Player player)
 	//m_player{};
 	ui.exitButton->setStyleSheet(QString("#%1 { background-color: red; }").arg(ui.exitButton->objectName()));
 	connect(ui.exitButton, &QPushButton::pressed, this, &GamePage::on_exitButton_pressed);
-	QScreen* desktop = QApplication::primaryScreen();
-	this->resize(desktop->size());
+	setFixedSize(1000, 750);
 	int rectangleWidth = this->size().width() / 2;
 	int rectangleHeight = this->size().height() / 2;
 	int x = (this->size().width() - rectangleWidth) / 2;
@@ -249,27 +272,33 @@ void GamePage::setupCulori()
 void GamePage::wordChoosingSequence()
 {
 	ui.veil->setStyleSheet("background-color: black;");
-	ui.veil->setFixedSize(size());
+	ui.veil->setFixedSize(rectangle.size());
+	ui.veil->move(rectangle.topLeft());
 
 	QGraphicsOpacityEffect* opacityEffect = new QGraphicsOpacityEffect;
 	opacityEffect->setOpacity(0.5);
 	ui.veil->setGraphicsEffect(opacityEffect);
-
+	randomWordsFromDB();
+	ui.horizontalLayoutWidget->setGeometry(rectangle.x(),rectangle.y()+rectangle.width()/2,rectangle.width(),ui.horizontalLayoutWidget->height());
+	ui.word1Button->setText(QString::fromUtf8(words[0].c_str()));
+	ui.word2Button->setText(QString::fromUtf8(words[1].c_str()));
+	ui.word3Button->setText(QString::fromUtf8(words[2].c_str()));
+	ui.horizontalLayoutWidget->show();
 }
 
 void GamePage::randomWordsFromDB()
 {
 	std::string url = "http://localhost:18080/RandomWordsFromDB";
 	cpr::Response response = cpr::Get(cpr::Url(url));
-
+	std::array<std::string,3> wordsServer;
+	std::array<std::string, 3>::iterator it=wordsServer.begin();
 	if (response.status_code == 200) {
 		auto json = crow::json::load(response.text);
 		if (json) {
-			std::vector<std::string> words;
 			for (const auto& word : json["RandomWords"]) {
 
-				words.push_back(word.s());
-
+				*it = word.s();
+				it++;
 			}
 		}
 		else {
@@ -277,6 +306,7 @@ void GamePage::randomWordsFromDB()
 			std::cerr << "Failed to get words from the server." << std::endl;
 		}
 	}
+	words = wordsServer;
 }
 
 void GamePage::paintEvent(QPaintEvent* event)
