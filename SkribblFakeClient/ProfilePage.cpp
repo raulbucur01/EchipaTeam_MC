@@ -29,6 +29,7 @@ ProfilePage::ProfilePage(QWidget* parent, Player player)
 	ui.label_Username->setText(qs);
 	DisplayScore();
 	DisplayCoins();
+	RetrieveOwnedIcons();
 }
 
 ProfilePage::~ProfilePage()
@@ -120,9 +121,10 @@ void ProfilePage::UpdateCurrentPlayerIconOnServer()
 void ProfilePage::RetrieveOwnedIcons() {
 	// Make a request to the server to get the player's owned icons
 	// Update m_ownedIconIndexes based on the server response
-	// trebuie request sa luam indexurile iconitelor cumparate de playerul curent cautat dupa nume este functia "GetPurchaseIdsByPlayer"
+	// trebuie request sa luam indexurile iconitelor cumparate de playerul curent cautat dupa nume este functia "GetPurchasedIconIdsByPlayer"
 	// in baza de date
 	// in m_ownedIconIndexes bagam indexurile venite de la server pt playerul curent
+	// trimiti la server numele si aduci inapoi iconitele
 }
 
 void ProfilePage::on_exitButton_pressed()
