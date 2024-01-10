@@ -197,7 +197,7 @@
     </font>
    </property>
    <property name="text">
-    <string/>
+    <string>Text</string>
    </property>
   </widget>
   <widget class="QLabel" name="veil">
@@ -297,6 +297,32 @@
      </spacer>
     </item>
    </layout>
+  </widget>
+  <widget class="QLabel" name="someoneChoosing">
+   <property name="geometry">
+    <rect>
+     <x>428</x>
+     <y>335</y>
+     <width>131</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>TextLabel</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="startButton">
+   <property name="geometry">
+    <rect>
+     <x>430</x>
+     <y>223</y>
+     <width>191</width>
+     <height>61</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>PushButton</string>
+   </property>
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
