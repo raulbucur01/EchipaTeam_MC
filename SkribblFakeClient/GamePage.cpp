@@ -21,7 +21,7 @@ void GamePage::sendMessage()
 	*/
 	//ui.displayMessage->setModel(messages);
 	std::string word= ui.mesageBox->toPlainText().toUtf8().constData();
-
+	ui.mesageBox->clear();
 	auto res = cpr::Post(cpr::Url{"http://localhost:18080/chat/send"},
 		cpr::Body{ "username="+m_playerCurrent.GetName() + "&message=" + word});
 }
@@ -117,6 +117,21 @@ void GamePage::on_word3Button_pressed()
 	canPaint = true;
 }
 
+void GamePage::on_startButton_pressed()
+{
+	ui.startButton->hide();
+	wordChoosingSequence();
+	QTimer* timer = new QTimer(this);
+	timer->start(10000);
+	connect(timer, &QTimer::timeout, this, [this, timer]() {ui.veil->hide();
+	ui.someoneChoosing->hide();
+	ui.horizontalLayoutWidget->hide();
+	if (isPainter == true)
+		canPaint = true;
+	timer->stop();
+	timer->deleteLater(); });
+}
+
 /*void GamePage::updatePlayers()
 {
 	cpr::Response response = cpr::Get(cpr::Url{ "http://localHost:18080/currentPlayersInGame" });
@@ -172,13 +187,28 @@ GamePage::GamePage(QWidget* parent,Player player)
 	setupChat();
 	setupCulori();
 	//word.SetWord("vlad");
+	ui.horizontalLayoutWidget->hide();
+	ui.someoneChoosing->hide();
+	ui.startButton->move(rectangle.center().x() - ui.startButton->width() / 2, rectangle.center().y() - ui.startButton->height() / 2);
+	ui.startButton->setText("Start!");
+	ui.startButton->setFont(QFont("Arial", 40));
+	QPalette paleta = ui.startButton->palette();
+	paleta.setColor(QPalette::WindowText, Qt::white);
+	ui.startButton->setPalette(paleta);
+	ui.startButton->setStyleSheet(QString("#%1 { background-color: lightgreen; }").arg(ui.startButton->objectName()));
+	ui.veil->setStyleSheet("background-color: black;");
+	ui.veil->setFixedSize(rectangle.size());
+	ui.veil->move(rectangle.topLeft());
+	QGraphicsOpacityEffect* opacityEffect = new QGraphicsOpacityEffect;
+	opacityEffect->setOpacity(0.5);
+	ui.veil->setGraphicsEffect(opacityEffect);
 	ui.wordLabel->move(rectangle.x() + rectangle.width() / 2, rectangle.y() - 50);
 	ui.wordLabel->setText(QString::fromStdString("vlad"));
+	ui.wordLabel->show();
 	QTimer* timer = new QTimer(this);
 	connect(timer, &QTimer::timeout, this, &GamePage::updateChat);
 	//connect(timer, &QTimer::timeout, this,&GamePage::updatePlayers);
 	timer->start(250);  // 3 second
-	//wordChoosingSequence();
 }
 
 
@@ -288,19 +318,23 @@ void GamePage::setupCulori()
 
 void GamePage::wordChoosingSequence()
 {
-	ui.veil->setStyleSheet("background-color: black;");
-	ui.veil->setFixedSize(rectangle.size());
-	ui.veil->move(rectangle.topLeft());
-
-	QGraphicsOpacityEffect* opacityEffect = new QGraphicsOpacityEffect;
-	opacityEffect->setOpacity(0.5);
-	ui.veil->setGraphicsEffect(opacityEffect);
-	randomWordsFromDB();
-	ui.horizontalLayoutWidget->setGeometry(rectangle.x(),rectangle.y()+rectangle.width()/2,rectangle.width(),ui.horizontalLayoutWidget->height());
-	ui.word1Button->setText(QString::fromUtf8(words[0].c_str()));
-	ui.word2Button->setText(QString::fromUtf8(words[1].c_str()));
-	ui.word3Button->setText(QString::fromUtf8(words[2].c_str()));
-	ui.horizontalLayoutWidget->show();
+	if (isPainter == true)
+	{
+		randomWordsFromDB();
+		ui.horizontalLayoutWidget->setGeometry(rectangle.x(), rectangle.y() + rectangle.width() / 2, rectangle.width(), ui.horizontalLayoutWidget->height());
+		ui.word1Button->setText(QString::fromUtf8(words[0].c_str()));
+		ui.word2Button->setText(QString::fromUtf8(words[1].c_str()));
+		ui.word3Button->setText(QString::fromUtf8(words[2].c_str()));
+		ui.horizontalLayoutWidget->show();
+	}
+	else
+	{
+		ui.someoneChoosing->show();
+		ui.someoneChoosing->setText("Someone is choosing a word");
+		ui.someoneChoosing->resize(260, 30);
+		ui.someoneChoosing->setFont(QFont("Arial",15));
+		ui.someoneChoosing->move(rectangle.center().x()-125,rectangle.center().y()-15);
+	}
 }
 
 void GamePage::randomWordsFromDB()

@@ -35,6 +35,7 @@ private slots:
 	void on_word1Button_pressed();
 	void on_word2Button_pressed();
 	void on_word3Button_pressed();
+	void on_startButton_pressed();
 	
 
 public:
@@ -65,4 +66,5 @@ private:
 	Word word;
 	bool canPaint = false;
 	std::array<std::string, 3>words;
+	bool isPainter=false;
 };
