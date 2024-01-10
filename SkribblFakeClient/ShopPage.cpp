@@ -111,14 +111,14 @@ void ShopPage::ProcessPurchase(const std::string& username, int iconIndex)
     QString message = QString("You pressed an icon with index %1!").arg(iconIndex);
     QMessageBox::warning(this, "Purchase", message);
 
-    // -se trimite la server username-ul si indexul pozei pe care vrea sa o cumpere
-    // -se vor face verificari ca userul sa nu aiba deja iconita respectiva
+    // -se trimite la server username-ul si iconIndex reprezentand iconita pe care vrea sa o cumpere
+    // -se proceseaza la nivel de server purchase-ul (se vor face verificari ca userul sa nu aiba deja iconita respectiva,
+    //  sa aiba destui bani, etc)
     // -faptul ca userul exista nu mai e necesar de verificat ca s-a facut deja in login si e evident ca exista
-    // -daca totul e in regula se fac modificarile necesare in baza de date si se trimite raspuns aici dupa care vom afisa un mesaj de confirmare
-    // a tranzactiei
+    // -se trimite raspuns si daca purchase-ul s-a efectuat cu succes se afiseaza un mesaj, daca nu mesaj ca nu s-a putut efectua
+    // (e nevoie de un error code pt cazul in care are deja acea iconita cumparata, inca unul pt cazul in care nu are suficienti bani)
     // MOMENTAN FIECARE ICONITA COSTA 20 DE BANUTI
-
-    // cand se ajunge cu raspunsul aici se trimit noile valori ca sa putem da update la label-ul balance si la m_player
+    // cand ne intoarcem de la server cu un purchase care s-a putut efectua actualizam aici balance-ul in label si in clasa player
 }
 
 

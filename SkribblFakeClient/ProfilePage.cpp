@@ -113,7 +113,7 @@ void ProfilePage::DisplayCoins()
 
 void ProfilePage::UpdateCurrentPlayerIconOnServer()
 {
-	// aici trimitem la server indexul iconitei curente schimbate
+	// aici trimitem la server indexul iconitei curente schimbate (adica m_currentIconIndex)
 	// trebuie sa se updateze si in baza de date cu un nou currentIconId dat de cel ce este in momentul de cand se apeleaza functia asta
 	// functia asta se apeleaza doar dupa ce userul isi alege o iconita
 }
@@ -121,10 +121,10 @@ void ProfilePage::UpdateCurrentPlayerIconOnServer()
 void ProfilePage::RetrieveOwnedIcons() {
 	// Make a request to the server to get the player's owned icons
 	// Update m_ownedIconIndexes based on the server response
-	// trebuie request sa luam indexurile iconitelor cumparate de playerul curent cautat dupa nume este functia "GetPurchasedIconIdsByPlayer"
-	// in baza de date
+	// trebuie request sa luam indexurile iconitelor cumparate de playerul curent cautat dupa nume (este functia "GetPurchasedIconIdsByPlayer"
+	// in baza de date)
 	// in m_ownedIconIndexes bagam indexurile venite de la server pt playerul curent
-	// trimiti la server numele si aduci inapoi iconitele
+	// trimiti la server numele si aduci inapoi id-urile iconitelor pe care le are
 }
 
 void ProfilePage::on_exitButton_pressed()

@@ -85,12 +85,19 @@ public:
 	void AddPlayertToDB(Player& player);
 
 	// for Purchases
+	// adds a purchase to the database
 	void AddPurchaseToDB(const Purchase& purchase);
+	// returns all purchases for the player with the specified playerName
 	std::vector<Purchase> GetPurchasesByPlayer(const std::string& playerName);
+	// returns all the icon ids for the player with the specified playerName
 	std::vector<int> GetPurchasedIconIdsByPlayer(const std::string& playerName);
+	// returns all purchases in the database
 	std::vector<Purchase> GetAllPurchases();
+	// prints all purchases
 	void PrintAllPurchases();
+	// for the player with the specified name replaces the coins with the newCoinsAmount in the database
 	void UpdatePlayerCoinsInDB(const std::string& name, int newCoinsAmount);
+	// for the player with the specified name replaces the currentIconId with the newIconId in the database
 	void UpdatePlayerCurrentIconInDB(const std::string& name, int newIconId);
 
 	~DataBase() = default;
