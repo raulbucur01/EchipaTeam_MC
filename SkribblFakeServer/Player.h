@@ -1,7 +1,8 @@
 #pragma once
 #include <string>
 #include <iostream>
-
+#include <vector>
+#include "Message.h"
 class Player
 {
 public:
@@ -16,6 +17,7 @@ public:
 	int16_t GetCoins() const;
 	int16_t GetCurrentIconId() const;
 	int16_t GetSecondsGuess() const;
+	std::vector<Message> GetMessages() const;
 	bool GetPainter();
 
 	// setters
@@ -33,10 +35,13 @@ public:
 	bool operator==(const Player& other) const;
 	friend std::ostream& operator<<(std::ostream& os, const Player& player);
 
+	void AddMessage(Message message) ;
+
 private:
 	int m_id;
 	std::string m_name;
 	std::string m_password;
+	std::vector<Message> m_messages;
 	int16_t m_score, m_coins, m_currentIconID, m_secondsGuess = 0;
 	bool m_painter = false;
 };

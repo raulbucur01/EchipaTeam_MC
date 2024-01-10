@@ -9,8 +9,8 @@ public:
 	Message(std::string content, std::string playerName);
 	std::string GetContent() const ;
 	std::string GetPlayerName() const;
-	void SetContet();
-	void SetPlayerName();
+	void SetContet(std::string content);
+	void SetPlayerName(std::string playerName);
 
 
 };

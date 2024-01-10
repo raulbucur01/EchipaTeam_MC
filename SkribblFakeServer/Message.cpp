@@ -13,3 +13,13 @@ std::string Message::GetPlayerName() const
 {
     return m_playerName;
 }
+
+void Message::SetContet(std::string content)
+{
+    m_content = content;
+}
+
+void Message::SetPlayerName(std::string playerName)
+{
+    m_playerName = playerName;
+}

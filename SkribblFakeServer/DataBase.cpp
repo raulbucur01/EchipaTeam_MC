@@ -148,6 +148,11 @@ std::unordered_map<std::string, Player> DataBase::getAllPlayers()
 	return m_players;
 }
 
+std::unordered_map<std::string, Player>& DataBase::GetPlayersInGame()
+{
+	return m_playersInGame;
+}
+
 void DataBase::printAllPLayers()
 {
 	std::cout << std::endl;
@@ -523,11 +528,12 @@ crow::response RemovePlayerHandler::operator()(const crow::request& req) const
 		return crow::response(403);
 }
 
-MessageHandler::MessageHandler(DataBase& storage,std::vector<Message>& messages) : m_DB{ storage},m_messagesDB { messages }
+
+SendMessageHandler::SendMessageHandler(std::unordered_map<std::string, Player>& players) : m_players{players}
 {
 }
 
-crow::response MessageHandler::operator()(const crow::request& req)  const
+crow::response SendMessageHandler::operator()(const crow::request& req)  const
 {
 	auto bodyArgs = parseUrlArgs(req.body);
 	auto end = bodyArgs.end();
@@ -536,7 +542,10 @@ crow::response MessageHandler::operator()(const crow::request& req)  const
 	if (usernameIter != end && messageIter != end)
 	{
 		Message message{ messageIter->second,usernameIter->second };
-		m_messagesDB.push_back(message);
+		for (auto &player : m_players)
+		{
+			player.second.AddMessage(message);
+		}
 		return crow::response(200);
 	}
 	else
@@ -545,18 +554,25 @@ crow::response MessageHandler::operator()(const crow::request& req)  const
 
 
 
-GetMessagesHandler::GetMessagesHandler(std::vector<Message>&messages): m_messagesDB{messages}
+
+
+GetMessagesHandler::GetMessagesHandler(std::unordered_map<std::string,Player>& players): m_players{players}
 {
 }
 
 crow::response GetMessagesHandler::operator()(const crow::request& req) const
 {
-	std::vector<crow::json::wvalue> messages;
-	for (const auto& message : m_messagesDB)
-		messages.push_back(crow::json::wvalue{
-			{"Name",message.GetPlayerName()},
-			{"Message",message.GetContent()},
-			});
-	return crow::json::wvalue{ messages };
-
+	auto bodyArgs = parseUrlArgs(req.body);
+	auto end = bodyArgs.end();
+	auto usernameIter = bodyArgs.find("username");
+	if (usernameIter != end)
+	{
+		std::vector<crow::json::wvalue> messages;
+		for (auto message : m_players[usernameIter->second].GetMessages())
+			messages.push_back(crow::json::wvalue{
+				{"Name",message.GetPlayerName()},
+				{"Message",message.GetContent()},
+				});
+		return crow::json::wvalue{ messages };
+	}
 }

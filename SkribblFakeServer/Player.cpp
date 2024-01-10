@@ -81,6 +81,11 @@ int16_t Player::GetSecondsGuess() const
 	return m_secondsGuess;
 }
 
+std::vector<Message> Player::GetMessages() const
+{
+	return m_messages;
+}
+
 Player& Player::operator=(const Player& other)
 {
 	if (this == &other) {
@@ -105,6 +110,12 @@ bool Player::operator==(const Player& p) const
 		m_coins == p.m_coins &&
 		m_currentIconID == p.m_currentIconID);
 }
+
+void Player::AddMessage(Message message) 
+{
+	m_messages.push_back(message);
+}
+
 
 bool Player::GetPainter()
 {

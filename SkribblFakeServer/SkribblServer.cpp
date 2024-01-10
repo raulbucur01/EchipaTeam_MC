@@ -31,10 +31,10 @@ void SkribblServer::Start(DataBase& storage)
 
 	auto& messageSent = CROW_ROUTE(m_app, "/chat/send")
 		.methods(crow::HTTPMethod::POST);
-	messageSent(MessageHandler(storage,m_messages));
+	messageSent(SendMessageHandler(storage.GetPlayersInGame()));
 	auto& messagesGet = CROW_ROUTE(m_app, "/chat/get")
 		.methods(crow::HTTPMethod::GET);
-	messagesGet(GetMessagesHandler(m_messages));
+	messagesGet(GetMessagesHandler(storage.GetPlayersInGame()));
 
 	//CROW_ROUTE(m_app,"/newMessageSend")
 

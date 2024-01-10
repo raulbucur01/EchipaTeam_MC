@@ -62,6 +62,7 @@ public:
 
 	void addPlayersFromDBToPlayersVector();
 	std::unordered_map<std::string, Player> getAllPlayers();
+	std::unordered_map<std::string, Player>& GetPlayersInGame();
 	void printAllPLayers();
 
 	// Word
@@ -96,8 +97,8 @@ public:
 
 private:
 	Storage m_DB;
-	std::unordered_map<std::string, Player> m_players;
-	std::unordered_map<std::string, Player> m_playersInGame;
+	std::unordered_map<std::string, Player> m_players;             //la fel
+	std::unordered_map<std::string, Player> m_playersInGame;       //Poate ar trebui sa folosesc Player*
 	std::vector<Word> m_words;
 };
 
@@ -160,18 +161,17 @@ public:
 private:
 	DataBase& m_DB;
 };
-class MessageHandler {
+class SendMessageHandler {
 public:
-	MessageHandler(DataBase& storage,std::vector<Message>& messages);
+	SendMessageHandler(std::unordered_map<std::string, Player>& players);
 	crow::response operator()(const crow::request& req) const;
 private:
-	std::vector<Message>& m_messagesDB;
-	DataBase& m_DB;
+	std::unordered_map<std::string, Player>& m_players;
 };
 class GetMessagesHandler {
 public:
-	GetMessagesHandler(std::vector<Message>& messages);
+	GetMessagesHandler(std::unordered_map<std::string, Player>& players);
 	crow::response operator()(const crow::request& req)const;
 private:
-	std::vector<Message>& m_messagesDB;
+	std::unordered_map<std::string,Player>& m_players;
 };

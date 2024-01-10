@@ -125,7 +125,8 @@ void GamePage::on_word3Button_pressed()
 
 void GamePage::updateChat()
 {
-	cpr::Response response = cpr::Get(cpr::Url{ "http://localhost:18080/chat/get" });
+	cpr::Response response = cpr::Get(cpr::Url{ "http://localhost:18080/chat/get" },
+									  cpr::Body{"username="+m_playerCurrent.GetName()});
 	auto words = response.text;
 	crow::json::rvalue messagesResponse = crow::json::load(words);
 
