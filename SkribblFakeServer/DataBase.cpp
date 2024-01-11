@@ -575,4 +575,6 @@ crow::response GetMessagesHandler::operator()(const crow::request& req) const
 				});
 		return crow::json::wvalue{ messages };
 	}
+	else
+		crow::response(400);
 }

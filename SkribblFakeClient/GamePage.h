@@ -11,6 +11,7 @@
 #include "MenuPage.h"
 #include "Word.h"
 #include <array>
+#include <QtConcurrent>
 class GamePage : public QWidget
 {
 	Q_OBJECT
@@ -31,6 +32,7 @@ private slots:
 	void on_white_button_pressed();
 	void on_undo_button_pressed();
 	void on_delete_all_pressed();
+	void createThread();
 	void updateChat();
 	void on_word1Button_pressed();
 	void on_word2Button_pressed();
@@ -66,5 +68,5 @@ private:
 	Word word;
 	bool canPaint = false;
 	std::array<std::string, 3>words;
-	bool isPainter=false;
+	bool isPainter=true;
 };

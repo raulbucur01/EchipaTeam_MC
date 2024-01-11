@@ -97,7 +97,7 @@ void GamePage::on_word1Button_pressed()
 {
 	ui.veil->hide();
 	ui.horizontalLayoutWidget->hide();
-	//word.SetWord(words[0]);
+	word.SetWord(words[0]);
 	canPaint = true;
 }
 
@@ -138,6 +138,11 @@ void GamePage::on_startButton_pressed()
 
 }*/
 
+void GamePage::createThread()
+{
+	QtConcurrent::run([this]() {updateChat(); });
+}
+
 void GamePage::updateChat()
 {
 	cpr::Response response = cpr::Get(cpr::Url{ "http://localhost:18080/chat/get" },
@@ -145,18 +150,22 @@ void GamePage::updateChat()
 	auto words = response.text;
 	crow::json::rvalue messagesResponse = crow::json::load(words);
 
+	auto count = messages->rowCount();
+	if (count == messagesResponse.size())
+		return;
 
-	messages->clear();
-
+	int position = 0;
 	for (const auto& message : messagesResponse)
 	{
-		std::string playerName = message["Name"].s();
 		std::string content = message["Message"].s();
-
 		auto v = QString::fromUtf8(content.c_str());
 
-		messages->appendRow(new QStandardItem(v));
-
+		if (position >= count)
+		{
+			std::string playerName = message["Name"].s();
+			messages->appendRow(new QStandardItem(v));
+		}
+		position++;
 	}
 	ui.displayMessage->setModel(messages);
 	//words is a 
@@ -173,6 +182,7 @@ GamePage::GamePage(QWidget* parent,Player player)
 	messages = new QStandardItemModel(this);
 	ui.setupUi(this);
 	m_players.push_back(player);
+	isPainter = true;
 	//m_player{};
 	ui.exitButton->setStyleSheet(QString("#%1 { background-color: red; }").arg(ui.exitButton->objectName()));
 	connect(ui.exitButton, &QPushButton::pressed, this, &GamePage::on_exitButton_pressed);
@@ -206,9 +216,9 @@ GamePage::GamePage(QWidget* parent,Player player)
 	ui.wordLabel->setText(QString::fromStdString("vlad"));
 	ui.wordLabel->show();
 	QTimer* timer = new QTimer(this);
-	connect(timer, &QTimer::timeout, this, &GamePage::updateChat);
+	connect(timer, &QTimer::timeout, this, &GamePage::createThread);
 	//connect(timer, &QTimer::timeout, this,&GamePage::updatePlayers);
-	timer->start(250);  // 3 second
+	timer->start(100);  
 }
 
 
