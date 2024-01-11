@@ -116,6 +116,14 @@ void ProfilePage::UpdateCurrentPlayerIconOnServer()
 	// aici trimitem la server indexul iconitei curente schimbate (adica m_currentIconIndex)
 	// trebuie sa se updateze si in baza de date cu un nou currentIconId dat de cel ce este in momentul de cand se apeleaza functia asta
 	// functia asta se apeleaza doar dupa ce userul isi alege o iconita
+	std::string username = m_player.GetName();
+	int currentIconID = m_player.GetCurrentIconId();
+	std::string url = "http://localhost:18080/UpdateCurrentIconID";
+	url += "?currentIconID=" + std::to_string(currentIconID);
+	url += "&username=" + username;
+    cpr::Response response = cpr::Get(cpr::Url{ url });
+
+	
 }
 
 void ProfilePage::RetrieveOwnedIcons() {
