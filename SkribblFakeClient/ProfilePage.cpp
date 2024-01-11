@@ -126,6 +126,7 @@ void ProfilePage::UpdateCurrentPlayerIconOnServer()
 
 	if (response.status_code == 200) {
 		auto json = crow::json::load(response.text);
+		QMessageBox::warning(this, "Icon updated", QString::fromUtf8(response.text.data(), int(response.text.size())));
 	}
 	else if (response.status_code == 400)
 	{
