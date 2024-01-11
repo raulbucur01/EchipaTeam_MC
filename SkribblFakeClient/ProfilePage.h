@@ -113,6 +113,6 @@ private:
 	Ui::ProfilePageClass ui;
 	Player m_player;
     int m_currentIconIndex;
-    std::vector<int> m_ownedIconIndexes = { 1, 2, 3 };
+    std::vector<int> m_ownedIconIndexes;
 };
 
