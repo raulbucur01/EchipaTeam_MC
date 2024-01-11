@@ -10,6 +10,7 @@
 #include <QVBoxLayout>
 #include <QPushButton>
 #include <QScrollarea.h>
+#include <qmessagebox.h>
 
 class IconSelectionDialog : public QDialog {
     Q_OBJECT

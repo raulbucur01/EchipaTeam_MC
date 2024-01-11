@@ -321,6 +321,55 @@ std::optional<Player> DataBase::SearchPlayerInDB(const std::string& name)
 
 // handlers
 
+//RetrieveOwnedIconsHandler::RetrieveOwnedIconsHandler(DataBase& storage) : m_DB{ storage }
+//{
+//}
+
+//crow::response RetrieveOwnedIconsHandler::operator()(const crow::request& req) const
+//{
+//	std::string url = req.url;
+//	size_t posUsername = url.find("username=");
+//	std::string username;
+//
+//	if (posUsername != std::string::npos) {
+//	
+//		posUsername += 9; // sare peste "username="
+//		username = url.substr(posUsername);
+//	}
+//}
+
+UpdateCurrentIconIDHandler::UpdateCurrentIconIDHandler(DataBase& storage) : m_DB{ storage }
+{
+}
+
+crow::response UpdateCurrentIconIDHandler::operator()(const crow::request& req) const
+{
+	
+	auto bodyArgs = parseUrlArgs(req.body);
+	auto end = bodyArgs.end();
+	auto usernameIter = bodyArgs.find("username");
+	auto positionId = bodyArgs.find("currentIconID");
+
+	if (positionId != end && usernameIter != end) {
+
+		if (usernameIter != end) {
+			if (auto currentPlayer = m_DB.SearchPlayerInDB(usernameIter->second); currentPlayer != std::nullopt) {
+				m_DB.UpdatePlayerCurrentIconInDB(usernameIter->second, stoi(positionId->second));
+
+			};
+		}
+		else {
+			return crow::response(404, "Player not found");
+		}
+	}
+	else {
+		return crow::response(400, "CurrentIconID or Username not found in the URL");
+	}
+
+	return crow::response(200, "CurrentIconID a fost modificat cu succes");
+
+}
+
 RandomWordsFromDBHandler::RandomWordsFromDBHandler(DataBase& storage) :m_DB{ storage }
 {
 }
