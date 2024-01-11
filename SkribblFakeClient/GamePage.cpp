@@ -97,8 +97,11 @@ void GamePage::on_word1Button_pressed()
 {
 	ui.veil->hide();
 	ui.horizontalLayoutWidget->hide();
-	word.SetWord(words[0]);
+	//word.SetWord(words[0]);
 	canPaint = true;
+	seconds = 0;
+	gameTimer->start(1000);
+	connect(gameTimer, &QTimer::timeout, this, &GamePage::updateTimer);
 }
 
 void GamePage::on_word2Button_pressed()
@@ -107,6 +110,9 @@ void GamePage::on_word2Button_pressed()
 	ui.horizontalLayoutWidget->hide();
 	//word.SetWord(words[1]);
 	canPaint = true;
+	seconds = 0;
+	gameTimer->start(1000);
+	connect(gameTimer, &QTimer::timeout, this, &GamePage::updateTimer);
 }
 
 void GamePage::on_word3Button_pressed()
@@ -115,6 +121,9 @@ void GamePage::on_word3Button_pressed()
 	ui.horizontalLayoutWidget->hide();
 	//word.SetWord(words[2]);
 	canPaint = true;
+	seconds = 0;
+	gameTimer->start(1000);
+	connect(gameTimer, &QTimer::timeout, this, &GamePage::updateTimer);
 }
 
 void GamePage::on_startButton_pressed()
@@ -129,7 +138,10 @@ void GamePage::on_startButton_pressed()
 	if (isPainter == true)
 		canPaint = true;
 	timer->stop();
-	timer->deleteLater(); });
+	timer->deleteLater();
+	seconds = 0;
+	gameTimer->start(1000);
+	connect(gameTimer, &QTimer::timeout, this, &GamePage::updateTimer);	});
 }
 
 /*void GamePage::updatePlayers()
@@ -138,11 +150,6 @@ void GamePage::on_startButton_pressed()
 
 }*/
 
-void GamePage::createThread()
-{
-	QtConcurrent::run([this]() {updateChat(); });
-}
-
 void GamePage::updateChat()
 {
 	cpr::Response response = cpr::Get(cpr::Url{ "http://localhost:18080/chat/get" },
@@ -150,22 +157,18 @@ void GamePage::updateChat()
 	auto words = response.text;
 	crow::json::rvalue messagesResponse = crow::json::load(words);
 
-	auto count = messages->rowCount();
-	if (count == messagesResponse.size())
-		return;
 
-	int position = 0;
+	messages->clear();
+
 	for (const auto& message : messagesResponse)
 	{
+		std::string playerName = message["Name"].s();
 		std::string content = message["Message"].s();
+
 		auto v = QString::fromUtf8(content.c_str());
 
-		if (position >= count)
-		{
-			std::string playerName = message["Name"].s();
-			messages->appendRow(new QStandardItem(v));
-		}
-		position++;
+		messages->appendRow(new QStandardItem(v));
+
 	}
 	ui.displayMessage->setModel(messages);
 	//words is a 
@@ -179,10 +182,10 @@ void GamePage::updateChat()
 GamePage::GamePage(QWidget* parent,Player player)
 	: QWidget(parent),m_playerCurrent{player}
 {
+	isPainter = true;
 	messages = new QStandardItemModel(this);
 	ui.setupUi(this);
 	m_players.push_back(player);
-	isPainter = true;
 	//m_player{};
 	ui.exitButton->setStyleSheet(QString("#%1 { background-color: red; }").arg(ui.exitButton->objectName()));
 	connect(ui.exitButton, &QPushButton::pressed, this, &GamePage::on_exitButton_pressed);
@@ -216,9 +219,12 @@ GamePage::GamePage(QWidget* parent,Player player)
 	ui.wordLabel->setText(QString::fromStdString("vlad"));
 	ui.wordLabel->show();
 	QTimer* timer = new QTimer(this);
-	connect(timer, &QTimer::timeout, this, &GamePage::createThread);
+	connect(timer, &QTimer::timeout, this, &GamePage::updateChat);
 	//connect(timer, &QTimer::timeout, this,&GamePage::updatePlayers);
-	timer->start(100);  
+	timer->start(500);  // 3 second
+	gameTimer = new QTimer(this);
+	ui.timerLabel->move(ui.tabelaScor->x()+25, ui.tabelaScor->y() - 30);
+	ui.timerLabel->resize(100, ui.timerLabel->height());
 }
 
 
@@ -236,6 +242,7 @@ GamePage::~GamePage()
 		cpr::Body{ "username=" + m_playerCurrent.GetName() }); //doar pentru butonul de exit default de la interfata 
 	//delete messages;
 	g.clear();
+	delete gameTimer;
 
 }
 
@@ -368,6 +375,14 @@ void GamePage::randomWordsFromDB()
 		}
 	}
 	words = wordsServer;
+}
+
+void GamePage::updateTimer()
+{
+	ui.timerLabel->setText("Time left : "+ QString::number(60 - seconds));
+	seconds++;
+	if (seconds == 60)
+	gameTimer->stop();
 }
 
 void GamePage::paintEvent(QPaintEvent* event)
