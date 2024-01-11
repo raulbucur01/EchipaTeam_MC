@@ -77,7 +77,7 @@ void ProfilePage::DisplayScore()
 {
 	std::string username = m_player.GetName();
 	std::string url = "http://localhost:18080/getScore?username=" + username;
-	cpr::Response response = cpr::Get(cpr::Url(url), cpr::Body{ "username=" + username});
+	cpr::Response response = cpr::Get(cpr::Url(url), cpr::Body{ "username=" + username });
 
 	if (response.status_code == 200) {
 		auto json = crow::json::load(response.text);
@@ -116,24 +116,26 @@ void ProfilePage::UpdateCurrentPlayerIconOnServer()
 	// aici trimitem la server indexul iconitei curente schimbate (adica m_currentIconIndex)
 	// trebuie sa se updateze si in baza de date cu un nou currentIconId dat de cel ce este in momentul de cand se apeleaza functia asta
 	// functia asta se apeleaza doar dupa ce userul isi alege o iconita
-	
+
 	std::string username = m_player.GetName();
 	std::string url = "http://localhost:18080/UpdateCurrentIconID";
 	url += "?currentIconID=" + std::to_string(m_currentIconIndex);
 	url += "&username=" + username;
-	cpr::Response response = cpr::Put(cpr::Url{ url }, 
+	cpr::Response response = cpr::Put(cpr::Url{ url },
 		cpr::Body{ "currentIconID=" + std::to_string(m_currentIconIndex) + "&username=" + username });
 
 	if (response.status_code == 200) {
 		auto json = crow::json::load(response.text);
-		QMessageBox::warning(this, "Icon updated", QString::fromUtf8(response.text.data(), int(response.text.size())));
+		QMessageBox::information(this, "Icon updated", QString::fromUtf8(response.text.data(), int(response.text.size())));
 	}
 	else if (response.status_code == 400)
 	{
 		auto json = crow::json::load(response.text);
+		QMessageBox::information(this, "Error!", QString::fromUtf8(response.text.data(), int(response.text.size())));
 	}
 	else if (response.status_code == 404) {
 		auto json = crow::json::load(response.text);
+		QMessageBox::information(this, "Error!", QString::fromUtf8(response.text.data(), int(response.text.size())));
 	}
 
 }
@@ -146,22 +148,28 @@ void ProfilePage::RetrieveOwnedIcons() {
 	// in m_ownedIconIndexes bagam indexurile venite de la server pt playerul curent
 	// trimiti la server numele si aduci inapoi id-urile iconitelor pe care le are
 
-	/*std::string username = m_player.GetName();
+	std::string username = m_player.GetName();
 	std::string url = "http://localhost:18080/RetriveOwnedIcons";
 	url += "?username=" + username;
 	cpr::Response response = cpr::Get(cpr::Url{ url });
+	int index;
 
 	if (response.status_code == 200) {
-		auto json = crow::json::load(response.text);
-		if (json) {
-			
-			
+
+		auto& ownedIcons = crow::json::load(response.text)["ownedIcons"];
+		for (const auto& icon : ownedIcons)
+		{
+			index = icon.i();
+			m_ownedIconIndexes.push_back(index);
 		}
+
+		QMessageBox::information(this, "Icons Retrived!", QString::fromUtf8(response.text.data(), int(response.text.size())));
 	}
 	else {
-
-		std::cerr << crow::json::load(response.text) << std::endl;
-	}*/
+		auto json = crow::json::load(response.text);
+		QMessageBox::information(this, "Error!", QString::fromUtf8(response.text.data(), int(response.text.size())));
+	}
+	
 
 }
 

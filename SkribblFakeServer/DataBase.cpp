@@ -321,22 +321,37 @@ std::optional<Player> DataBase::SearchPlayerInDB(const std::string& name)
 
 // handlers
 
-//RetrieveOwnedIconsHandler::RetrieveOwnedIconsHandler(DataBase& storage) : m_DB{ storage }
-//{
-//}
+RetrieveOwnedIconsHandler::RetrieveOwnedIconsHandler(DataBase& storage) : m_DB{ storage }
+{
+}
 
-//crow::response RetrieveOwnedIconsHandler::operator()(const crow::request& req) const
-//{
-//	std::string url = req.url;
-//	size_t posUsername = url.find("username=");
-//	std::string username;
-//
-//	if (posUsername != std::string::npos) {
-//	
-//		posUsername += 9; // sare peste "username="
-//		username = url.substr(posUsername);
-//	}
-//}
+crow::response RetrieveOwnedIconsHandler::operator()(const crow::request& req) const
+{
+	std::vector<int> ownedIcons;
+	auto bodyArgs = parseUrlArgs(req.body);
+	auto end = bodyArgs.end();
+	auto usernameIter = bodyArgs.find("username");
+
+	if (usernameIter != end)
+	{
+		if (auto currentPlayer = m_DB.SearchPlayerInDB(usernameIter->second); currentPlayer != std::nullopt)
+		{
+			ownedIcons = m_DB.GetPurchasedIconIdsByPlayer(usernameIter->second);
+
+			crow::json::wvalue jsonResponse;
+			jsonResponse["ownedIcons"] = ownedIcons;
+
+			return crow::response(200, jsonResponse);
+		}
+		else {
+			crow::response(404, "Player not found in DataBase");
+		}
+	}
+	else {
+		crow::response(400, "Username is not valid");
+	}
+
+}
 
 UpdateCurrentIconIDHandler::UpdateCurrentIconIDHandler(DataBase& storage) : m_DB{ storage }
 {

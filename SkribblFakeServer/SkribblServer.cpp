@@ -96,17 +96,13 @@ void SkribblServer::Start(DataBase& storage)
 		return res;
 		});
 
-	/*CROW_ROUTE(m_app, "/UpdateCurrentIconID").methods(crow::HTTPMethod::PUT); {
-		auto& UpdateCurrentIconID(UpdateCurrentIconIDHandler(storage));
-	};*/
-
-	/*CROW_ROUTE(m_app, "/RetrieveOwnedIcons").methods(crow::HTTPMethod::GET); {
-		auto& RetrieveOwnedIcons(RetrieveOwnedIconsHandler(storage));
-	};*/
-
 	auto& UpdateCurrentIconID = CROW_ROUTE(m_app, "/UpdateCurrentIconID")
 		.methods(crow::HTTPMethod::PUT);
 	UpdateCurrentIconID(UpdateCurrentIconIDHandler(storage));
+	
+	auto& RetrieveOwnedIcons = CROW_ROUTE(m_app, "/RetrieveOwnedIcons")
+		.methods(crow::HTTPMethod::PUT);
+	RetrieveOwnedIcons(RetrieveOwnedIconsHandler(storage));
 
 	auto& getScore = CROW_ROUTE(m_app, "/getScore")
 		.methods(crow::HTTPMethod::GET);
