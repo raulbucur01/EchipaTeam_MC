@@ -178,14 +178,14 @@ private:
 	DataBase& m_DB;
 };
 
-class RetrieveOwnedIconsHandler {
-public:
-	RetrieveOwnedIconsHandler(DataBase& storage);
-	crow::response operator()(const crow::request& req)const;
-
-private:
-	DataBase& m_DB;
-};
+//class RetrieveOwnedIconsHandler {
+//public:
+//	RetrieveOwnedIconsHandler(DataBase& storage);
+//	crow::response operator()(const crow::request& req)const;
+//
+//private:
+//	DataBase& m_DB;
+//};
 
 class SendMessageHandler {
 public:

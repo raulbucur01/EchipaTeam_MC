@@ -117,12 +117,12 @@ void ProfilePage::UpdateCurrentPlayerIconOnServer()
 	// trebuie sa se updateze si in baza de date cu un nou currentIconId dat de cel ce este in momentul de cand se apeleaza functia asta
 	// functia asta se apeleaza doar dupa ce userul isi alege o iconita
 	
-	/*std::string username = m_player.GetName();
-	int currentIconID = m_player.GetCurrentIconId();
+	std::string username = m_player.GetName();
 	std::string url = "http://localhost:18080/UpdateCurrentIconID";
-	url += "?currentIconID=" + std::to_string(currentIconID);
+	url += "?currentIconID=" + std::to_string(m_currentIconIndex);
 	url += "&username=" + username;
-	cpr::Response response = cpr::Put(cpr::Url{ url });
+	cpr::Response response = cpr::Put(cpr::Url{ url }, 
+		cpr::Body{ "currentIconID=" + std::to_string(m_currentIconIndex) + "&username=" + username });
 
 	if (response.status_code == 200) {
 		auto json = crow::json::load(response.text);
@@ -134,7 +134,7 @@ void ProfilePage::UpdateCurrentPlayerIconOnServer()
 	}
 	else if (response.status_code == 404) {
 		auto json = crow::json::load(response.text);
-	}*/
+	}
 
 }
 

@@ -321,22 +321,22 @@ std::optional<Player> DataBase::SearchPlayerInDB(const std::string& name)
 
 // handlers
 
-RetrieveOwnedIconsHandler::RetrieveOwnedIconsHandler(DataBase& storage) : m_DB{ storage }
-{
-}
+//RetrieveOwnedIconsHandler::RetrieveOwnedIconsHandler(DataBase& storage) : m_DB{ storage }
+//{
+//}
 
-crow::response RetrieveOwnedIconsHandler::operator()(const crow::request& req) const
-{
-	std::string url = req.url;
-	size_t posUsername = url.find("username=");
-	std::string username;
-
-	if (posUsername != std::string::npos) {
-	
-		posUsername += 9; // sare peste "username="
-		username = url.substr(posUsername);
-	}
-}
+//crow::response RetrieveOwnedIconsHandler::operator()(const crow::request& req) const
+//{
+//	std::string url = req.url;
+//	size_t posUsername = url.find("username=");
+//	std::string username;
+//
+//	if (posUsername != std::string::npos) {
+//	
+//		posUsername += 9; // sare peste "username="
+//		username = url.substr(posUsername);
+//	}
+//}
 
 UpdateCurrentIconIDHandler::UpdateCurrentIconIDHandler(DataBase& storage) : m_DB{ storage }
 {
@@ -345,26 +345,16 @@ UpdateCurrentIconIDHandler::UpdateCurrentIconIDHandler(DataBase& storage) : m_DB
 crow::response UpdateCurrentIconIDHandler::operator()(const crow::request& req) const
 {
 	
-	std::string url = req.url;
-	size_t posIconID = url.find("currentIconID=");
-	size_t posUsername = url.find("username=");
+	auto bodyArgs = parseUrlArgs(req.body);
+	auto end = bodyArgs.end();
+	auto usernameIter = bodyArgs.find("username");
+	auto positionId = bodyArgs.find("currentIconID");
 
-	if (posIconID != std::string::npos && posUsername != std::string::npos) {
-		posIconID += 14; // sare peste "currentIconID="
-		posUsername += 9; // sare peste "username="
-
-		std::string currentIconIDStr = url.substr(posIconID, posUsername - posIconID - 1);
-		std::string username = url.substr(posUsername);
-
-	    int currentIconID = std::stoi(currentIconIDStr);
-		
-		auto bodyArgs = parseUrlArgs(req.body);
-		auto end = bodyArgs.end();
-		auto usernameIter = bodyArgs.find("username");
+	if (positionId != end && usernameIter != end) {
 
 		if (usernameIter != end) {
 			if (auto currentPlayer = m_DB.SearchPlayerInDB(usernameIter->second); currentPlayer != std::nullopt) {
-				m_DB.UpdatePlayerCurrentIconInDB(username, currentIconID);
+				m_DB.UpdatePlayerCurrentIconInDB(usernameIter->second, stoi(positionId->second));
 
 			};
 		}
