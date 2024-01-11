@@ -321,6 +321,23 @@ std::optional<Player> DataBase::SearchPlayerInDB(const std::string& name)
 
 // handlers
 
+RetrieveOwnedIconsHandler::RetrieveOwnedIconsHandler(DataBase& storage) : m_DB{ storage }
+{
+}
+
+crow::response RetrieveOwnedIconsHandler::operator()(const crow::request& req) const
+{
+	std::string url = req.url;
+	size_t posUsername = url.find("username=");
+	std::string username;
+
+	if (posUsername != std::string::npos) {
+	
+		posUsername += 9; // sare peste "username="
+		username = url.substr(posUsername);
+	}
+}
+
 UpdateCurrentIconIDHandler::UpdateCurrentIconIDHandler(DataBase& storage) : m_DB{ storage }
 {
 }
@@ -359,10 +376,7 @@ crow::response UpdateCurrentIconIDHandler::operator()(const crow::request& req) 
 		return crow::response(400, "CurrentIconID or Username not found in the URL");
 	}
 
-	crow::json::wvalue jsonResponse;
-	jsonResponse = "CurrentIconID a fost modificat cu succes";
-
-	return crow::response(200, jsonResponse);
+	return crow::response(200, "CurrentIconID a fost modificat cu succes");
 
 }
 

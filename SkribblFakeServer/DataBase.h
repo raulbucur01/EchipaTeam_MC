@@ -168,6 +168,7 @@ public:
 private:
 	DataBase& m_DB;
 };
+
 class UpdateCurrentIconIDHandler {
 public:
 	UpdateCurrentIconIDHandler(DataBase& storage);
@@ -176,6 +177,16 @@ public:
 private:
 	DataBase& m_DB;
 };
+
+class RetrieveOwnedIconsHandler {
+public:
+	RetrieveOwnedIconsHandler(DataBase& storage);
+	crow::response operator()(const crow::request& req)const;
+
+private:
+	DataBase& m_DB;
+};
+
 class SendMessageHandler {
 public:
 	SendMessageHandler(std::unordered_map<std::string, Player>& players);
@@ -183,6 +194,7 @@ public:
 private:
 	std::unordered_map<std::string, Player>& m_players;
 };
+
 class GetMessagesHandler {
 public:
 	GetMessagesHandler(std::unordered_map<std::string, Player>& players);
