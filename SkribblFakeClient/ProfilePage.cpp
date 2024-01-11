@@ -116,14 +116,25 @@ void ProfilePage::UpdateCurrentPlayerIconOnServer()
 	// aici trimitem la server indexul iconitei curente schimbate (adica m_currentIconIndex)
 	// trebuie sa se updateze si in baza de date cu un nou currentIconId dat de cel ce este in momentul de cand se apeleaza functia asta
 	// functia asta se apeleaza doar dupa ce userul isi alege o iconita
+	
 	std::string username = m_player.GetName();
 	int currentIconID = m_player.GetCurrentIconId();
 	std::string url = "http://localhost:18080/UpdateCurrentIconID";
 	url += "?currentIconID=" + std::to_string(currentIconID);
 	url += "&username=" + username;
-    cpr::Response response = cpr::Get(cpr::Url{ url });
+	cpr::Response response = cpr::Put(cpr::Url{ url });
 
-	
+	if (response.status_code == 200) {
+		auto json = crow::json::load(response.text);
+	}
+	else if (response.status_code == 400)
+	{
+		auto json = crow::json::load(response.text);
+	}
+	else if (response.status_code == 404) {
+		auto json = crow::json::load(response.text);
+	}
+
 }
 
 void ProfilePage::RetrieveOwnedIcons() {
@@ -133,6 +144,24 @@ void ProfilePage::RetrieveOwnedIcons() {
 	// in baza de date)
 	// in m_ownedIconIndexes bagam indexurile venite de la server pt playerul curent
 	// trimiti la server numele si aduci inapoi id-urile iconitelor pe care le are
+
+	std::string username = m_player.GetName();
+	std::string url = "http://localhost:18080/RetriveOwnedIcons";
+	url += "?username=" + username;
+	cpr::Response response = cpr::Get(cpr::Url{ url });
+
+	if (response.status_code == 200) {
+		auto json = crow::json::load(response.text);
+		if (json) {
+			
+			
+		}
+	}
+	else {
+
+		std::cerr << crow::json::load(response.text) << std::endl;
+	}
+
 }
 
 void ProfilePage::on_exitButton_pressed()
