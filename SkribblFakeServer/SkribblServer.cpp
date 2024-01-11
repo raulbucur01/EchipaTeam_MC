@@ -95,6 +95,9 @@ void SkribblServer::Start(DataBase& storage)
 		HandleGameStateRequest(req, res);
 		return res;
 		});
+	CROW_ROUTE(m_app, "/UpdateCurrentIconID").methods(crow::HTTPMethod::GET); {
+		auto& UpdateCurrentIconID(UpdateCurrentIconIDHandler(storage));
+	}
 
 	auto& getScore = CROW_ROUTE(m_app, "/getScore")
 		.methods(crow::HTTPMethod::GET);

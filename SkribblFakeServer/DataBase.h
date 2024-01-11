@@ -168,6 +168,14 @@ public:
 private:
 	DataBase& m_DB;
 };
+class UpdateCurrentIconIDHandler {
+public:
+	UpdateCurrentIconIDHandler(DataBase& storage);
+	crow::response operator()(const crow::request& req)const;
+
+private:
+	DataBase& m_DB;
+};
 class SendMessageHandler {
 public:
 	SendMessageHandler(std::unordered_map<std::string, Player>& players);
