@@ -170,12 +170,16 @@ void GamePage::updateChat()
 	for (const auto& message : messagesResponse)
 	{
 		std::string content = message["Message"].s();
+		std::string playerName = message["Name"].s();
 		auto v = QString::fromUtf8(content.c_str());
+		v+=QString::fromUtf8(content.c_str());
 
 		if (position >= count)
 		{
-			std::string playerName = message["Name"].s();
-			messages->appendRow(new QStandardItem(v));
+			auto name= QString::fromUtf8(playerName.c_str());
+			name += QString(": ");
+			name += v;
+			messages->appendRow(new QStandardItem(name));
 		}
 		position++;
 	}
