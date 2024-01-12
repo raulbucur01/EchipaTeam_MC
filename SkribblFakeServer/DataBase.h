@@ -126,6 +126,14 @@ private:
 	DataBase& m_DB;
 };
 
+class ProcessPurchaseHandler {
+public:
+	ProcessPurchaseHandler(DataBase& storage);
+	crow::response operator()(const crow::request& req)const;
+private:
+	DataBase& m_DB;
+};
+
 class AddPlayerHandler {
 public:
 	AddPlayerHandler(DataBase& storage);

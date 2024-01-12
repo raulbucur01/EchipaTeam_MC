@@ -119,6 +119,11 @@ void ShopPage::ProcessPurchase(const std::string& username, int iconIndex)
     // (e nevoie de un error code pt cazul in care are deja acea iconita cumparata, inca unul pt cazul in care nu are suficienti bani)
     // MOMENTAN FIECARE ICONITA COSTA 20 DE BANUTI
     // cand ne intoarcem de la server cu un purchase care s-a putut efectua actualizam aici balance-ul in label si in clasa player
+    std::string url = "http://localhost:18080/ProcessPurchase";
+    cpr::Response response = cpr::Put(cpr::Url{ url },
+        cpr::Body{ "currentIconID=" + std::to_string(iconIndex) + "&username=" + username });
+
+
 }
 
 

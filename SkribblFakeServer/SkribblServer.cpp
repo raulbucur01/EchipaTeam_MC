@@ -96,6 +96,10 @@ void SkribblServer::Start(DataBase& storage)
 		return res;
 		});
 
+	auto& ProcessPurchase = CROW_ROUTE(m_app, "/ProcessPurchase")
+		.methods(crow::HTTPMethod::PUT);
+	ProcessPurchase(ProcessPurchaseHandler(storage));
+
 	auto& UpdateCurrentIconID = CROW_ROUTE(m_app, "/UpdateCurrentIconID")
 		.methods(crow::HTTPMethod::PUT);
 	UpdateCurrentIconID(UpdateCurrentIconIDHandler(storage));
