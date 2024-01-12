@@ -126,7 +126,7 @@ void ProfilePage::UpdateCurrentPlayerIconOnServer()
 
 	if (response.status_code == 200) {
 		auto json = crow::json::load(response.text);
-		QMessageBox::information(this, "Icon updated", QString::fromUtf8(response.text.data(), int(response.text.size())));
+		//QMessageBox::information(this, "Icon updated", QString::fromUtf8(response.text.data(), int(response.text.size())));
 	}
 	else if (response.status_code == 400)
 	{
@@ -149,9 +149,9 @@ void ProfilePage::RetrieveOwnedIcons() {
 	// trimiti la server numele si aduci inapoi id-urile iconitelor pe care le are
 
 	std::string username = m_player.GetName();
-	std::string url = "http://localhost:18080/RetriveOwnedIcons";
-	url += "?username=" + username;
-	cpr::Response response = cpr::Get(cpr::Url{ url });
+	
+	cpr::Response response = cpr::Get(cpr::Url{ "http://localhost:18080/RetrieveOwnedIcons" },
+		cpr::Body{ "username=" + username });
 	int index;
 
 	if (response.status_code == 200) {
@@ -163,7 +163,7 @@ void ProfilePage::RetrieveOwnedIcons() {
 			m_ownedIconIndexes.push_back(index);
 		}
 
-		QMessageBox::information(this, "Icons Retrived!", QString::fromUtf8(response.text.data(), int(response.text.size())));
+		//QMessageBox::information(this, "Icons Retrieved!", QString::fromUtf8(response.text.data(), int(response.text.size())));
 	}
 	else {
 		auto json = crow::json::load(response.text);

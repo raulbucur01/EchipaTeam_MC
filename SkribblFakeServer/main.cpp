@@ -4,7 +4,7 @@
 
 int main() {
 	DataBase DB("SkribblData.sqlite");
-	/*DB.printAllPLayers();
+	DB.printAllPLayers();
 	DB.GetAllPurchases();
 	DB.PrintAllPurchases();
 	std::vector<Purchase> playerPurchases = DB.GetPurchasesByPlayer("Coco20");
@@ -14,10 +14,8 @@ int main() {
 		std::cout << purchase.GetId() << " " << purchase.GetPlayerName() << " " << purchase.GetIconId();
 	}
 
-	DB.UpdatePlayerCoinsInDB("Coco20", 150);
+	//DB.UpdatePlayerCoinsInDB("Coco20", 150);
 	DB.printAllPLayers();
-	DB.UpdatePlayerCurrentIconInDB("Coco20", 1);
-	DB.printAllPLayers();*/
 
 	SkribblServer server;
 	server.Start(DB);

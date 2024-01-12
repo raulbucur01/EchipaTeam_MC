@@ -46,13 +46,13 @@ ShopPage::ShopPage(QWidget* parent, Player player)
     addIconButtonToGridLayout("./Icons/Panda.jpeg", ui.pushButton_Icon8, gridLayout, 3, 1);
 
     // Add the player's balance label below the scroll area
-    QLabel* balanceLabel = new QLabel("Balance: " + QString::number(m_player.GetCoins()));
-    balanceLabel->setObjectName("balanceLabel"); // Set an object name for later retrieval
-    balanceLabel->setAlignment(Qt::AlignCenter);
+    //QLabel* balanceLabel = new QLabel("Balance: " + QString::number(m_player.GetCoins()));
+    ui.label_Balance->setAlignment(Qt::AlignCenter);
+    ui.label_Balance->setText("Balance: " + QString::number(m_player.GetCoins()));
 
     QVBoxLayout* groupBoxLayout = new QVBoxLayout(ui.groupBox);
     groupBoxLayout->addWidget(scrollArea);
-    groupBoxLayout->addWidget(balanceLabel);
+    groupBoxLayout->addWidget(ui.label_Balance);
 }
 
 void ShopPage::addIconButtonToGridLayout(const QString& iconPath, QPushButton* button, QGridLayout* layout, int row, int col)
@@ -129,7 +129,7 @@ void ShopPage::ProcessPurchase(const std::string& username, int iconIndex)
         auto json = crow::json::load(response.text);
         if (json) {
             int coins = json["Coins"].i();
-            ui.label_Balance->setText("Coins: " + QString::number(coins));
+            ui.label_Balance->setText("Balance: " + QString::number(coins));
             m_player.SetCoins(coins);
         }
         QMessageBox::information(this, "Purchase complete!", "");

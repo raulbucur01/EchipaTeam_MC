@@ -83,7 +83,7 @@ void SkribblServer::Start(DataBase& storage)
 	UpdateCurrentIconID(UpdateCurrentIconIDHandler(storage));
 	
 	auto& RetrieveOwnedIcons = CROW_ROUTE(m_app, "/RetrieveOwnedIcons")
-		.methods(crow::HTTPMethod::PUT);
+		.methods(crow::HTTPMethod::GET);
 	RetrieveOwnedIcons(RetrieveOwnedIconsHandler(storage));
 
 	auto& getScore = CROW_ROUTE(m_app, "/getScore")

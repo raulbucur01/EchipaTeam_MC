@@ -343,35 +343,37 @@ crow::response ProcessPurchaseHandler::operator()(const crow::request& req) cons
 			{
 				if (i == iconID)
 				{
-					crow::response(400, "Icon is already owned by player!");
-				}
-				else if (currentPlayer->GetCoins() >= 20) {
-
-					Purchase purchase = { -1, usernameIter->second, iconID };
-					m_DB.AddPurchaseToDB(purchase);
-					m_DB.UpdatePlayerCoinsInDB(usernameIter->second, currentPlayer->GetCoins() - 20);
-					
-					crow::json::wvalue jsonResponse{
-				   {"Coins", currentPlayer.value().GetCoins()}
-					};
-
-					return crow::response(200, jsonResponse);
+					return crow::response(400, "You already own this icon!");
 
 				}
-				else
-				{
-					crow::response(404, "Not enogh coins!");
-				}
+			}
+			if (currentPlayer->GetCoins() >= 20) {
+
+				Purchase purchase = { -1, usernameIter->second, iconID };
+				m_DB.AddPurchaseToDB(purchase);
+				m_DB.UpdatePlayerCoinsInDB(usernameIter->second, currentPlayer->GetCoins() - 20);
+
+				crow::json::wvalue jsonResponse{
+			   {"Coins", currentPlayer.value().GetCoins()-20}
+				};
+
+				return crow::response(200, jsonResponse);
+
+			}
+			else
+			{
+				return crow::response(404, "You don't have enough coins for this purchase! Each Icon costs 20 coins!");
 			}
 		}
 		else {
-			crow::response(400, "Player not found in DataBase");
+			return crow::response(400, "Player not found in DataBase");
 		}
 	}
 	else {
-		crow::response(400, "Icon id or Username not found in DataBase");
+		return crow::response(400, "Icon id or Username not found in URL");
 	}
 }
+	
 
 
 RetrieveOwnedIconsHandler::RetrieveOwnedIconsHandler(DataBase& storage) : m_DB{ storage }
@@ -401,7 +403,7 @@ crow::response RetrieveOwnedIconsHandler::operator()(const crow::request& req) c
 		}
 	}
 	else {
-		crow::response(400, "Username is not valid");
+		crow::response(400, "URL is not valid");
 	}
 
 }
@@ -423,7 +425,6 @@ crow::response UpdateCurrentIconIDHandler::operator()(const crow::request& req) 
 		if (usernameIter != end) {
 			if (auto currentPlayer = m_DB.SearchPlayerInDB(usernameIter->second); currentPlayer != std::nullopt) {
 				m_DB.UpdatePlayerCurrentIconInDB(usernameIter->second, stoi(positionId->second));
-
 			};
 		}
 		else {
@@ -434,8 +435,7 @@ crow::response UpdateCurrentIconIDHandler::operator()(const crow::request& req) 
 		return crow::response(400, "CurrentIconID or Username not found in the URL");
 	}
 
-	return crow::response(200, "CurrentIconID a fost modificat cu succes");
-
+	return crow::response(200, "Iconita ti-a fost modificata cu succes!");
 }
 
 RandomWordsFromDBHandler::RandomWordsFromDBHandler(DataBase& storage) :m_DB{ storage }
@@ -696,7 +696,7 @@ crow::response GetMessagesHandler::operator()(const crow::request& req) const
 		crow::response(400);
 }
 
-GetPlayersHandler::GetPlayersHandler(std::unordered_map<std::string, Player>& players) : m_players{players}
+GetPlayersHandler::GetPlayersHandler(std::unordered_map<std::string, Player>& players) : m_players{ players }
 {
 }
 
