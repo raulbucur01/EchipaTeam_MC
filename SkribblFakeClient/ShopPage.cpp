@@ -53,6 +53,9 @@ ShopPage::ShopPage(QWidget* parent, Player player)
     QVBoxLayout* groupBoxLayout = new QVBoxLayout(ui.groupBox);
     groupBoxLayout->addWidget(scrollArea);
     groupBoxLayout->addWidget(ui.label_Balance);
+
+    connect(ui.pushButton_Back, &QPushButton::clicked, this, &ShopPage::on_backButton_pressed);
+    groupBoxLayout->addWidget(ui.pushButton_Back);
 }
 
 void ShopPage::addIconButtonToGridLayout(const QString& iconPath, QPushButton* button, QGridLayout* layout, int row, int col)
@@ -102,6 +105,32 @@ void ShopPage::on_iconButton_pressed()
 
         std::string username = m_player.GetName();
         ProcessPurchase(username, iconIndex);
+    }
+}
+
+void ShopPage::on_backButton_pressed()
+{
+    ui.exitButton->hide();
+    ui.scrollArea->hide();
+    ui.groupBox->hide();
+    delete ui.groupBox;
+    delete ui.exitButton;
+
+    // faci request catre server de trimit numele (ruta sa o faci cu nume unic de ex /ReturInfoPlayer)
+    // faci un handler pt ruta care sa returneze ca in loginhandler ( practic un player -> info despre el)
+
+    std::string username = m_player.GetName();
+    std::string url = "http://localhost:18080/getPlayerInformation";
+    cpr::Response response = cpr::Get(cpr::Url(url), cpr::Body{ "username=" + username });
+    if (response.status_code == 200)
+    {
+        crow::json::rvalue player = crow::json::load(response.text);
+        QWidget* menuPage = pages.createMenuPage(this, player);
+        menuPage->show();
+    }
+    else {
+        auto json = crow::json::load(response.text);
+        QMessageBox::warning(this, "Error!", QString::fromUtf8(response.text.data(), int(response.text.size())));
     }
 }
 

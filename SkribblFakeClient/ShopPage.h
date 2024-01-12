@@ -7,6 +7,7 @@
 #include <cpr/cpr.h>
 #include <crow.h>
 #include <qboxlayout.h>
+#include "PageManager.h"
 
 class ShopPage : public QWidget
 {
@@ -21,8 +22,10 @@ public:
 private slots:
 	void on_exitButton_pressed();
 	void on_iconButton_pressed();
+	void on_backButton_pressed();
 
 private:
 	Ui::ShopPageClass ui;
 	Player m_player;
+	PageManager pages;
 };

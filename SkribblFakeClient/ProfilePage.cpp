@@ -60,7 +60,6 @@ void ProfilePage::on_pushButton_Back_pressed()
 	else {
 		auto json = crow::json::load(response.text);
 		QMessageBox::warning(this, "Error!", QString::fromUtf8(response.text.data(), int(response.text.size())));
-
 	}
 }
 
