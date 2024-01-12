@@ -45,7 +45,12 @@ void ProfilePage::on_pushButton_Back_pressed()
 	delete ui.groupBox_Profile;
 	delete ui.exitButton;
 
-	// Cum facem intoarcerea din profil inapoi la meniu?
+	// faci request catre server de trimit numele (ruta sa o faci cu nume unic de ex /ReturInfoPlayer)
+	// faci un handler pt ruta care sa returneze ca in loginhandler ( practic un player -> info despre el)
+
+	//crow::json::rvalue player = crow::json::load(res.text);
+	//QWidget* menuPage = pages.createMenuPage(this, player);
+	//menuPage->show();
 }
 
 void ProfilePage::showIconSelectionDialog() {

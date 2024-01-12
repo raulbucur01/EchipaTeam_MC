@@ -11,6 +11,7 @@
 #include <QPushButton>
 #include <QScrollarea.h>
 #include <qmessagebox.h>
+#include "PageManager.h"
 
 class IconSelectionDialog : public QDialog {
     Q_OBJECT
@@ -113,6 +114,7 @@ private:
 	Ui::ProfilePageClass ui;
 	Player m_player;
     int m_currentIconIndex;
+    PageManager pages;
     std::vector<int> m_ownedIconIndexes;
 };
 
