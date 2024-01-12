@@ -122,7 +122,7 @@ void ProfilePage::UpdateCurrentPlayerIconOnServer()
 	url += "?currentIconID=" + std::to_string(m_currentIconIndex);
 	url += "&username=" + username;
 	cpr::Response response = cpr::Put(cpr::Url{ url },
-		cpr::Body{ "currentIconID=" + std::to_string(m_currentIconIndex) + "&username=" + username });
+	cpr::Body{ "currentIconID=" + std::to_string(m_currentIconIndex) + "&username=" + username });
 
 	if (response.status_code == 200) {
 		auto json = crow::json::load(response.text);
@@ -131,11 +131,11 @@ void ProfilePage::UpdateCurrentPlayerIconOnServer()
 	else if (response.status_code == 400)
 	{
 		auto json = crow::json::load(response.text);
-		QMessageBox::information(this, "Error!", QString::fromUtf8(response.text.data(), int(response.text.size())));
+		QMessageBox::warning(this, "Error!", QString::fromUtf8(response.text.data(), int(response.text.size())));
 	}
 	else if (response.status_code == 404) {
 		auto json = crow::json::load(response.text);
-		QMessageBox::information(this, "Error!", QString::fromUtf8(response.text.data(), int(response.text.size())));
+		QMessageBox::warning(this, "Error!", QString::fromUtf8(response.text.data(), int(response.text.size())));
 	}
 
 }

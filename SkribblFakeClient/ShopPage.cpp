@@ -108,8 +108,8 @@ void ShopPage::on_iconButton_pressed()
 void ShopPage::ProcessPurchase(const std::string& username, int iconIndex)
 {
     // procesare purchase
-    QString message = QString("You pressed an icon with index %1!").arg(iconIndex);
-    QMessageBox::warning(this, "Purchase", message);
+   /* QString message = QString("You pressed an icon with index %1!").arg(iconIndex);
+    QMessageBox::warning(this, "Purchase", message);*/
 
     // -se trimite la server username-ul si iconIndex reprezentand iconita pe care vrea sa o cumpere
     // -se proceseaza la nivel de server purchase-ul (se vor face verificari ca userul sa nu aiba deja iconita respectiva,
@@ -121,7 +121,24 @@ void ShopPage::ProcessPurchase(const std::string& username, int iconIndex)
     // cand ne intoarcem de la server cu un purchase care s-a putut efectua actualizam aici balance-ul in label si in clasa player
     std::string url = "http://localhost:18080/ProcessPurchase";
     cpr::Response response = cpr::Put(cpr::Url{ url },
-        cpr::Body{ "currentIconID=" + std::to_string(iconIndex) + "&username=" + username });
+    cpr::Body{ "currentIconID=" + std::to_string(iconIndex) + "&username=" + username });
+   
+    if (response.status_code == 200)
+    {
+
+        auto json = crow::json::load(response.text);
+        if (json) {
+            int coins = json["Coins"].i();
+            ui.label_Balance->setText("Coins: " + QString::number(coins));
+            m_player.SetCoins(coins);
+        }
+        QMessageBox::information(this, "Purchase complete!", "");
+    }
+    else {
+        auto json = crow::json::load(response.text);
+        QMessageBox::warning(this, "Error!", QString::fromUtf8(response.text.data(), int(response.text.size())));
+    }
+
 
 
 }
