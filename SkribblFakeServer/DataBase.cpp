@@ -350,7 +350,12 @@ crow::response ProcessPurchaseHandler::operator()(const crow::request& req) cons
 					Purchase purchase = { -1, usernameIter->second, iconID };
 					m_DB.AddPurchaseToDB(purchase);
 					m_DB.UpdatePlayerCoinsInDB(usernameIter->second, currentPlayer->GetCoins() - 20);
-					crow::response(200, "Icon was bought with succes!");
+					
+					crow::json::wvalue jsonResponse{
+				   {"Coins", currentPlayer.value().GetCoins()}
+					};
+
+					return crow::response(200, jsonResponse);
 
 				}
 				else
