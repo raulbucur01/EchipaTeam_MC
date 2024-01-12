@@ -12,6 +12,7 @@
 #include <cstdlib>
 #include <ctime>
 #include "Message.h"
+#include "ObtainedScore.h"
 namespace sql = sqlite_orm;
 import utils;
 
@@ -34,6 +35,11 @@ static auto createStorage(const std::string& filename) {
 			sql::make_column("id", &Purchase::SetId, &Purchase::GetId, sql::primary_key().autoincrement()),
 			sql::make_column("playerName", &Purchase::SetPlayerName, &Purchase::GetPlayerName),
 			sql::make_column("iconId", &Purchase::SetIconId, &Purchase::GetIconId)
+		),
+		sql::make_table("ScorObtinut",
+			sql::make_column("id", &ObtainedScore::SetId, &ObtainedScore::GetId, sql::primary_key().autoincrement()),
+			sql::make_column("playerName", &ObtainedScore::SetPlayerName, &ObtainedScore::GetPlayerName),
+			sql::make_column("scorObtinut", &ObtainedScore::SetObtainedScore, &ObtainedScore::GetObtainedScore)
 		)
 	);
 }
@@ -81,10 +87,12 @@ public:
 
 	// For direct DB interaction:
 	// for Player
+
 	std::optional<Player> SearchPlayerInDB(const std::string& name);
 	void AddPlayertToDB(Player& player);
 
-	// for Purchases
+	// for Purchase
+	
 	// adds a purchase to the database
 	void AddPurchaseToDB(const Purchase& purchase);
 	// returns all purchases for the player with the specified playerName
@@ -99,6 +107,13 @@ public:
 	void UpdatePlayerCoinsInDB(const std::string& name, int newCoinsAmount);
 	// for the player with the specified name replaces the currentIconId with the newIconId in the database
 	void UpdatePlayerCurrentIconInDB(const std::string& name, int newIconId);
+
+	// for ObtainedScore
+	void AddObtainedScoreToDB(const ObtainedScore& obtainedScore);
+	std::vector<ObtainedScore> GetAllObtainedScores();
+	void PrintAllObtainedScores();
+	std::vector<int> GetObtainedScoresByPlayer(const std::string& playerName);
+	void UpdatePlayerScoreInDB(const std::string& name, int newScoreAmount);
 
 	~DataBase() = default;
 

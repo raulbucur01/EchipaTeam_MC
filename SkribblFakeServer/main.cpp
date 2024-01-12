@@ -4,18 +4,21 @@
 
 int main() {
 	DataBase DB("SkribblData.sqlite");
-	DB.printAllPLayers();
-	DB.GetAllPurchases();
-	DB.PrintAllPurchases();
-	std::vector<Purchase> playerPurchases = DB.GetPurchasesByPlayer("Coco20");
+	//DB.printAllPLayers();
+	//DB.GetAllPurchases();
+	//DB.PrintAllPurchases();
+	/*std::vector<Purchase> playerPurchases = DB.GetPurchasesByPlayer("Coco20");
 	std::cout << "\n";
 	for (auto purchase : playerPurchases) {
 		std::cout << "\n";
 		std::cout << purchase.GetId() << " " << purchase.GetPlayerName() << " " << purchase.GetIconId();
-	}
+	}*/
 
 	//DB.UpdatePlayerCoinsInDB("Coco20", 150);
-	DB.printAllPLayers();
+	/*DB.printAllPLayers();
+
+	DB.PrintAllObtainedScores();
+	DB.UpdatePlayerScoreInDB("Coco20", 300);*/
 
 	SkribblServer server;
 	server.Start(DB);

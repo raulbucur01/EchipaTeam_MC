@@ -38,7 +38,10 @@
     <ClCompile Include="Message.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-	<ClCompile Include="Purchase.cpp">
+    <ClCompile Include="Purchase.cpp">
+      <Filter>Domain</Filter>
+    </ClCompile>
+    <ClCompile Include="ObtainedScore.cpp">
       <Filter>Domain</Filter>
     </ClCompile>
   </ItemGroup>
@@ -56,7 +59,9 @@
     <ClInclude Include="Purchase.h">
       <Filter>Domain</Filter>
     </ClInclude>
-
+    <ClInclude Include="ObtainedScore.h">
+      <Filter>Domain</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="SkribblData.sqlite">

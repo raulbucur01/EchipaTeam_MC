@@ -29,6 +29,12 @@ void populateDB(Storage& storage)
 		Purchase{-1, "Coco20", 3}
 	};
 	storage.insert_range(purchases.begin(), purchases.end());
+
+	std::vector<ObtainedScore> obtainedScores = {
+		ObtainedScore{-1, "Coco20", 100},
+		ObtainedScore{-1, "Coco20", 200}
+	};
+	storage.insert_range(obtainedScores.begin(), obtainedScores.end());
 }
 
 DataBase::DataBase(const std::string& filename) : m_DB(createStorage(filename))
@@ -38,14 +44,16 @@ DataBase::DataBase(const std::string& filename) : m_DB(createStorage(filename))
 	//m_DB.remove_all<Word>();
 	//m_DB.remove_all<Player>();
 	//m_DB.remove_all<Purchase>();
+	//m_DB.remove_all<ObtainedScore>();
 	auto initPlayerCount = m_DB.count<Player>();
 	auto initWordCount = m_DB.count<Word>();
 	auto initPurchaseCount = m_DB.count<Purchase>();
-	if (initPlayerCount == 0 && initWordCount == 0 && initPurchaseCount == 0)
+	auto initObtainedScoreCount = m_DB.count<ObtainedScore>();
+	if (initPlayerCount == 0 && initWordCount == 0 && initPurchaseCount == 0 && initObtainedScoreCount == 0)
 		populateDB(m_DB);
 
 	// for testing
-	//addPlayersFromDBToPlayersVector();
+	addPlayersFromDBToPlayersVector();
 	addWordsFromDBToWordsVector(); // avem vectoru de cuvinte permanent in DB momentan
 }
 
@@ -261,6 +269,45 @@ void DataBase::UpdatePlayerCurrentIconInDB(const std::string& name, int newIconI
 {
 	m_DB.update_all(
 		sql::set(sqlite_orm::c(&Player::GetCurrentIconId) = newIconId),
+		sql::where(sqlite_orm::c(&Player::GetName) == name));
+}
+
+void DataBase::AddObtainedScoreToDB(const ObtainedScore& obtainedScore)
+{
+	m_DB.insert(obtainedScore);
+}
+
+std::vector<ObtainedScore> DataBase::GetAllObtainedScores()
+{
+	return m_DB.get_all<ObtainedScore>();
+}
+
+void DataBase::PrintAllObtainedScores()
+{
+	std::cout << "\n";
+	std::vector<ObtainedScore> obtainedScores = GetAllObtainedScores();
+	for (auto obtainedScore : obtainedScores) {
+		std::cout << "\n";
+		std::cout << obtainedScore.GetId() << " " << obtainedScore.GetPlayerName() << " " << obtainedScore.GetObtainedScore();
+	}
+}
+
+std::vector<int> DataBase::GetObtainedScoresByPlayer(const std::string& playerName)
+{
+	std::vector<ObtainedScore> obtainedScores = m_DB.get_all<ObtainedScore>(sql::where(sql::is_equal(&ObtainedScore::GetPlayerName, playerName)));
+	std::vector<int> obtainedScoresValues;
+
+	for (auto osc : obtainedScores) {
+		obtainedScoresValues.push_back(osc.GetObtainedScore());
+	}
+
+	return obtainedScoresValues;
+}
+
+void DataBase::UpdatePlayerScoreInDB(const std::string& name, int newScoreAmount)
+{
+	m_DB.update_all(
+		sql::set(sqlite_orm::c(&Player::GetScore) = newScoreAmount),
 		sql::where(sqlite_orm::c(&Player::GetName) == name));
 }
 
