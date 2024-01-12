@@ -627,3 +627,25 @@ crow::response GetMessagesHandler::operator()(const crow::request& req) const
 	else
 		crow::response(400);
 }
+
+GetPlayersHandler::GetPlayersHandler(std::unordered_map<std::string, Player>& players) : m_players{players}
+{
+}
+
+crow::response GetPlayersHandler::operator()(const crow::request& req) const
+{
+	std::vector<crow::json::wvalue> players;
+	if (m_players.empty())
+		return crow::response(400);
+	else
+	{
+		for (auto person : m_players)
+		{
+			players.push_back(crow::json::wvalue{
+				{"name",person.second.GetName() },
+				{"score",person.second.GetScore()},
+				});
+		}
+		return crow::json::wvalue{ players };
+	}
+}

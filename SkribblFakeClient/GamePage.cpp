@@ -153,6 +153,7 @@ void GamePage::on_startButton_pressed()
 void GamePage::createThread()
 {
 	QtConcurrent::run([this]() {updateChat(); });
+	QtConcurrent::run([this]() {updateTable(); });
 }
 
 void GamePage::updateChat()
@@ -172,7 +173,6 @@ void GamePage::updateChat()
 		std::string content = message["Message"].s();
 		std::string playerName = message["Name"].s();
 		auto v = QString::fromUtf8(content.c_str());
-		v+=QString::fromUtf8(content.c_str());
 
 		if (position >= count)
 		{
@@ -188,6 +188,24 @@ void GamePage::updateChat()
 	//if (words != "")
 		//messages->coun(new QStandardItem(QString::fromUtf8(words.data(), int(words.size()))));
 
+
+}
+
+void GamePage::updateTable()
+{
+	cpr::Response response = cpr::Get(cpr::Url{ "http://localhost:18080/game/getPlayers" });
+	crow::json::rvalue playerResponse = crow::json::load(response.text);
+
+	ui.tabelaScor->clearContents();
+	int position = 0;
+	for (const auto &person : playerResponse)
+	{
+		std::string name = person["name"].s();
+		int score = person["score"].d();
+	
+		ui.tabelaScor->setItem(position, 0, new QTableWidgetItem(QString::fromUtf8(name.c_str())));
+		ui.tabelaScor->setItem(position++, 1, new QTableWidgetItem(QString::number(score)));
+	}
 
 }
 
@@ -233,6 +251,7 @@ GamePage::GamePage(QWidget* parent,Player player)
 	ui.wordLabel->show();
 	QTimer* timer = new QTimer(this);
 	connect(timer, &QTimer::timeout, this, &GamePage::createThread);
+
 	//connect(timer, &QTimer::timeout, this,&GamePage::updatePlayers);
 	timer->start(100);
 	gameTimer = new QTimer(this);
@@ -258,52 +277,7 @@ GamePage::~GamePage()
 
 }
 
-void GamePage::mousePressEvent(QMouseEvent* e)
-{
-	if (canPaint == true)
-	{
-		if (e->button() == Qt::RightButton)
-		{
-			painting = true;
-			bool node = true;
-			if (rectangle.contains(e->pos()) == false)
-			{
-				node = false;
-			}
-			if (node == true)
-			{
-				Node* curent = new Node(e->pos());
-				line.push_back(curent);
-				update();
-			}
 
-		}
-	}
-}
-
-void GamePage::mouseMoveEvent(QMouseEvent* e)
-{
-	if ((e->buttons() && Qt::RightButton) && painting)
-	{
-		if (rectangle.contains(e->pos()))
-		{
-			Node* curent = new Node(e->pos());
-			line.push_back(curent);
-			update();
-		}
-	}
-}
-
-void GamePage::mouseReleaseEvent(QMouseEvent* e)
-{
-	if (e->button() == Qt::RightButton)
-	{
-		painting = false;
-		g.addNodes(std::make_pair(line,currentColor));
-		line.clear();
-		update();
-	}
-}
 
 void GamePage::setupTabela()
 {
@@ -398,6 +372,52 @@ void GamePage::updateTimer()
 		gameTimer->stop();
 }
 
+void GamePage::mousePressEvent(QMouseEvent* e)
+{
+	if (canPaint == true)
+	{
+		if (e->button() == Qt::RightButton)
+		{
+			painting = true;
+			bool node = true;
+			if (rectangle.contains(e->pos()) == false)
+			{
+				node = false;
+			}
+			if (node == true)
+			{
+				Node* curent = new Node(e->pos());
+				line.push_back(curent);
+				update();
+			}
+
+		}
+	}
+}
+
+void GamePage::mouseMoveEvent(QMouseEvent* e)
+{
+	if ((e->buttons() && Qt::RightButton) && painting)
+	{
+		if (rectangle.contains(e->pos()))
+		{
+			Node* curent = new Node(e->pos());
+			line.push_back(curent);
+			update();
+		}
+	}
+}
+
+void GamePage::mouseReleaseEvent(QMouseEvent* e)
+{
+	if (e->button() == Qt::RightButton)
+	{
+		painting = false;
+		g.addNodes(std::make_pair(line, currentColor));
+		line.clear();
+		update();
+	}
+}
 void GamePage::paintEvent(QPaintEvent* event)
 {
 	QPainter painter(this);

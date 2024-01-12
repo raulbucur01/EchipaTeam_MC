@@ -34,6 +34,7 @@ private slots:
 	void on_delete_all_pressed();
 	void createThread();
 	void updateChat();
+	void updateTable();
 	void on_word1Button_pressed();
 	void on_word2Button_pressed();
 	void on_word3Button_pressed();

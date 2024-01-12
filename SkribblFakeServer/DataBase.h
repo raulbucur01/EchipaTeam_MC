@@ -202,3 +202,10 @@ public:
 private:
 	std::unordered_map<std::string,Player>& m_players;
 };
+class GetPlayersHandler {
+public:
+	GetPlayersHandler(std::unordered_map<std::string, Player>& players);
+	crow::response operator()(const crow::request& req) const;
+private:
+	std::unordered_map<std::string, Player>& m_players;
+};
