@@ -321,6 +321,36 @@ std::optional<Player> DataBase::SearchPlayerInDB(const std::string& name)
 
 // handlers
 
+getPlayerInformationHandler::getPlayerInformationHandler(DataBase& storage) :m_DB{ storage }
+{
+}
+
+crow::response getPlayerInformationHandler::operator()(const crow::request& req) const
+{
+	auto bodyArgs = parseUrlArgs(req.body);
+	auto end = bodyArgs.end();
+	auto usernameIter = bodyArgs.find("username");
+
+	if (usernameIter != end)
+	{
+		if (auto currentPlayer = m_DB.SearchPlayerInDB(usernameIter->second); currentPlayer != std::nullopt)
+		{
+			crow::json::wvalue jsonResponse{
+						{"Name", currentPlayer.value().GetName()},
+						{"Password",  currentPlayer.value().GetPassword()},
+						{"Score",  currentPlayer.value().GetScore()},
+						{"Coins", currentPlayer.value().GetCoins()},
+						{"CurrentIconId",  currentPlayer.value().GetCurrentIconId()}
+			};
+
+			return crow::response(200, jsonResponse);
+		}
+		else return crow::response(404, "Player not found in DataBase");
+	}
+	else return crow::response(400, "Player name not found in url");
+}
+
+
 ProcessPurchaseHandler::ProcessPurchaseHandler(DataBase& storage) : m_DB{ storage }
 {
 }

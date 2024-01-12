@@ -74,6 +74,10 @@ void SkribblServer::Start(DataBase& storage)
 		return res;
 		});
 
+	auto& getPlayerInformation = CROW_ROUTE(m_app, "/getPlayerInformation")
+		.methods(crow::HTTPMethod::GET);
+	getPlayerInformation(getPlayerInformationHandler(storage));
+
 	auto& ProcessPurchase = CROW_ROUTE(m_app, "/ProcessPurchase")
 		.methods(crow::HTTPMethod::PUT);
 	ProcessPurchase(ProcessPurchaseHandler(storage));

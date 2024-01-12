@@ -48,9 +48,20 @@ void ProfilePage::on_pushButton_Back_pressed()
 	// faci request catre server de trimit numele (ruta sa o faci cu nume unic de ex /ReturInfoPlayer)
 	// faci un handler pt ruta care sa returneze ca in loginhandler ( practic un player -> info despre el)
 
-	//crow::json::rvalue player = crow::json::load(res.text);
-	//QWidget* menuPage = pages.createMenuPage(this, player);
-	//menuPage->show();
+	std::string username = m_player.GetName();
+	std::string url = "http://localhost:18080/getPlayerInformation";
+	cpr::Response response = cpr::Get(cpr::Url(url), cpr::Body{ "username=" + username });
+	if (response.status_code == 200)
+	{
+		crow::json::rvalue player = crow::json::load(response.text);
+		QWidget* menuPage = pages.createMenuPage(this, player);
+		menuPage->show();
+	}
+	else {
+		auto json = crow::json::load(response.text);
+		QMessageBox::warning(this, "Error!", QString::fromUtf8(response.text.data(), int(response.text.size())));
+
+	}
 }
 
 void ProfilePage::showIconSelectionDialog() {
