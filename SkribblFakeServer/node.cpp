@@ -1,10 +1,10 @@
 #include "node.h"
 
-Node::Node()
+skribbl::Node::Node()
 {
 }
 
-Node::Node(QPoint p)
+skribbl::Node::Node(std::pair<uint16_t, uint16_t> p)
 {
 	pos = p;
 }

@@ -1,3 +1,10 @@
-export module Round;
+export module round;
+#include "graph.h"
 
-export void MyFunc();
+namespace skribbl
+{
+	export class Round
+	{
+		Graph g;
+	};
+}

@@ -15,6 +15,9 @@
     <Filter Include="DataBase">
       <UniqueIdentifier>{def3c470-7063-4fe1-8d3b-eef9199d46d7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameFiles">
+      <UniqueIdentifier>{9743faa8-0879-42a4-a81b-2a1e04a2d70f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -44,6 +47,24 @@
     <ClCompile Include="ObtainedScore.cpp">
       <Filter>Domain</Filter>
     </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>GameFiles</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cppm">
+      <Filter>GameFiles</Filter>
+    </ClCompile>
+    <ClCompile Include="graph.cpp">
+      <Filter>GameFiles</Filter>
+    </ClCompile>
+    <ClCompile Include="node.cpp">
+      <Filter>GameFiles</Filter>
+    </ClCompile>
+    <ClCompile Include="Round.cpp">
+      <Filter>GameFiles</Filter>
+    </ClCompile>
+    <ClCompile Include="Round.cppm">
+      <Filter>GameFiles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Player.h">
@@ -61,6 +82,12 @@
     </ClInclude>
     <ClInclude Include="ObtainedScore.h">
       <Filter>Domain</Filter>
+    </ClInclude>
+    <ClInclude Include="graph.h">
+      <Filter>GameFiles</Filter>
+    </ClInclude>
+    <ClInclude Include="node.h">
+      <Filter>GameFiles</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

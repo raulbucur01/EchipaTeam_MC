@@ -16,6 +16,8 @@
 namespace sql = sqlite_orm;
 import utils;
 
+using namespace skribbl;
+
 static auto createStorage(const std::string& filename) {
 	return sql::make_storage(
 		filename,

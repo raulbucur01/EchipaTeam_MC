@@ -1,5 +1,7 @@
 #include "Player.h"
 
+using namespace skribbl;
+
 Player::Player(int id, const std::string& name, const std::string& password, int16_t score = 0, int16_t coins = 0, int16_t currentIconId = 0) :
 	m_id{ id },
 	m_name{ name },
@@ -127,7 +129,7 @@ void Player::SetPainter(bool este)
 	m_painter = este;
 }
 
-std::ostream& operator<<(std::ostream& os, const Player& player)
+std::ostream& skribbl::operator<<(std::ostream& os, const Player& player)
 {
 	os << "ID: " << player.m_id << ", "
 		<< "Name: " << player.m_name << ", "

@@ -148,18 +148,26 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="DataBase.cpp" />
+    <ClCompile Include="Game.cpp" />
+    <ClCompile Include="Game.cppm" />
+    <ClCompile Include="graph.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Message.cpp" />
+    <ClCompile Include="node.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Purchase.cpp" />
     <ClCompile Include="ObtainedScore.cpp" />
+    <ClCompile Include="Round.cpp" />
+    <ClCompile Include="Round.cppm" />
     <ClCompile Include="SkribblServer.cpp" />
     <ClCompile Include="utils.cpp" />
     <ClCompile Include="utils.cppm" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DataBase.h" />
+    <ClInclude Include="graph.h" />
     <ClInclude Include="Message.h" />
+    <ClInclude Include="node.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Purchase.h" />
     <ClInclude Include="ObtainedScore.h" />

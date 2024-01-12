@@ -1,20 +1,20 @@
-#ifndef NODE_H
-#define NODE_H
+#include <iostream>
 
-#include <QPainter>
-
-class Node
+namespace skribbl
 {
-	QPoint pos;
-public:
-	Node();
-	Node(QPoint p);
-	void setCoord(QPoint p) {
-		pos = p;
-	}
-	QPoint getPosition() {
-		return pos;
-	}
-};
+	using std::uint16_t;
 
-#endif // NODE_H
+	class Node
+	{
+		std::pair<uint16_t, uint16_t> pos;
+	public:
+		Node();
+		Node(std::pair<uint16_t, uint16_t> p);
+		void setCoord(std::pair<uint16_t, uint16_t> p) {
+			pos = p;
+		}
+		std::pair<uint16_t, uint16_t> getPosition() {
+			return pos;
+		}
+	};
+}

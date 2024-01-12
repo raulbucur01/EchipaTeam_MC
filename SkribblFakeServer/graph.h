@@ -1,69 +1,58 @@
-#ifndef GRAPH_H
-#define GRAPH_H
 
-#include"node.h"
-#include <fstream>
-#include<iostream>
-#include<stack>
-#include<QScreen>
-#include<QGuiApplication>
-#include<limits>
-#include<algorithm>
-#include<array>
+#include<vector>
+#include<string>
 
-using namespace std;
-
-class Graph
+namespace skribbl
 {
-	vector<std::pair<vector<Node*>,QColor>> nodes;
-	vector<vector<int>>matrix;
+	class Node;
 
-public:
-	Graph();
-	vector<std::pair<vector<Node*>,QColor>> getNodes() {
-		return nodes;
-	}
-	void addNodes(std::pair<vector<Node*>,QColor> n) {
-		nodes.push_back(n);
-	}
-	void clear()
+	class Graph
 	{
-		for (std::pair<vector<Node*>, QColor> i : nodes)
-			for (Node* j : i.first)
-			{
-				delete j;
-			}
-		nodes.clear();
-	}
-	void setMatrix(std::vector<std::vector<int>>matrice)
-	{
-		matrix = matrice;
-	}
-	void deletelast()
-	{
-		if (nodes.empty())
-		{
-			return;
+		std::vector<std::pair<std::vector<Node*>, std::string>> nodes;
+
+	public:
+		Graph();
+		std::vector<std::pair<std::vector<Node*>, std::string>> getNodes() {
+			return nodes;
 		}
-		for (Node* i: nodes.back().first)
-		{
-			delete i;
+		void addNodes(std::pair<std::vector<Node*>, std::string> n) {
+			nodes.push_back(n);
 		}
-		if(!nodes.empty())
-		nodes.pop_back();
+		void clear()
+		{
+			for (std::pair<std::vector<Node*>, std::string> i : nodes)
+				for (Node* j : i.first)
+				{
+					delete j;
+				}
+			nodes.clear();
+		}
 
-	}
-
-	~Graph()
-	{
-		for (std::pair<vector<Node*>,QColor> i : nodes)
-			for (Node* j : i.first)
+		void deletelast()
+		{
+			if (nodes.empty())
 			{
-				delete j;
+				return;
 			}
-		nodes.clear();
-	}
+			for (Node* i : nodes.back().first)
+			{
+				delete i;
+			}
+			if (!nodes.empty())
+				nodes.pop_back();
 
-};
+		}
 
-#endif // GRAPH_H
+		~Graph()
+		{
+			for (std::pair<std::vector<Node*>, std::string> i : nodes)
+				for (Node* j : i.first)
+				{
+					delete j;
+				}
+			nodes.clear();
+		}
+
+	};
+}
+

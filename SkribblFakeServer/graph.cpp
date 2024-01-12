@@ -1,6 +1,6 @@
 #include "graph.h"
 
-Graph::Graph()
+skribbl::Graph::Graph()
 {
 
 }
