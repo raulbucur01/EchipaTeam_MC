@@ -152,6 +152,7 @@
     <ClCompile Include="Message.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Purchase.cpp" />
+    <ClCompile Include="ObtainedScore.cpp" />
     <ClCompile Include="SkribblServer.cpp" />
     <ClCompile Include="utils.cpp" />
     <ClCompile Include="utils.cppm" />
@@ -161,6 +162,7 @@
     <ClInclude Include="Message.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Purchase.h" />
+    <ClInclude Include="ObtainedScore.h" />
     <ClInclude Include="SkribblServer.h" />
   </ItemGroup>
   <ItemGroup>
