@@ -321,22 +321,90 @@ std::optional<Player> DataBase::SearchPlayerInDB(const std::string& name)
 
 // handlers
 
-//RetrieveOwnedIconsHandler::RetrieveOwnedIconsHandler(DataBase& storage) : m_DB{ storage }
-//{
-//}
+ProcessPurchaseHandler::ProcessPurchaseHandler(DataBase& storage) : m_DB{ storage }
+{
+}
 
-//crow::response RetrieveOwnedIconsHandler::operator()(const crow::request& req) const
-//{
-//	std::string url = req.url;
-//	size_t posUsername = url.find("username=");
-//	std::string username;
-//
-//	if (posUsername != std::string::npos) {
-//	
-//		posUsername += 9; // sare peste "username="
-//		username = url.substr(posUsername);
-//	}
-//}
+crow::response ProcessPurchaseHandler::operator()(const crow::request& req) const
+{
+	std::vector<int> iconIds;
+	auto bodyArgs = parseUrlArgs(req.body);
+	auto end = bodyArgs.end();
+	auto usernameIter = bodyArgs.find("username");
+	auto iconIdPos = bodyArgs.find("currentIconID");
+
+	if (iconIdPos != end && usernameIter != end)
+	{
+		int iconID = stoi(iconIdPos->second);
+		if (auto currentPlayer = m_DB.SearchPlayerInDB(usernameIter->second); currentPlayer != std::nullopt)
+		{
+			iconIds = m_DB.GetPurchasedIconIdsByPlayer(usernameIter->second);
+			for (auto i : iconIds)
+			{
+				if (i == iconID)
+				{
+					crow::response(400, "Icon is already owned by player!");
+				}
+				else if (currentPlayer->GetCoins() >= 20) {
+
+					Purchase purchase = { -1, usernameIter->second, iconID };
+					m_DB.AddPurchaseToDB(purchase);
+					m_DB.UpdatePlayerCoinsInDB(usernameIter->second, currentPlayer->GetCoins() - 20);
+					
+					crow::json::wvalue jsonResponse{
+				   {"Coins", currentPlayer.value().GetCoins()}
+					};
+
+					return crow::response(200, jsonResponse);
+
+				}
+				else
+				{
+					crow::response(404, "Not enogh coins!");
+				}
+			}
+		}
+		else {
+			crow::response(400, "Player not found in DataBase");
+		}
+	}
+	else {
+		crow::response(400, "Icon id or Username not found in DataBase");
+	}
+}
+
+
+RetrieveOwnedIconsHandler::RetrieveOwnedIconsHandler(DataBase& storage) : m_DB{ storage }
+{
+}
+
+crow::response RetrieveOwnedIconsHandler::operator()(const crow::request& req) const
+{
+	std::vector<int> ownedIcons;
+	auto bodyArgs = parseUrlArgs(req.body);
+	auto end = bodyArgs.end();
+	auto usernameIter = bodyArgs.find("username");
+
+	if (usernameIter != end)
+	{
+		if (auto currentPlayer = m_DB.SearchPlayerInDB(usernameIter->second); currentPlayer != std::nullopt)
+		{
+			ownedIcons = m_DB.GetPurchasedIconIdsByPlayer(usernameIter->second);
+
+			crow::json::wvalue jsonResponse;
+			jsonResponse["ownedIcons"] = ownedIcons;
+
+			return crow::response(200, jsonResponse);
+		}
+		else {
+			crow::response(404, "Player not found in DataBase");
+		}
+	}
+	else {
+		crow::response(400, "Username is not valid");
+	}
+
+}
 
 UpdateCurrentIconIDHandler::UpdateCurrentIconIDHandler(DataBase& storage) : m_DB{ storage }
 {
@@ -344,7 +412,7 @@ UpdateCurrentIconIDHandler::UpdateCurrentIconIDHandler(DataBase& storage) : m_DB
 
 crow::response UpdateCurrentIconIDHandler::operator()(const crow::request& req) const
 {
-	
+
 	auto bodyArgs = parseUrlArgs(req.body);
 	auto end = bodyArgs.end();
 	auto usernameIter = bodyArgs.find("username");
@@ -578,7 +646,7 @@ crow::response RemovePlayerHandler::operator()(const crow::request& req) const
 }
 
 
-SendMessageHandler::SendMessageHandler(std::unordered_map<std::string, Player>& players) : m_players{players}
+SendMessageHandler::SendMessageHandler(std::unordered_map<std::string, Player>& players) : m_players{ players }
 {
 }
 
@@ -591,7 +659,7 @@ crow::response SendMessageHandler::operator()(const crow::request& req)  const
 	if (usernameIter != end && messageIter != end)
 	{
 		Message message{ messageIter->second,usernameIter->second };
-		for (auto &player : m_players)
+		for (auto& player : m_players)
 		{
 			player.second.AddMessage(message);
 		}
@@ -605,7 +673,7 @@ crow::response SendMessageHandler::operator()(const crow::request& req)  const
 
 
 
-GetMessagesHandler::GetMessagesHandler(std::unordered_map<std::string,Player>& players): m_players{players}
+GetMessagesHandler::GetMessagesHandler(std::unordered_map<std::string, Player>& players) : m_players{ players }
 {
 }
 

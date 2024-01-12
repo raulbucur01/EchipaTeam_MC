@@ -126,6 +126,14 @@ private:
 	DataBase& m_DB;
 };
 
+class ProcessPurchaseHandler {
+public:
+	ProcessPurchaseHandler(DataBase& storage);
+	crow::response operator()(const crow::request& req)const;
+private:
+	DataBase& m_DB;
+};
+
 class AddPlayerHandler {
 public:
 	AddPlayerHandler(DataBase& storage);
@@ -178,14 +186,14 @@ private:
 	DataBase& m_DB;
 };
 
-//class RetrieveOwnedIconsHandler {
-//public:
-//	RetrieveOwnedIconsHandler(DataBase& storage);
-//	crow::response operator()(const crow::request& req)const;
-//
-//private:
-//	DataBase& m_DB;
-//};
+class RetrieveOwnedIconsHandler {
+public:
+	RetrieveOwnedIconsHandler(DataBase& storage);
+	crow::response operator()(const crow::request& req)const;
+
+private:
+	DataBase& m_DB;
+};
 
 class SendMessageHandler {
 public:
