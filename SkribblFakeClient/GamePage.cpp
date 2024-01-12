@@ -97,8 +97,11 @@ void GamePage::on_word1Button_pressed()
 {
 	ui.veil->hide();
 	ui.horizontalLayoutWidget->hide();
-	word.SetWord(words[0]);
+	//word.SetWord(words[0]);
 	canPaint = true;
+	seconds = 0;
+	gameTimer->start(1000);
+	connect(gameTimer, &QTimer::timeout, this, &GamePage::updateTimer);
 }
 
 void GamePage::on_word2Button_pressed()
@@ -107,6 +110,9 @@ void GamePage::on_word2Button_pressed()
 	ui.horizontalLayoutWidget->hide();
 	//word.SetWord(words[1]);
 	canPaint = true;
+	seconds = 0;
+	gameTimer->start(1000);
+	connect(gameTimer, &QTimer::timeout, this, &GamePage::updateTimer);
 }
 
 void GamePage::on_word3Button_pressed()
@@ -115,6 +121,9 @@ void GamePage::on_word3Button_pressed()
 	ui.horizontalLayoutWidget->hide();
 	//word.SetWord(words[2]);
 	canPaint = true;
+	seconds = 0;
+	gameTimer->start(1000);
+	connect(gameTimer, &QTimer::timeout, this, &GamePage::updateTimer);
 }
 
 void GamePage::on_startButton_pressed()
@@ -129,7 +138,10 @@ void GamePage::on_startButton_pressed()
 	if (isPainter == true)
 		canPaint = true;
 	timer->stop();
-	timer->deleteLater(); });
+	timer->deleteLater();
+	seconds = 0;
+	gameTimer->start(1000);
+	connect(gameTimer, &QTimer::timeout, this, &GamePage::updateTimer); });
 }
 
 /*void GamePage::updatePlayers()
@@ -218,7 +230,10 @@ GamePage::GamePage(QWidget* parent,Player player)
 	QTimer* timer = new QTimer(this);
 	connect(timer, &QTimer::timeout, this, &GamePage::createThread);
 	//connect(timer, &QTimer::timeout, this,&GamePage::updatePlayers);
-	timer->start(100);  
+	timer->start(100);
+	gameTimer = new QTimer(this);
+	ui.timerLabel->move(ui.tabelaScor->x() + 25, ui.tabelaScor->y() - 30);
+	ui.timerLabel->resize(100, ui.timerLabel->height());
 }
 
 
@@ -308,6 +323,7 @@ void GamePage::setupChat()
 	ui.verticalLayoutWidget->setGeometry(rectangle.x() + rectangle.width(), rectangle.y(), 200, rectangle.height());
 	ui.displayMessage->setFixedSize(200, ui.verticalLayoutWidget->height() - ui.sendButton->height());
 	ui.mesageBox->setFixedSize(200 - ui.sendButton->width(), ui.sendButton->height());
+	ui.displayMessage->setEditTriggers(QAbstractItemView::NoEditTriggers);
 }
 
 void GamePage::setupCulori()
@@ -368,6 +384,14 @@ void GamePage::randomWordsFromDB()
 		}
 	}
 	words = wordsServer;
+}
+
+void GamePage::updateTimer()
+{
+	ui.timerLabel->setText("Time left : " + QString::number(60 - seconds));
+	seconds++;
+	if (seconds == 60)
+		gameTimer->stop();
 }
 
 void GamePage::paintEvent(QPaintEvent* event)

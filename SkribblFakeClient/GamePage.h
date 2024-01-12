@@ -51,6 +51,7 @@ public:
 	void setupCulori();
 	void wordChoosingSequence();
 	void randomWordsFromDB();
+	void updateTimer();
 
 private:
 	void paintEvent(QPaintEvent* event);
@@ -69,4 +70,6 @@ private:
 	bool canPaint = false;
 	std::array<std::string, 3>words;
 	bool isPainter=true;
+	QTimer* gameTimer;
+	int seconds;
 };
