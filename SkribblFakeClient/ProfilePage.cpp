@@ -32,7 +32,7 @@ ProfilePage::ProfilePage(QWidget* parent, Player player)
 	RetrieveOwnedIcons();
 
 	RetrieveObtainedScores();
-	m_matchHistoryDialog = new MatchHistoryDialog(this);  // Initialize m_matchHistoryDialog
+	m_matchHistoryDialog = new MatchHistoryDialog(this);
 	connect(ui.matchHistoryButton, &QPushButton::pressed, this, &ProfilePage::showMatchHistoryDialog);
 }
 
@@ -187,7 +187,7 @@ void ProfilePage::RetrieveOwnedIcons() {
 			m_ownedIconIndexes.push_back(index);
 		}
 
-		QMessageBox::information(this, "Icons Retrieved!", QString::fromUtf8(response.text.data(), int(response.text.size())));
+		//QMessageBox::information(this, "Icons Retrieved!", QString::fromUtf8(response.text.data(), int(response.text.size())));
 	}
 	else {
 		auto json = crow::json::load(response.text);
@@ -234,10 +234,6 @@ void ProfilePage::on_matchHistoryButton_pressed() {
 	if (!m_matchHistoryDialog) {
 		m_matchHistoryDialog = new MatchHistoryDialog(this);
 	}
-
-	// Fetch and update obtained scores
-	RetrieveObtainedScores();
-
 	// Show the MatchHistoryDialog
 	m_matchHistoryDialog->show();
 }
@@ -260,9 +256,6 @@ void ProfilePage::RetrieveObtainedScores() {
 			index = score.i();
 			m_obtainedScores.push_back(index);
 		}
-		if (m_matchHistoryDialog) {
-			m_matchHistoryDialog->setMatchHistory(m_obtainedScores);
-		}// Update the MatchHistoryDialog with the obtainedScores
 		
 		//pentru verificarea decomenteaza linia de mai jos
 		//QMessageBox::information(this, "Scors Obtained!", QString::fromUtf8(response.text.data(), int(response.text.size())));
@@ -304,7 +297,7 @@ MatchHistoryDialog::~MatchHistoryDialog() {
 	// Cleanup if needed.
 }
 
-void MatchHistoryDialog::setMatchHistory(const std::vector<int>& obtainedScores) {
+void MatchHistoryDialog::setMatchHistory(std::vector<int>& obtainedScores) {
 	// Clear previous rows
 	QLayoutItem* item;
 	while ((item = m_scrollArea->widget()->layout()->takeAt(0)) != nullptr) {

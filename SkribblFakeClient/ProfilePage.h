@@ -98,7 +98,7 @@ public:
     MatchHistoryDialog(QWidget* parent = nullptr);
     ~MatchHistoryDialog();
 
-    void setMatchHistory(const std::vector<int>& obtainedScores);
+    void setMatchHistory(std::vector<int>& obtainedScores);
 
 private:
     QVBoxLayout* m_layout;
@@ -138,7 +138,7 @@ private:
     int m_currentIconIndex;
     PageManager pages;
     std::vector<int> m_ownedIconIndexes;
-    std::vector<int> m_obtainedScores = { 100, 200, 250 };
+    std::vector<int> m_obtainedScores;
 
     MatchHistoryDialog* m_matchHistoryDialog;
 };
