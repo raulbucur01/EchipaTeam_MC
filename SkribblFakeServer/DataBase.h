@@ -57,9 +57,8 @@ public:
 	DataBase(const std::string& filename);
 
 	// Player
-	void addPlayer(Player& p);
 
-	void AddPlayer(Player player);
+	void AddPlayer(const Player& player);
 	Player GetPlayer(const std::string& name);
 	void RemovePlayer(const std::string& name);
 
