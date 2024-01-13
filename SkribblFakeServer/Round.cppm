@@ -11,7 +11,7 @@ namespace skribbl
 	{
 	public:
 		Round(std::unordered_map<std::string, Player*> players);
-
+		//const Graph& GetGraph() const;
 	private:
 		Graph g;
 		std::vector<Node*>line;

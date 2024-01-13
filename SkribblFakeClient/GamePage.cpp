@@ -9,6 +9,10 @@
 #include <crow.h>
 #include <QTimer>
 #include<QGraphicsEffect>
+std::string boolToString(bool painting)
+{
+	return painting ? "true":"false";
+}
 void GamePage::sendMessage()
 {
 
@@ -187,7 +191,6 @@ void GamePage::updateChat()
 	//words is a 
 	//if (words != "")
 		//messages->coun(new QStandardItem(QString::fromUtf8(words.data(), int(words.size()))));
-
 
 }
 
@@ -371,7 +374,15 @@ void GamePage::updateTimer()
 	if (seconds == 60)
 		gameTimer->stop();
 }
-
+void sendDrawing(int x, int y, bool painting,float red=0,float blue=0,float green=0) {
+	auto response = cpr::Post(cpr::Url{ "http://localhost:18080/round/sendDrawing" },
+		cpr::Body{ "coordinateX=" + std::to_string(x)
+		+ "&coordinateY=" + std::to_string(y) +
+		"&painting=" + boolToString(painting) +
+		"&red=" + std::to_string(red) +
+		"&green=" + std::to_string(blue) +
+		"&blue=" + std::to_string(green) });
+}
 void GamePage::mousePressEvent(QMouseEvent* e)
 {
 	if (canPaint == true)
@@ -386,6 +397,7 @@ void GamePage::mousePressEvent(QMouseEvent* e)
 			}
 			if (node == true)
 			{
+				QtConcurrent::run(sendDrawing, e->pos().x(), e->pos().y(), painting,0,0,0);
 				Node* curent = new Node(e->pos());
 				line.push_back(curent);
 				update();
@@ -401,6 +413,7 @@ void GamePage::mouseMoveEvent(QMouseEvent* e)
 	{
 		if (rectangle.contains(e->pos()))
 		{
+			QtConcurrent::run(sendDrawing, e->pos().x(), e->pos().y(), painting, 0,0,0);
 			Node* curent = new Node(e->pos());
 			line.push_back(curent);
 			update();
@@ -412,7 +425,11 @@ void GamePage::mouseReleaseEvent(QMouseEvent* e)
 {
 	if (e->button() == Qt::RightButton)
 	{
+		float red= currentColor.redF();
+		float blue= currentColor.blueF();
+		float green= currentColor.greenF();
 		painting = false;
+		QtConcurrent::run(sendDrawing, e->pos().x(), e->pos().y(), painting,red,green,blue);
 		g.addNodes(std::make_pair(line, currentColor));
 		line.clear();
 		update();

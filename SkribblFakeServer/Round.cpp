@@ -15,3 +15,9 @@ Round::Round(std::unordered_map<std::string, Player*> players) :
 		m_restOfPlayers.push_back(std::make_unique<Player>(*(it->second)));
 	}
 }
+
+//const skribbl::Graph& skribbl::Round::GetGraph() const
+//{
+//	return g;
+//}
+

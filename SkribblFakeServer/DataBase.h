@@ -13,6 +13,7 @@
 #include <ctime>
 #include "Message.h"
 #include "ObtainedScore.h"
+#include "graph.h"
 namespace sql = sqlite_orm;
 import utils;
 
@@ -70,6 +71,8 @@ public:
 	void addPlayersFromDBToPlayersVector();
 	std::unordered_map<std::string, Player> getAllPlayers();
 	std::unordered_map<std::string, Player>& GetPlayersInGame();
+	Graph& GetGraph();
+	std::vector < Node*>& GetLine();
 	void printAllPLayers();
 
 	// Word
@@ -123,6 +126,9 @@ private:
 	std::unordered_map<std::string, Player> m_players;             //la fel
 	std::unordered_map<std::string, Player> m_playersInGame;       //Poate ar trebui sa folosesc Player*
 	std::vector<Word> m_words;
+	Graph m_graph;
+	std::vector<Node*>m_line;
+
 };
 
 class LoginHandler {
@@ -248,4 +254,12 @@ public:
 	crow::response operator()(const crow::request& req) const;
 private:
 	std::unordered_map<std::string, Player>& m_players;
+};
+class SendDrawingHandler {
+public:
+	SendDrawingHandler(Graph& graph, std::vector<Node*>&line);
+	crow::response operator()(const crow::request& req) const;
+private:
+	Graph& m_graph;
+	std::vector<Node*>&m_line;
 };

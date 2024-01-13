@@ -1,5 +1,4 @@
 #include "SkribblServer.h"
-
 using namespace http;
 
 void SkribblServer::Start(DataBase& storage)
@@ -47,6 +46,9 @@ void SkribblServer::Start(DataBase& storage)
 	auto& getPlayers = CROW_ROUTE(m_app, "/game/getPlayers")
 		.methods(crow::HTTPMethod::GET);
 	getPlayers(GetPlayersHandler(storage.GetPlayersInGame())); //pentru scor o sa fac o ruta pt update la fiecare jucator 
+	auto& sendDrwaing = CROW_ROUTE(m_app, "/round/sendDrawing")
+		.methods(crow::HTTPMethod::POST);
+	sendDrwaing(SendDrawingHandler(storage.GetGraph(), storage.GetLine()));
 															  
 
 

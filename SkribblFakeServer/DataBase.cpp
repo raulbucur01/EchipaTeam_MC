@@ -1,8 +1,7 @@
 #include "DataBase.h"
 #include <regex>
-
 using namespace http;
-
+import "Node.h";
 void populateDB(Storage& storage)
 {
 	std::vector<Player> players = {
@@ -150,6 +149,16 @@ std::unordered_map<std::string, Player> DataBase::getAllPlayers()
 std::unordered_map<std::string, Player>& DataBase::GetPlayersInGame()
 {
 	return m_playersInGame;
+}
+
+Graph& DataBase::GetGraph()
+{
+	return m_graph;
+}
+
+std::vector<Node*>& DataBase::GetLine()
+{
+	return m_line;
 }
 
 void DataBase::printAllPLayers()
@@ -813,4 +822,42 @@ crow::response GetPlayersHandler::operator()(const crow::request& req) const
 		}
 		return crow::json::wvalue{ players };
 	}
+}
+
+SendDrawingHandler::SendDrawingHandler(Graph& graph, std::vector<Node*>& line):
+	m_graph{graph},
+	m_line{line}
+{
+}
+
+crow::response SendDrawingHandler::operator()(const crow::request& req) const
+{
+	
+	auto bodyArgs = parseUrlArgs(req.body);
+	auto end = bodyArgs.end();
+	auto coordinateXIter = bodyArgs.find("coordinateX");
+	auto coordinateYIter = bodyArgs.find("coordinateY");
+	auto redIter = bodyArgs.find("red");
+	auto greenIter = bodyArgs.find("green");
+	auto blueIter = bodyArgs.find("blue");
+	auto isPaintingIter = bodyArgs.find("painting");
+	if (isPaintingIter != end)
+	{
+		if (isPaintingIter->second == "false")
+		{
+			m_graph.addNodes(std::make_pair(m_line,std::make_tuple(redIter->second,greenIter->second,blueIter->second)));
+			m_line.clear();
+		}
+		else
+		{
+			uint16_t x = stoi(coordinateXIter->second);
+			uint16_t y = stoi(coordinateYIter->second);
+			skribbl::Node* node = new skribbl::Node(std::make_pair(x, y));
+			m_line.push_back(node);
+		}
+		return crow::response(200);
+	}
+	else
+		return crow::response(401);
+		
 }
