@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>552</width>
+    <width>583</width>
     <height>400</height>
    </rect>
   </property>
@@ -16,10 +16,10 @@
   <widget class="QGroupBox" name="groupBox_Register">
    <property name="geometry">
     <rect>
-     <x>140</x>
-     <y>130</y>
+     <x>130</x>
+     <y>120</y>
      <width>281</width>
-     <height>151</height>
+     <height>181</height>
     </rect>
    </property>
    <property name="title">
@@ -104,7 +104,20 @@
      </rect>
     </property>
     <property name="text">
-     <string>Password</string>
+     <string>Password:</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="backButton">
+    <property name="geometry">
+     <rect>
+      <x>90</x>
+      <y>150</y>
+      <width>75</width>
+      <height>24</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Back</string>
     </property>
    </widget>
   </widget>

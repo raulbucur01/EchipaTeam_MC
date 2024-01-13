@@ -26,6 +26,17 @@ void RegisterPage::on_exitButton_pressed()
 	QCoreApplication::quit();
 }
 
+void RegisterPage::on_backButton_pressed()
+{
+	ui.groupBox_Register->hide();
+	ui.exitButton->hide();
+	delete ui.exitButton;
+	delete ui.groupBox_Register;
+
+	QWidget* loginPage = pages.createLoginPage(this);
+	loginPage->show();
+}
+
 void RegisterPage::on_pushButton_CreateAccount_pressed() {
 	QString username = ui.lineEdit_Username->text();
 	QString password = ui.lineEdit_Password->text();
