@@ -1,11 +1,9 @@
-
+#include"node.h"
 #include<vector>
 #include<string>
 #include<tuple>
 namespace skribbl
 {
-	class Node;
-
 	class Graph
 	{
 		std::vector<std::pair<std::vector<Node*>,std::tuple<std::string,std::string,std::string>>> nodes;
