@@ -368,6 +368,33 @@ std::optional<Player> DataBase::SearchPlayerInDB(const std::string& name)
 
 // handlers
 
+getObtainedScoresHandler::getObtainedScoresHandler(DataBase& storage) : m_DB{ storage }
+{
+}
+
+crow::response getObtainedScoresHandler::operator()(const crow::request& req) const
+{
+	std::vector<int> obtainedScores;
+	auto bodyArgs = parseUrlArgs(req.body);
+	auto end = bodyArgs.end();
+	auto usernameIter = bodyArgs.find("username");
+
+	if (usernameIter != end)
+	{
+		if (auto currentPlayer = m_DB.SearchPlayerInDB(usernameIter->second); currentPlayer != std::nullopt)
+		{
+			obtainedScores = m_DB.GetObtainedScoresByPlayer(usernameIter->second);
+
+			crow::json::wvalue jsonResponse;
+			jsonResponse["obtainedScores"] = obtainedScores;
+
+			return crow::response(200, jsonResponse);
+		}
+		else crow::response(404, "Player not found in DataBase");
+	}
+	else crow::response(400, "Player`s name not found in url");
+}
+
 getPlayerInformationHandler::getPlayerInformationHandler(DataBase& storage) :m_DB{ storage }
 {
 }
@@ -431,7 +458,7 @@ crow::response ProcessPurchaseHandler::operator()(const crow::request& req) cons
 				m_DB.UpdatePlayerCoinsInDB(usernameIter->second, currentPlayer->GetCoins() - 20);
 
 				crow::json::wvalue jsonResponse{
-			   {"Coins", currentPlayer.value().GetCoins()-20}
+			   {"Coins", currentPlayer.value().GetCoins() - 20}
 				};
 
 				return crow::response(200, jsonResponse);
@@ -450,7 +477,7 @@ crow::response ProcessPurchaseHandler::operator()(const crow::request& req) cons
 		return crow::response(400, "Icon id or Username not found in URL");
 	}
 }
-	
+
 
 
 RetrieveOwnedIconsHandler::RetrieveOwnedIconsHandler(DataBase& storage) : m_DB{ storage }

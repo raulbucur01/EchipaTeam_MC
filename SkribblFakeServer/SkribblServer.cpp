@@ -74,6 +74,10 @@ void SkribblServer::Start(DataBase& storage)
 		return res;
 		});
 
+	auto& getObtainedScores = CROW_ROUTE(m_app, "/getObtainedScores")
+		.methods(crow::HTTPMethod::GET);
+	getObtainedScores(getObtainedScoresHandler(storage));
+
 	auto& getPlayerInformation = CROW_ROUTE(m_app, "/getPlayerInformation")
 		.methods(crow::HTTPMethod::GET);
 	getPlayerInformation(getPlayerInformationHandler(storage));

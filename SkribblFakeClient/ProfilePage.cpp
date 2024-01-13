@@ -187,7 +187,7 @@ void ProfilePage::RetrieveOwnedIcons() {
 			m_ownedIconIndexes.push_back(index);
 		}
 
-		//QMessageBox::information(this, "Icons Retrieved!", QString::fromUtf8(response.text.data(), int(response.text.size())));
+		QMessageBox::information(this, "Icons Retrieved!", QString::fromUtf8(response.text.data(), int(response.text.size())));
 	}
 	else {
 		auto json = crow::json::load(response.text);
@@ -246,14 +246,32 @@ void ProfilePage::RetrieveObtainedScores() {
 	// Fetch obtained scores from the server and update m_obtainedScores
 	// ...
 
-	// For demonstration purposes, let's assume obtainedScores is a vector retrieved from the server
-	//std::vector<int> obtainedScores = /* Fetch obtained scores from the server */;
-	//m_obtainedScores = obtainedScores;
+	std::string username = m_player.GetName();
 
-	// Update the MatchHistoryDialog with the obtainedScores
-	//if (m_matchHistoryDialog) {
-	//	m_matchHistoryDialog->setMatchHistory(m_obtainedScores);
-	//}
+	cpr::Response response = cpr::Get(cpr::Url{ "http://localhost:18080/getObtainedScores" },
+	cpr::Body{ "username=" + username });
+	int index;
+
+	if (response.status_code == 200) {
+
+		auto& obtainedScores= crow::json::load(response.text)["obtainedScores"];
+		for (const auto& score : obtainedScores)
+		{
+			index = score.i();
+			m_obtainedScores.push_back(index);
+		}
+		if (m_matchHistoryDialog) {
+			m_matchHistoryDialog->setMatchHistory(m_obtainedScores);
+		}// Update the MatchHistoryDialog with the obtainedScores
+		
+		//pentru verificarea decomenteaza linia de mai jos
+		//QMessageBox::information(this, "Scors Obtained!", QString::fromUtf8(response.text.data(), int(response.text.size())));
+	}
+	else {
+		auto json = crow::json::load(response.text);
+		QMessageBox::information(this, "Error!", QString::fromUtf8(response.text.data(), int(response.text.size())));
+	}
+
 }
 
 MatchHistoryDialog::MatchHistoryDialog(QWidget* parent)

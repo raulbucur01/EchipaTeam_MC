@@ -151,6 +151,14 @@ private:
 	DataBase& m_DB;
 };
 
+class getObtainedScoresHandler{
+public:
+	getObtainedScoresHandler(DataBase& storage);
+	crow::response operator()(const crow::request& req)const;
+private:
+	DataBase& m_DB;
+};
+
 class ProcessPurchaseHandler {
 public:
 	ProcessPurchaseHandler(DataBase& storage);
