@@ -36,10 +36,10 @@ static auto createStorage(const std::string& filename) {
 			sql::make_column("playerName", &Purchase::SetPlayerName, &Purchase::GetPlayerName),
 			sql::make_column("iconId", &Purchase::SetIconId, &Purchase::GetIconId)
 		),
-		sql::make_table("ScorObtinut",
+		sql::make_table("ObtainedScore",
 			sql::make_column("id", &ObtainedScore::SetId, &ObtainedScore::GetId, sql::primary_key().autoincrement()),
 			sql::make_column("playerName", &ObtainedScore::SetPlayerName, &ObtainedScore::GetPlayerName),
-			sql::make_column("scorObtinut", &ObtainedScore::SetObtainedScore, &ObtainedScore::GetObtainedScore)
+			sql::make_column("obtainedScore", &ObtainedScore::SetObtainedScore, &ObtainedScore::GetObtainedScore)
 		)
 	);
 }

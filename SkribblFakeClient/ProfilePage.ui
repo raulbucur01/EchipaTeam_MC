@@ -93,7 +93,7 @@
    <widget class="QPushButton" name="pushButton_Back">
     <property name="geometry">
      <rect>
-      <x>90</x>
+      <x>40</x>
       <y>170</y>
       <width>75</width>
       <height>24</height>
@@ -114,6 +114,19 @@
     </property>
     <property name="text">
      <string/>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="matchHistoryButton">
+    <property name="geometry">
+     <rect>
+      <x>140</x>
+      <y>170</y>
+      <width>81</width>
+      <height>24</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Match History</string>
     </property>
    </widget>
   </widget>
