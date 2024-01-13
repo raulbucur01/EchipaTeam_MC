@@ -9,16 +9,18 @@ namespace skribbl
 	class GameRound
 	{
 public:
-	GameRound(DataBase dB);
+	GameRound(DataBase& dB);
 	//const Graph& GetGraph() const;
 
 	void roundStart();
 	void verifChoice();
+	void chooseThreeRandomWords();
 	void chooseOneRandomWord();
 	void roundTimer();
-	void verifGuess();
+	bool verifGuess();
 	void computeScore();
 	int swapPainter(int index);
+	void endOfRoundTimer();
 
 private:
 	DataBase m_dB;
@@ -27,7 +29,8 @@ private:
 	int m_secondsPassed;
 	std::unique_ptr<Player> m_painter;
 	std::vector< std::unique_ptr<Player>> m_restOfPlayers;
-	Word word;
+	Word m_word;
+	std::vector<Word> m_wordChoice;
 	};
 }
 
