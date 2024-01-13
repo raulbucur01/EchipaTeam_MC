@@ -91,6 +91,23 @@ private:
 }
 };
 
+class MatchHistoryDialog : public QDialog {
+    Q_OBJECT
+
+public:
+    MatchHistoryDialog(QWidget* parent = nullptr);
+    ~MatchHistoryDialog();
+
+    void setMatchHistory(const std::vector<int>& obtainedScores);
+
+private:
+    QVBoxLayout* m_layout;
+    QScrollArea* m_scrollArea;
+    QLabel* m_averageScoreLabel;
+    QLabel* m_gameNumberHeaderLabel;
+    QLabel* m_obtainedScoreHeaderLabel;
+};
+
 class ProfilePage : public QWidget
 {
 	Q_OBJECT
@@ -103,6 +120,8 @@ public:
 	void DisplayCoins();
     void UpdateCurrentPlayerIconOnServer();
     QString getIconPath(int iconIndex);
+    
+    void RetrieveObtainedScores();
 
 private slots:
 	void on_exitButton_pressed();
@@ -110,11 +129,17 @@ private slots:
     void showIconSelectionDialog();
     void updateCurrentIcon(int newIconIndex);
 
+    void on_matchHistoryButton_pressed();
+    void showMatchHistoryDialog();
+
 private:
 	Ui::ProfilePageClass ui;
 	Player m_player;
     int m_currentIconIndex;
     PageManager pages;
     std::vector<int> m_ownedIconIndexes;
+    std::vector<int> m_obtainedScores = { 100, 200, 250 };
+
+    MatchHistoryDialog* m_matchHistoryDialog;
 };
 

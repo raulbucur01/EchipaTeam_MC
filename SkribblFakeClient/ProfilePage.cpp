@@ -30,6 +30,15 @@ ProfilePage::ProfilePage(QWidget* parent, Player player)
 	DisplayScore();
 	DisplayCoins();
 	RetrieveOwnedIcons();
+
+	RetrieveObtainedScores();
+	m_matchHistoryDialog = new MatchHistoryDialog(this);  // Initialize m_matchHistoryDialog
+	connect(ui.matchHistoryButton, &QPushButton::pressed, this, &ProfilePage::showMatchHistoryDialog);
+}
+
+void ProfilePage::showMatchHistoryDialog() {
+	m_matchHistoryDialog->setMatchHistory(m_obtainedScores);
+	m_matchHistoryDialog->exec();
 }
 
 ProfilePage::~ProfilePage()
@@ -219,3 +228,101 @@ QString ProfilePage::getIconPath(int iconIndex) {
 		return "./Icons/default_icon.jpeg";
 	}
 }
+
+void ProfilePage::on_matchHistoryButton_pressed() {
+	// Create the MatchHistoryDialog if not already created
+	if (!m_matchHistoryDialog) {
+		m_matchHistoryDialog = new MatchHistoryDialog(this);
+	}
+
+	// Fetch and update obtained scores
+	RetrieveObtainedScores();
+
+	// Show the MatchHistoryDialog
+	m_matchHistoryDialog->show();
+}
+
+void ProfilePage::RetrieveObtainedScores() {
+	// Fetch obtained scores from the server and update m_obtainedScores
+	// ...
+
+	// For demonstration purposes, let's assume obtainedScores is a vector retrieved from the server
+	//std::vector<int> obtainedScores = /* Fetch obtained scores from the server */;
+	//m_obtainedScores = obtainedScores;
+
+	// Update the MatchHistoryDialog with the obtainedScores
+	//if (m_matchHistoryDialog) {
+	//	m_matchHistoryDialog->setMatchHistory(m_obtainedScores);
+	//}
+}
+
+MatchHistoryDialog::MatchHistoryDialog(QWidget* parent)
+	: QDialog(parent) {
+	setWindowTitle("Match History");
+
+	m_layout = new QVBoxLayout(this);
+	m_scrollArea = new QScrollArea(this);
+	m_scrollArea->setWidgetResizable(true);
+
+	QWidget* scrollWidget = new QWidget;
+	QVBoxLayout* scrollLayout = new QVBoxLayout(scrollWidget);
+	m_scrollArea->setWidget(scrollWidget);
+
+	m_averageScoreLabel = new QLabel("Average Score: N/A");
+	m_gameNumberHeaderLabel = new QLabel("Game Number");
+	m_obtainedScoreHeaderLabel = new QLabel("Obtained Score");
+
+	// Create a QHBoxLayout for the header labels
+	QHBoxLayout* headerLayout = new QHBoxLayout;
+	headerLayout->addWidget(m_gameNumberHeaderLabel);
+	headerLayout->addWidget(m_obtainedScoreHeaderLabel);
+
+	m_layout->addWidget(m_averageScoreLabel);
+	m_layout->addLayout(headerLayout);  // Add the header labels layout
+	m_layout->addWidget(m_scrollArea);
+}
+
+MatchHistoryDialog::~MatchHistoryDialog() {
+	// Cleanup if needed.
+}
+
+void MatchHistoryDialog::setMatchHistory(const std::vector<int>& obtainedScores) {
+	// Clear previous rows
+	QLayoutItem* item;
+	while ((item = m_scrollArea->widget()->layout()->takeAt(0)) != nullptr) {
+		delete item->widget();
+		delete item;
+	}
+
+	// Calculate average score
+	double averageScore = 0.0;
+	if (!obtainedScores.empty()) {
+		for (int score : obtainedScores) {
+			averageScore += score;
+		}
+		averageScore /= obtainedScores.size();
+	}
+
+	// Set the average score label
+	m_averageScoreLabel->setText("Average Score: " + QString::number(averageScore));
+
+	// Access the layout of the scroll widget
+	QVBoxLayout* scrollLayout = qobject_cast<QVBoxLayout*>(m_scrollArea->widget()->layout());
+	if (!scrollLayout) {
+		qWarning() << "Failed to get the scroll layout.";
+		return;
+	}
+
+	// Populate the scroll area with rows
+	for (int i = 0; i < obtainedScores.size(); ++i) {
+		QLabel* gameNumberLabel = new QLabel(QString::number(i + 1));
+		QLabel* scoreLabel = new QLabel(QString::number(obtainedScores[i]));
+
+		QHBoxLayout* rowLayout = new QHBoxLayout;
+		rowLayout->addWidget(gameNumberLabel);
+		rowLayout->addWidget(scoreLabel);
+
+		scrollLayout->addLayout(rowLayout);
+	}
+}
+
