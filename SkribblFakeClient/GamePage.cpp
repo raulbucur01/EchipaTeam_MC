@@ -250,10 +250,10 @@ GamePage::GamePage(QWidget* parent,Player player)
 	ui.wordLabel->setText(QString::fromStdString("vlad"));
 	ui.wordLabel->show();
 	QTimer* timer = new QTimer(this);
+	timer->start(100);
 	connect(timer, &QTimer::timeout, this, &GamePage::createThread);
 
 	//connect(timer, &QTimer::timeout, this,&GamePage::updatePlayers);
-	timer->start(100);
 	gameTimer = new QTimer(this);
 	ui.timerLabel->move(ui.tabelaScor->x() + 25, ui.tabelaScor->y() - 30);
 	ui.timerLabel->resize(100, ui.timerLabel->height());
@@ -386,6 +386,7 @@ void GamePage::mousePressEvent(QMouseEvent* e)
 			}
 			if (node == true)
 			{
+				//transmitere desen server;
 				Node* curent = new Node(e->pos());
 				line.push_back(curent);
 				update();
@@ -401,6 +402,7 @@ void GamePage::mouseMoveEvent(QMouseEvent* e)
 	{
 		if (rectangle.contains(e->pos()))
 		{
+			//transmitere desen server;
 			Node* curent = new Node(e->pos());
 			line.push_back(curent);
 			update();
@@ -413,9 +415,12 @@ void GamePage::mouseReleaseEvent(QMouseEvent* e)
 	if (e->button() == Qt::RightButton)
 	{
 		painting = false;
+		Node* curent = new Node(e->pos());
+		line.push_back(curent);
+		//transmitere desen server;
+		update();
 		g.addNodes(std::make_pair(line, currentColor));
 		line.clear();
-		update();
 	}
 }
 void GamePage::paintEvent(QPaintEvent* event)

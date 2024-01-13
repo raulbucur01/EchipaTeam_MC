@@ -12,6 +12,13 @@ namespace skribbl
 	public:
 		Round(std::unordered_map<std::string, Player*> players);
 
+		void roundStart();
+		void verifChoice();
+		void chooseOneRandomWord();
+		void roundTimer();
+		void verifGuess();
+		void computeScore();
+		int swapPainter(int index);
 	private:
 		Graph g;
 		std::vector<Node*>line;
@@ -22,3 +29,4 @@ namespace skribbl
 		std::vector< std::unique_ptr<Player>> m_restOfPlayers;
 	};
 }
+
