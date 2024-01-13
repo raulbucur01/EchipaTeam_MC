@@ -76,7 +76,6 @@
     <ClInclude Include="DataBase.h">
       <Filter>DataBase</Filter>
     </ClInclude>
-    <ClInclude Include="Message.h" />
     <ClInclude Include="Purchase.h">
       <Filter>Domain</Filter>
     </ClInclude>
@@ -88,6 +87,9 @@
     </ClInclude>
     <ClInclude Include="node.h">
       <Filter>GameFiles</Filter>
+    </ClInclude>
+    <ClInclude Include="Message.h">
+      <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

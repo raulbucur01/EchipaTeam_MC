@@ -11,7 +11,7 @@ namespace skribbl
 		std::vector<std::pair<std::vector<Node*>, std::string>> nodes;
 
 	public:
-		Graph();
+		Graph()=default;
 		std::vector<std::pair<std::vector<Node*>, std::string>> getNodes() {
 			return nodes;
 		}

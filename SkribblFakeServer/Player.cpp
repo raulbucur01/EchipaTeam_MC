@@ -13,6 +13,21 @@ Player::Player(int id, const std::string& name, const std::string& password, int
 
 }
 
+Player::Player(const Player& p)
+{
+	m_id = p.GetId();
+	m_name = p.GetName();
+	m_password = p.GetPassword();
+	m_messages = p.GetMessages();
+	m_score = p.GetScore();
+	m_coins = p.GetCoins();
+	m_currentIconID = p.GetCurrentIconId();
+}
+
+skribbl::Player::~Player()
+{
+}
+
 int Player::GetId() const
 {
 	return m_id;
@@ -73,16 +88,6 @@ void Player::SetPassword(const std::string& password)
 	m_password = password;
 }
 
-void Player::SetSecondsGuess(int16_t seconds)
-{
-	m_secondsGuess = seconds;
-}
-
-int16_t Player::GetSecondsGuess() const
-{
-	return m_secondsGuess;
-}
-
 std::vector<Message> Player::GetMessages() const
 {
 	return m_messages;
@@ -116,17 +121,6 @@ bool Player::operator==(const Player& p) const
 void Player::AddMessage(Message message) 
 {
 	m_messages.push_back(message);
-}
-
-
-bool Player::GetPainter()
-{
-	return m_painter;
-}
-
-void Player::SetPainter(bool este)
-{
-	m_painter = este;
 }
 
 std::ostream& skribbl::operator<<(std::ostream& os, const Player& player)

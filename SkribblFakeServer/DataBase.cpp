@@ -69,16 +69,7 @@ auto DataBase::getPlayerIterator(const std::string& name)
 	return m_players.end();
 }
 
-void DataBase::addPlayer(Player& player)
-{
-	if (getPlayerIterator(player.GetName()) == m_players.end()) {
-		auto id = m_DB.insert(player);
-		player.SetId(id);
-		m_players[player.GetName()] = player;
-	}
-}
-
-void DataBase::AddPlayer(Player player)
+void DataBase::AddPlayer(const Player& player)
 {
 	if (m_players.find(player.GetName()) != m_players.end())
 		m_playersInGame[player.GetName()] = player;
@@ -254,8 +245,8 @@ void DataBase::printAllWords()
 
 void DataBase::AddPlayertToDB(Player& player)
 {
-	auto id = m_DB.insert(player);
-	player.SetId(id);
+		auto id = m_DB.insert(player);
+		player.SetId(id);
 }
 
 void DataBase::UpdatePlayerCoinsInDB(const std::string& name, int newCoins)
@@ -725,10 +716,12 @@ crow::response AddPlayerHandler::operator()(const crow::request& req) const
 	auto usernameIter = bodyArgs.find("username");
 
 	//nu stiu daca ar trebui sa folosesc move aici ca sa mut player ul din m_players in m_playersInGame
+	if (usernameIter != end)
+	{
+		m_DB.AddPlayer(std::forward<Player>(m_DB.GetPlayer(usernameIter->second)));
 
-	m_DB.AddPlayer(m_DB.GetPlayer(usernameIter->second));
-
-	return crow::response(200, "Added player");
+		return crow::response(200, "Added player");
+	}
 }
 
 RemovePlayerHandler::RemovePlayerHandler(DataBase& storage) :m_DB{ storage }
