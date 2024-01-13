@@ -1,40 +1,41 @@
 #include "DataBase.h"
 #include <regex>
 using namespace http;
+using namespace skribbl;
 import "Node.h";
-void populateDB(Storage& storage)
-{
-	std::vector<Player> players = {
-		Player{-1,"Coco20", "amuitato", 200, 10, 0},
-		Player{-1,"raul807", "parolasmechera", 0, 0, 0},
-		Player{-1,"ronaldoGOAT_CR7", "amuitato2", 0, 0, 0},
-		Player{-1,"vlad", "parolacomplexa", 0, 0, 0},
-	};
-	storage.insert_range(players.begin(), players.end());
-
-	std::ifstream input("Words.txt");
-	std::vector<Word> words;
-	std::string word;
-	while (std::getline(input, word)) {
-		words.emplace_back(-1, word);
-	}
-
-	storage.insert_range(words.begin(), words.end());
-	input.close();
-
-	std::vector<Purchase> purchases = {
-		Purchase{-1, "Coco20", 1},
-		Purchase{-1, "raul807", 3},
-		Purchase{-1, "Coco20", 3}
-	};
-	storage.insert_range(purchases.begin(), purchases.end());
-
-	std::vector<ObtainedScore> obtainedScores = {
-		ObtainedScore{-1, "Coco20", 100},
-		ObtainedScore{-1, "Coco20", 200}
-	};
-	storage.insert_range(obtainedScores.begin(), obtainedScores.end());
-}
+//void populateDB(Storage& storage)
+//{
+//	std::vector<Player> players = {
+//		Player{-1,"Coco20", "amuitato", 200, 10, 0},
+//		Player{-1,"raul807", "parolasmechera", 0, 0, 0},
+//		Player{-1,"ronaldoGOAT_CR7", "amuitato2", 0, 0, 0},
+//		Player{-1,"vlad", "parolacomplexa", 0, 0, 0},
+//	};
+//	storage.insert_range(players.begin(), players.end());
+//
+//	std::ifstream input("Words.txt");
+//	std::vector<Word> words;
+//	std::string word;
+//	while (std::getline(input, word)) {
+//		words.emplace_back(-1, word);
+//	}
+//
+//	storage.insert_range(words.begin(), words.end());
+//	input.close();
+//
+//	std::vector<Purchase> purchases = {
+//		Purchase{-1, "Coco20", 1},
+//		Purchase{-1, "raul807", 3},
+//		Purchase{-1, "Coco20", 3}
+//	};
+//	storage.insert_range(purchases.begin(), purchases.end());
+//
+//	std::vector<ObtainedScore> obtainedScores = {
+//		ObtainedScore{-1, "Coco20", 100},
+//		ObtainedScore{-1, "Coco20", 200}
+//	};
+//	storage.insert_range(obtainedScores.begin(), obtainedScores.end());
+//}
 
 DataBase::DataBase(const std::string& filename) : m_DB(createStorage(filename))
 {
@@ -48,8 +49,10 @@ DataBase::DataBase(const std::string& filename) : m_DB(createStorage(filename))
 	auto initWordCount = m_DB.count<Word>();
 	auto initPurchaseCount = m_DB.count<Purchase>();
 	auto initObtainedScoreCount = m_DB.count<ObtainedScore>();
-	if (initPlayerCount == 0 && initWordCount == 0 && initPurchaseCount == 0 && initObtainedScoreCount == 0)
+	/*if (initPlayerCount == 0 && initWordCount == 0 && initPurchaseCount == 0 && initObtainedScoreCount == 0)
+	{
 		populateDB(m_DB);
+	}*/
 
 	// for testing
 	//addPlayersFromDBToPlayersVector();

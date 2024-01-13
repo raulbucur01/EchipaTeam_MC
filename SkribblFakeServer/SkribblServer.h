@@ -12,7 +12,7 @@
 #include <unordered_set>
 #include "Message.h"
 using namespace sqlite_orm;
-
+using namespace skribbl;
 //using PlayerStorage = storage_t<Player>;
 //using WordStorage = storage_t<Word>;
 
