@@ -35,6 +35,7 @@ private slots:
 	void createThread();
 	void updateChat();
 	void updateTable();
+	void updateDrawing();
 	void on_word1Button_pressed();
 	void on_word2Button_pressed();
 	void on_word3Button_pressed();
@@ -73,4 +74,6 @@ private:
 	bool isPainter=true;
 	QTimer* gameTimer;
 	int seconds;
+	QMutex lineMutex;
+	QMutex gMutex;
 };

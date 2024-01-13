@@ -46,9 +46,12 @@ void SkribblServer::Start(DataBase& storage)
 	auto& getPlayers = CROW_ROUTE(m_app, "/game/getPlayers")
 		.methods(crow::HTTPMethod::GET);
 	getPlayers(GetPlayersHandler(storage.GetPlayersInGame())); //pentru scor o sa fac o ruta pt update la fiecare jucator 
-	auto& sendDrwaing = CROW_ROUTE(m_app, "/round/sendDrawing")
+	auto& sendDrawing = CROW_ROUTE(m_app, "/round/sendDrawing")
 		.methods(crow::HTTPMethod::POST);
-	sendDrwaing(SendDrawingHandler(storage.GetGraph(), storage.GetLine()));
+	sendDrawing(SendDrawingHandler(storage.GetGraph(), storage.GetLine()));
+	auto& getDrawing = CROW_ROUTE(m_app, "/round/getDrawing")
+		.methods(crow::HTTPMethod::GET);
+	getDrawing(GetDrawingHandler(storage.GetGraph()));
 															  
 
 

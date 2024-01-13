@@ -2,6 +2,7 @@
 #include <regex>
 using namespace http;
 import "Node.h";
+#include <tuple>
 void populateDB(Storage& storage)
 {
 	std::vector<Player> players = {
@@ -832,7 +833,6 @@ SendDrawingHandler::SendDrawingHandler(Graph& graph, std::vector<Node*>& line):
 
 crow::response SendDrawingHandler::operator()(const crow::request& req) const
 {
-	
 	auto bodyArgs = parseUrlArgs(req.body);
 	auto end = bodyArgs.end();
 	auto coordinateXIter = bodyArgs.find("coordinateX");
@@ -860,4 +860,40 @@ crow::response SendDrawingHandler::operator()(const crow::request& req) const
 	else
 		return crow::response(401);
 		
+}
+
+GetDrawingHandler::GetDrawingHandler(Graph& graph) : m_graph{graph}
+{
+}
+
+crow::response GetDrawingHandler::operator()(const crow::request& req) const
+{
+	    std::vector<crow::json::wvalue> resultGraph;
+		int index = 0;
+		for (auto& line : m_graph.getNodes())
+		{	
+			auto red = std::get<0>(line.second);
+			auto green = std::get<1>(line.second);
+			auto blue = std::get<2>(line.second);
+
+			for (const auto& node : line.first)
+			{
+				auto coordinates = node->getPosition();
+				resultGraph.push_back(crow::json::wvalue{
+					{"idLine",index},
+					{"coordinateX", coordinates.first},
+					{"coordinateY", coordinates.second},
+					{"red", red},
+					{"green", green},
+					{"blue", blue} }
+				);
+			}
+			index++;
+			
+		}
+		return crow::json::wvalue{ resultGraph };
+	
+	
+	return crow::response(404);
+
 }

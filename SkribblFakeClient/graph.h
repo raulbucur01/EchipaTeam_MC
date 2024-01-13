@@ -23,6 +23,7 @@ public:
 	vector<std::pair<vector<Node*>,QColor>> getNodes() {
 		return nodes;
 	}
+	int GetSize();
 	void addNodes(std::pair<vector<Node*>,QColor> n) {
 		nodes.push_back(n);
 	}

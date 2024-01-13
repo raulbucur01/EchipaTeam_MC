@@ -158,6 +158,7 @@ void GamePage::createThread()
 {
 	QtConcurrent::run([this]() {updateChat(); });
 	QtConcurrent::run([this]() {updateTable(); });
+	QtConcurrent::run([this]() {updateDrawing(); });
 }
 
 void GamePage::updateChat()
@@ -210,6 +211,36 @@ void GamePage::updateTable()
 		ui.tabelaScor->setItem(position++, 1, new QTableWidgetItem(QString::number(score)));
 	}
 
+}
+
+void GamePage::updateDrawing()
+{
+	cpr::Response response = cpr::Get(cpr::Url{ "http://localhost:18080/round/getDrawing" });
+	crow::json::rvalue drawingResponse = crow::json::load(response.text);
+	int position = 0;
+	QMutexLocker lineLocker(&lineMutex);
+	for (auto& node : drawingResponse)
+	{
+		currentColor=QColor::fromRgb(std::stof(node["red"].s()),std::stof(node["green"].s()),std::stof(node["blue"].s()));
+		if (node["idLine"].d() == g.GetSize())
+		{
+			position++;
+
+			if (position > line.size())
+			{
+				Node* nodeNew = new Node(QPoint(node["coordinateX"].d(), node["coordinateY"].d()));
+				line.push_back(nodeNew);
+			}
+		}
+		else
+			if (node["idLine"].d()>g.GetSize())
+			{
+				g.addNodes(std::make_pair( line,currentColor ));
+				line.clear();
+				Node* nodeNew = new Node(QPoint(node["coordinateX"].d(),node["coordinateY"].d()));
+				line.push_back(nodeNew);
+			}
+	}
 }
 
 
@@ -391,6 +422,7 @@ void GamePage::mousePressEvent(QMouseEvent* e)
 		{
 			painting = true;
 			bool node = true;
+			QMutexLocker locker(&lineMutex);
 			if (rectangle.contains(e->pos()) == false)
 			{
 				node = false;
@@ -411,6 +443,7 @@ void GamePage::mouseMoveEvent(QMouseEvent* e)
 {
 	if ((e->buttons() && Qt::RightButton) && painting)
 	{
+		QMutexLocker locker(&lineMutex);
 		if (rectangle.contains(e->pos()))
 		{
 			QtConcurrent::run(sendDrawing, e->pos().x(), e->pos().y(), painting, 0,0,0);
@@ -426,6 +459,7 @@ void GamePage::mouseReleaseEvent(QMouseEvent* e)
 {
 	if (e->button() == Qt::RightButton)
 	{
+		QMutexLocker locker(&lineMutex);
 		float red= currentColor.redF();
 		float blue= currentColor.blueF();
 		float green= currentColor.greenF();

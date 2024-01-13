@@ -263,3 +263,10 @@ private:
 	Graph& m_graph;
 	std::vector<Node*>&m_line;
 };
+class GetDrawingHandler {
+public:
+	GetDrawingHandler(Graph& graph);
+	crow::response operator()(const crow::request& req) const;
+private:
+	Graph& m_graph;
+};
