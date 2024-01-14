@@ -5,7 +5,7 @@
 using namespace skribbl;
 
 int main() {
-	skribbl::DataBase DB("SkribblData.sqlite");
+	DataBase DB("SkribblData.sqlite");
 	//DB.PrintAll<Player>();
 	//DB.PrintAll<Purchase>();
 	//DB.PrintAll<ObtainedScore>();
