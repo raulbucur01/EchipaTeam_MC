@@ -2,6 +2,15 @@
 #include "GameRound.h"
 namespace skribbl
 {
+	enum class Stage : uint16_t
+	{
+		Lobby,
+		Choosing,
+		Drawing,
+		Results,
+		FinalResults
+	};
+
 	class Game
 	{
 	public:

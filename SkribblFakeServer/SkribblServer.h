@@ -11,6 +11,7 @@
 #include <optional>
 #include <unordered_set>
 #include "Message.h"
+#include "Game.h"
 using namespace sqlite_orm;
 using namespace skribbl;
 //using PlayerStorage = storage_t<Player>;
@@ -25,4 +26,5 @@ public:
 private:
     crow::SimpleApp m_app;
     DataBase storage;
+    Game game;
 };
