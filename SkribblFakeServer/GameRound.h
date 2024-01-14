@@ -2,14 +2,14 @@
 #include<unordered_map>
 #include "DataBase.h"
 #include <memory>
-
+#include "crow.h"
 
 namespace skribbl
 {
 	class GameRound
 	{
 public:
-	GameRound(DataBase& dB);
+	GameRound(DataBase& dB, crow::SimpleApp&app);
 	~GameRound();
 	//const Graph& GetGraph() const;
 
@@ -25,6 +25,7 @@ public:
 
 private:
 	DataBase m_dB;
+	crow::SimpleApp& m_app;
 	std::unordered_map<std::string, int16_t> m_pointsAcumulated;
 	std::unordered_map<std::string, int> m_secondsForGuess;
 	int m_secondsPassed;
@@ -32,6 +33,8 @@ private:
 	std::vector< std::unique_ptr<Player>> m_restOfPlayers;
 	Word m_word;
 	std::vector<Word> m_wordChoice;
+	
+	
 	};
 }
 

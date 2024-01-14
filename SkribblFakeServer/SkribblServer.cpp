@@ -91,13 +91,16 @@ void SkribblServer::Start()
 	auto& RandomWordsFromDB = CROW_ROUTE(m_app, "/RandomWordsFromDB")
 		.methods(crow::HTTPMethod::GET);
 	RandomWordsFromDB(RandomWordsFromDBHandler(storage));
+	//auto& stageGame = CROW_ROUTE(m_app, "/stage")
+		//.methods(crow::HTTPMethod::GET);
+	//stageGame(stageGameHandler());
 
 	m_app.port(18080).multithreaded().run();
 }
 
 void SkribblServer::GameStart()
 {
-	Game* game = new Game(storage);
+	Game* game = new Game(storage,m_app);
 	storage = game->gameStart();
 	delete game;
 }

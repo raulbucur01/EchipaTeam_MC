@@ -199,7 +199,7 @@ void GamePage::updateTable()
 {
 	cpr::Response response = cpr::Get(cpr::Url{ "http://localhost:18080/game/getPlayers" });
 	crow::json::rvalue playerResponse = crow::json::load(response.text);
-
+	QMutexLocker locker(&lineMutex);
 	ui.tabelaScor->clearContents();
 	int position = 0;
 	for (const auto &person : playerResponse)
@@ -220,29 +220,35 @@ void GamePage::updateDrawing()
 	cpr::Response response = cpr::Get(cpr::Url{ "http://localhost:18080/round/getDrawing" });
 	crow::json::rvalue drawingResponse = crow::json::load(response.text);
 	int position = 0;
-	for (auto& node : drawingResponse)
-	{
-		currentColor=QColor::fromRgb(std::stoi(node["red"].s()),std::stoi(node["green"].s()),std::stoi(node["blue"].s()));
-		if (node["idLine"].d() == g.GetSize())
+	auto node1 = drawingResponse[0];
+	g.clear();
+	line.clear();
+	update();
+	if (g.GetSize() == 0 && line.size() == 0)
 		{
-			position++;
+		Node* nodeNew = new Node(QPoint(node1["coordinateX"].d(), node1["coordinateY"].d()));
+		line.push_back(nodeNew);
+		update();
+		}
+	for (int index=1;index<drawingResponse.size();index++)
+	{
 
-			if (position > line.size())
-			{
-				Node* nodeNew = new Node(QPoint(node["coordinateX"].d(), node["coordinateY"].d()));
-				line.push_back(nodeNew);
-				update();
-			}
+		if (drawingResponse[index]["idLine"].d() == drawingResponse[index - 1]["idLine"].d())
+		{
+			Node* nodeNew = new Node(QPoint(drawingResponse[index]["coordinateX"].d(), drawingResponse[index]["coordinateY"].d()));
+			line.push_back(nodeNew);
+			update();
 		}
 		else
-			if (node["idLine"].d()>g.GetSize())
-			{
-				g.addNodes(std::make_pair( line,currentColor ));
-				line.clear();
-				Node* nodeNew = new Node(QPoint(node["coordinateX"].d(),node["coordinateY"].d()));
-				line.push_back(nodeNew);
-				update();
-			}
+		{
+			g.addNodes(std::make_pair(line, currentColor));
+			line.clear();
+			Node* nodeNew = new Node(QPoint(drawingResponse[index]["coordinateX"].d(), drawingResponse[index]["coordinateY"].d()));
+			line.push_back(nodeNew);
+			update();
+		}
+		currentColor = QColor::fromRgb(std::stoi(drawingResponse[index]["red"].s()), std::stoi(drawingResponse[index]["green"].s()), std::stoi(drawingResponse[index]["blue"].s()));
+
 	}
 }
 
@@ -414,8 +420,8 @@ void sendDrawing(int x, int y, bool painting,int red,int green,int blue) {
 		+ "&coordinateY=" + std::to_string(y) +
 		"&painting=" + boolToString(painting) +
 		"&red=" + std::to_string(red) +
-		"&green=" + std::to_string(blue) +
-		"&blue=" + std::to_string(green) });
+		"&green=" + std::to_string(green) +
+		"&blue=" + std::to_string(blue) });
 }
 void GamePage::mousePressEvent(QMouseEvent* e)
 {
@@ -446,6 +452,8 @@ void GamePage::mouseMoveEvent(QMouseEvent* e)
 {
 	if ((e->buttons() && Qt::RightButton) && painting)
 	{
+		//verificare puncte 
+
 		QMutexLocker locker(&lineMutex);
 		if (rectangle.contains(e->pos()))
 		{
@@ -463,17 +471,20 @@ void GamePage::mouseReleaseEvent(QMouseEvent* e)
 	if (e->button() == Qt::RightButton)
 	{
 		QMutexLocker locker(&lineMutex);
-		int red= currentColor.red();
-		int blue= currentColor.blue();
-		int green= currentColor.green();
-		painting = false;
-		QtConcurrent::run(sendDrawing, e->pos().x(), e->pos().y(), painting,red,green,blue);
-		Node* curent = new Node(e->pos());
-		line.push_back(curent);
-		//transmitere desen server;
-		g.addNodes(std::make_pair(line, currentColor));
-		line.clear();
-		update();
+		if (rectangle.contains(e->pos()))
+		{
+			int red = currentColor.red();
+			int blue = currentColor.blue();
+			int green = currentColor.green();
+			painting = false;
+			QtConcurrent::run(sendDrawing, e->pos().x(), e->pos().y(), painting, red, green, blue);
+			Node* curent = new Node(e->pos());
+			line.push_back(curent);
+			//transmitere desen server;
+			g.addNodes(std::make_pair(line, currentColor));
+			line.clear();
+			update();
+		}
 	}
 }
 void GamePage::paintEvent(QPaintEvent* event)

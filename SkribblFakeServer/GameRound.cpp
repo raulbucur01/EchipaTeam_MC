@@ -4,8 +4,8 @@
 
 using namespace skribbl;
 
-skribbl::GameRound::GameRound(DataBase& dB):
-	m_dB { std::move(dB) }
+skribbl::GameRound::GameRound(DataBase& dB, crow::SimpleApp&app):
+	m_dB { std::move(dB) },m_app{app}
 {
 	m_secondsPassed = 0;
 	std::unordered_map<std::string, Player>::iterator it = m_dB.GetPlayersInGame().begin();
@@ -30,10 +30,12 @@ DataBase& skribbl::GameRound::roundStart()
 	int index = 0;
 	while (index < m_restOfPlayers.size())
 	{
-		//aici ar trebui sa setma cine deseneaza si cine nu si sa inceapa pe client wordChoosingSequence
+		//aici ar trebui sa setmam cine deseneaza si cine nu si sa inceapa pe client wordChoosingSequence
 		verifChoice();
+		
 		//aici ar trebui sa avem deja cuvantul si sa l trimitem catre tot serverul ca sa apara acolo sus in
 		//functie de ce rol are fiecare (la painter tot si la restul cu revealOneRandomLetter
+		//presupun ca am deja cuvantul aici;
 		roundTimer();
 
 		computeScore();

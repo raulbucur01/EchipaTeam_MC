@@ -1,9 +1,8 @@
 #include "Game.h"
-
 using namespace skribbl;
 
-skribbl::Game::Game(DataBase& dB):
-	m_dB {std::move(dB)}
+skribbl::Game::Game(DataBase& dB, crow::SimpleApp&app):
+	m_dB {std::move(dB)},m_app{app}
 {
 }
 
@@ -13,7 +12,7 @@ DataBase& skribbl::Game::gameStart()
 
 	for (int i = 0; i < 4; i++)
 	{
-		GameRound* round = new GameRound(m_dB);
+		GameRound* round = new GameRound(m_dB,m_app);
 		m_dB = round->roundStart();
 		delete round;
 	}

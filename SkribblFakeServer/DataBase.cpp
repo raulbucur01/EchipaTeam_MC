@@ -863,11 +863,11 @@ crow::response SendDrawingHandler::operator()(const crow::request& req) const
 	auto greenIter = bodyArgs.find("green");
 	auto blueIter = bodyArgs.find("blue");
 	auto isPaintingIter = bodyArgs.find("painting");
-
 	if (isPaintingIter != end)
 	{
 		if (isPaintingIter->second == "false")
 		{
+
 			if (redIter != end && greenIter != end && blueIter != end)
 			{
 				m_graph.addNodes(std::make_pair(m_line, std::make_tuple(redIter->second, greenIter->second, blueIter->second)));
@@ -896,11 +896,11 @@ crow::response GetDrawingHandler::operator()(const crow::request& req) const
 	    std::vector<crow::json::wvalue> resultGraph;
 		int index = 0;
 		for (auto& line : m_graph.getNodes())
-		{	
+		{
+			
 			std::string red = std::get<0>(line.second);
 			std::string green = std::get<1>(line.second);
 			std::string blue = std::get<2>(line.second);
-
 			for (const auto& node : line.first)
 			{
 				auto coordinates = node->getPosition();
