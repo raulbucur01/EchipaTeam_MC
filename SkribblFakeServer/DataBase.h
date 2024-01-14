@@ -250,6 +250,7 @@ namespace skribbl
 	private:
 		Graph& m_graph;
 		std::vector<Node*>& m_line;
+
 	};
 	class GetDrawingHandler {
 	public:
@@ -258,6 +259,7 @@ namespace skribbl
 	private:
 		Graph& m_graph;
 	};
+
 	class RetrieveOwnedIconsHandler {
 	public:
 		RetrieveOwnedIconsHandler(DataBase& storage);

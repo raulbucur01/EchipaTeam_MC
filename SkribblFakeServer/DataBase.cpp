@@ -847,14 +847,18 @@ crow::response SendDrawingHandler::operator()(const crow::request& req) const
 	auto greenIter = bodyArgs.find("green");
 	auto blueIter = bodyArgs.find("blue");
 	auto isPaintingIter = bodyArgs.find("painting");
+
 	if (isPaintingIter != end)
 	{
 		if (isPaintingIter->second == "false")
 		{
-			m_graph.addNodes(std::make_pair(m_line,std::make_tuple(redIter->second,greenIter->second,blueIter->second)));
-			m_line.clear();
+			if (redIter != end && greenIter != end && blueIter != end)
+			{
+				m_graph.addNodes(std::make_pair(m_line, std::make_tuple(redIter->second, greenIter->second, blueIter->second)));
+				m_line.clear();
+			}
 		}
-		else
+		else if(coordinateXIter!=end && coordinateYIter!=end)
 		{
 			uint16_t x = stoi(coordinateXIter->second);
 			uint16_t y = stoi(coordinateYIter->second);
@@ -865,7 +869,6 @@ crow::response SendDrawingHandler::operator()(const crow::request& req) const
 	}
 	else
 		return crow::response(401);
-		
 }
 
 GetDrawingHandler::GetDrawingHandler(Graph& graph) : m_graph{graph}
@@ -878,9 +881,9 @@ crow::response GetDrawingHandler::operator()(const crow::request& req) const
 		int index = 0;
 		for (auto& line : m_graph.getNodes())
 		{	
-			auto red = std::get<0>(line.second);
-			auto green = std::get<1>(line.second);
-			auto blue = std::get<2>(line.second);
+			std::string red = std::get<0>(line.second);
+			std::string green = std::get<1>(line.second);
+			std::string blue = std::get<2>(line.second);
 
 			for (const auto& node : line.first)
 			{
@@ -900,6 +903,5 @@ crow::response GetDrawingHandler::operator()(const crow::request& req) const
 		return crow::json::wvalue{ resultGraph };
 	
 	
-	return crow::response(404);
 
 }

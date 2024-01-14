@@ -215,13 +215,14 @@ void GamePage::updateTable()
 
 void GamePage::updateDrawing()
 {
+	QMutexLocker lineLocker(&lineMutex);
+
 	cpr::Response response = cpr::Get(cpr::Url{ "http://localhost:18080/round/getDrawing" });
 	crow::json::rvalue drawingResponse = crow::json::load(response.text);
 	int position = 0;
-	QMutexLocker lineLocker(&lineMutex);
 	for (auto& node : drawingResponse)
 	{
-		currentColor=QColor::fromRgb(std::stof(node["red"].s()),std::stof(node["green"].s()),std::stof(node["blue"].s()));
+		currentColor=QColor::fromRgb(std::stoi(node["red"].s()),std::stoi(node["green"].s()),std::stoi(node["blue"].s()));
 		if (node["idLine"].d() == g.GetSize())
 		{
 			position++;
@@ -230,6 +231,7 @@ void GamePage::updateDrawing()
 			{
 				Node* nodeNew = new Node(QPoint(node["coordinateX"].d(), node["coordinateY"].d()));
 				line.push_back(nodeNew);
+				update();
 			}
 		}
 		else
@@ -239,6 +241,7 @@ void GamePage::updateDrawing()
 				line.clear();
 				Node* nodeNew = new Node(QPoint(node["coordinateX"].d(),node["coordinateY"].d()));
 				line.push_back(nodeNew);
+				update();
 			}
 	}
 }
@@ -284,7 +287,7 @@ GamePage::GamePage(QWidget* parent,Player player)
 	ui.wordLabel->setText(QString::fromStdString("vlad"));
 	ui.wordLabel->show();
 	QTimer* timer = new QTimer(this);
-	timer->start(100);
+	timer->start(1000);
 	connect(timer, &QTimer::timeout, this, &GamePage::createThread);
 
 	//connect(timer, &QTimer::timeout, this,&GamePage::updatePlayers);
@@ -405,7 +408,7 @@ void GamePage::updateTimer()
 	if (seconds == 60)
 		gameTimer->stop();
 }
-void sendDrawing(int x, int y, bool painting,float red=0,float blue=0,float green=0) {
+void sendDrawing(int x, int y, bool painting,int red,int green,int blue) {
 	auto response = cpr::Post(cpr::Url{ "http://localhost:18080/round/sendDrawing" },
 		cpr::Body{ "coordinateX=" + std::to_string(x)
 		+ "&coordinateY=" + std::to_string(y) +
@@ -460,9 +463,9 @@ void GamePage::mouseReleaseEvent(QMouseEvent* e)
 	if (e->button() == Qt::RightButton)
 	{
 		QMutexLocker locker(&lineMutex);
-		float red= currentColor.redF();
-		float blue= currentColor.blueF();
-		float green= currentColor.greenF();
+		int red= currentColor.red();
+		int blue= currentColor.blue();
+		int green= currentColor.green();
 		painting = false;
 		QtConcurrent::run(sendDrawing, e->pos().x(), e->pos().y(), painting,red,green,blue);
 		Node* curent = new Node(e->pos());
