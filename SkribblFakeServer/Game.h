@@ -1,5 +1,6 @@
 #pragma once
 #include "GameRound.h"
+#include <queue>
 namespace skribbl
 {
 	enum class Stage : uint16_t
@@ -14,17 +15,20 @@ namespace skribbl
 	class Game
 	{
 	public:
-		Game(DataBase& dB, crow::SimpleApp& app);
-
-		DataBase& gameStart();
-		void verifStartPressed();
-		int GetGameId();
+		Game();
+		void setStages(int playerNumber);
+		void incrementIndex();
+		Stage getCurrentStage();
+		void setPlayers(std::unordered_map<std::string, Player>& players);
+		void setQueue();
+		std::string getWhoPaints();
+		void incrementPainter();
 
 	private:
-		DataBase m_dB;
-		crow::SimpleApp& m_app;
-		int m_gameID;
-
+		std::vector<Stage> m_stage;
+		int m_CurentStageIndex;
+		std::unordered_map<std::string, Player> m_players;
+		std::queue<std::string> m_painter;
 	};
 }
 

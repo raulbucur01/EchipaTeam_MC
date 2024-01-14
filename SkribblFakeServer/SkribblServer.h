@@ -22,6 +22,7 @@ public:
     SkribblServer(DataBase& dB);
     void Start();
     void GameStart();
+    void GameLoop();
 
 private:
     crow::SimpleApp m_app;
