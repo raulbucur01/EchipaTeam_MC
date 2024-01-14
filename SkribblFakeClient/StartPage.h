@@ -15,6 +15,7 @@ namespace Window
 		StartPage(QWidget* parent = nullptr);
 		~StartPage();
 
+
 	private slots:
 		void on_pushButton_Start_pressed();
 		void on_exitButton_pressed();

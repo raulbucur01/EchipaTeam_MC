@@ -33,8 +33,8 @@ public:
 	// operators
 	bool operator==(const Word& other) const;
 	Word& operator=(const Word& other);
-	//std::ostream& operator<<(std::ostream& os, const Word& word);
-	/*friend std::ostream& operator<<(std::ostream& os, const Word& word);*/
+	friend std::ostream& operator<<(std::ostream& os, const Word& word);
+
 
 private:
 	int m_id;

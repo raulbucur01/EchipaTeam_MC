@@ -1,9 +1,13 @@
 #include "Game.h"
+#include <ctime>
+
 using namespace skribbl;
 
 skribbl::Game::Game(DataBase& dB, crow::SimpleApp&app):
 	m_dB {std::move(dB)},m_app{app}
 {
+	srand(time(0));
+	m_gameID = std::rand() % 100000;
 }
 
 DataBase& skribbl::Game::gameStart()
@@ -25,4 +29,9 @@ void skribbl::Game::verifStartPressed()
 {
 	//aici ar trebui sa verificam daca butonul start a fost apasat
 	//si nu ar trebui sa lase programul sa continue pana nu este apasat;
+}
+
+int skribbl::Game::GetGameId()
+{
+	return m_gameID;
 }

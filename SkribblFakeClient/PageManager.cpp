@@ -11,9 +11,9 @@ PageManager::~PageManager()
 	destroyAllPages();
 }
 
-QWidget* PageManager::createGamePage(QWidget* parrent,Player player)
+QWidget* PageManager::createGamePage(QWidget* parrent,Player player,bool leader)
 {
-	QWidget* newGamePage = new GamePage(parrent,player);
+	QWidget* newGamePage = new GamePage(parrent,player,leader);
 	pages.append(newGamePage);
 	return newGamePage;
 }

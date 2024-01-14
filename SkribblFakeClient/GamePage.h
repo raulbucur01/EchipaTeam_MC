@@ -12,6 +12,7 @@
 #include "Word.h"
 #include <array>
 #include <QtConcurrent>
+#include "PageManager.h"
 class GamePage : public QWidget
 {
 	Q_OBJECT
@@ -40,10 +41,11 @@ private slots:
 	void on_word2Button_pressed();
 	void on_word3Button_pressed();
 	void on_startButton_pressed();
+	void on_exitCurrentGame_pressed();
 	
 
 public:
-	GamePage(QWidget* parent = nullptr, Player player = {});
+	GamePage(QWidget* parent = nullptr, Player player = {},bool leader=false);
 	virtual ~GamePage();
 	void mousePressEvent(QMouseEvent* e);
 	void mouseMoveEvent(QMouseEvent* e);
@@ -54,6 +56,7 @@ public:
 	void wordChoosingSequence();
 	void randomWordsFromDB();
 	void updateTimer();
+	void setLobbyLeader(bool este);
 
 private:
 	void paintEvent(QPaintEvent* event);
@@ -61,7 +64,7 @@ private:
 private:
 	QStandardItemModel* messages;
 	Ui::GamePageClass ui;
-	QRect rectangle;
+	QRect* rectangle;
 	Graph g;
 	vector<Node*> line;
 	bool painting = false;
@@ -76,4 +79,7 @@ private:
 	int seconds;
 	QMutex lineMutex;
 	QMutex gMutex;
+	PageManager pages;
+	bool choiceMade;
+	bool lobbyLeader;
 };

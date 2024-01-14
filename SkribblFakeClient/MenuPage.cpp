@@ -13,6 +13,7 @@ MenuPage::MenuPage(QWidget* parent,crow::json::rvalue player)
 	m_username = QString::fromUtf8(m_player.GetName().data(),int( m_player.GetName().size()));
 	setFixedSize(1000, 750);
 	ui.groupBox_GameMenu->move((this->size().width() - ui.groupBox_GameMenu->size().width()) / 2, (this->size().height() - ui.groupBox_GameMenu->size().height()) / 2);
+	ui.groupBox_GameMenu->show();
 	connect(ui.pushButton_Profile, &QPushButton::pressed, this, &MenuPage::on_pushButton_Profile_pressed);
 	connect(ui.pushButton_Shop, &QPushButton::pressed, this, &MenuPage::on_pushButton_Shop_pressed);
 	connect(ui.pushButton_CreateLobby, &QPushButton::pressed, this, &MenuPage::on_pushButton_CreateLobby_pressed);
@@ -51,7 +52,7 @@ void MenuPage::on_pushButton_CreateLobby_pressed() {
 	delete ui.groupBox_GameMenu;
 	delete ui.exitButton;
 
-	QWidget* gamePage = pages.createGamePage(this,m_player);
+	QWidget* gamePage = pages.createGamePage(this,m_player,true);
 	gamePage->show();
 }
 
@@ -61,7 +62,7 @@ void MenuPage::on_pushButton_JoinLobby_pressed() {
 	delete ui.groupBox_GameMenu;
 	delete ui.exitButton;
 	std::string username= m_username.toUtf8().constData();
-	QWidget* gamePage = pages.createGamePage(this,m_player);
+	QWidget* gamePage = pages.createGamePage(this,m_player,false);
 	cpr::Response res = cpr::Put(cpr::Url{ "http://localhost:18080/game/addPlayer" },
 		cpr::Body{ "username=" + username });
 

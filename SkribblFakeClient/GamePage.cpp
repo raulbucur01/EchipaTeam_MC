@@ -9,9 +9,10 @@
 #include <crow.h>
 #include <QTimer>
 #include<QGraphicsEffect>
+#include <QMessagebox.h>
 std::string boolToString(bool painting)
 {
-	return painting ? "true":"false";
+	return painting ? "true" : "false";
 }
 void GamePage::sendMessage()
 {
@@ -24,10 +25,10 @@ void GamePage::sendMessage()
 	}
 	*/
 	//ui.displayMessage->setModel(messages);
-	std::string word= ui.mesageBox->toPlainText().toUtf8().constData();
+	std::string word = ui.mesageBox->toPlainText().toUtf8().constData();
 	ui.mesageBox->clear();
-	auto res = cpr::Post(cpr::Url{"http://localhost:18080/chat/send"},
-		cpr::Body{ "username="+m_playerCurrent.GetName() + "&message=" + word});
+	auto res = cpr::Post(cpr::Url{ "http://localhost:18080/chat/send" },
+		cpr::Body{ "username=" + m_playerCurrent.GetName() + "&message=" + word });
 }
 
 void GamePage::on_black_button_pressed()
@@ -103,6 +104,7 @@ void GamePage::on_word1Button_pressed()
 	ui.horizontalLayoutWidget->hide();
 	//word.SetWord(words[0]);
 	canPaint = true;
+	choiceMade = true;
 	seconds = 0;
 	gameTimer->start(1000);
 	connect(gameTimer, &QTimer::timeout, this, &GamePage::updateTimer);
@@ -114,6 +116,7 @@ void GamePage::on_word2Button_pressed()
 	ui.horizontalLayoutWidget->hide();
 	//word.SetWord(words[1]);
 	canPaint = true;
+	choiceMade = true;
 	seconds = 0;
 	gameTimer->start(1000);
 	connect(gameTimer, &QTimer::timeout, this, &GamePage::updateTimer);
@@ -125,6 +128,7 @@ void GamePage::on_word3Button_pressed()
 	ui.horizontalLayoutWidget->hide();
 	//word.SetWord(words[2]);
 	canPaint = true;
+	choiceMade = true;
 	seconds = 0;
 	gameTimer->start(1000);
 	connect(gameTimer, &QTimer::timeout, this, &GamePage::updateTimer);
@@ -143,9 +147,54 @@ void GamePage::on_startButton_pressed()
 		canPaint = true;
 	timer->stop();
 	timer->deleteLater();
-	seconds = 0;
-	gameTimer->start(1000);
-	connect(gameTimer, &QTimer::timeout, this, &GamePage::updateTimer); });
+	if (choiceMade == false)
+	{
+		seconds = 0;
+		gameTimer->start(1000);
+		connect(gameTimer, &QTimer::timeout, this, &GamePage::updateTimer);
+	} });
+}
+
+void GamePage::on_exitCurrentGame_pressed()
+{
+	/*ui.gridLayoutWidget->hide();
+	ui.horizontalLayoutWidget->hide();
+	ui.verticalLayoutWidget->hide();
+	ui.exitButton->hide();
+	ui.exitCurrentGame->hide();
+	ui.someoneChoosing->hide();
+	ui.startButton->hide();
+	ui.tabelaScor->hide();
+	ui.timerLabel->hide();
+	ui.veil->hide();
+	ui.wordLabel->hide();
+
+	delete rectangle;
+	delete ui.horizontalLayoutWidget;
+	delete ui.gridLayoutWidget;
+	delete ui.verticalLayoutWidget;
+	delete ui.exitButton;
+	delete ui.exitCurrentGame;
+	delete ui.someoneChoosing;
+	delete ui.startButton;
+	delete ui.tabelaScor;
+	delete ui.timerLabel;
+	delete ui.veil;
+	delete ui.wordLabel;
+
+	std::string username = m_playerCurrent.GetName();
+	std::string url = "http://localhost:18080/getPlayerInformation";
+	cpr::Response response = cpr::Get(cpr::Url(url), cpr::Body{ "username=" + username });
+	if (response.status_code == 200)
+	{
+		crow::json::rvalue player = crow::json::load(response.text);
+		QWidget* menuPage = pages.createMenuPage(this, player);
+		menuPage->show();
+	}
+	else {
+		auto json = crow::json::load(response.text);
+		QMessageBox::warning(this, "Error!", QString::fromUtf8(response.text.data(), int(response.text.size())));
+	}*/
 }
 
 /*void GamePage::updatePlayers()
@@ -164,7 +213,7 @@ void GamePage::createThread()
 void GamePage::updateChat()
 {
 	cpr::Response response = cpr::Get(cpr::Url{ "http://localhost:18080/chat/get" },
-									  cpr::Body{"username="+m_playerCurrent.GetName()});
+		cpr::Body{ "username=" + m_playerCurrent.GetName() });
 	auto words = response.text;
 	crow::json::rvalue messagesResponse = crow::json::load(words);
 
@@ -181,7 +230,7 @@ void GamePage::updateChat()
 
 		if (position >= count)
 		{
-			auto name= QString::fromUtf8(playerName.c_str());
+			auto name = QString::fromUtf8(playerName.c_str());
 			name += QString(": ");
 			name += v;
 			messages->appendRow(new QStandardItem(name));
@@ -202,11 +251,11 @@ void GamePage::updateTable()
 	QMutexLocker locker(&lineMutex);
 	ui.tabelaScor->clearContents();
 	int position = 0;
-	for (const auto &person : playerResponse)
+	for (const auto& person : playerResponse)
 	{
 		std::string name = person["name"].s();
 		int score = person["score"].d();
-	
+
 		ui.tabelaScor->setItem(position, 0, new QTableWidgetItem(QString::fromUtf8(name.c_str())));
 		ui.tabelaScor->setItem(position++, 1, new QTableWidgetItem(QString::number(score)));
 	}
@@ -224,12 +273,7 @@ void GamePage::updateDrawing()
 	g.clear();
 	line.clear();
 	update();
-	if (g.GetSize() == 0 && line.size() == 0)
-		{
-		Node* nodeNew = new Node(QPoint(node1["coordinateX"].d(), node1["coordinateY"].d()));
-		line.push_back(nodeNew);
-		update();
-		}
+		
 	for (int index=1;index<drawingResponse.size();index++)
 	{
 
@@ -249,17 +293,20 @@ void GamePage::updateDrawing()
 		}
 		currentColor = QColor::fromRgb(std::stoi(drawingResponse[index]["red"].s()), std::stoi(drawingResponse[index]["green"].s()), std::stoi(drawingResponse[index]["blue"].s()));
 
+
 	}
 }
 
 
-GamePage::GamePage(QWidget* parent,Player player)
-	: QWidget(parent),m_playerCurrent{player}
+GamePage::GamePage(QWidget* parent, Player player,bool leader)
+	: QWidget(parent), m_playerCurrent{ player } , lobbyLeader{leader}
 {
 	messages = new QStandardItemModel(this);
 	ui.setupUi(this);
 	m_players.push_back(player);
 	isPainter = true;
+	choiceMade = false;
+	ui.timerLabel->setText("Time Left:");
 	//m_player{};
 	ui.exitButton->setStyleSheet(QString("#%1 { background-color: red; }").arg(ui.exitButton->objectName()));
 	connect(ui.exitButton, &QPushButton::pressed, this, &GamePage::on_exitButton_pressed);
@@ -268,7 +315,8 @@ GamePage::GamePage(QWidget* parent,Player player)
 	int rectangleHeight = this->size().height() / 2;
 	int x = (this->size().width() - rectangleWidth) / 2;
 	int y = (this->size().height() - rectangleHeight) / 2;
-	rectangle.setRect(x, y, rectangleWidth, rectangleHeight);
+	rectangle = new QRect();
+	rectangle->setRect(x, y, rectangleWidth, rectangleHeight);
 	connect(ui.sendButton, &QPushButton::pressed, this, &GamePage::sendMessage);
 	setupTabela();
 	setupChat();
@@ -276,7 +324,11 @@ GamePage::GamePage(QWidget* parent,Player player)
 	//word.SetWord("vlad");
 	ui.horizontalLayoutWidget->hide();
 	ui.someoneChoosing->hide();
-	ui.startButton->move(rectangle.center().x() - ui.startButton->width() / 2, rectangle.center().y() - ui.startButton->height() / 2);
+	if (lobbyLeader == false)
+	{
+		ui.startButton->hide();
+	}
+	ui.startButton->move(rectangle->center().x() - ui.startButton->width() / 2, rectangle->center().y() - ui.startButton->height() / 2);
 	ui.startButton->setText("Start!");
 	ui.startButton->setFont(QFont("Arial", 40));
 	QPalette paleta = ui.startButton->palette();
@@ -284,12 +336,12 @@ GamePage::GamePage(QWidget* parent,Player player)
 	ui.startButton->setPalette(paleta);
 	ui.startButton->setStyleSheet(QString("#%1 { background-color: lightgreen; }").arg(ui.startButton->objectName()));
 	ui.veil->setStyleSheet("background-color: black;");
-	ui.veil->setFixedSize(rectangle.size());
-	ui.veil->move(rectangle.topLeft());
+	ui.veil->setFixedSize(rectangle->size());
+	ui.veil->move(rectangle->topLeft());
 	QGraphicsOpacityEffect* opacityEffect = new QGraphicsOpacityEffect;
 	opacityEffect->setOpacity(0.5);
 	ui.veil->setGraphicsEffect(opacityEffect);
-	ui.wordLabel->move(rectangle.x() + rectangle.width() / 2, rectangle.y() - 50);
+	ui.wordLabel->move(rectangle->x() + rectangle->width() / 2, rectangle->y() - 50);
 	ui.wordLabel->setText(QString::fromStdString("vlad"));
 	ui.wordLabel->show();
 	QTimer* timer = new QTimer(this);
@@ -300,19 +352,24 @@ GamePage::GamePage(QWidget* parent,Player player)
 	gameTimer = new QTimer(this);
 	ui.timerLabel->move(ui.tabelaScor->x() + 25, ui.tabelaScor->y() - 30);
 	ui.timerLabel->resize(100, ui.timerLabel->height());
+
+	connect(ui.exitCurrentGame, &QPushButton::clicked, this, &GamePage::on_exitCurrentGame_pressed);
 }
 
 
 void GamePage::on_exitButton_pressed()
 {
 	cpr::Response response = cpr::Put(cpr::Url{ "http://localhost:18080/game/removePlayer" },
-									 cpr::Body{"username="+m_playerCurrent.GetName()});
+		cpr::Body{ "username=" + m_playerCurrent.GetName() });
 	QCoreApplication::quit();
 
 }
 
 GamePage::~GamePage()
 {
+	if (rectangle != nullptr)
+		delete rectangle;
+
 	cpr::Response response = cpr::Put(cpr::Url{ "http://localhost:18080/game/removePlayer" },
 		cpr::Body{ "username=" + m_playerCurrent.GetName() }); //doar pentru butonul de exit default de la interfata 
 	//delete messages;
@@ -325,7 +382,7 @@ GamePage::~GamePage()
 void GamePage::setupTabela()
 {
 	ui.tabelaScor->setWindowTitle("Tabela Scor");
-	ui.tabelaScor->setGeometry(rectangle.x() - 217, rectangle.y(), 217, rectangle.height() / 2 + 52);
+	ui.tabelaScor->setGeometry(rectangle->x() - 220, rectangle->y(), 220, rectangle->height() / 2 + 80);
 
 	ui.tabelaScor->setRowCount(8);
 	ui.tabelaScor->setColumnCount(2);
@@ -341,7 +398,7 @@ void GamePage::setupTabela()
 
 void GamePage::setupChat()
 {
-	ui.verticalLayoutWidget->setGeometry(rectangle.x() + rectangle.width(), rectangle.y(), 200, rectangle.height());
+	ui.verticalLayoutWidget->setGeometry(rectangle->x() + rectangle->width(), rectangle->y(), 200, rectangle->height());
 	ui.displayMessage->setFixedSize(200, ui.verticalLayoutWidget->height() - ui.sendButton->height());
 	ui.mesageBox->setFixedSize(200 - ui.sendButton->width(), ui.sendButton->height());
 	ui.displayMessage->setEditTriggers(QAbstractItemView::NoEditTriggers);
@@ -349,7 +406,7 @@ void GamePage::setupChat()
 
 void GamePage::setupCulori()
 {
-	ui.gridLayoutWidget->setGeometry(rectangle.bottomLeft().x(), rectangle.bottomLeft().y() + 50,ui.gridLayoutWidget->width(),ui.gridLayoutWidget->height());
+	ui.gridLayoutWidget->setGeometry(rectangle->bottomLeft().x(), rectangle->bottomLeft().y() + 50, ui.gridLayoutWidget->width(), ui.gridLayoutWidget->height());
 	ui.black_button->setStyleSheet(QString("#%1 { background-color: black; }").arg(ui.black_button->objectName()));
 	ui.blue_button->setStyleSheet(QString("#%1 { background-color: blue; }").arg(ui.blue_button->objectName()));
 	ui.red_button->setStyleSheet(QString("#%1 { background-color: red; }").arg(ui.red_button->objectName()));
@@ -368,7 +425,7 @@ void GamePage::wordChoosingSequence()
 	if (isPainter == true)
 	{
 		randomWordsFromDB();
-		ui.horizontalLayoutWidget->setGeometry(rectangle.x(), rectangle.y() + rectangle.width() / 2, rectangle.width(), ui.horizontalLayoutWidget->height());
+		ui.horizontalLayoutWidget->setGeometry(rectangle->x(), rectangle->y() + rectangle->width() / 2, rectangle->width(), ui.horizontalLayoutWidget->height());
 		ui.word1Button->setText(QString::fromUtf8(words[0].c_str()));
 		ui.word2Button->setText(QString::fromUtf8(words[1].c_str()));
 		ui.word3Button->setText(QString::fromUtf8(words[2].c_str()));
@@ -379,8 +436,8 @@ void GamePage::wordChoosingSequence()
 		ui.someoneChoosing->show();
 		ui.someoneChoosing->setText("Someone is choosing a word");
 		ui.someoneChoosing->resize(260, 30);
-		ui.someoneChoosing->setFont(QFont("Arial",15));
-		ui.someoneChoosing->move(rectangle.center().x()-125,rectangle.center().y()-15);
+		ui.someoneChoosing->setFont(QFont("Arial", 15));
+		ui.someoneChoosing->move(rectangle->center().x() - 125, rectangle->center().y() - 15);
 	}
 }
 
@@ -388,8 +445,8 @@ void GamePage::randomWordsFromDB()
 {
 	std::string url = "http://localhost:18080/RandomWordsFromDB";
 	cpr::Response response = cpr::Get(cpr::Url(url));
-	std::array<std::string,3> wordsServer;
-	std::array<std::string, 3>::iterator it=wordsServer.begin();
+	std::array<std::string, 3> wordsServer;
+	std::array<std::string, 3>::iterator it = wordsServer.begin();
 	if (response.status_code == 200) {
 		auto json = crow::json::load(response.text);
 		if (json) {
@@ -414,7 +471,13 @@ void GamePage::updateTimer()
 	if (seconds == 60)
 		gameTimer->stop();
 }
-void sendDrawing(int x, int y, bool painting,int red,int green,int blue) {
+
+void GamePage::setLobbyLeader(bool este)
+{
+	lobbyLeader = este;
+}
+
+void sendDrawing(int x, int y, bool painting, int red, int green, int blue) {
 	auto response = cpr::Post(cpr::Url{ "http://localhost:18080/round/sendDrawing" },
 		cpr::Body{ "coordinateX=" + std::to_string(x)
 		+ "&coordinateY=" + std::to_string(y) +
@@ -432,13 +495,13 @@ void GamePage::mousePressEvent(QMouseEvent* e)
 			painting = true;
 			bool node = true;
 			QMutexLocker locker(&lineMutex);
-			if (rectangle.contains(e->pos()) == false)
+			if (rectangle->contains(e->pos()) == false)
 			{
 				node = false;
 			}
 			if (node == true)
 			{
-				QtConcurrent::run(sendDrawing, e->pos().x(), e->pos().y(), painting,0,0,0);
+				QtConcurrent::run(sendDrawing, e->pos().x(), e->pos().y(), painting, 0, 0, 0);
 				Node* curent = new Node(e->pos());
 				line.push_back(curent);
 				update();
@@ -455,9 +518,9 @@ void GamePage::mouseMoveEvent(QMouseEvent* e)
 		//verificare puncte 
 
 		QMutexLocker locker(&lineMutex);
-		if (rectangle.contains(e->pos()))
+		if (rectangle->contains(e->pos()))
 		{
-			QtConcurrent::run(sendDrawing, e->pos().x(), e->pos().y(), painting, 0,0,0);
+			QtConcurrent::run(sendDrawing, e->pos().x(), e->pos().y(), painting, 0, 0, 0);
 
 			Node* curent = new Node(e->pos());
 			line.push_back(curent);
@@ -485,13 +548,14 @@ void GamePage::mouseReleaseEvent(QMouseEvent* e)
 			line.clear();
 			update();
 		}
+
 	}
 }
 void GamePage::paintEvent(QPaintEvent* event)
 {
 	QPainter painter(this);
-	painter.fillRect(rectangle, QBrush(Qt::white));
-	painter.drawRect(rectangle);
+	painter.fillRect(*rectangle, QBrush(Qt::white));
+	painter.drawRect(*rectangle);
 	std::vector<QPoint> positionsLine;
 	painter.setPen(QPen(currentColor, 5, Qt::SolidLine));
 	for (auto i : line)
@@ -502,8 +566,8 @@ void GamePage::paintEvent(QPaintEvent* event)
 	{
 		painter.drawPolyline(positionsLine.data(), positionsLine.size());
 	}
-	vector<std::pair<vector<Node*>,QColor>> nodes = g.getNodes();
-	for (std::pair<vector<Node*>,QColor> i : nodes)
+	vector<std::pair<vector<Node*>, QColor>> nodes = g.getNodes();
+	for (std::pair<vector<Node*>, QColor> i : nodes)
 	{
 		std::vector<QPoint> positions;
 		painter.setPen(QPen(i.second, 5, Qt::SolidLine));

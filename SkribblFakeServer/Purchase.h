@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include <iostream>
 class Purchase
 {
 public:
@@ -25,6 +26,8 @@ public:
 
     // Setter for iconId
     void SetIconId(int iconId);
+
+    friend std::ostream& operator<<(std::ostream& os, const Purchase& purchase);
 
 private:
     int m_id;

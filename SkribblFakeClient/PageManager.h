@@ -13,7 +13,7 @@ public:
     PageManager()=default;
     ~PageManager();
 
-    QWidget* createGamePage(QWidget* parrent,Player player );
+    QWidget* createGamePage(QWidget* parrent,Player player,bool leader);
     QWidget* createLoginPage(QWidget* parrent);
     QWidget* createRegisterPage(QWidget* parrent);
     QWidget* createMenuPage(QWidget* parrent,crow::json::rvalue player);
