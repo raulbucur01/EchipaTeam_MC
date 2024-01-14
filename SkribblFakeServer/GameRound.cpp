@@ -19,6 +19,10 @@ skribbl::GameRound::GameRound(DataBase& dB):
 	}
 }
 
+skribbl::GameRound::~GameRound()
+{
+}
+
 void skribbl::GameRound::roundStart()
 {
 	//nu stiu daca ar trebui sa pun un delay mic intre alegere si startul desenului dar vedem mai tarziu 

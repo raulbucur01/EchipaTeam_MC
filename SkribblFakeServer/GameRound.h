@@ -10,6 +10,7 @@ namespace skribbl
 	{
 public:
 	GameRound(DataBase& dB);
+	~GameRound();
 	//const Graph& GetGraph() const;
 
 	void roundStart();

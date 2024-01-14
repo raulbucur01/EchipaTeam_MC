@@ -219,52 +219,53 @@ namespace skribbl
 	public:
 		UpdateCurrentIconIDHandler(DataBase& storage);
 		crow::response operator()(const crow::request& req)const;
-private:
+	private:
 		DataBase& m_DB;
 	};
-class SendMessageHandler {
+	class SendMessageHandler {
 	public:
 		SendMessageHandler(std::unordered_map<std::string, Player>& players);
 		crow::response operator()(const crow::request& req) const;
 	private:
 		std::unordered_map<std::string, Player>& m_players;
 	};
-class GetMessagesHandler {
-public:
-	GetMessagesHandler(std::unordered_map<std::string, Player>& players);
-	crow::response operator()(const crow::request& req)const;
-private:
-	std::unordered_map<std::string,Player>& m_players;
-};
-class GetPlayersHandler {
-public:
-	GetPlayersHandler(std::unordered_map<std::string, Player>& players);
-	crow::response operator()(const crow::request& req) const;
-private:
-	std::unordered_map<std::string, Player>& m_players;
-};
-class SendDrawingHandler {
-public:
-	SendDrawingHandler(Graph& graph, std::vector<Node*>&line);
-	crow::response operator()(const crow::request& req) const;
-private:
-	Graph& m_graph;
-	std::vector<Node*>&m_line;
-};
-class GetDrawingHandler {
-public:
-	GetDrawingHandler(Graph& graph);
-	crow::response operator()(const crow::request& req) const;
-private:
-	Graph& m_graph;
-};
-class RetrieveOwnedIconsHandler {
-public:
-	RetrieveOwnedIconsHandler(DataBase& storage);
-	crow::response operator()(const crow::request& req)const;
-private:
-	DataBase& m_DB;
-};
+	class GetMessagesHandler {
+	public:
+		GetMessagesHandler(std::unordered_map<std::string, Player>& players);
+		crow::response operator()(const crow::request& req)const;
+	private:
+		std::unordered_map<std::string, Player>& m_players;
+	};
+	class GetPlayersHandler {
+	public:
+		GetPlayersHandler(std::unordered_map<std::string, Player>& players);
+		crow::response operator()(const crow::request& req) const;
+	private:
+		std::unordered_map<std::string, Player>& m_players;
+	};
+	class SendDrawingHandler {
+	public:
+		SendDrawingHandler(Graph& graph, std::vector<Node*>& line);
+		crow::response operator()(const crow::request& req) const;
+	private:
+		Graph& m_graph;
+		std::vector<Node*>& m_line;
+	};
+	class GetDrawingHandler {
+	public:
+		GetDrawingHandler(Graph& graph);
+		crow::response operator()(const crow::request& req) const;
+	private:
+		Graph& m_graph;
+	};
+	class RetrieveOwnedIconsHandler {
+	public:
+		RetrieveOwnedIconsHandler(DataBase& storage);
+		crow::response operator()(const crow::request& req)const;
+	private:
+		DataBase& m_DB;
+	};
+}
 
 	
 
