@@ -326,8 +326,8 @@ void GamePage::checkStage()
 }
 
 
-GamePage::GamePage(QWidget* parent, Player player,bool leader)
-	: QWidget(parent), m_playerCurrent{ player } , lobbyLeader{leader}
+GamePage::GamePage(QWidget* parent, Player player, bool leader)
+	: QWidget(parent), m_playerCurrent{ player }, lobbyLeader{ leader }
 {
 	messages = new QStandardItemModel(this);
 	ui.setupUi(this);
@@ -388,8 +388,8 @@ GamePage::GamePage(QWidget* parent, Player player,bool leader)
 	results["Coco20"] = 100;
 	results["Coco"] = 200;
 	results["Fasole"] = 300;
-	setupResultTable(results);
-	deleteResultTable();*/
+	setupResultTable(results);*/
+	//deleteResultTable();
 }
 
 
@@ -593,10 +593,13 @@ void GamePage::setupResultTable(const std::unordered_map<std::string, int>& resu
 	// Convert the unordered_map items to a vector of std::pair
 	std::vector<std::pair<std::string, int>> resultVector(results.begin(), results.end());
 
-	// Sort the vector based on the second part of each pair (the score)
-	std::sort(resultVector.begin(), resultVector.end(), [](const auto& a, const auto& b) {
-		return a.second > b.second; // Sorting in descending order by score
-		});
+	if (std::ranges::is_sorted(resultVector, {}, [](const auto& pair) { return pair.second; }))
+	{
+		// Sort the vector based on the second part of each pair (the score)
+		std::sort(resultVector.begin(), resultVector.end(), [](const auto& a, const auto& b) {
+			return a.second > b.second; // Sorting in descending order by score
+			});
+	}
 
 	// Show the veil
 	ui.veil->show();
