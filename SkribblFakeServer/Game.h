@@ -10,9 +10,11 @@ namespace skribbl
 
 		DataBase& gameStart();
 		void verifStartPressed();
+		int GetGameId();
 
 	private:
 		DataBase m_dB;
+		int m_gameID;
 	};
 }
 
