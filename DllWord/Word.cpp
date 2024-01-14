@@ -179,3 +179,9 @@ void Word::printPartialWord()
 		std::cout << partialWord << " ";
 	}
 }
+
+std::ostream& operator<<(std::ostream& os, const Word& word)
+{
+	os << "ID: " << word.GetId() << ", Word: " << word.GetWord();
+	return os;
+}

@@ -5,42 +5,6 @@ using namespace skribbl;
 import "Node.h";
 #include <tuple>
 
-
-//void populateDB(Storage& storage)
-//{
-//	std::vector<Player> players = {
-//		Player{-1,"Coco20", "amuitato", 200, 10, 0},
-//		Player{-1,"raul807", "parolasmechera", 0, 0, 0},
-//		Player{-1,"ronaldoGOAT_CR7", "amuitato2", 0, 0, 0},
-//		Player{-1,"vlad", "parolacomplexa", 0, 0, 0},
-//	};
-//	storage.insert_range(players.begin(), players.end());
-//
-//	std::ifstream input("Words.txt");
-//	std::vector<Word> words;
-//	std::string word;
-//	while (std::getline(input, word)) {
-//		words.emplace_back(-1, word);
-//	}
-//
-//	storage.insert_range(words.begin(), words.end());
-//	input.close();
-//
-//	std::vector<Purchase> purchases = {
-//		Purchase{-1, "Coco20", 1},
-//		Purchase{-1, "raul807", 3},
-//		Purchase{-1, "Coco20", 3}
-//	};
-//	storage.insert_range(purchases.begin(), purchases.end());
-//
-//	std::vector<ObtainedScore> obtainedScores = {
-//		ObtainedScore{-1, "Coco20", 100},
-//		ObtainedScore{-1, "Coco20", 200}
-//	};
-//	storage.insert_range(obtainedScores.begin(), obtainedScores.end());
-//}
-
-
 DataBase::DataBase(const std::string& filename) : m_DB(createStorage(filename))
 {
 	m_DB.sync_schema();
@@ -53,14 +17,13 @@ DataBase::DataBase(const std::string& filename) : m_DB(createStorage(filename))
 	auto initWordCount = m_DB.count<Word>();
 	auto initPurchaseCount = m_DB.count<Purchase>();
 	auto initObtainedScoreCount = m_DB.count<ObtainedScore>();
-	/*if (initPlayerCount == 0 && initWordCount == 0 && initPurchaseCount == 0 && initObtainedScoreCount == 0)
+	if (initPlayerCount == 0 && initWordCount == 0 && initPurchaseCount == 0 && initObtainedScoreCount == 0)
 	{
 		populateDB(m_DB);
-	}*/
+	}
 
 	// for testing
-	//addPlayersFromDBToPlayersVector();
-	addWordsFromDBToWordsVector(); // avem vectoru de cuvinte permanent in DB momentan
+	addWordsFromDBToWordsVector(); // avem vectoru de cuvinte permanent in DB momentan ca sa mearga ce a facut leo
 }
 
 // Player
@@ -83,34 +46,6 @@ void DataBase::AddPlayer(const Player& player)
 		m_players[player.GetName()] = player;
 }
 
-void DataBase::deletePlayer(const std::string& name)
-{
-	/*if (searchPlayer(name))
-	{
-		m_playerDB.remove<Player>(getPlayer(name).getId());
-		m_players.erase(getPlayerIterator(name));
-	}*/
-
-	auto it = m_players.begin();
-	it = getPlayerIterator(name);
-	if (it != m_players.end())
-	{
-		m_DB.remove<Player>((*it).second.GetId());
-
-		m_players.erase(it);
-	}
-}
-
-bool DataBase::searchPlayer(const std::string& name) const
-{
-	for (auto& player : m_players)
-	{
-		if (player.second.GetName() == name)
-			return true;
-	}
-	return false;
-}
-
 Player DataBase::GetPlayer(const std::string& name)
 {
 	if (m_players.find(name) != m_players.end())
@@ -122,30 +57,6 @@ void DataBase::RemovePlayer(const std::string& name)
 {
 	m_playersInGame.erase(name);
 	m_players.erase(name);// momentan las asa, playerul cand apasa pe exit iese de tot din client, nu revine la meniu
-}
-
-void DataBase::updatePlayer(const std::string& name, const Player& new_player)
-{
-	auto it = getPlayerIterator(name);
-	if (it != m_players.end())
-	{
-		(*it).second = new_player;
-
-		m_DB.update(new_player);
-	}
-}
-
-void DataBase::addPlayersFromDBToPlayersVector()
-{
-	auto playerCount = m_DB.count<Player>();
-	if (playerCount > 0)
-	{
-		auto players = m_DB.get_all<Player>();
-		for (auto& player : players)
-		{
-			m_players[player.GetName()] = player;
-		}
-	}
 }
 
 std::unordered_map<std::string, Player> DataBase::getAllPlayers()
@@ -177,49 +88,6 @@ void DataBase::printAllPLayers()
 	}
 }
 
-// Word
-
-auto DataBase::getWordIterator(const std::string& word)
-{
-	for (auto it = m_words.begin(); it != m_words.end(); it++)
-	{
-		if (it->GetWord() == word)
-			return it;
-	}
-	return m_words.end();
-}
-
-void DataBase::addWord(Word& word)
-{
-	if (getWordIterator(word.GetWord()) == m_words.end()) {
-		auto id = m_DB.insert(word);
-		word.SetId(id);
-		m_words.push_back(word);
-	}
-}
-
-void DataBase::deleteWord(const std::string& word)
-{
-	auto it = m_words.begin();
-	it = getWordIterator(word);
-	if (it != m_words.end())
-	{
-		m_DB.remove<Word>(it->GetId());
-
-		m_words.erase(it);
-	}
-}
-
-void DataBase::updateWord(const std::string& word, const Word& new_word)
-{
-	auto it = getWordIterator(word);
-	if (it != m_words.end())
-	{
-		*it = new_word;
-
-		m_DB.update(new_word);
-	}
-}
 
 void DataBase::addWordsFromDBToWordsVector()
 {
@@ -284,20 +152,20 @@ void DataBase::AddObtainedScoreToDB(const ObtainedScore& obtainedScore)
 	m_DB.insert(obtainedScore);
 }
 
-std::vector<ObtainedScore> DataBase::GetAllObtainedScores()
-{
-	return m_DB.get_all<ObtainedScore>();
-}
+//std::vector<ObtainedScore> DataBase::GetAllObtainedScores()
+//{
+//	return m_DB.get_all<ObtainedScore>();
+//}
 
-void DataBase::PrintAllObtainedScores()
-{
-	std::cout << "\n";
-	std::vector<ObtainedScore> obtainedScores = GetAllObtainedScores();
-	for (auto obtainedScore : obtainedScores) {
-		std::cout << "\n";
-		std::cout << obtainedScore.GetId() << " " << obtainedScore.GetPlayerName() << " " << obtainedScore.GetObtainedScore();
-	}
-}
+//void DataBase::PrintAllObtainedScores()
+//{
+//	std::cout << "\n";
+//	std::vector<ObtainedScore> obtainedScores = GetAllObtainedScores();
+//	for (auto obtainedScore : obtainedScores) {
+//		std::cout << "\n";
+//		std::cout << obtainedScore.GetId() << " " << obtainedScore.GetPlayerName() << " " << obtainedScore.GetObtainedScore();
+//	}
+//}
 
 std::vector<int> DataBase::GetObtainedScoresByPlayer(const std::string& playerName)
 {
@@ -340,20 +208,6 @@ std::vector<int> DataBase::GetPurchasedIconIdsByPlayer(const std::string& player
 	return purchasedIconIds;
 }
 
-std::vector<Purchase> DataBase::GetAllPurchases()
-{
-	return m_DB.get_all<Purchase>();
-}
-
-void DataBase::PrintAllPurchases()
-{
-	std::cout << "\n";
-	std::vector<Purchase> purchases = GetAllPurchases();
-	for (auto purchase : purchases) {
-		std::cout << "\n";
-		std::cout << purchase.GetId() << " " << purchase.GetPlayerName() << " " << purchase.GetIconId();
-	}
-}
 
 // DB operations
 
@@ -370,8 +224,6 @@ std::optional<Player> DataBase::SearchPlayerInDB(const std::string& name)
 		return std::nullopt;
 	}
 }
-
-
 
 // handlers
 

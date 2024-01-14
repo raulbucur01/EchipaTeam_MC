@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include <iostream>
 
 class ObtainedScore {
 public:
@@ -19,6 +20,8 @@ public:
     void SetId(int id);
     void SetPlayerName(const std::string& playerName);
     void SetObtainedScore(int obtainedScore);
+
+    friend std::ostream& operator<<(std::ostream& os, const ObtainedScore& score);
 
 private:
     int id;

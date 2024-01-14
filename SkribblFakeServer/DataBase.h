@@ -49,7 +49,39 @@ namespace skribbl
 
 	using Storage = decltype(createStorage(""));
 
-	//void populateDB(Storage& storage);
+	inline void populateDB(Storage& storage)
+	{
+		std::vector<Player> players = {
+			Player{-1,"Coco20", "amuitato", 200, 10, 0},
+			Player{-1,"raul807", "parolasmechera", 0, 0, 0},
+			Player{-1,"ronaldoGOAT_CR7", "amuitato2", 0, 0, 0},
+			Player{-1,"vlad", "parolacomplexa", 0, 0, 0},
+		};
+		storage.insert_range(players.begin(), players.end());
+
+		std::ifstream input("Words.txt");
+		std::vector<Word> words;
+		std::string word;
+		while (std::getline(input, word)) {
+			words.emplace_back(-1, word);
+		}
+
+		storage.insert_range(words.begin(), words.end());
+		input.close();
+
+		std::vector<Purchase> purchases = {
+			Purchase{-1, "Coco20", 1},
+			Purchase{-1, "raul807", 3},
+			Purchase{-1, "Coco20", 3}
+		};
+		storage.insert_range(purchases.begin(), purchases.end());
+
+		std::vector<ObtainedScore> obtainedScores = {
+			ObtainedScore{-1, "Coco20", 100},
+			ObtainedScore{-1, "Coco20", 200}
+		};
+		storage.insert_range(obtainedScores.begin(), obtainedScores.end());
+	}
 
 	class DataBase
 	{
@@ -63,25 +95,13 @@ namespace skribbl
 		Player GetPlayer(const std::string& name);
 		void RemovePlayer(const std::string& name);
 
-		void deletePlayer(const std::string& name);
-		bool searchPlayer(const std::string& name) const;
 		auto getPlayerIterator(const std::string& name);
-		void updatePlayer(const std::string& name, const Player& new_player);
 
-		void addPlayersFromDBToPlayersVector();
 		std::unordered_map<std::string, Player> getAllPlayers();
 		std::unordered_map<std::string, Player>& GetPlayersInGame();
 		Graph& GetGraph();
-		std::vector < Node*>& GetLine();
+		std::vector<Node*>& GetLine();
 		void printAllPLayers();
-
-		// Word
-		void addWord(Word& p);
-		void deleteWord(const std::string& word);
-		//bool searchWord(const std::string& name) const;
-		//Word getWord(const std::string& name);
-		auto getWordIterator(const std::string& word);
-		void updateWord(const std::string& word, const Word& new_word);
 
 		void addWordsFromDBToWordsVector();
 		std::vector<Word> getAllWords();
@@ -103,10 +123,6 @@ namespace skribbl
 		std::vector<Purchase> GetPurchasesByPlayer(const std::string& playerName);
 		// returns all the icon ids for the player with the specified playerName
 		std::vector<int> GetPurchasedIconIdsByPlayer(const std::string& playerName);
-		// returns all purchases in the database
-		std::vector<Purchase> GetAllPurchases();
-		// prints all purchases
-		void PrintAllPurchases();
 		// for the player with the specified name replaces the coins with the newCoinsAmount in the database
 		void UpdatePlayerCoinsInDB(const std::string& name, int newCoinsAmount);
 		// for the player with the specified name replaces the currentIconId with the newIconId in the database
@@ -114,10 +130,25 @@ namespace skribbl
 
 		// for ObtainedScore
 		void AddObtainedScoreToDB(const ObtainedScore& obtainedScore);
-		std::vector<ObtainedScore> GetAllObtainedScores();
-		void PrintAllObtainedScores();
 		std::vector<int> GetObtainedScoresByPlayer(const std::string& playerName);
 		void UpdatePlayerScoreInDB(const std::string& name, int newScoreAmount);
+		
+		// template doesn't work for Word
+		template <class T>
+		std::vector<T> GetAll() {
+			return m_DB.get_all<T>();
+		}
+		
+		// template doesn't work for Word
+		template <class T>
+		void PrintAll() {
+			std::cout << "\n";
+			std::vector<T> items = GetAll<T>();
+			for (auto item : items) {
+				std::cout << "\n";
+				std::cout << item;
+			}
+		}
 
 		~DataBase() = default;
 
@@ -128,7 +159,6 @@ namespace skribbl
 		std::vector<Word> m_words;
 		Graph m_graph;
 		std::vector<Node*>m_line;
-
 	};
 
 	class LoginHandler {
