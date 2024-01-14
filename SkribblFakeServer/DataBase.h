@@ -57,6 +57,9 @@ namespace skribbl
 		DataBase() = default;
 		DataBase(const std::string& filename);
 
+		DataBase& operator=(DataBase& other);
+		Storage& GetStorage();
+
 		// Player
 
 		void AddPlayer(const Player& player);

@@ -23,7 +23,7 @@ skribbl::GameRound::~GameRound()
 {
 }
 
-void skribbl::GameRound::roundStart()
+DataBase& skribbl::GameRound::roundStart()
 {
 	//nu stiu daca ar trebui sa pun un delay mic intre alegere si startul desenului dar vedem mai tarziu 
 	//cum se comporta cu serverul;
@@ -54,6 +54,7 @@ void skribbl::GameRound::roundStart()
 
 		endOfRoundTimer();
 	}
+	return std::ref(m_dB);
 }
 
 void skribbl::GameRound::verifChoice()
