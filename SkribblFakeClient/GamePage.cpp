@@ -270,30 +270,30 @@ void GamePage::updateDrawing()
 	crow::json::rvalue drawingResponse = crow::json::load(response.text);
 	int position = 0;
 	auto node1 = drawingResponse[0];
-	g.clear();
-	line.clear();
-	update();
-		
-	for (int index=1;index<drawingResponse.size();index++)
-	{
+	QColor currentColorNew = QColor::fromRgb(std::stoi(node1["red"].s()), std::stoi(node1["green"].s()), std::stoi(node1["blue"].s()));
 
-		if (drawingResponse[index]["idLine"].d() == drawingResponse[index - 1]["idLine"].d())
+	for (auto& node : drawingResponse)
+	{
+		if (node["idLine"].d() == g.GetSize())
 		{
-			Node* nodeNew = new Node(QPoint(drawingResponse[index]["coordinateX"].d(), drawingResponse[index]["coordinateY"].d()));
-			line.push_back(nodeNew);
-			update();
+			position++;
+			if (position > line.size())
+			{
+				Node* nodeNew = new Node(QPoint(node["coordinateX"].d(), node["coordinateY"].d()));
+				line.push_back(nodeNew);
+				update();
+			}
 		}
 		else
-		{
-			g.addNodes(std::make_pair(line, currentColor));
-			line.clear();
-			Node* nodeNew = new Node(QPoint(drawingResponse[index]["coordinateX"].d(), drawingResponse[index]["coordinateY"].d()));
-			line.push_back(nodeNew);
-			update();
-		}
-		currentColor = QColor::fromRgb(std::stoi(drawingResponse[index]["red"].s()), std::stoi(drawingResponse[index]["green"].s()), std::stoi(drawingResponse[index]["blue"].s()));
-
-
+			if (node["idLine"].d() > g.GetSize())
+			{
+				g.addNodes(std::make_pair(line, currentColorNew));
+				line.clear();
+				Node* nodeNew = new Node(QPoint(node["coordinateX"].d(), node["coordinateY"].d()));
+				line.push_back(nodeNew);
+				update();
+			}
+		currentColorNew = QColor::fromRgb(std::stoi(node["red"].s()), std::stoi(node["green"].s()), std::stoi(node["blue"].s()));
 	}
 }
 
@@ -534,7 +534,7 @@ void GamePage::mouseReleaseEvent(QMouseEvent* e)
 	if (e->button() == Qt::RightButton)
 	{
 		QMutexLocker locker(&lineMutex);
-		if (rectangle.contains(e->pos()))
+		if (rectangle->contains(e->pos()))
 		{
 			int red = currentColor.red();
 			int blue = currentColor.blue();
