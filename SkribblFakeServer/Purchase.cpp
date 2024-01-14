@@ -29,3 +29,10 @@ int Purchase::GetIconId() const {
 void Purchase::SetIconId(int iconId) {
     m_iconId = iconId;
 }
+
+std::ostream& operator<<(std::ostream& os, const Purchase& purchase)
+{
+    os << "Purchase ID: " << purchase.GetId() << ", Player Name: " << purchase.GetPlayerName()
+        << ", Icon ID: " << purchase.GetIconId();
+    return os;
+}

@@ -4,17 +4,15 @@
 using namespace skribbl;
 
 
+using namespace skribbl;
+
 int main() {
 	DataBase DB("SkribblData.sqlite");
-	//DB.printAllPLayers();
-	//DB.GetAllPurchases();
-	//DB.PrintAllPurchases();
-	/*std::vector<Purchase> playerPurchases = DB.GetPurchasesByPlayer("Coco20");
-	std::cout << "\n";
-	for (auto purchase : playerPurchases) {
-		std::cout << "\n";
-		std::cout << purchase.GetId() << " " << purchase.GetPlayerName() << " " << purchase.GetIconId();
-	}*/
+	//DB.PrintAll<Player>();
+	//DB.PrintAll<Purchase>();
+	//DB.PrintAll<ObtainedScore>();
+	////DB.PrintAll<Word>();
+	//DB.printAllWords();
 
 	//DB.UpdatePlayerCoinsInDB("Coco20", 150);
 	/*DB.printAllPLayers();

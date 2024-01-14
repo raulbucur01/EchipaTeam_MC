@@ -37,3 +37,10 @@ void ObtainedScore::SetPlayerName(const std::string& playerName) {
 void ObtainedScore::SetObtainedScore(int scorObtinut) {
     this->obtainedScore = scorObtinut;
 }
+
+std::ostream& operator<<(std::ostream& os, const ObtainedScore& score)
+{
+    os << "ID: " << score.GetId() << ", Player Name: " << score.GetPlayerName()
+        << ", Obtained Score: " << score.GetObtainedScore();
+    return os;
+}
