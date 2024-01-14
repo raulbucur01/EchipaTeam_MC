@@ -83,10 +83,26 @@ private:
             return "./Icons/Snake.jpeg";
         case 8:
             return "./Icons/Panda.jpeg";
+        case 9:
+            return "./Icons/Knight.jpeg";
+        case 10:
+            return "./Icons/Princess.jpeg";
+        case 11:
+            return "./Icons/Viking.jpeg";
+        case 12:
+            return "./Icons/Frankenstein.jpeg";
+        case 13:
+            return "./Icons/Unicorn.jpeg";
+        case 14:
+            return "./Icons/Vampire.jpeg";
+        case 15:
+            return "./Icons/Robot.jpeg";
+        case 16:
+            return "./Icons/Ghost.jpeg";
             // Add more cases for other indexes
         default:
             // Handle the case where the index is not recognized
-            return "./Icons/default_icon.jpeg";
+            return "./Icons/Troll.jpeg";
         }
 }
 };

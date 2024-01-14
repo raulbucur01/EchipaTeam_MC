@@ -26,6 +26,14 @@ ShopPage::ShopPage(QWidget* parent, Player player)
     connect(ui.pushButton_Icon6, &QPushButton::clicked, this, &ShopPage::on_iconButton_pressed);
     connect(ui.pushButton_Icon7, &QPushButton::clicked, this, &ShopPage::on_iconButton_pressed);
     connect(ui.pushButton_Icon8, &QPushButton::clicked, this, &ShopPage::on_iconButton_pressed);
+    connect(ui.pushButton_Icon9, &QPushButton::clicked, this, &ShopPage::on_iconButton_pressed);
+    connect(ui.pushButton_Icon10, &QPushButton::clicked, this, &ShopPage::on_iconButton_pressed);
+    connect(ui.pushButton_Icon11, &QPushButton::clicked, this, &ShopPage::on_iconButton_pressed);
+    connect(ui.pushButton_Icon12, &QPushButton::clicked, this, &ShopPage::on_iconButton_pressed);
+    connect(ui.pushButton_Icon13, &QPushButton::clicked, this, &ShopPage::on_iconButton_pressed);
+    connect(ui.pushButton_Icon14, &QPushButton::clicked, this, &ShopPage::on_iconButton_pressed);
+    connect(ui.pushButton_Icon15, &QPushButton::clicked, this, &ShopPage::on_iconButton_pressed);
+    connect(ui.pushButton_Icon16, &QPushButton::clicked, this, &ShopPage::on_iconButton_pressed);
 
     QScrollArea* scrollArea = new QScrollArea(ui.groupBox);
     QWidget* scrollWidget = new QWidget;
@@ -44,6 +52,14 @@ ShopPage::ShopPage(QWidget* parent, Player player)
     addIconButtonToGridLayout("./Icons/Leprechaun.jpeg", ui.pushButton_Icon6, gridLayout, 2, 1);
     addIconButtonToGridLayout("./Icons/Snake.jpeg", ui.pushButton_Icon7, gridLayout, 3, 0);
     addIconButtonToGridLayout("./Icons/Panda.jpeg", ui.pushButton_Icon8, gridLayout, 3, 1);
+    addIconButtonToGridLayout("./Icons/Knight.jpeg", ui.pushButton_Icon9, gridLayout, 4, 0);
+    addIconButtonToGridLayout("./Icons/Princess.jpeg", ui.pushButton_Icon10, gridLayout, 4, 1);
+    addIconButtonToGridLayout("./Icons/Viking.jpeg", ui.pushButton_Icon11, gridLayout, 5, 0);
+    addIconButtonToGridLayout("./Icons/Frankenstein.jpeg", ui.pushButton_Icon12, gridLayout, 5, 1);
+    addIconButtonToGridLayout("./Icons/Unicorn.jpeg", ui.pushButton_Icon13, gridLayout, 6, 0);
+    addIconButtonToGridLayout("./Icons/Vampire.jpeg", ui.pushButton_Icon14, gridLayout, 6, 1);
+    addIconButtonToGridLayout("./Icons/Robot.jpeg", ui.pushButton_Icon15, gridLayout, 7, 0);
+    addIconButtonToGridLayout("./Icons/Ghost.jpeg", ui.pushButton_Icon16, gridLayout, 7, 1);
 
     // Add the player's balance label below the scroll area
     //QLabel* balanceLabel = new QLabel("Balance: " + QString::number(m_player.GetCoins()));
@@ -98,6 +114,14 @@ void ShopPage::on_iconButton_pressed()
         else if (clickedButton == ui.pushButton_Icon6) iconIndex = 6;
         else if (clickedButton == ui.pushButton_Icon7) iconIndex = 7;
         else if (clickedButton == ui.pushButton_Icon8) iconIndex = 8;
+        else if (clickedButton == ui.pushButton_Icon9) iconIndex = 9;
+        else if (clickedButton == ui.pushButton_Icon10) iconIndex = 10;
+        else if (clickedButton == ui.pushButton_Icon11) iconIndex = 11;
+        else if (clickedButton == ui.pushButton_Icon12) iconIndex = 12;
+        else if (clickedButton == ui.pushButton_Icon13) iconIndex = 13;
+        else if (clickedButton == ui.pushButton_Icon14) iconIndex = 14;
+        else if (clickedButton == ui.pushButton_Icon15) iconIndex = 15;
+        else if (clickedButton == ui.pushButton_Icon16) iconIndex = 16;
         // ... (add more conditions for other buttons)
 
         // Now you have the index of the clicked button (iconIndex)
@@ -161,7 +185,7 @@ void ShopPage::ProcessPurchase(const std::string& username, int iconIndex)
             ui.label_Balance->setText("Balance: " + QString::number(coins));
             m_player.SetCoins(coins);
         }
-        QMessageBox::information(this, "Purchase complete!", "");
+        QMessageBox::information(this, "Purchase complete!", "Your icon was purchased successfully!");
     }
     else {
         auto json = crow::json::load(response.text);

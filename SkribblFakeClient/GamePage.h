@@ -12,6 +12,7 @@
 #include "Word.h"
 #include <array>
 #include <QtConcurrent>
+#include "PageManager.h"
 class GamePage : public QWidget
 {
 	Q_OBJECT
@@ -40,6 +41,7 @@ private slots:
 	void on_word2Button_pressed();
 	void on_word3Button_pressed();
 	void on_startButton_pressed();
+	void on_exitCurrentGame_pressed();
 	
 
 public:
@@ -61,7 +63,7 @@ private:
 private:
 	QStandardItemModel* messages;
 	Ui::GamePageClass ui;
-	QRect rectangle;
+	QRect* rectangle;
 	Graph g;
 	vector<Node*> line;
 	bool painting = false;
@@ -76,4 +78,5 @@ private:
 	int seconds;
 	QMutex lineMutex;
 	QMutex gMutex;
+	PageManager pages;
 };

@@ -27,11 +27,11 @@ ProfilePage::ProfilePage(QWidget* parent, Player player)
 	std::string str = m_player.GetName();
 	QString qs = QString::fromLocal8Bit(str.c_str());
 	ui.label_Username->setText(qs);
-	DisplayScore();
 	DisplayCoins();
 	RetrieveOwnedIcons();
 
 	RetrieveObtainedScores();
+	DisplayScore();
 	m_matchHistoryDialog = new MatchHistoryDialog(this);
 	connect(ui.matchHistoryButton, &QPushButton::pressed, this, &ProfilePage::showMatchHistoryDialog);
 }
@@ -99,21 +99,13 @@ void ProfilePage::updateCurrentIcon(int newIconIndex) {
 
 void ProfilePage::DisplayScore()
 {
-	std::string username = m_player.GetName();
-	std::string url = "http://localhost:18080/getScore?username=" + username;
-	cpr::Response response = cpr::Get(cpr::Url(url), cpr::Body{ "username=" + username });
-
-	if (response.status_code == 200) {
-		auto json = crow::json::load(response.text);
-		if (json) {
-			int score = json["Score"].i();
-			ui.label_Score->setText("Score: " + QString::number(score));
-		}
+	int sum = 0;
+	for (const auto& score : m_obtainedScores) {
+		sum += score;
 	}
-	else {
 
-		std::cerr << "Failed to get player's score from the server." << std::endl;
-	}
+	QString qs = QString::number(sum);
+	ui.label_Score->setText("All time score: " + qs);
 }
 
 void ProfilePage::DisplayCoins()
@@ -222,10 +214,26 @@ QString ProfilePage::getIconPath(int iconIndex) {
 		return "./Icons/Snake.jpeg";
 	case 8:
 		return "./Icons/Panda.jpeg";
+	case 9:
+		return "./Icons/Knight.jpeg";
+	case 10:
+		return "./Icons/Princess.jpeg";
+	case 11:
+		return "./Icons/Viking.jpeg";
+	case 12:
+		return "./Icons/Frankenstein.jpeg";
+	case 13:
+		return "./Icons/Unicorn.jpeg";
+	case 14:
+		return "./Icons/Vampire.jpeg";
+	case 15:
+		return "./Icons/Robot.jpeg";
+	case 16:
+		return "./Icons/Ghost.jpeg";
 		// Add more cases for other indexes
 	default:
 		// Handle the case where the index is not recognized
-		return "./Icons/default_icon.jpeg";
+		return "./Icons/Troll.jpeg";
 	}
 }
 
