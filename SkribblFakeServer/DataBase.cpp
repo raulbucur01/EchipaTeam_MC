@@ -602,7 +602,7 @@ crow::response AddPlayerHandler::operator()(const crow::request& req) const
 	//nu stiu daca ar trebui sa folosesc move aici ca sa mut player ul din m_players in m_playersInGame
 	if (usernameIter != end)
 	{
-		m_DB.AddPlayer(std::forward<Player>(m_DB.GetPlayer(usernameIter->second)));
+		m_DB.AddPlayer(m_DB.GetPlayer(usernameIter->second));
 
 		return crow::response(200, "Added player");
 	}
@@ -807,4 +807,37 @@ crow::response skribbl::stageGameHandler::operator()(const crow::request& req) c
 	}
 	return jsonResponse;
 
+}
+
+skribbl::setPaintHandler::setPaintHandler(Game& game):m_game{game}
+{
+}
+
+crow::response skribbl::setPaintHandler::operator()(const crow::request& req) const
+{
+	auto bodyArgs = parseUrlArgs(req.body);
+	auto end = bodyArgs.end();
+	auto nameIter = bodyArgs.find("name");
+	if (nameIter != end)
+	{
+		if (m_game.verifyPlayer(nameIter->second) == false)
+		{
+			crow::json::wvalue text{ {"name",m_game.getWhoPaints()} };
+			return text;
+		}
+	}	
+	return crow::json::wvalue{};
+}
+
+skribbl::startGameHandler::startGameHandler(Game& game, DataBase& storage): m_game{game}, m_storage{storage}
+{
+}
+
+crow::response skribbl::startGameHandler::operator()(const crow::request& req) const
+{
+	m_game.setPlayers(m_storage.GetPlayersInGame());
+	m_game.setQueue();
+	m_game.setStages(m_storage.GetPlayersInGame().size());
+	m_game.incrementIndex();
+	return crow::response(200);
 }

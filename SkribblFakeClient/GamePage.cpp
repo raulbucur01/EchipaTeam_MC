@@ -138,23 +138,13 @@ void GamePage::on_word3Button_pressed()
 
 void GamePage::on_startButton_pressed()
 {
+	cpr::Response response = cpr::Get(cpr::Url{ "http://localhost:18080/startGame" });
 	ui.startButton->hide();
-	wordChoosingSequence();
-	QTimer* timer = new QTimer(this);
-	timer->start(10000);
-	connect(timer, &QTimer::timeout, this, [this, timer]() {ui.veil->hide();
-	ui.someoneChoosing->hide();
-	ui.horizontalLayoutWidget->hide();
 	if (isPainter == true)
-		canPaint = true;
-	timer->stop();
-	timer->deleteLater();
-	if (choiceMade == false)
 	{
-		seconds = 0;
-		gameTimer->start(1000);
-		connect(gameTimer.get(), &QTimer::timeout, this, &GamePage::updateTimer);
-	} });
+		randomWordsFromDB();
+	}
+	wordChoosingSequence();
 }
 
 void GamePage::on_exitCurrentGame_pressed()
@@ -209,7 +199,7 @@ void GamePage::createThread()
 {
 	QtConcurrent::run([this]() {updateChat(); });
 	QtConcurrent::run([this]() {updateTable(); });
-	QtConcurrent::run([this]() {updateDrawing(); });
+	QtConcurrent::run([this]() {checkStage(); });
 }
 
 void GamePage::updateChat()
@@ -301,6 +291,7 @@ void GamePage::updateDrawing()
 
 void GamePage::checkStage()
 {
+	QMutexLocker lineLocker(&lineMutex);
 	cpr::Response response = cpr::Get(cpr::Url{ "http://localhost:18080/stage" });
 	crow::json::rvalue stageResponse = crow::json::load(response.text);
 	if (stageResponse["stage"] == "lobby")
@@ -309,11 +300,17 @@ void GamePage::checkStage()
 	}
 	if (stageResponse["stage"] == "choosing")
 	{
-
+		cpr::Response response1 = cpr::Get(cpr::Url{ "http://localhost:18080/stage/drawing" },
+			cpr::Body{ "name=" + m_playerCurrent.GetName() });
+		crow::json::rvalue username = crow::json::load(response1.text);
+		if (username["name"] == m_playerCurrent.GetName())
+		{
+			isPainter = true;
+		}
 	}
 	if (stageResponse["stage"] == "drawing")
 	{
-
+		updateDrawing();
 	}
 	if (stageResponse["stage"] == "results")
 	{
@@ -458,14 +455,30 @@ void GamePage::setupCulori()
 
 void GamePage::wordChoosingSequence()
 {
+	QTimer* timer = new QTimer(this);
+	timer->start(10000);
+	connect(timer, &QTimer::timeout, this, [this, timer]() {ui.veil->hide();
+	ui.someoneChoosing->hide();
+	ui.horizontalLayoutWidget->hide();
+	if (isPainter == true)
+		canPaint = true;
+	timer->stop();
+	timer->deleteLater();
+	if (choiceMade == false)
+	{
+		seconds = 0;
+		gameTimer->start(1000);
+		connect(gameTimer.get(), &QTimer::timeout, this, &GamePage::updateTimer);
+	} });
+
 	if (isPainter == true)
 	{
-		randomWordsFromDB();
 		ui.horizontalLayoutWidget->setGeometry(rectangle->x(), rectangle->y() + rectangle->width() / 2, rectangle->width(), ui.horizontalLayoutWidget->height());
 		ui.word1Button->setText(QString::fromUtf8(words[0].c_str()));
 		ui.word2Button->setText(QString::fromUtf8(words[1].c_str()));
 		ui.word3Button->setText(QString::fromUtf8(words[2].c_str()));
 		ui.horizontalLayoutWidget->show();
+
 	}
 	else
 	{

@@ -38,6 +38,7 @@ private slots:
 	void updateChat();
 	void updateTable();
 	void updateDrawing();
+	void checkStage();
 	void on_word1Button_pressed();
 	void on_word2Button_pressed();
 	void on_word3Button_pressed();

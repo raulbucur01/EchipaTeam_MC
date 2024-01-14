@@ -93,6 +93,12 @@ void SkribblServer::Start()
 	auto& stageGame = CROW_ROUTE(m_app, "/stage")
 		.methods(crow::HTTPMethod::GET);
 	stageGame(stageGameHandler(game));
+	auto& setPaint = CROW_ROUTE(m_app, "/stage/drawing")
+		.methods(crow::HTTPMethod::GET);
+	setPaint(setPaintHandler(game));
+	auto& startGame = CROW_ROUTE(m_app, "/startGame")
+		.methods(crow::HTTPMethod::GET);
+	startGame(startGameHandler(game,storage));
 
 	m_app.port(18080).multithreaded().run();
 }

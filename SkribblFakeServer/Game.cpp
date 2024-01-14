@@ -6,16 +6,19 @@ using namespace skribbl;
 skribbl::Game::Game()
 {
 	int m_CurentStageIndex = 0;
+	m_stage.push_back(Stage::Lobby);
 }
 
 void skribbl::Game::setStages(int playerNumber)
 {
-	m_stage.push_back(Stage::Lobby);
-	for (int i = 0; i < playerNumber; i++)
+	for (int j = 0; j < 4; ++j)
 	{
-		m_stage.push_back(Stage::Choosing);
-		m_stage.push_back(Stage::Drawing);
-		m_stage.push_back(Stage::Results);
+		for (int i = 0; i < playerNumber; i++)
+		{
+			m_stage.push_back(Stage::Choosing);
+			m_stage.push_back(Stage::Drawing);
+			m_stage.push_back(Stage::Results);
+		}
 	}
 	m_stage.push_back(Stage::FinalResults);
 }
@@ -32,7 +35,7 @@ Stage skribbl::Game::getCurrentStage()
 
 void skribbl::Game::setPlayers(std::unordered_map<std::string, Player>& players)
 {
-	m_players = std::move(players);
+	m_players = players;
 }
 
 void skribbl::Game::setQueue()
@@ -53,5 +56,18 @@ void skribbl::Game::incrementPainter()
 	std::string username = m_painter.front();
 	m_painter.pop();
 	m_painter.push(username);
+}
+
+bool skribbl::Game::verifyPlayer(std::string name)
+{
+	if (std::find(m_verification.begin(), m_verification.end(), name) != m_verification.end())
+	{
+		return true;
+	}
+	else
+	{
+		m_verification.insert(name);
+		return false;
+	}
 }
 

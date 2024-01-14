@@ -308,6 +308,24 @@ namespace skribbl
 	private:
 		Game& m_game;
 	};
+
+	class setPaintHandler {
+	public:
+		setPaintHandler(Game& game);
+		crow::response operator()(const crow::request& req)const;
+	private:
+		Game& m_game;
+
+	};
+
+	class startGameHandler {
+	public:
+		startGameHandler(Game& game, DataBase& storage);
+		crow::response operator()(const crow::request& req)const;
+	private:
+		Game& m_game;
+		DataBase& m_storage;
+	};
 }
 
 	

@@ -1,6 +1,7 @@
 #pragma once
 #include <queue>
 #include <unordered_map>
+#include <unordered_set>
 #include "Player.h"
 namespace skribbl
 {
@@ -24,11 +25,13 @@ namespace skribbl
 		void setQueue();
 		std::string getWhoPaints();
 		void incrementPainter();
+		bool verifyPlayer(std::string name);
 
 	private:
 		std::vector<Stage> m_stage;
 		int m_CurentStageIndex;
 		std::unordered_map<std::string, Player> m_players;
+		std::unordered_set<std::string>m_verification;
 		std::queue<std::string> m_painter;
 	};
 }
