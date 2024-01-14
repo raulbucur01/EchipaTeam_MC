@@ -78,7 +78,7 @@ private:
 	bool canPaint = false;
 	std::array<std::string, 3>words;
 	bool isPainter=true;
-	QTimer* gameTimer;
+	std::unique_ptr<QTimer> gameTimer;
 	int seconds;
 	QMutex lineMutex;
 	QMutex gMutex;

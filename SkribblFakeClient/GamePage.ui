@@ -353,8 +353,8 @@
   <widget class="QTableWidget" name="resultTable">
    <property name="geometry">
     <rect>
-     <x>170</x>
-     <y>20</y>
+     <x>620</x>
+     <y>330</y>
      <width>256</width>
      <height>192</height>
     </rect>

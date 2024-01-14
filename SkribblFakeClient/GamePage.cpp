@@ -109,7 +109,7 @@ void GamePage::on_word1Button_pressed()
 	choiceMade = true;
 	seconds = 0;
 	gameTimer->start(1000);
-	connect(gameTimer, &QTimer::timeout, this, &GamePage::updateTimer);
+	connect(gameTimer.get(), &QTimer::timeout, this, &GamePage::updateTimer);
 }
 
 void GamePage::on_word2Button_pressed()
@@ -121,7 +121,7 @@ void GamePage::on_word2Button_pressed()
 	choiceMade = true;
 	seconds = 0;
 	gameTimer->start(1000);
-	connect(gameTimer, &QTimer::timeout, this, &GamePage::updateTimer);
+	connect(gameTimer.get(), &QTimer::timeout, this, &GamePage::updateTimer);
 }
 
 void GamePage::on_word3Button_pressed()
@@ -133,7 +133,7 @@ void GamePage::on_word3Button_pressed()
 	choiceMade = true;
 	seconds = 0;
 	gameTimer->start(1000);
-	connect(gameTimer, &QTimer::timeout, this, &GamePage::updateTimer);
+	connect(gameTimer.get(), &QTimer::timeout, this, &GamePage::updateTimer);
 }
 
 void GamePage::on_startButton_pressed()
@@ -153,7 +153,7 @@ void GamePage::on_startButton_pressed()
 	{
 		seconds = 0;
 		gameTimer->start(1000);
-		connect(gameTimer, &QTimer::timeout, this, &GamePage::updateTimer);
+		connect(gameTimer.get(), &QTimer::timeout, this, &GamePage::updateTimer);
 	} });
 }
 
@@ -351,12 +351,13 @@ GamePage::GamePage(QWidget* parent, Player player,bool leader)
 	connect(timer, &QTimer::timeout, this, &GamePage::createThread);
 
 	//connect(timer, &QTimer::timeout, this,&GamePage::updatePlayers);
-	gameTimer = new QTimer(this);
+	gameTimer = std::make_unique<QTimer>(this);
 	ui.timerLabel->move(ui.tabelaScor->x() + 25, ui.tabelaScor->y() - 30);
 	ui.timerLabel->resize(100, ui.timerLabel->height());
 
 	connect(ui.exitCurrentGame, &QPushButton::clicked, this, &GamePage::on_exitCurrentGame_pressed);
 
+	ui.resultTable->hide();
 	/*std::unordered_map<std::string, int> results;
 	results["Coco20"] = 100;
 	results["Coco"] = 200;
