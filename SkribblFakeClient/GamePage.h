@@ -13,6 +13,7 @@
 #include <array>
 #include <QtConcurrent>
 #include "PageManager.h"
+#include <unordered_map>
 class GamePage : public QWidget
 {
 	Q_OBJECT
@@ -50,6 +51,8 @@ public:
 	void mousePressEvent(QMouseEvent* e);
 	void mouseMoveEvent(QMouseEvent* e);
 	void mouseReleaseEvent(QMouseEvent* e);
+	void setupResultTable(const std::unordered_map<std::string, int>& results);
+	void deleteResultTable();
 	void setupTabela();
 	void setupChat();
 	void setupCulori();

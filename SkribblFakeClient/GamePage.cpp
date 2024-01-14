@@ -10,6 +10,8 @@
 #include <QTimer>
 #include<QGraphicsEffect>
 #include <QMessagebox.h>
+#include <unordered_set>
+#include <algorithm>
 std::string boolToString(bool painting)
 {
 	return painting ? "true" : "false";
@@ -354,6 +356,13 @@ GamePage::GamePage(QWidget* parent, Player player,bool leader)
 	ui.timerLabel->resize(100, ui.timerLabel->height());
 
 	connect(ui.exitCurrentGame, &QPushButton::clicked, this, &GamePage::on_exitCurrentGame_pressed);
+
+	/*std::unordered_map<std::string, int> results;
+	results["Coco20"] = 100;
+	results["Coco"] = 200;
+	results["Fasole"] = 300;
+	setupResultTable(results);
+	deleteResultTable();*/
 }
 
 
@@ -551,6 +560,82 @@ void GamePage::mouseReleaseEvent(QMouseEvent* e)
 
 	}
 }
+
+void GamePage::setupResultTable(const std::unordered_map<std::string, int>& results)
+{
+	// Convert the unordered_map items to a vector of std::pair
+	std::vector<std::pair<std::string, int>> resultVector(results.begin(), results.end());
+
+	// Sort the vector based on the second part of each pair (the score)
+	std::sort(resultVector.begin(), resultVector.end(), [](const auto& a, const auto& b) {
+		return a.second > b.second; // Sorting in descending order by score
+		});
+
+	// Show the veil
+	ui.veil->show();
+
+	// Set up the result table
+	int tableWidth = 220;
+	int tableHeight = rectangle->height() / 2 + 80;
+	int tableX = rectangle->x() + (rectangle->width() - tableWidth) / 2;
+	int tableY = rectangle->y() + (rectangle->height() - tableHeight) / 2;
+
+	ui.resultTable->setWindowTitle("Rezultat");
+	ui.resultTable->setGeometry(tableX, tableY, tableWidth, tableHeight);
+
+	ui.resultTable->setRowCount(8);
+	ui.resultTable->setColumnCount(2);
+
+	ui.resultTable->setHorizontalHeaderLabels(QStringList() << "Username" << "Scor");
+
+	ui.resultTable->setStyleSheet("QTableWidget { background-color: lightblue; }"
+		"QHeaderView::section { background-color: lightblue; }");
+	ui.resultTable->verticalHeader()->setVisible(false);
+	ui.resultTable->horizontalHeader()->setSectionsClickable(false);
+	ui.resultTable->setEditTriggers(QAbstractItemView::NoEditTriggers);
+
+	// Populate the table with sorted results
+	int row = 0;
+	for (const auto& result : resultVector)
+	{
+		QString username = QString::fromUtf8(result.first.c_str());
+		int score = result.second;
+
+		QTableWidgetItem* usernameItem = new QTableWidgetItem(username);
+		QTableWidgetItem* scoreItem = new QTableWidgetItem(QString::number(score));
+
+		ui.resultTable->setItem(row, 0, usernameItem);
+		ui.resultTable->setItem(row, 1, scoreItem);
+
+		++row;
+	}
+
+	// Show the result table
+	ui.resultTable->show();
+}
+
+void GamePage::deleteResultTable()
+{
+	// Delete items in the result table
+	for (int row = 0; row < ui.resultTable->rowCount(); ++row)
+	{
+		for (int col = 0; col < ui.resultTable->columnCount(); ++col)
+		{
+			QTableWidgetItem* item = ui.resultTable->item(row, col);
+			delete item;
+		}
+	}
+
+	// Clear the table
+	ui.resultTable->clearContents();
+	ui.resultTable->setRowCount(0);
+	ui.resultTable->setColumnCount(0);
+
+	// Hide the result table
+	ui.resultTable->hide();
+}
+
+
 void GamePage::paintEvent(QPaintEvent* event)
 {
 	QPainter painter(this);
