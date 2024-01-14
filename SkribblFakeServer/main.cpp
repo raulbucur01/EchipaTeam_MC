@@ -1,6 +1,8 @@
 #include <iostream>
 #include "SkribblServer.h"
-#include "DataBase.h"
+
+using namespace skribbl;
+
 
 int main() {
 	DataBase DB("SkribblData.sqlite");
@@ -20,7 +22,7 @@ int main() {
 	DB.PrintAllObtainedScores();
 	DB.UpdatePlayerScoreInDB("Coco20", 300);*/
 
-	SkribblServer server;
-	server.Start(DB);
+	SkribblServer server(DB);
+	server.Start();
 	return 0;
 }

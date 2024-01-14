@@ -13,7 +13,7 @@ public:
 	~GameRound();
 	//const Graph& GetGraph() const;
 
-	void roundStart();
+	DataBase& roundStart();
 	void verifChoice();
 	void chooseThreeRandomWords();
 	void chooseOneRandomWord();

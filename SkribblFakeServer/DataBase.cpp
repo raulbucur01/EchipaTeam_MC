@@ -63,6 +63,22 @@ DataBase::DataBase(const std::string& filename) : m_DB(createStorage(filename))
 	addWordsFromDBToWordsVector(); // avem vectoru de cuvinte permanent in DB momentan
 }
 
+DataBase& skribbl::DataBase::operator=(DataBase& other)
+{
+	m_players = other.m_players;
+	m_playersInGame = other.m_playersInGame;
+	m_words = other.m_words;
+	m_graph = other.m_graph;
+	m_line = other.m_line;
+
+	return *this;
+}
+
+Storage& skribbl::DataBase::GetStorage()
+{
+	return m_DB;
+}
+
 // Player
 
 auto DataBase::getPlayerIterator(const std::string& name)
