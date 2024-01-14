@@ -104,6 +104,7 @@ void GamePage::on_word1Button_pressed()
 	ui.horizontalLayoutWidget->hide();
 	//word.SetWord(words[0]);
 	canPaint = true;
+	choiceMade = true;
 	seconds = 0;
 	gameTimer->start(1000);
 	connect(gameTimer, &QTimer::timeout, this, &GamePage::updateTimer);
@@ -115,6 +116,7 @@ void GamePage::on_word2Button_pressed()
 	ui.horizontalLayoutWidget->hide();
 	//word.SetWord(words[1]);
 	canPaint = true;
+	choiceMade = true;
 	seconds = 0;
 	gameTimer->start(1000);
 	connect(gameTimer, &QTimer::timeout, this, &GamePage::updateTimer);
@@ -126,6 +128,7 @@ void GamePage::on_word3Button_pressed()
 	ui.horizontalLayoutWidget->hide();
 	//word.SetWord(words[2]);
 	canPaint = true;
+	choiceMade = true;
 	seconds = 0;
 	gameTimer->start(1000);
 	connect(gameTimer, &QTimer::timeout, this, &GamePage::updateTimer);
@@ -144,9 +147,12 @@ void GamePage::on_startButton_pressed()
 		canPaint = true;
 	timer->stop();
 	timer->deleteLater();
-	seconds = 0;
-	gameTimer->start(1000);
-	connect(gameTimer, &QTimer::timeout, this, &GamePage::updateTimer); });
+	if (choiceMade == false)
+	{
+		seconds = 0;
+		gameTimer->start(1000);
+		connect(gameTimer, &QTimer::timeout, this, &GamePage::updateTimer);
+	} });
 }
 
 void GamePage::on_exitCurrentGame_pressed()
@@ -290,13 +296,15 @@ void GamePage::updateDrawing()
 }
 
 
-GamePage::GamePage(QWidget* parent, Player player)
-	: QWidget(parent), m_playerCurrent{ player }
+GamePage::GamePage(QWidget* parent, Player player,bool leader)
+	: QWidget(parent), m_playerCurrent{ player } , lobbyLeader{leader}
 {
 	messages = new QStandardItemModel(this);
 	ui.setupUi(this);
 	m_players.push_back(player);
 	isPainter = true;
+	choiceMade = false;
+	ui.timerLabel->setText("Time Left:");
 	//m_player{};
 	ui.exitButton->setStyleSheet(QString("#%1 { background-color: red; }").arg(ui.exitButton->objectName()));
 	connect(ui.exitButton, &QPushButton::pressed, this, &GamePage::on_exitButton_pressed);
@@ -314,6 +322,10 @@ GamePage::GamePage(QWidget* parent, Player player)
 	//word.SetWord("vlad");
 	ui.horizontalLayoutWidget->hide();
 	ui.someoneChoosing->hide();
+	if (lobbyLeader == false)
+	{
+		ui.startButton->hide();
+	}
 	ui.startButton->move(rectangle->center().x() - ui.startButton->width() / 2, rectangle->center().y() - ui.startButton->height() / 2);
 	ui.startButton->setText("Start!");
 	ui.startButton->setFont(QFont("Arial", 40));
@@ -368,7 +380,7 @@ GamePage::~GamePage()
 void GamePage::setupTabela()
 {
 	ui.tabelaScor->setWindowTitle("Tabela Scor");
-	ui.tabelaScor->setGeometry(rectangle->x() - 217, rectangle->y(), 217, rectangle->height() / 2 + 52);
+	ui.tabelaScor->setGeometry(rectangle->x() - 220, rectangle->y(), 220, rectangle->height() / 2 + 80);
 
 	ui.tabelaScor->setRowCount(8);
 	ui.tabelaScor->setColumnCount(2);
@@ -457,6 +469,12 @@ void GamePage::updateTimer()
 	if (seconds == 60)
 		gameTimer->stop();
 }
+
+void GamePage::setLobbyLeader(bool este)
+{
+	lobbyLeader = este;
+}
+
 void sendDrawing(int x, int y, bool painting, int red, int green, int blue) {
 	auto response = cpr::Post(cpr::Url{ "http://localhost:18080/round/sendDrawing" },
 		cpr::Body{ "coordinateX=" + std::to_string(x)

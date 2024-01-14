@@ -45,7 +45,7 @@ private slots:
 	
 
 public:
-	GamePage(QWidget* parent = nullptr, Player player = {});
+	GamePage(QWidget* parent = nullptr, Player player = {},bool leader=false);
 	virtual ~GamePage();
 	void mousePressEvent(QMouseEvent* e);
 	void mouseMoveEvent(QMouseEvent* e);
@@ -56,6 +56,7 @@ public:
 	void wordChoosingSequence();
 	void randomWordsFromDB();
 	void updateTimer();
+	void setLobbyLeader(bool este);
 
 private:
 	void paintEvent(QPaintEvent* event);
@@ -79,4 +80,6 @@ private:
 	QMutex lineMutex;
 	QMutex gMutex;
 	PageManager pages;
+	bool choiceMade;
+	bool lobbyLeader;
 };
