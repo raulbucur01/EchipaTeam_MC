@@ -12,6 +12,7 @@
 #include <QScrollarea.h>
 #include <qmessagebox.h>
 #include "PageManager.h"
+#include <ranges>
 
 class IconSelectionDialog : public QDialog {
     Q_OBJECT
