@@ -90,9 +90,9 @@ void SkribblServer::Start()
 	auto& RandomWordsFromDB = CROW_ROUTE(m_app, "/RandomWordsFromDB")
 		.methods(crow::HTTPMethod::GET);
 	RandomWordsFromDB(RandomWordsFromDBHandler(storage));
-	//auto& stageGame = CROW_ROUTE(m_app, "/stage")
-		//methods(crow::HTTPMethod::GET);
-	//stageGame(stageGameHandler());
+	auto& stageGame = CROW_ROUTE(m_app, "/stage")
+		.methods(crow::HTTPMethod::GET);
+	stageGame(stageGameHandler(game));
 
 	m_app.port(18080).multithreaded().run();
 }

@@ -5,9 +5,7 @@ using namespace skribbl;
 
 int main() {
 	DataBase DB("SkribblData.sqlite");
-	DB.PrintAll<Player>();
-	DB.PrintAll<Purchase>();
-	DB.PrintAll<ObtainedScore>();
+	
 	////DB.PrintAll<Word>();
 	//DB.printAllWords();
 

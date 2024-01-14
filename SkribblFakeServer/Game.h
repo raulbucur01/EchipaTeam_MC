@@ -1,6 +1,7 @@
 #pragma once
-#include "GameRound.h"
 #include <queue>
+#include <unordered_map>
+#include "Player.h"
 namespace skribbl
 {
 	enum class Stage : uint16_t

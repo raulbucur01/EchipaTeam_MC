@@ -53,9 +53,6 @@
     <ClCompile Include="node.cpp">
       <Filter>GameFiles</Filter>
     </ClCompile>
-    <ClCompile Include="GameRound.cpp">
-      <Filter>GameFiles</Filter>
-    </ClCompile>
     <ClCompile Include="Game.cpp">
       <Filter>GameFiles</Filter>
     </ClCompile>
@@ -84,9 +81,6 @@
     </ClInclude>
     <ClInclude Include="Message.h">
       <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GameRound.h">
-      <Filter>GameFiles</Filter>
     </ClInclude>
     <ClInclude Include="Game.h">
       <Filter>GameFiles</Filter>

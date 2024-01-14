@@ -297,6 +297,32 @@ void GamePage::updateDrawing()
 	}
 }
 
+void GamePage::checkStage()
+{
+	cpr::Response response = cpr::Get(cpr::Url{ "http://localhost:18080/stage" });
+	crow::json::rvalue stageResponse = crow::json::load(response.text);
+	if (stageResponse["stage"] == "lobby")
+	{
+
+	}
+	if (stageResponse["stage"] == "choosing")
+	{
+
+	}
+	if (stageResponse["stage"] == "drawing")
+	{
+
+	}
+	if (stageResponse["stage"] == "results")
+	{
+
+	}
+	if (stageResponse["stage"] == "finalresults")
+	{
+
+	}
+}
+
 
 GamePage::GamePage(QWidget* parent, Player player,bool leader)
 	: QWidget(parent), m_playerCurrent{ player } , lobbyLeader{leader}

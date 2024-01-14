@@ -149,7 +149,6 @@
   <ItemGroup>
     <ClCompile Include="DataBase.cpp" />
     <ClCompile Include="Game.cpp" />
-    <ClCompile Include="GameRound.cpp" />
     <ClCompile Include="graph.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Message.cpp" />
@@ -164,7 +163,6 @@
   <ItemGroup>
     <ClInclude Include="DataBase.h" />
     <ClInclude Include="Game.h" />
-    <ClInclude Include="GameRound.h" />
     <ClInclude Include="graph.h" />
     <ClInclude Include="Message.h" />
     <ClInclude Include="node.h" />

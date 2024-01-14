@@ -773,3 +773,38 @@ crow::response GetDrawingHandler::operator()(const crow::request& req) const
 	
 
 }
+
+skribbl::stageGameHandler::stageGameHandler(Game& game): m_game{game}
+{
+}
+
+crow::response skribbl::stageGameHandler::operator()(const crow::request& req) const
+{
+	crow::json::wvalue jsonResponse;
+	if (m_game.getCurrentStage() == Stage::Lobby)
+	{
+		jsonResponse["stage"]="lobby";
+
+	}
+	if (m_game.getCurrentStage()==Stage::Choosing)
+	{
+		jsonResponse["stage"] = "choosing";
+	}
+	if (m_game.getCurrentStage()==Stage::Drawing)
+	{
+		jsonResponse["stage"] = "drawing";
+
+	}
+	if (m_game.getCurrentStage()==Stage::Results)
+	{
+		jsonResponse["stage"] = "results";
+
+	}
+	if (m_game.getCurrentStage()==Stage::FinalResults)
+	{
+		jsonResponse["stage"] = "finalresults";
+
+	}
+	return jsonResponse;
+
+}

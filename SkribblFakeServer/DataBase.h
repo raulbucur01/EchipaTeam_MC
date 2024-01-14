@@ -14,6 +14,7 @@
 #include "Message.h"
 #include "ObtainedScore.h"
 #include "graph.h"
+#include "Game.h"
 namespace sql = sqlite_orm;
 import utils;
 
@@ -299,6 +300,13 @@ namespace skribbl
 		crow::response operator()(const crow::request& req)const;
 	private:
 		DataBase& m_DB;
+	};
+	class stageGameHandler {
+	public:
+		stageGameHandler(Game&game);
+		crow::response operator()(const crow::request& req)const;
+	private:
+		Game& m_game;
 	};
 }
 
