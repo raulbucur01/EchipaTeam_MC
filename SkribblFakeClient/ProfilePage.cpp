@@ -333,7 +333,8 @@ void MatchHistoryDialog::setMatchHistory(std::vector<int>& obtainedScores) {
 	}
 
 	// Populate the scroll area with rows
-	for (int i = 0; i < obtainedScores.size(); ++i) {
+	int limit = obtainedScores.size();
+	for (int i : std::ranges::iota_view(0, limit)) {
 		QLabel* gameNumberLabel = new QLabel(QString::number(i + 1));
 		QLabel* scoreLabel = new QLabel(QString::number(obtainedScores[i]));
 

@@ -60,6 +60,7 @@ public:
 	void randomWordsFromDB();
 	void updateTimer();
 	void setLobbyLeader(bool este);
+	void checkStage();
 
 private:
 	void paintEvent(QPaintEvent* event);
