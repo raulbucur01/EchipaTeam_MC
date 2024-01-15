@@ -12,6 +12,7 @@
 #include <QMessagebox.h>
 #include <unordered_set>
 #include <algorithm>
+#include <ctime>
 std::string boolToString(bool painting)
 {
 	return painting ? "true" : "false";
@@ -104,7 +105,9 @@ void GamePage::on_word1Button_pressed()
 {
 	ui.veil->hide();
 	ui.horizontalLayoutWidget->hide();
-	//word.SetWord(words[0]);
+	auto res = cpr::Post(cpr::Url{ "http://localhost:18080/choosingWord" },
+		cpr::Body{ "word=" + words[0] });
+	ui.wordLabel->setText(QString::fromUtf8(words[0].c_str()));
 	canPaint = true;
 	choiceMade = true;
 	seconds = 0;
@@ -116,7 +119,9 @@ void GamePage::on_word2Button_pressed()
 {
 	ui.veil->hide();
 	ui.horizontalLayoutWidget->hide();
-	//word.SetWord(words[1]);
+	auto res = cpr::Post(cpr::Url{ "http://localhost:18080/choosingWord" },
+		cpr::Body{ "word=" +words[1]});
+	ui.wordLabel->setText(QString::fromUtf8(words[1].c_str()));
 	canPaint = true;
 	choiceMade = true;
 	seconds = 0;
@@ -128,7 +133,9 @@ void GamePage::on_word3Button_pressed()
 {
 	ui.veil->hide();
 	ui.horizontalLayoutWidget->hide();
-	//word.SetWord(words[2]);
+	auto res = cpr::Post(cpr::Url{ "http://localhost:18080/choosingWord" },
+		cpr::Body{ "word=" + words[2] });
+	ui.wordLabel->setText(QString::fromUtf8(words[2].c_str()));
 	canPaint = true;
 	choiceMade = true;
 	seconds = 0;
@@ -138,23 +145,13 @@ void GamePage::on_word3Button_pressed()
 
 void GamePage::on_startButton_pressed()
 {
+	cpr::Response response = cpr::Get(cpr::Url{ "http://localhost:18080/startGame" });
 	ui.startButton->hide();
-	wordChoosingSequence();
-	QTimer* timer = new QTimer(this);
-	timer->start(10000);
-	connect(timer, &QTimer::timeout, this, [this, timer]() {ui.veil->hide();
-	ui.someoneChoosing->hide();
-	ui.horizontalLayoutWidget->hide();
 	if (isPainter == true)
-		canPaint = true;
-	timer->stop();
-	timer->deleteLater();
-	if (choiceMade == false)
 	{
-		seconds = 0;
-		gameTimer->start(1000);
-		connect(gameTimer.get(), &QTimer::timeout, this, &GamePage::updateTimer);
-	} });
+		randomWordsFromDB();
+	}
+	wordChoosingSequence();
 }
 
 void GamePage::on_exitCurrentGame_pressed()
@@ -209,7 +206,7 @@ void GamePage::createThread()
 {
 	QtConcurrent::run([this]() {updateChat(); });
 	QtConcurrent::run([this]() {updateTable(); });
-	QtConcurrent::run([this]() {updateDrawing(); });
+	QtConcurrent::run([this]() {checkStage(); });
 }
 
 void GamePage::updateChat()
@@ -301,6 +298,7 @@ void GamePage::updateDrawing()
 
 void GamePage::checkStage()
 {
+	QMutexLocker lineLocker(&lineMutex);
 	cpr::Response response = cpr::Get(cpr::Url{ "http://localhost:18080/stage" });
 	crow::json::rvalue stageResponse = crow::json::load(response.text);
 	if (stageResponse["stage"] == "lobby")
@@ -309,11 +307,17 @@ void GamePage::checkStage()
 	}
 	if (stageResponse["stage"] == "choosing")
 	{
-
+		cpr::Response response1 = cpr::Get(cpr::Url{ "http://localhost:18080/stage/drawing" },
+			cpr::Body{ "name=" + m_playerCurrent.GetName() });
+		crow::json::rvalue username = crow::json::load(response1.text);
+		if (username["name"] == m_playerCurrent.GetName())
+		{
+			isPainter = true;
+		}
 	}
 	if (stageResponse["stage"] == "drawing")
 	{
-
+		updateDrawing();
 	}
 	if (stageResponse["stage"] == "results")
 	{
@@ -326,8 +330,8 @@ void GamePage::checkStage()
 }
 
 
-GamePage::GamePage(QWidget* parent, Player player,bool leader)
-	: QWidget(parent), m_playerCurrent{ player } , lobbyLeader{leader}
+GamePage::GamePage(QWidget* parent, Player player, bool leader)
+	: QWidget(parent), m_playerCurrent{ player }, lobbyLeader{ leader }
 {
 	messages = new QStandardItemModel(this);
 	ui.setupUi(this);
@@ -370,7 +374,7 @@ GamePage::GamePage(QWidget* parent, Player player,bool leader)
 	opacityEffect->setOpacity(0.5);
 	ui.veil->setGraphicsEffect(opacityEffect);
 	ui.wordLabel->move(rectangle->x() + rectangle->width() / 2, rectangle->y() - 50);
-	ui.wordLabel->setText(QString::fromStdString("vlad"));
+	ui.wordLabel->resize(ui.wordLabel->width() + 30,ui.wordLabel->height());
 	ui.wordLabel->show();
 	QTimer* timer = new QTimer(this);
 	timer->start(1000);
@@ -388,8 +392,8 @@ GamePage::GamePage(QWidget* parent, Player player,bool leader)
 	results["Coco20"] = 100;
 	results["Coco"] = 200;
 	results["Fasole"] = 300;
-	setupResultTable(results);
-	deleteResultTable();*/
+	setupResultTable(results);*/
+	//deleteResultTable();
 }
 
 
@@ -458,14 +462,35 @@ void GamePage::setupCulori()
 
 void GamePage::wordChoosingSequence()
 {
+	QTimer* timer = new QTimer(this);
+	timer->start(10000);
+	connect(timer, &QTimer::timeout, this, [this, timer]() {ui.veil->hide();
+	ui.someoneChoosing->hide();
+	ui.horizontalLayoutWidget->hide();
+	if (isPainter == true)
+		canPaint = true;
+	timer->stop();
+	timer->deleteLater();
+	if (choiceMade == false)
+	{
+		srand(time(0));
+		int index = std::rand() % 3;
+		auto res = cpr::Post(cpr::Url{ "http://localhost:18080/choosingWord" },
+			cpr::Body{ "word=" + words[index]});
+		ui.wordLabel->setText(QString::fromUtf8(words[index].c_str()));
+		seconds = 0;
+		gameTimer->start(1000);
+		connect(gameTimer.get(), &QTimer::timeout, this, &GamePage::updateTimer);
+	} });
+
 	if (isPainter == true)
 	{
-		randomWordsFromDB();
 		ui.horizontalLayoutWidget->setGeometry(rectangle->x(), rectangle->y() + rectangle->width() / 2, rectangle->width(), ui.horizontalLayoutWidget->height());
 		ui.word1Button->setText(QString::fromUtf8(words[0].c_str()));
 		ui.word2Button->setText(QString::fromUtf8(words[1].c_str()));
 		ui.word3Button->setText(QString::fromUtf8(words[2].c_str()));
 		ui.horizontalLayoutWidget->show();
+
 	}
 	else
 	{
@@ -593,10 +618,13 @@ void GamePage::setupResultTable(const std::unordered_map<std::string, int>& resu
 	// Convert the unordered_map items to a vector of std::pair
 	std::vector<std::pair<std::string, int>> resultVector(results.begin(), results.end());
 
-	// Sort the vector based on the second part of each pair (the score)
-	std::sort(resultVector.begin(), resultVector.end(), [](const auto& a, const auto& b) {
-		return a.second > b.second; // Sorting in descending order by score
-		});
+	if (std::ranges::is_sorted(resultVector, {}, [](const auto& pair) { return pair.second; }))
+	{
+		// Sort the vector based on the second part of each pair (the score)
+		std::sort(resultVector.begin(), resultVector.end(), [](const auto& a, const auto& b) {
+			return a.second > b.second; // Sorting in descending order by score
+			});
+	}
 
 	// Show the veil
 	ui.veil->show();

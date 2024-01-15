@@ -136,13 +136,13 @@ namespace skribbl
 		void AddObtainedScoreToDB(const ObtainedScore& obtainedScore);
 		std::vector<int> GetObtainedScoresByPlayer(const std::string& playerName);
 		void UpdatePlayerScoreInDB(const std::string& name, int newScoreAmount);
-		
+
 		// template doesn't work for Word
 		template <class T>
 		std::vector<T> GetAll() {
 			return m_DB.get_all<T>();
 		}
-		
+
 		// template doesn't work for Word
 		template <class T>
 		void PrintAll() {
@@ -303,17 +303,45 @@ namespace skribbl
 	};
 	class stageGameHandler {
 	public:
-		stageGameHandler(Game&game);
+		stageGameHandler(Game& game);
 		crow::response operator()(const crow::request& req)const;
 	private:
 		Game& m_game;
 	};
+
 	class StageResultFinalsHandler {
 	public:
 		StageResultFinalsHandler(Game&game);
 		crow::response operator()(const crow::request& req)const;
 	private:
 		Game& m_game;
+
+
+	class setPaintHandler {
+	public:
+		setPaintHandler(Game& game);
+		crow::response operator()(const crow::request& req)const;
+	private:
+		Game& m_game;
+
+	};
+
+	class startGameHandler {
+	public:
+		startGameHandler(Game& game, DataBase& storage);
+		crow::response operator()(const crow::request& req)const;
+	private:
+		Game& m_game;
+		DataBase& m_storage;
+	};
+
+	class chooseWordHandler {
+	public:
+		chooseWordHandler(Game& game);
+		crow::response operator()(const crow::request& req)const;
+	private:
+		Game& m_game;
+
 	};
 }
 
