@@ -28,6 +28,7 @@ namespace skribbl
 		std::string getWhoPaints();
 		void incrementPainter();
 		bool verifyPlayer(std::string name);
+		std::unordered_set < std::string> VerifyPlayers();
 		Word GetWord();
 		void setWord(const Word& word);
 	private:

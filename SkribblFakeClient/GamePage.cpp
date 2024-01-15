@@ -230,7 +230,6 @@ void GamePage::updateChat()
 		if (position >= count)
 		{
 			auto name = QString::fromUtf8(playerName.c_str());
-			name += QString(": ");
 			name += v;
 			messages->appendRow(new QStandardItem(name));
 		}

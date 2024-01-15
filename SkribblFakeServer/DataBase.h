@@ -258,10 +258,11 @@ namespace skribbl
 	};
 	class SendMessageHandler {
 	public:
-		SendMessageHandler(std::unordered_map<std::string, Player>& players);
+		SendMessageHandler(Game&game,std::unordered_map<std::string, Player>& players);
 		crow::response operator()(const crow::request& req) const;
 	private:
 		std::unordered_map<std::string, Player>& m_players;
+		Game& m_game;
 	};
 	class GetMessagesHandler {
 	public:

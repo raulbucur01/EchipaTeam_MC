@@ -26,6 +26,7 @@ void skribbl::Game::setStages(int playerNumber)
 void skribbl::Game::incrementIndex()
 {
 	m_CurentStageIndex++;
+	m_verification.clear();
 }
 
 Stage skribbl::Game::getCurrentStage()
@@ -76,6 +77,11 @@ bool skribbl::Game::verifyPlayer(std::string name)
 		m_verification.insert(name);
 		return false;
 	}
+}
+
+std::unordered_set<std::string> skribbl::Game::VerifyPlayers()
+{
+	return m_verification;
 }
 
 Word skribbl::Game::GetWord()

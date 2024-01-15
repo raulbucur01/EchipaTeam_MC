@@ -4,7 +4,6 @@ using namespace http;
 using namespace skribbl;
 import "Node.h";
 #include <tuple>
-
 DataBase::DataBase(const std::string& filename) : m_DB(createStorage(filename))
 {
 	m_DB.sync_schema();
@@ -627,7 +626,7 @@ crow::response RemovePlayerHandler::operator()(const crow::request& req) const
 }
 
 
-SendMessageHandler::SendMessageHandler(std::unordered_map<std::string, Player>& players) : m_players{ players }
+SendMessageHandler::SendMessageHandler(Game& game,std::unordered_map<std::string, Player>& players) :m_game{ game }, m_players { players }
 {
 }
 
@@ -637,16 +636,31 @@ crow::response SendMessageHandler::operator()(const crow::request& req)  const
 	auto end = bodyArgs.end();
 	auto usernameIter = bodyArgs.find("username");
 	auto messageIter = bodyArgs.find("message");
+	bool ok = false;
 	if (usernameIter != end && messageIter != end)
 	{
-		Message message{ messageIter->second,usernameIter->second };
+		std::unordered_set<std::string> verify = m_game.VerifyPlayers();
+		if (verify.find(usernameIter->second) != verify.end())
+			return crow::response(402);
+		Message message;
+		if (messageIter->second == m_game.GetWord().GetWord())
+		{
+			m_game.verifyPlayer(usernameIter->second);
+			message.SetContet(" guessed the word!");
+			message.SetPlayerName(usernameIter->second);
+		}
+		else
+		{
+			message.SetContet(": " + messageIter->second);
+			message.SetPlayerName(usernameIter->second);
+		}
 		for (auto& player : m_players)
 		{
 			player.second.AddMessage(message);
 		}
 		return crow::response(200);
+		
 	}
-	else
 		return crow::response(400);
 }
 
