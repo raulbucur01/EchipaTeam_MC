@@ -886,9 +886,18 @@ crow::response skribbl::chooseWordHandler::operator()(const crow::request& req) 
 	if (wordIter != end)
 	{
 		m_game.setWord(Word(0,wordIter->second));
+		m_game.incrementIndex();
 		return crow::response(200);
 	}
-	m_game.incrementIndex();
 	return crow::response(402);
 }
 
+skribbl::getWordHandler::getWordHandler(Game& game):m_game{game}
+{
+}
+
+crow::response skribbl::getWordHandler::operator()(const crow::request& req) const
+{
+	crow::json::wvalue text{ {"word",m_game.GetWord().GetWord()} };
+	return text;
+}
