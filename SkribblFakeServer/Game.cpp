@@ -71,3 +71,13 @@ bool skribbl::Game::verifyPlayer(std::string name)
 	}
 }
 
+Word skribbl::Game::GetWord()
+{
+	return m_word;
+}
+
+void skribbl::Game::setWord(const Word& word)
+{
+	m_word = word;
+}
+

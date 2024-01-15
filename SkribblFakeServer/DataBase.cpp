@@ -841,3 +841,22 @@ crow::response skribbl::startGameHandler::operator()(const crow::request& req) c
 	m_game.incrementIndex();
 	return crow::response(200);
 }
+
+skribbl::chooseWordHandler::chooseWordHandler(Game& game):m_game{game}
+{
+}
+
+crow::response skribbl::chooseWordHandler::operator()(const crow::request& req) const
+{
+	auto bodyArgs = parseUrlArgs(req.body);
+	auto end = bodyArgs.end();
+	auto wordIter = bodyArgs.find("word");
+	if (wordIter != end)
+	{
+		m_game.setWord(Word(0,wordIter->second));
+		return crow::response(200);
+	}
+	m_game.incrementIndex();
+	return crow::response(402);
+}
+

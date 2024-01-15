@@ -3,6 +3,7 @@
 #include <unordered_map>
 #include <unordered_set>
 #include "Player.h"
+#include <Word.h>
 namespace skribbl
 {
 	enum class Stage : uint16_t
@@ -26,13 +27,15 @@ namespace skribbl
 		std::string getWhoPaints();
 		void incrementPainter();
 		bool verifyPlayer(std::string name);
-
+		Word GetWord();
+		void setWord(const Word& word);
 	private:
 		std::vector<Stage> m_stage;
 		int m_CurentStageIndex;
 		std::unordered_map<std::string, Player> m_players;
 		std::unordered_set<std::string>m_verification;
 		std::queue<std::string> m_painter;
+		Word m_word;
 	};
 }
 

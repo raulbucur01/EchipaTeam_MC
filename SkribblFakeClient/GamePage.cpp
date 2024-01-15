@@ -12,6 +12,7 @@
 #include <QMessagebox.h>
 #include <unordered_set>
 #include <algorithm>
+#include <ctime>
 std::string boolToString(bool painting)
 {
 	return painting ? "true" : "false";
@@ -104,7 +105,9 @@ void GamePage::on_word1Button_pressed()
 {
 	ui.veil->hide();
 	ui.horizontalLayoutWidget->hide();
-	//word.SetWord(words[0]);
+	auto res = cpr::Post(cpr::Url{ "http://localhost:18080/choosingWord" },
+		cpr::Body{ "word=" + words[0] });
+	ui.wordLabel->setText(QString::fromUtf8(words[0].c_str()));
 	canPaint = true;
 	choiceMade = true;
 	seconds = 0;
@@ -116,7 +119,9 @@ void GamePage::on_word2Button_pressed()
 {
 	ui.veil->hide();
 	ui.horizontalLayoutWidget->hide();
-	//word.SetWord(words[1]);
+	auto res = cpr::Post(cpr::Url{ "http://localhost:18080/choosingWord" },
+		cpr::Body{ "word=" +words[1]});
+	ui.wordLabel->setText(QString::fromUtf8(words[1].c_str()));
 	canPaint = true;
 	choiceMade = true;
 	seconds = 0;
@@ -128,7 +133,9 @@ void GamePage::on_word3Button_pressed()
 {
 	ui.veil->hide();
 	ui.horizontalLayoutWidget->hide();
-	//word.SetWord(words[2]);
+	auto res = cpr::Post(cpr::Url{ "http://localhost:18080/choosingWord" },
+		cpr::Body{ "word=" + words[2] });
+	ui.wordLabel->setText(QString::fromUtf8(words[2].c_str()));
 	canPaint = true;
 	choiceMade = true;
 	seconds = 0;
@@ -367,7 +374,7 @@ GamePage::GamePage(QWidget* parent, Player player, bool leader)
 	opacityEffect->setOpacity(0.5);
 	ui.veil->setGraphicsEffect(opacityEffect);
 	ui.wordLabel->move(rectangle->x() + rectangle->width() / 2, rectangle->y() - 50);
-	ui.wordLabel->setText(QString::fromStdString("vlad"));
+	ui.wordLabel->resize(ui.wordLabel->width() + 30,ui.wordLabel->height());
 	ui.wordLabel->show();
 	QTimer* timer = new QTimer(this);
 	timer->start(1000);
@@ -466,6 +473,11 @@ void GamePage::wordChoosingSequence()
 	timer->deleteLater();
 	if (choiceMade == false)
 	{
+		srand(time(0));
+		int index = std::rand() % 3;
+		auto res = cpr::Post(cpr::Url{ "http://localhost:18080/choosingWord" },
+			cpr::Body{ "word=" + words[index]});
+		ui.wordLabel->setText(QString::fromUtf8(words[index].c_str()));
 		seconds = 0;
 		gameTimer->start(1000);
 		connect(gameTimer.get(), &QTimer::timeout, this, &GamePage::updateTimer);

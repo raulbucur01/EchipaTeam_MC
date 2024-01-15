@@ -99,6 +99,9 @@ void SkribblServer::Start()
 	auto& startGame = CROW_ROUTE(m_app, "/startGame")
 		.methods(crow::HTTPMethod::GET);
 	startGame(startGameHandler(game,storage));
+	auto& choosingWord = CROW_ROUTE(m_app, "/choosingWord")
+		.methods(crow::HTTPMethod::POST);
+	choosingWord(chooseWordHandler(game));
 
 	m_app.port(18080).multithreaded().run();
 }
