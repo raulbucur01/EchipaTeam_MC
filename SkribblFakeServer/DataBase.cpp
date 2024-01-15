@@ -858,7 +858,7 @@ crow::response skribbl::setPaintHandler::operator()(const crow::request& req) co
 			return text;
 		}
 	}	
-	return crow::json::wvalue{};
+	return crow::json::wvalue{ " " };
 }
 
 skribbl::startGameHandler::startGameHandler(Game& game, DataBase& storage): m_game{game}, m_storage{storage}

@@ -44,6 +44,7 @@ private slots:
 	void on_word3Button_pressed();
 	void on_startButton_pressed();
 	void on_exitCurrentGame_pressed();
+	void veilHide();
 	
 
 public:

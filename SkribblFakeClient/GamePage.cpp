@@ -196,6 +196,13 @@ void GamePage::on_exitCurrentGame_pressed()
 	}*/
 }
 
+void GamePage::veilHide()
+{
+	ui.veil->hide();
+	ui.horizontalLayoutWidget->hide();
+	ui.someoneChoosing->hide();
+}
+
 /*void GamePage::updatePlayers()
 {
 	cpr::Response response = cpr::Get(cpr::Url{ "http://localHost:18080/currentPlayersInGame" });
@@ -206,8 +213,7 @@ void GamePage::createThread()
 {
 	QtConcurrent::run([this]() {updateChat(); });
 	QtConcurrent::run([this]() {updateTable(); });
-	QtConcurrent::run([this]() {updateDrawing(); });
-	checkStage();
+	QtConcurrent::run([this]() {checkStage(); });
 }
 
 void GamePage::updateChat()
@@ -320,7 +326,8 @@ void GamePage::checkStage()
 		cpr::Response response2 = cpr::Get(cpr::Url{ "http://localhost:18080/getWord" });
 		crow::json::rvalue wordResponse = crow::json::load(response2.text);
 		word = wordResponse["word"].s();
-		//updateDrawing();
+		veilHide();
+		updateDrawing();
 	}
 	if (stageResponse["stage"] == "results")
 	{
