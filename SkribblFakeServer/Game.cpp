@@ -26,6 +26,7 @@ void skribbl::Game::setStages(int playerNumber)
 void skribbl::Game::incrementIndex()
 {
 	m_CurentStageIndex++;
+	m_verification.clear();
 }
 
 Stage skribbl::Game::getCurrentStage()

@@ -76,7 +76,7 @@ private:
 	QColor currentColor;
 	std::vector<Player> m_players;
 	Player m_playerCurrent;
-	Word word;
+	std::string word;
 	bool canPaint = false;
 	std::array<std::string, 3>words;
 	bool isPainter=true;

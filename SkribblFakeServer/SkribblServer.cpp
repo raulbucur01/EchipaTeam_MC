@@ -102,6 +102,9 @@ void SkribblServer::Start()
 	auto& choosingWord = CROW_ROUTE(m_app, "/choosingWord")
 		.methods(crow::HTTPMethod::POST);
 	choosingWord(chooseWordHandler(game));
+	auto& getWord = CROW_ROUTE(m_app, "/getWord")
+		.methods(crow::HTTPMethod::GET);
+	getWord(getWordHandler(game));
 
 
 	//auto& stageResult = CROW_ROUTE(m_app, "/stage/result")

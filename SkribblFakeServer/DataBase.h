@@ -343,6 +343,14 @@ namespace skribbl
 		Game& m_game;
 
 	};
+
+	class getWordHandler {
+	public:
+		getWordHandler(Game& game);
+		crow::response operator()(const crow::request& req)const;
+	private:
+		Game& m_game;
+	};
 }
 
 	

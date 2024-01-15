@@ -107,7 +107,7 @@ void GamePage::on_word1Button_pressed()
 	ui.horizontalLayoutWidget->hide();
 	auto res = cpr::Post(cpr::Url{ "http://localhost:18080/choosingWord" },
 		cpr::Body{ "word=" + words[0] });
-	ui.wordLabel->setText(QString::fromUtf8(words[0].c_str()));
+	//ui.wordLabel->setText(QString::fromUtf8(words[0].c_str()));
 	canPaint = true;
 	choiceMade = true;
 	seconds = 0;
@@ -121,7 +121,7 @@ void GamePage::on_word2Button_pressed()
 	ui.horizontalLayoutWidget->hide();
 	auto res = cpr::Post(cpr::Url{ "http://localhost:18080/choosingWord" },
 		cpr::Body{ "word=" +words[1]});
-	ui.wordLabel->setText(QString::fromUtf8(words[1].c_str()));
+	//ui.wordLabel->setText(QString::fromUtf8(words[1].c_str()));
 	canPaint = true;
 	choiceMade = true;
 	seconds = 0;
@@ -135,7 +135,7 @@ void GamePage::on_word3Button_pressed()
 	ui.horizontalLayoutWidget->hide();
 	auto res = cpr::Post(cpr::Url{ "http://localhost:18080/choosingWord" },
 		cpr::Body{ "word=" + words[2] });
-	ui.wordLabel->setText(QString::fromUtf8(words[2].c_str()));
+	//ui.wordLabel->setText(QString::fromUtf8(words[2].c_str()));
 	canPaint = true;
 	choiceMade = true;
 	seconds = 0;
@@ -206,7 +206,8 @@ void GamePage::createThread()
 {
 	QtConcurrent::run([this]() {updateChat(); });
 	QtConcurrent::run([this]() {updateTable(); });
-	QtConcurrent::run([this]() {checkStage(); });
+	QtConcurrent::run([this]() {updateDrawing(); });
+	checkStage();
 }
 
 void GamePage::updateChat()
@@ -317,7 +318,10 @@ void GamePage::checkStage()
 	}
 	if (stageResponse["stage"] == "drawing")
 	{
-		updateDrawing();
+		cpr::Response response2 = cpr::Get(cpr::Url{ "http://localhost:18080/getWord" });
+		crow::json::rvalue wordResponse = crow::json::load(response2.text);
+		word = wordResponse["word"].s();
+		//updateDrawing();
 	}
 	if (stageResponse["stage"] == "results")
 	{
@@ -477,7 +481,7 @@ void GamePage::wordChoosingSequence()
 		int index = std::rand() % 3;
 		auto res = cpr::Post(cpr::Url{ "http://localhost:18080/choosingWord" },
 			cpr::Body{ "word=" + words[index]});
-		ui.wordLabel->setText(QString::fromUtf8(words[index].c_str()));
+		//ui.wordLabel->setText(QString::fromUtf8(words[index].c_str()));
 		seconds = 0;
 		gameTimer->start(1000);
 		connect(gameTimer.get(), &QTimer::timeout, this, &GamePage::updateTimer);
@@ -531,6 +535,7 @@ void GamePage::updateTimer()
 	seconds++;
 	if (seconds == 60)
 		gameTimer->stop();
+	ui.wordLabel->setText(QString::fromUtf8(word.c_str()));
 }
 
 void GamePage::setLobbyLeader(bool este)
