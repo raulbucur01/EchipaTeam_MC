@@ -22,6 +22,7 @@ namespace skribbl
 		Stage getCurrentStage();
 		void setPlayers(std::unordered_map<std::string, Player>& players);
 		void setQueue();
+		std::unordered_map<std::string,Player> GetPlayers();
 		std::string getWhoPaints();
 		void incrementPainter();
 

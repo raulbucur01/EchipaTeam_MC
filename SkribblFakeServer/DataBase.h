@@ -308,6 +308,13 @@ namespace skribbl
 	private:
 		Game& m_game;
 	};
+	class StageResultFinalsHandler {
+	public:
+		StageResultFinalsHandler(Game&game);
+		crow::response operator()(const crow::request& req)const;
+	private:
+		Game& m_game;
+	};
 }
 
 	

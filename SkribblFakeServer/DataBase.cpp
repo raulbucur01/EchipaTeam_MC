@@ -808,3 +808,21 @@ crow::response skribbl::stageGameHandler::operator()(const crow::request& req) c
 	return jsonResponse;
 
 }
+
+skribbl::StageResultFinalsHandler::StageResultFinalsHandler(Game& game):m_game{game}
+{
+}
+
+crow::response skribbl::StageResultFinalsHandler::operator()(const crow::request& req) const
+{
+	std::vector<crow::json::wvalue> resultFinals;
+	std::unordered_map<std::string, Player> players = m_game.GetPlayers();
+	for(auto& player:players)
+	{ 
+		resultFinals.push_back(crow::json::wvalue{
+			{player.second.GetName(),player.second.GetScore()} }
+			);
+	}
+	return crow::json::wvalue{ resultFinals };
+}
+

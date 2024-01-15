@@ -43,6 +43,13 @@ void skribbl::Game::setQueue()
 	}
 }
 
+std::unordered_map<std::string, Player> skribbl::Game::GetPlayers()
+{
+	return m_players;
+}
+
+
+
 std::string skribbl::Game::getWhoPaints()
 {
 	return m_painter.front();

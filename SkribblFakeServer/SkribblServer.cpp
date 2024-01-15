@@ -94,6 +94,14 @@ void SkribblServer::Start()
 		.methods(crow::HTTPMethod::GET);
 	stageGame(stageGameHandler(game));
 
+
+	//auto& stageResult = CROW_ROUTE(m_app, "/stage/result")
+		//.methods(crow::HTTPMethod::GET);
+	//stageResult(StageResultHandler(game));
+
+	auto& stageResultFinals = CROW_ROUTE(m_app, "/stage/resultFinals")
+		.methods(crow::HTTPMethod::GET);
+	stageResultFinals(StageResultFinalsHandler(game));
 	m_app.port(18080).multithreaded().run();
 }
 
