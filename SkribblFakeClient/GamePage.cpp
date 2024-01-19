@@ -326,7 +326,7 @@ void GamePage::checkStage()
 		cpr::Response response2 = cpr::Get(cpr::Url{ "http://localhost:18080/getWord" });
 		crow::json::rvalue wordResponse = crow::json::load(response2.text);
 		word = wordResponse["word"].s();
-		veilHide();
+		//veilHide();
 		updateDrawing();
 	}
 	if (stageResponse["stage"] == "results")
