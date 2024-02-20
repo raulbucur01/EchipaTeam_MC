@@ -1,4 +1,4 @@
 # EchipaTeam_MC
-Proiect Modern C++ -> Skribbl
+Proiect Skribbl - Modern C++
 
 https://we.tl/t-Ol7V141yVC
