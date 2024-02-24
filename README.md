@@ -9,14 +9,6 @@ Proiect Skribbl - Modern C++
 	<p>Dupa ce toti jucatorii au intrat in lobby, liderul poate sa porneasca jocul. Jocul dureaza 4 runde, fiecare runda avand un numar de subrunde in functie de cati jucatori sunt in lobby. La inceputul unei subrunde, un jucator este numit desenator si poate alege din 3 cuvinte selecate random din baza de date, iar dupa incepe procesul de desenare care dureaza cel mult 60 de secunde, in care ceilalti jucatori trebuie sa ghiceasca cuvantul ales. Dupa terminarea timpului, fiecare jucator primeste un anumit scor, calculat in functie de secundele in care a ghicit, iar pentru desenator se calculeaza media secundelor in care au ghicit fiecare jucator.</p>
  <p>La sfarsitul rundelor, se afiseaza un clasament in functie de numarul de puncte acumulate pe parcurs de fiecare jucator.</p>
 
- # Componente 
-
-<ol>
-<li>GUI- interfata grafica folosita pentru a vizualiza functionalitatile jocului.( Am folosit Qt Framework)</li>
-<li>Retelistica- Comunicarea dintre client si serever.( Am folosit Crow si CPR)</li>
-<li>Baze de date- Stocarea datelor( Am folosit SQLite ORM) </li>
-</ol> 
-
 # Componente C++ Modern
 <ol>
 <li>const ref</li>
@@ -30,6 +22,16 @@ Proiect Skribbl - Modern C++
 <li>DLL</li>
 <li>lambdas</li>
 </ol>
+
+ 
+# Componente avansate 
+
+<ol>
+<li>GUI- interfata grafica folosita pentru a vizualiza functionalitatile jocului.( Am folosit Qt Framework)</li>
+<li>Retelistica- Comunicarea dintre client si serever.( Am folosit Crow si CPR)</li>
+<li>Baze de date- Stocarea datelor( Am folosit SQLite ORM) </li>
+</ol> 
+
 
 
 
